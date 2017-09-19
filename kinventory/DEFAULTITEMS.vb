@@ -21,23 +21,16 @@ Public Class DEFAULTITEMS
             bs.DataMember = "stocks_tb"
             stocksgridview.DataSource = bs
 
-
-
             stocksgridview.Columns("supplier").Visible = False
             stocksgridview.Columns("COSTHEAD").Visible = False
             stocksgridview.Columns("UFACTOR").Visible = False
             stocksgridview.Columns("TYPECOLOR").Visible = False
             stocksgridview.Columns("MONETARY").Visible = False
-
             stocksgridview.Columns("UNITPRICE").Visible = False
-
             stocksgridview.Columns("QTY").Visible = False
-
             stocksgridview.Columns("Location").Visible = False
             stocksgridview.Columns("HEADER").Visible = False
-
             stocksgridview.Columns("ALLOCATION").Visible = False
-
             stocksgridview.Columns("STOCKORDER").Visible = False
             stocksgridview.Columns("MINIMUM").Visible = False
             stocksgridview.Columns("ISSUE").Visible = False
@@ -139,15 +132,28 @@ Public Class DEFAULTITEMS
             bs.DataMember = "stocks_tb"
             stocksgridview.DataSource = bs
 
+            stocksgridview.Columns("supplier").Visible = False
+            stocksgridview.Columns("COSTHEAD").Visible = False
             stocksgridview.Columns("UFACTOR").Visible = False
+            stocksgridview.Columns("TYPECOLOR").Visible = False
             stocksgridview.Columns("MONETARY").Visible = False
             stocksgridview.Columns("UNITPRICE").Visible = False
-            stocksgridview.Columns("DESCRIPTION").Visible = False
-            stocksgridview.Columns("UNIT").Visible = False
-            stocksgridview.Columns("LOCATION").Visible = False
-            stocksgridview.Columns("HEADER").Visible = False
-            stocksgridview.Columns("AVEUSAGE").Visible = False
             stocksgridview.Columns("QTY").Visible = False
+            stocksgridview.Columns("Location").Visible = False
+            stocksgridview.Columns("HEADER").Visible = False
+            stocksgridview.Columns("ALLOCATION").Visible = False
+            stocksgridview.Columns("STOCKORDER").Visible = False
+            stocksgridview.Columns("MINIMUM").Visible = False
+            stocksgridview.Columns("ISSUE").Visible = False
+            stocksgridview.Columns("AVEUSAGE").Visible = False
+            stocksgridview.Columns("status").Visible = False
+            stocksgridview.Columns("PHASEDOUT").Visible = False
+            stocksgridview.Columns("COLORBASED").Visible = False
+            stocksgridview.Columns("NEEDTOORDER").Visible = False
+            stocksgridview.Columns("FINALNEEDTOORDER").Visible = False
+            stocksgridview.Columns("INPUTTED").Visible = False
+            stocksgridview.Columns("TOORDER").Visible = False
+
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
