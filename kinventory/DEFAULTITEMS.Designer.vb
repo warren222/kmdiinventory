@@ -61,7 +61,7 @@ Partial Class DEFAULTITEMS
         Me.stocksgridview.ReadOnly = True
         Me.stocksgridview.RowHeadersWidth = 40
         Me.stocksgridview.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.stocksgridview.Size = New System.Drawing.Size(676, 373)
+        Me.stocksgridview.Size = New System.Drawing.Size(676, 351)
         Me.stocksgridview.StateCommon.Background.Color1 = System.Drawing.Color.White
         Me.stocksgridview.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList
         Me.stocksgridview.StateCommon.DataCell.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
@@ -102,7 +102,7 @@ Partial Class DEFAULTITEMS
         Me.KryptonGroup1.Panel.Controls.Add(Me.articlenosearch)
         Me.KryptonGroup1.Panel.Controls.Add(Me.typecolorsearch)
         Me.KryptonGroup1.Panel.Controls.Add(Me.costheadsearch)
-        Me.KryptonGroup1.Size = New System.Drawing.Size(165, 373)
+        Me.KryptonGroup1.Size = New System.Drawing.Size(165, 351)
         Me.KryptonGroup1.StateCommon.Back.Color1 = System.Drawing.SystemColors.Control
         Me.KryptonGroup1.TabIndex = 2
         '
@@ -257,10 +257,12 @@ Partial Class DEFAULTITEMS
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(866, 397)
+        Me.ClientSize = New System.Drawing.Size(866, 371)
         Me.Controls.Add(Me.KryptonGroup1)
         Me.Controls.Add(Me.stocksgridview)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Name = "DEFAULTITEMS"
+        Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "DEFAULTITEMS"
         Me.TopMost = True

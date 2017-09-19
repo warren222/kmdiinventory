@@ -628,22 +628,25 @@ update reference_tb set
         transfree.Text = 0
         currentallocation.Text = 0
 
+        Dim a As String
 
         Dim phasedout As String = ""
         If KryptonCheckBox1.Checked = True Then
             phasedout = "Yes"
+            a = " phasedout "
         ElseIf KryptonCheckBox1.Checked = False Then
             phasedout = ""
+            a = " not phasedout "
         End If
 
         Dim x As Integer = transarticleno.SelectedIndex
 
         If transcosthead.Text = "" And transtypecolor.Text = "" Then
-            sql.articlenoinput1(phasedout)
+            sql.articlenoinput1(phasedout, a)
         ElseIf Not transcosthead.Text = "" And transtypecolor.Text = "" Then
-            sql.articlenoinput2(transcosthead.Text, phasedout)
+            sql.articlenoinput2(transcosthead.Text, phasedout, a)
         ElseIf transcosthead.Text = "" And Not transtypecolor.Text = "" Then
-            sql.articlenoinput3(transtypecolor.Text, phasedout)
+            sql.articlenoinput3(transtypecolor.Text, phasedout, a)
         Else
             sql.articlenoinput(transcosthead.Text, transtypecolor.Text)
         End If
