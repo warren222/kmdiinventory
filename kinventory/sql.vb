@@ -984,13 +984,13 @@ on a.stockno = b.stockno"
             sqlcon.Close()
         End Try
     End Sub
-    Public Sub articlenoinput1()
+    Public Sub articlenoinput1(ByVal phasedout As String)
         Try
             sqlcon.Open()
             Dim ds As New DataSet
             Dim bs As New BindingSource
             ds.Clear()
-            Dim str As String = "select  articleno,description,physical,free,unit,stockno from stocks_tb"
+            Dim str As String = "select  articleno,description,physical,free,unit,stockno from stocks_tb where pahsedout ='" & phasedout & "'"
             sqlcmd = New SqlCommand(str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "stocks_tb")
@@ -1014,13 +1014,13 @@ on a.stockno = b.stockno"
             sqlcon.Close()
         End Try
     End Sub
-    Public Sub articlenoinput2(ByVal costhead As String)
+    Public Sub articlenoinput2(ByVal costhead As String, ByVal phasedout As String)
         Try
             sqlcon.Open()
             Dim ds As New DataSet
             Dim bs As New BindingSource
             ds.Clear()
-            Dim str As String = "select  articleno,description,physical,free,unit,stockno from stocks_tb where costhead = '" & costhead & "'"
+            Dim str As String = "select  articleno,description,physical,free,unit,stockno from stocks_tb where costhead = '" & costhead & "' and phasedout ='" & phasedout & "'"
             sqlcmd = New SqlCommand(str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "stocks_tb")
@@ -1044,13 +1044,13 @@ on a.stockno = b.stockno"
             sqlcon.Close()
         End Try
     End Sub
-    Public Sub articlenoinput3(ByVal typecolor As String)
+    Public Sub articlenoinput3(ByVal typecolor As String, ByVal phasedout As String)
         Try
             sqlcon.Open()
             Dim ds As New DataSet
             Dim bs As New BindingSource
             ds.Clear()
-            Dim str As String = "select  articleno,description,physical,free,unit,stockno from stocks_tb where typecolor = '" & typecolor & "'"
+            Dim str As String = "select  articleno,description,physical,free,unit,stockno from stocks_tb where typecolor = '" & typecolor & "' and phasedout = '" & phasedout & "'"
             sqlcmd = New SqlCommand(str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "stocks_tb")

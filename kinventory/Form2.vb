@@ -627,14 +627,23 @@ update reference_tb set
         transphysical.Text = 0
         transfree.Text = 0
         currentallocation.Text = 0
+
+
+        Dim phasedout As String = ""
+        If KryptonCheckBox1.Checked = True Then
+            phasedout = "Yes"
+        ElseIf KryptonCheckBox1.Checked = False Then
+            phasedout = ""
+        End If
+
         Dim x As Integer = transarticleno.SelectedIndex
 
         If transcosthead.Text = "" And transtypecolor.Text = "" Then
-            sql.articlenoinput1()
+            sql.articlenoinput1(phasedout)
         ElseIf Not transcosthead.Text = "" And transtypecolor.Text = "" Then
-            sql.articlenoinput2(transcosthead.Text)
+            sql.articlenoinput2(transcosthead.Text, phasedout)
         ElseIf transcosthead.Text = "" And Not transtypecolor.Text = "" Then
-            sql.articlenoinput3(transtypecolor.Text)
+            sql.articlenoinput3(transtypecolor.Text, phasedout)
         Else
             sql.articlenoinput(transcosthead.Text, transtypecolor.Text)
         End If
@@ -1529,7 +1538,6 @@ on a.stockno = b.stockno"
 
         Dim phasedout As String = "Yes"
 
-
         Dim a As String = supplier.Text
         Dim b As String = costheadsearch.Text
         Dim c As String = typecolorsearch.Text
@@ -1595,7 +1603,6 @@ on a.stockno = b.stockno"
 " & gcol & "= " & g & ""
         Dim search As String = "select * from stocks_tb " & condition & ""
         sql.searchstocks(search)
-
     End Sub
 
     Private Sub KryptonButton15_Click(sender As Object, e As EventArgs) Handles KryptonButton15.Click
