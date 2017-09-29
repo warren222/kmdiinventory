@@ -1,4 +1,5 @@
-﻿Public Class Form4
+﻿Imports System.Data.SqlClient
+Public Class Form4
     Dim SQL As New sql
     Dim xm As Integer
     Dim ym As Integer
@@ -113,100 +114,101 @@
         Dim search As String
         Dim condition As String
         If all.Checked = True And Not reference.Text = "" And Not transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and transtype='" & transaction.Text & "'"
+            search = " where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and transtype='" & transaction.Text & "'"
             condition = "where stockno='" & stockno.Text & "' and reference='" & reference.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         ElseIf all.Checked = True And Not reference.Text = "" And transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "' and reference='" & reference.Text & "'"
+            search = " where stockno='" & stockno.Text & "' and reference='" & reference.Text & "'"
             condition = "where stockno='" & stockno.Text & "' and reference='" & reference.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         ElseIf all.Checked = True And reference.Text = "" And Not transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "' and transtype='" & transaction.Text & "'"
+            search = " where stockno='" & stockno.Text & "' and transtype='" & transaction.Text & "'"
             condition = "where stockno='" & stockno.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         ElseIf all.Checked = True And reference.Text = "" And transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "'"
+            search = " where stockno='" & stockno.Text & "'"
             condition = " where stockno='" & stockno.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         End If
 
         If thisdate.Checked = True And Not reference.Text = "" And Not transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and transtype='" & transaction.Text & "' and TRANSDATE ='" & transadate.Text & "'"
+            search = " where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and transtype='" & transaction.Text & "' and TRANSDATE ='" & transadate.Text & "'"
             condition = "where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and TRANSDATE ='" & transadate.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         ElseIf thisdate.Checked = True And Not reference.Text = "" And transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and TRANSDATE ='" & transadate.Text & "'"
+            search = " where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and TRANSDATE ='" & transadate.Text & "'"
             condition = "where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and TRANSDATE ='" & transadate.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         ElseIf thisdate.Checked = True And reference.Text = "" And Not transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "' and transtype='" & transaction.Text & "' and TRANSDATE ='" & transadate.Text & "'"
+            search = " where stockno='" & stockno.Text & "' and transtype='" & transaction.Text & "' and TRANSDATE ='" & transadate.Text & "'"
             condition = "where stockno='" & stockno.Text & "' and TRANSDATE ='" & transadate.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         ElseIf thisdate.Checked = True And reference.Text = "" And transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "' and TRANSDATE ='" & transadate.Text & "'"
+            search = " where stockno='" & stockno.Text & "' and TRANSDATE ='" & transadate.Text & "'"
             condition = " where stockno='" & stockno.Text & "' and TRANSDATE ='" & transadate.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         End If
 
         If before.Checked = True And Not reference.Text = "" And Not transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and transtype='" & transaction.Text & "' and TRANSDATE < '" & transadate.Text & "'"
+            search = " where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and transtype='" & transaction.Text & "' and TRANSDATE < '" & transadate.Text & "'"
             condition = " where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and TRANSDATE < '" & transadate.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         ElseIf before.Checked = True And Not reference.Text = "" And transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and TRANSDATE < '" & transadate.Text & "'"
+            search = " where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and TRANSDATE < '" & transadate.Text & "'"
             condition = " where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and TRANSDATE < '" & transadate.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         ElseIf before.Checked = True And reference.Text = "" And Not transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "' and transtype='" & transaction.Text & "' and TRANSDATE < '" & transadate.Text & "'"
+            search = " where stockno='" & stockno.Text & "' and transtype='" & transaction.Text & "' and TRANSDATE < '" & transadate.Text & "'"
             condition = "where stockno='" & stockno.Text & "' and TRANSDATE < '" & transadate.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         ElseIf before.Checked = True And reference.Text = "" And transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "' and TRANSDATE < '" & transadate.Text & "'"
+            search = " where stockno='" & stockno.Text & "' and TRANSDATE < '" & transadate.Text & "'"
             condition = "where stockno='" & stockno.Text & "' and TRANSDATE < '" & transadate.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         End If
 
         If after.Checked = True And Not reference.Text = "" And Not transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and transtype='" & transaction.Text & "' and TRANSDATE > '" & transadate.Text & "'"
+            search = " where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and transtype='" & transaction.Text & "' and TRANSDATE > '" & transadate.Text & "'"
             condition = " where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and TRANSDATE > '" & transadate.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         ElseIf after.Checked = True And Not reference.Text = "" And transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and TRANSDATE > '" & transadate.Text & "'"
+            search = " where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and TRANSDATE > '" & transadate.Text & "'"
             condition = "where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and TRANSDATE > '" & transadate.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         ElseIf after.Checked = True And reference.Text = "" And Not transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "' and transtype='" & transaction.Text & "' and TRANSDATE > '" & transadate.Text & "'"
+            search = " where stockno='" & stockno.Text & "' and transtype='" & transaction.Text & "' and TRANSDATE > '" & transadate.Text & "'"
             condition = " where stockno='" & stockno.Text & "' and TRANSDATE > '" & transadate.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         ElseIf after.Checked = True And reference.Text = "" And transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "' and TRANSDATE > '" & transadate.Text & "'"
+            search = " where stockno='" & stockno.Text & "' and TRANSDATE > '" & transadate.Text & "'"
             condition = " where stockno='" & stockno.Text & "' and TRANSDATE > '" & transadate.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         End If
 
         If tomydate.Checked = True And Not reference.Text = "" And Not transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and transtype='" & transaction.Text & "' and TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
+            search = " where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and transtype='" & transaction.Text & "' and TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
             condition = "where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         ElseIf tomydate.Checked = True And Not reference.Text = "" And transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
+            search = " where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
             condition = " where stockno='" & stockno.Text & "' and reference='" & reference.Text & "' and TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         ElseIf tomydate.Checked = True And reference.Text = "" And Not transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "' and transtype='" & transaction.Text & "' and TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
+            search = " where stockno='" & stockno.Text & "' and transtype='" & transaction.Text & "' and TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
             condition = "where stockno='" & stockno.Text & "' and TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         ElseIf tomydate.Checked = True And reference.Text = "" And transaction.Text = "" Then
-            search = "select * from trans_tb where stockno='" & stockno.Text & "' and TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
+            search = " where stockno='" & stockno.Text & "' and TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
             condition = "where stockno='" & stockno.Text & "' and TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            SQL.searchstockstransaction(search, condition, stockno.Text)
+            SQL.searchstockstransaction(search, condition, stockno.Text, transaction.Text, reference.Text)
         End If
-
+        referencegridview.SelectAll()
     End Sub
 
     Private Sub KryptonButton2_Click_1(sender As Object, e As EventArgs) Handles KryptonButton2.Click
         SQL.srockstransactiontb(stockno.Text)
     End Sub
+
 
     Private Sub min_Leave(sender As Object, e As EventArgs) Handles min.Leave
         If IsNumeric(min.Text) Then
@@ -235,8 +237,8 @@
         If mytransgridview.RowCount >= 0 And e.RowIndex >= 0 Then
             Form5.transno.Text = mytransgridview.Item(0, e.RowIndex).Value.ToString
             Form5.stockno.Text = mytransgridview.Item(1, e.RowIndex).Value.ToString
-            Form5.reference.Text = mytransgridview.Item(6, e.RowIndex).Value.ToString
-            Form5.XYZ.Text = mytransgridview.Item(9, e.RowIndex).Value.ToString
+            Form5.reference.Text = mytransgridview.Item(7, e.RowIndex).Value.ToString
+            Form5.XYZ.Text = mytransgridview.Item(10, e.RowIndex).Value.ToString
         End If
     End Sub
     Private Sub reference_KeyDown(sender As Object, e As KeyEventArgs) Handles reference.KeyDown
@@ -308,5 +310,15 @@
 
     Private Sub Panel2_SizeChanged(sender As Object, e As EventArgs) Handles Panel2.SizeChanged
         KryptonGroup2.Location = New Point((Panel2.Width - KryptonGroup2.Width) / 2, (Panel2.Height - KryptonGroup2.Height) / 2)
+    End Sub
+    Private Sub referencegridview_SelectionChanged(sender As Object, e As EventArgs) Handles referencegridview.SelectionChanged
+        Dim selecteditems As DataGridViewSelectedRowCollection = referencegridview.SelectedRows
+        Dim x As String
+        ComboBox1.Items.Clear()
+
+        For Each selecteditem As DataGridViewRow In selecteditems
+            x = selecteditem.Cells("reference").Value.ToString
+            ComboBox1.Items.Add(x)
+        Next
     End Sub
 End Class

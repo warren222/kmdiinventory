@@ -54,6 +54,11 @@ Public Class editreference
                 MessageBox.Show("Operation Cancelled", "", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                 Exit Sub
             End If
+            loopissue.Text = allocation.Text
+            loadallocationlist(reference.Text, stockno.Text)
+            LISTOFALLOCATIONGRIDVIEW.SelectAll()
+            KryptonButton25.PerformClick()
+
             updatereference(stockno.Text, reference.Text)
             cancelalloc(stockno.Text, reference.Text)
             updatereference(stockno.Text, reference.Text)
@@ -62,6 +67,29 @@ Public Class editreference
         End If
 
     End Sub
+    Public Sub loadallocationlist(ByVal a As String, ByVal b As String)
+        Try
+            sql.sqlcon.Open()
+            Dim da As New SqlDataAdapter
+            Dim bs As New BindingSource
+            Dim ds As New DataSet
+            ds.Clear()
+            Dim str As String = "select * from trans_tb where reference='" & a & "' and stockno='" & b & "' and transtype='Allocation' order by transdate desc"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "trans_tb")
+            bs.DataSource = ds
+            bs.DataMember = "trans_tb"
+            LISTOFALLOCATIONGRIDVIEW.DataSource = bs
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+
+
+
     Public Sub autoupdatestock(ByVal stockno As String)
         Try
             sql.sqlcon.Open()
@@ -300,6 +328,68 @@ insert into trans_tb
         moveallocation.KryptonLabel8.Text = "Move Order"
         moveallocation.ShowDialog()
     End Sub
+
+    Private Sub LISTOFALLOCATIONGRIDVIEW_SelectionChanged(sender As Object, e As EventArgs) Handles LISTOFALLOCATIONGRIDVIEW.SelectionChanged
+        Dim selecteditems As DataGridViewSelectedRowCollection = LISTOFALLOCATIONGRIDVIEW.SelectedRows
+        ComboBox1.Items.Clear()
+        Dim a As String
+        For Each selecteditem As DataGridViewRow In selecteditems
+            a = selecteditem.Cells("transno").Value.ToString
+            ComboBox1.Items.Add(a)
+        Next
+    End Sub
+
+    Private Sub KryptonButton25_Click(sender As Object, e As EventArgs) Handles KryptonButton25.Click
+        For i As Integer = 0 To ComboBox1.Items.Count - 1
+            Dim transno As String
+            transno = ComboBox1.Items(i).ToString
+            transnooperation(transno)
+        Next
+    End Sub
+    Public Sub transnooperation(ByVal transno As String)
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "select balqty from trans_tb where transno = '" & transno & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            Dim balqty As String
+            Dim read As SqlDataReader = sqlcmd.ExecuteReader
+            While read.Read
+                balqty = read(0).ToString
+                If balqty = "" Then
+                    balqty = 0
+                End If
+            End While
+            read.Close()
+            Dim x As Double = balqty
+            Dim y As Double = loopissue.Text
+
+            If y = 0 Then
+            ElseIf x = 0 Then
+            Else
+                Dim result As Double
+                result = x - y
+                If result < 0 Then
+                    'MsgBox(result)
+                    result = result * -1
+                    Dim upto0 As String = "update trans_tb set balqty = 0 where transno = '" & transno & "'"
+                    sqlcmd = New SqlCommand(upto0, sql.sqlcon)
+                    sqlcmd.ExecuteNonQuery()
+                Else
+                    Dim uptoreault As String = "update trans_tb set balqty = '" & result & "' where transno = '" & transno & "'"
+                    sqlcmd = New SqlCommand(uptoreault, sql.sqlcon)
+                    sqlcmd.ExecuteNonQuery()
+                    'MsgBox(result)
+                    result = 0
+                End If
+                loopissue.Text = result
+            End If
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+
     'Private Sub KryptonButton5_MouseHover(sender As Object, e As EventArgs) Handles KryptonButton5.MouseHover
     '    Dim t As New Transition(New TransitionType_Acceleration(400))
     '    t.add(KryptonButton5, "Left", 503)

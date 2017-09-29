@@ -100,9 +100,88 @@ declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_t
     Private Sub KryptonButton2_Click(sender As Object, e As EventArgs) Handles KryptonButton2.Click
         Me.Close()
     End Sub
-
+    Public Sub loadallocationlist(ByVal a As String, ByVal b As String)
+        Try
+            sql.sqlcon.Open()
+            Dim da As New SqlDataAdapter
+            Dim bs As New BindingSource
+            Dim ds As New DataSet
+            ds.Clear()
+            Dim str As String = "select * from trans_tb where reference='" & a & "' and stockno='" & b & "' and transtype='Allocation' order by transdate desc"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "trans_tb")
+            bs.DataSource = ds
+            bs.DataMember = "trans_tb"
+            LISTOFALLOCATIONGRIDVIEW.DataSource = bs
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
     Private Sub KryptonButton1_Click(sender As Object, e As EventArgs) Handles KryptonButton1.Click
+
+
+        If transtype.Text = "Allocation" And xyzref.Text = "" Then
+                Dim orig As Double = initialqty.Text
+                Dim newqty As Double = qty.Text
+            Dim bal As Double = balanceqty.Text
+            If bal = "" Then
+                bal = 0
+            End If
+            Dim result As Double = orig - newqty
+
+                If result >= 0 Then
+                    'if result is positive compute balance qty
+                    Dim v As Double = bal - result
+                    If v >= 0 Then
+                        'if bal qty is positive
+                        Try
+                            sql.sqlcon.Open()
+                            Dim justupdate As String = "update trans_tb set balqty = '" & v & "' where transno = '" & transno.Text & "'"
+                            sqlcmd = New SqlCommand(justupdate, sql.sqlcon)
+                            sqlcmd.ExecuteNonQuery()
+                        Catch ex As Exception
+                            MsgBox(ex.ToString)
+                        Finally
+                            sql.sqlcon.Close()
+                        End Try
+                    ElseIf v < 0 Then
+                        'if bal is negative , update balqty to 0 then loop to another allocation
+                        Try
+                            sql.sqlcon.Open()
+                            Dim justupdate As String = "update trans_tb set balqty = 0 where transno = '" & transno.Text & "'"
+                            sqlcmd = New SqlCommand(justupdate, sql.sqlcon)
+                            sqlcmd.ExecuteNonQuery()
+                        Catch ex As Exception
+                            MsgBox(ex.ToString)
+                        Finally
+                            sql.sqlcon.Close()
+                        End Try
+                    loopissue.Text = v * -1
+                    loadallocationlist(reference.Text, stockno.Text)
+                    LISTOFALLOCATIONGRIDVIEW.SelectAll()
+                    KryptonButton25.PerformClick()
+
+                End If
+                ElseIf result < 0 Then
+                    'if result is negative then update balqty plus result multiply by negative one
+                    Try
+                        sql.sqlcon.Open()
+                        Dim justupdate As String = "update trans_tb set balqty = balqty+" & (result * -1) & " where transno = '" & transno.Text & "'"
+                        sqlcmd = New SqlCommand(justupdate, sql.sqlcon)
+                        sqlcmd.ExecuteNonQuery()
+                    Catch ex As Exception
+                        MsgBox(ex.ToString)
+                    Finally
+                        sql.sqlcon.Close()
+                    End Try
+                End If
+            End If
+
         sql.updatetransdates(transno.Text, transdate.Text, duedate.Text, qty.Text, xyzref.Text)
+
         If KryptonCheckBox1.Checked = True And Not newstockno.Text = "" Then
             updatenewstockno(transno.Text, newstockno.Text)
             findnewreference(newstockno.Text, reference.Text)
@@ -118,6 +197,8 @@ declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_t
         End If
 
         updatestock(stockno.Text, reference.Text)
+        sql.selecttransrec(transno.Text)
+
         Form2.KryptonButton11.PerformClick()
         sql.selectreference(stockno.Text, reference.Text)
         KryptonButton3.PerformClick()
@@ -783,4 +864,66 @@ minimum adjustmment for this transaction is " & minimum & "", "Error", MessageBo
     Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
 
     End Sub
+
+    Private Sub LISTOFALLOCATIONGRIDVIEW_SelectionChanged(sender As Object, e As EventArgs) Handles LISTOFALLOCATIONGRIDVIEW.SelectionChanged
+        Dim selecteditems As DataGridViewSelectedRowCollection = LISTOFALLOCATIONGRIDVIEW.SelectedRows
+        ComboBox1.Items.Clear()
+        Dim a As String
+        For Each selecteditem As DataGridViewRow In selecteditems
+            a = selecteditem.Cells("transno").Value.ToString
+            ComboBox1.Items.Add(a)
+        Next
+    End Sub
+
+    Private Sub KryptonButton25_Click(sender As Object, e As EventArgs) Handles KryptonButton25.Click
+        For i As Integer = 0 To ComboBox1.Items.Count - 1
+            Dim transno As String
+            transno = ComboBox1.Items(i).ToString
+            transnooperation(transno)
+        Next
+    End Sub
+    Public Sub transnooperation(ByVal transno As String)
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "select balqty from trans_tb where transno = '" & transno & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            Dim balqty As String
+            Dim read As SqlDataReader = sqlcmd.ExecuteReader
+            While read.Read
+                balqty = read(0).ToString
+                If balqty = "" Then
+                    balqty = 0
+                End If
+            End While
+            read.Close()
+            Dim x As Double = balqty
+            Dim y As Double = loopissue.Text
+
+            If y = 0 Then
+            ElseIf x = 0 Then
+            Else
+                Dim result As Double
+                result = x - y
+                If result < 0 Then
+                    'MsgBox(result)
+                    result = result * -1
+                    Dim upto0 As String = "update trans_tb set balqty = 0 where transno = '" & transno & "'"
+                    sqlcmd = New SqlCommand(upto0, sql.sqlcon)
+                    sqlcmd.ExecuteNonQuery()
+                Else
+                    Dim uptoreault As String = "update trans_tb set balqty = '" & result & "' where transno = '" & transno & "'"
+                    sqlcmd = New SqlCommand(uptoreault, sql.sqlcon)
+                    sqlcmd.ExecuteNonQuery()
+                    'MsgBox(result)
+                    result = 0
+                End If
+                loopissue.Text = result
+            End If
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+
 End Class

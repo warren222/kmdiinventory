@@ -52,7 +52,6 @@ Public Class DEFAULTITEMS
 
     Private Sub KryptonButton1_Click(sender As Object, e As EventArgs) Handles KryptonButton1.Click
         Dim phasedout As String = "Yes"
-
         Dim a As String = supplier.Text
         Dim b As String = costheadsearch.Text
         Dim c As String = typecolorsearch.Text

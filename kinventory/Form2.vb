@@ -924,7 +924,8 @@ select
         ElseIf myissue > allocate Then
             MessageBox.Show("insufficient allocation", "Stop", MessageBoxButtons.OK, MessageBoxIcon.Stop)
         Else
-
+            loopissue.Text = issueqty.Text
+            KryptonButton25.PerformClick()
             Dim duedate As String = ""
             Dim transaction = "Issue"
 
@@ -938,13 +939,17 @@ select
                  issuereference.Text,
                    issueaccount.Text,
                    issuecontrolno.Text, XYZ, xyzref, issueremarks.Text)
+
             updatestock(issuestockno.Text, issuereference.Text)
             sql.loadstocks()
             sql.loadtransactions(toprows.Text)
             sql.searchreferenceissue(issuereference.Text, issuestockno.Text)
             issueDataGridView.Visible = True
             KryptonGroup5.Visible = False
+
             issueqty.Text = 0
+
+
         End If
     End Sub
 
@@ -965,7 +970,29 @@ select
         If issueDataGridView.RowCount > 0 And e.RowIndex >= 0 Then
             issueDataGridView.Visible = False
             KryptonGroup5.Visible = True
+            loadallocationlist(KryptonTextBox1.Text, KryptonTextBox2.Text)
+            LISTOFALLOCATIONGRIDVIEW.SelectAll()
         End If
+    End Sub
+    Public Sub loadallocationlist(ByVal a As String, ByVal b As String)
+        Try
+            sql.sqlcon.Open()
+            Dim da As New SqlDataAdapter
+            Dim bs As New BindingSource
+            Dim ds As New DataSet
+            ds.Clear
+            Dim str As String = "select * from trans_tb where reference='" & a & "' and stockno='" & b & "' and transtype='Allocation' order by transdate desc"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "trans_tb")
+            bs.DataSource = ds
+            bs.DataMember = "trans_tb"
+            LISTOFALLOCATIONGRIDVIEW.DataSource = bs
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
     End Sub
 
     Private Sub issueDataGridView1_SelectionChanged(sender As Object, e As EventArgs) Handles issueDataGridView1.SelectionChanged
@@ -2282,6 +2309,8 @@ on a.stockno = b.stockno where b.myyear='" & myyear.Text & "'"
 
     Private Sub issueDataGridView_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles issueDataGridView.CellClick
         If issueDataGridView.RowCount >= 0 Or e.RowIndex >= 0 Then
+            KryptonTextBox1.Text = issueDataGridView.Item(0, e.RowIndex).Value.ToString
+            KryptonTextBox2.Text = issueDataGridView.Item(1, e.RowIndex).Value.ToString
             description.Text = issueDataGridView.Item(7, e.RowIndex).Value.ToString
         End If
     End Sub
@@ -2321,5 +2350,70 @@ on a.stockno = b.stockno where b.myyear='" & myyear.Text & "'"
 
     Private Sub KryptonButton24_Click(sender As Object, e As EventArgs) Handles KryptonButton24.Click
         DEFAULTITEMS.Show()
+    End Sub
+
+    Private Sub LISTOFALLOCATIONGRIDVIEW_SelectionChanged(sender As Object, e As EventArgs) Handles LISTOFALLOCATIONGRIDVIEW.SelectionChanged
+        Dim selecteditems As DataGridViewSelectedRowCollection = LISTOFALLOCATIONGRIDVIEW.SelectedRows
+        ComboBox1.Items.Clear()
+        Dim a As String
+        For Each selecteditem As DataGridViewRow In selecteditems
+            a = selecteditem.Cells("transno").Value.ToString
+            ComboBox1.Items.Add(a)
+        Next
+    End Sub
+
+    Private Sub KryptonButton25_Click(sender As Object, e As EventArgs) Handles KryptonButton25.Click
+        For i As Integer = 0 To ComboBox1.Items.Count - 1
+            Dim transno As String
+            transno = ComboBox1.Items(i).ToString
+            transnooperation(transno)
+        Next
+    End Sub
+    Public Sub transnooperation(ByVal transno As String)
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "select balqty from trans_tb where transno = '" & transno & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            Dim balqty As String
+            Dim read As SqlDataReader = sqlcmd.ExecuteReader
+            While read.Read
+                balqty = read(0).ToString
+                If balqty = "" Then
+                    balqty = 0
+                End If
+            End While
+            read.Close()
+            Dim x As Double = balqty
+            Dim y As Double = loopissue.Text
+
+            If y = 0 Then
+            ElseIf x = 0 Then
+            Else
+                Dim result As Double
+                result = x - y
+                If result < 0 Then
+                    'MsgBox(result)
+                    result = result * -1
+                    Dim upto0 As String = "update trans_tb set balqty = 0 where transno = '" & transno & "'"
+                    sqlcmd = New SqlCommand(upto0, sql.sqlcon)
+                    sqlcmd.ExecuteNonQuery()
+                Else
+                    Dim uptoreault As String = "update trans_tb set balqty = '" & result & "' where transno = '" & transno & "'"
+                    sqlcmd = New SqlCommand(uptoreault, sql.sqlcon)
+                    sqlcmd.ExecuteNonQuery()
+                    'MsgBox(result)
+                    result = 0
+                End If
+                loopissue.Text = result
+            End If
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+
+    Private Sub issueqty_Leave(sender As Object, e As EventArgs) Handles issueqty.Leave
+        loopissue.Text = issueqty.Text
     End Sub
 End Class

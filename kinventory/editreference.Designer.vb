@@ -22,6 +22,7 @@ Partial Class editreference
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.KryptonLabel7 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonButton1 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.KryptonLabel5 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
@@ -49,10 +50,15 @@ Partial Class editreference
         Me.Button1 = New System.Windows.Forms.Button()
         Me.KryptonLabel8 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonPanel1 = New ComponentFactory.Krypton.Toolkit.KryptonPanel()
+        Me.KryptonButton25 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.LISTOFALLOCATIONGRIDVIEW = New ComponentFactory.Krypton.Toolkit.KryptonDataGridView()
+        Me.loopissue = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.Panel1.SuspendLayout()
         Me.Panel4.SuspendLayout()
         CType(Me.KryptonPanel1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.KryptonPanel1.SuspendLayout()
+        CType(Me.LISTOFALLOCATIONGRIDVIEW, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'KryptonLabel7
@@ -385,7 +391,7 @@ Partial Class editreference
         Me.Panel1.Controls.Add(Me.KryptonLabel4)
         Me.Panel1.Location = New System.Drawing.Point(12, 49)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(649, 356)
+        Me.Panel1.Size = New System.Drawing.Size(649, 358)
         Me.Panel1.TabIndex = 2
         '
         'Panel4
@@ -640,12 +646,88 @@ Partial Class editreference
         Me.KryptonPanel1.StateCommon.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Dashed
         Me.KryptonPanel1.TabIndex = 0
         '
+        'KryptonButton25
+        '
+        Me.KryptonButton25.Location = New System.Drawing.Point(693, 183)
+        Me.KryptonButton25.Name = "KryptonButton25"
+        Me.KryptonButton25.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
+        Me.KryptonButton25.Size = New System.Drawing.Size(82, 23)
+        Me.KryptonButton25.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.KryptonButton25.StateCommon.Border.Rounding = 0
+        Me.KryptonButton25.TabIndex = 453
+        Me.KryptonButton25.Values.Text = "loop"
+        '
+        'ComboBox1
+        '
+        Me.ComboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboBox1.DropDownHeight = 206
+        Me.ComboBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.IntegralHeight = False
+        Me.ComboBox1.ItemHeight = 15
+        Me.ComboBox1.Location = New System.Drawing.Point(693, 154)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(82, 23)
+        Me.ComboBox1.TabIndex = 452
+        '
+        'LISTOFALLOCATIONGRIDVIEW
+        '
+        Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToAddRows = False
+        Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToDeleteRows = False
+        Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToOrderColumns = True
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.LISTOFALLOCATIONGRIDVIEW.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        Me.LISTOFALLOCATIONGRIDVIEW.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.LISTOFALLOCATIONGRIDVIEW.ColumnHeadersHeight = 20
+        Me.LISTOFALLOCATIONGRIDVIEW.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.LISTOFALLOCATIONGRIDVIEW.Location = New System.Drawing.Point(693, 231)
+        Me.LISTOFALLOCATIONGRIDVIEW.Name = "LISTOFALLOCATIONGRIDVIEW"
+        Me.LISTOFALLOCATIONGRIDVIEW.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
+        Me.LISTOFALLOCATIONGRIDVIEW.ReadOnly = True
+        Me.LISTOFALLOCATIONGRIDVIEW.RowHeadersWidth = 25
+        Me.LISTOFALLOCATIONGRIDVIEW.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.LISTOFALLOCATIONGRIDVIEW.Size = New System.Drawing.Size(314, 151)
+        Me.LISTOFALLOCATIONGRIDVIEW.StateCommon.Background.Color1 = System.Drawing.SystemColors.Control
+        Me.LISTOFALLOCATIONGRIDVIEW.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList
+        Me.LISTOFALLOCATIONGRIDVIEW.StateCommon.DataCell.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.LISTOFALLOCATIONGRIDVIEW.StateCommon.DataCell.Border.Width = 0
+        Me.LISTOFALLOCATIONGRIDVIEW.StateCommon.DataCell.Content.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.LISTOFALLOCATIONGRIDVIEW.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(CType(CType(33, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(67, Byte), Integer))
+        Me.LISTOFALLOCATIONGRIDVIEW.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(110, Byte), Integer), CType(CType(73, Byte), Integer))
+        Me.LISTOFALLOCATIONGRIDVIEW.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Dashed
+        Me.LISTOFALLOCATIONGRIDVIEW.StateCommon.HeaderColumn.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.LISTOFALLOCATIONGRIDVIEW.StateCommon.HeaderColumn.Border.Width = 0
+        Me.LISTOFALLOCATIONGRIDVIEW.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White
+        Me.LISTOFALLOCATIONGRIDVIEW.StateCommon.HeaderColumn.Content.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.LISTOFALLOCATIONGRIDVIEW.StateCommon.HeaderColumn.Content.Hint = ComponentFactory.Krypton.Toolkit.PaletteTextHint.AntiAlias
+        Me.LISTOFALLOCATIONGRIDVIEW.TabIndex = 451
+        '
+        'loopissue
+        '
+        Me.loopissue.Location = New System.Drawing.Point(693, 125)
+        Me.loopissue.Multiline = True
+        Me.loopissue.Name = "loopissue"
+        Me.loopissue.Size = New System.Drawing.Size(78, 23)
+        Me.loopissue.TabIndex = 454
+        Me.loopissue.Text = "0"
+        '
         'editreference
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Green
-        Me.ClientSize = New System.Drawing.Size(674, 419)
+        Me.ClientSize = New System.Drawing.Size(671, 419)
+        Me.Controls.Add(Me.loopissue)
+        Me.Controls.Add(Me.KryptonButton25)
+        Me.Controls.Add(Me.ComboBox1)
+        Me.Controls.Add(Me.LISTOFALLOCATIONGRIDVIEW)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.KryptonPanel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -661,7 +743,9 @@ Partial Class editreference
         CType(Me.KryptonPanel1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.KryptonPanel1.ResumeLayout(False)
         Me.KryptonPanel1.PerformLayout()
+        CType(Me.LISTOFALLOCATIONGRIDVIEW, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents reference As ComponentFactory.Krypton.Toolkit.KryptonTextBox
@@ -691,4 +775,8 @@ Partial Class editreference
     Friend WithEvents Button1 As Button
     Friend WithEvents KryptonLabel8 As ComponentFactory.Krypton.Toolkit.KryptonLabel
     Friend WithEvents KryptonPanel1 As ComponentFactory.Krypton.Toolkit.KryptonPanel
+    Friend WithEvents KryptonButton25 As ComponentFactory.Krypton.Toolkit.KryptonButton
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents LISTOFALLOCATIONGRIDVIEW As ComponentFactory.Krypton.Toolkit.KryptonDataGridView
+    Friend WithEvents loopissue As ComponentFactory.Krypton.Toolkit.KryptonTextBox
 End Class
