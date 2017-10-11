@@ -30,6 +30,13 @@ Public Class PhasedoutForm
             Next
         Else
         End If
+        If KryptonCheckBox4.Checked = True Then
+            For i As Integer = 0 To Form2.stocksStocksno.Items.Count - 1
+                Dim stockno As String = Form2.stocksStocksno.Items(i).ToString
+                sql.tofoils(tofoil.Text, stockno)
+            Next
+        Else
+        End If
         Form2.KryptonButton1.PerformClick()
 
     End Sub

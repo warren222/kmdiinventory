@@ -38,6 +38,9 @@ Partial Class PhasedoutForm
         Me.Button1 = New System.Windows.Forms.Button()
         Me.KryptonGroup2 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.KryptonCheckBox4 = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
+        Me.KryptonGroup6 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
+        Me.tofoil = New System.Windows.Forms.ComboBox()
         CType(Me.KryptonGroup1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonGroup1.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.KryptonGroup1.Panel.SuspendLayout()
@@ -61,6 +64,10 @@ Partial Class PhasedoutForm
         Me.KryptonGroup2.Panel.SuspendLayout()
         Me.KryptonGroup2.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        CType(Me.KryptonGroup6, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.KryptonGroup6.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.KryptonGroup6.Panel.SuspendLayout()
+        Me.KryptonGroup6.SuspendLayout()
         Me.SuspendLayout()
         '
         'phasedout
@@ -73,7 +80,7 @@ Partial Class PhasedoutForm
         Me.phasedout.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.phasedout.FormattingEnabled = True
         Me.phasedout.IntegralHeight = False
-        Me.phasedout.Items.AddRange(New Object() {"Yes", "FM"})
+        Me.phasedout.Items.AddRange(New Object() {"Yes", "FM", "HIDE"})
         Me.phasedout.Location = New System.Drawing.Point(0, 0)
         Me.phasedout.Name = "phasedout"
         Me.phasedout.Size = New System.Drawing.Size(226, 24)
@@ -82,7 +89,7 @@ Partial Class PhasedoutForm
         'KryptonButton1
         '
         Me.KryptonButton1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.KryptonButton1.Location = New System.Drawing.Point(220, 278)
+        Me.KryptonButton1.Location = New System.Drawing.Point(221, 331)
         Me.KryptonButton1.Name = "KryptonButton1"
         Me.KryptonButton1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
         Me.KryptonButton1.Size = New System.Drawing.Size(59, 27)
@@ -97,7 +104,7 @@ Partial Class PhasedoutForm
         'KryptonButton2
         '
         Me.KryptonButton2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.KryptonButton2.Location = New System.Drawing.Point(155, 278)
+        Me.KryptonButton2.Location = New System.Drawing.Point(156, 331)
         Me.KryptonButton2.Name = "KryptonButton2"
         Me.KryptonButton2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
         Me.KryptonButton2.Size = New System.Drawing.Size(59, 27)
@@ -117,13 +124,15 @@ Partial Class PhasedoutForm
         '
         'KryptonGroup1.Panel
         '
+        Me.KryptonGroup1.Panel.Controls.Add(Me.KryptonCheckBox4)
+        Me.KryptonGroup1.Panel.Controls.Add(Me.KryptonGroup6)
         Me.KryptonGroup1.Panel.Controls.Add(Me.KryptonCheckBox3)
         Me.KryptonGroup1.Panel.Controls.Add(Me.KryptonGroup3)
         Me.KryptonGroup1.Panel.Controls.Add(Me.KryptonGroup5)
         Me.KryptonGroup1.Panel.Controls.Add(Me.KryptonCheckBox1)
         Me.KryptonGroup1.Panel.Controls.Add(Me.KryptonCheckBox2)
         Me.KryptonGroup1.Panel.Controls.Add(Me.KryptonGroup4)
-        Me.KryptonGroup1.Size = New System.Drawing.Size(294, 234)
+        Me.KryptonGroup1.Size = New System.Drawing.Size(294, 287)
         Me.KryptonGroup1.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.KryptonGroup1.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.KryptonGroup1.StateCommon.Border.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid
@@ -293,7 +302,7 @@ Partial Class PhasedoutForm
         'KryptonGroup2.Panel
         '
         Me.KryptonGroup2.Panel.Controls.Add(Me.Panel1)
-        Me.KryptonGroup2.Size = New System.Drawing.Size(304, 321)
+        Me.KryptonGroup2.Size = New System.Drawing.Size(304, 381)
         Me.KryptonGroup2.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(61, Byte), Integer))
         Me.KryptonGroup2.StateCommon.Border.Color1 = System.Drawing.Color.Aqua
         Me.KryptonGroup2.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
@@ -312,15 +321,61 @@ Partial Class PhasedoutForm
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(298, 315)
+        Me.Panel1.Size = New System.Drawing.Size(298, 375)
         Me.Panel1.TabIndex = 458
+        '
+        'KryptonCheckBox4
+        '
+        Me.KryptonCheckBox4.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
+        Me.KryptonCheckBox4.Location = New System.Drawing.Point(15, 184)
+        Me.KryptonCheckBox4.Name = "KryptonCheckBox4"
+        Me.KryptonCheckBox4.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonCheckBox4.Size = New System.Drawing.Size(64, 22)
+        Me.KryptonCheckBox4.StateCommon.ShortText.Color1 = System.Drawing.Color.White
+        Me.KryptonCheckBox4.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonCheckBox4.TabIndex = 460
+        Me.KryptonCheckBox4.Text = "To Foil"
+        Me.KryptonCheckBox4.Values.Text = "To Foil"
+        '
+        'KryptonGroup6
+        '
+        Me.KryptonGroup6.Location = New System.Drawing.Point(15, 211)
+        Me.KryptonGroup6.Margin = New System.Windows.Forms.Padding(0)
+        Me.KryptonGroup6.Name = "KryptonGroup6"
+        '
+        'KryptonGroup6.Panel
+        '
+        Me.KryptonGroup6.Panel.Controls.Add(Me.tofoil)
+        Me.KryptonGroup6.Size = New System.Drawing.Size(232, 30)
+        Me.KryptonGroup6.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.KryptonGroup6.StateCommon.Border.Rounding = 0
+        Me.KryptonGroup6.StateCommon.Border.Width = 3
+        Me.KryptonGroup6.TabIndex = 461
+        '
+        'tofoil
+        '
+        Me.tofoil.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.tofoil.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.tofoil.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tofoil.DropDownHeight = 206
+        Me.tofoil.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.tofoil.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tofoil.FormattingEnabled = True
+        Me.tofoil.IntegralHeight = False
+        Me.tofoil.Items.AddRange(New Object() {"yes"})
+        Me.tofoil.Location = New System.Drawing.Point(0, 0)
+        Me.tofoil.Name = "tofoil"
+        Me.tofoil.Size = New System.Drawing.Size(226, 24)
+        Me.tofoil.TabIndex = 19
         '
         'PhasedoutForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Green
-        Me.ClientSize = New System.Drawing.Size(311, 330)
+        Me.ClientSize = New System.Drawing.Size(309, 386)
         Me.Controls.Add(Me.KryptonGroup2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "PhasedoutForm"
@@ -353,6 +408,10 @@ Partial Class PhasedoutForm
         CType(Me.KryptonGroup2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.KryptonGroup2.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
+        CType(Me.KryptonGroup6.Panel, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.KryptonGroup6.Panel.ResumeLayout(False)
+        CType(Me.KryptonGroup6, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.KryptonGroup6.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -372,4 +431,7 @@ Partial Class PhasedoutForm
     Friend WithEvents KryptonGroup3 As ComponentFactory.Krypton.Toolkit.KryptonGroup
     Friend WithEvents KryptonGroup5 As ComponentFactory.Krypton.Toolkit.KryptonGroup
     Friend WithEvents KryptonGroup4 As ComponentFactory.Krypton.Toolkit.KryptonGroup
+    Friend WithEvents KryptonCheckBox4 As ComponentFactory.Krypton.Toolkit.KryptonCheckBox
+    Friend WithEvents KryptonGroup6 As ComponentFactory.Krypton.Toolkit.KryptonGroup
+    Friend WithEvents tofoil As ComboBox
 End Class

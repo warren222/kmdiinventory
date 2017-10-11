@@ -61,6 +61,8 @@
               <xs:element name="NEEDTOORDER" msprop:Generator_ColumnVarNameInTable="columnNEEDTOORDER" msprop:Generator_ColumnPropNameInRow="NEEDTOORDER" msprop:Generator_ColumnPropNameInTable="NEEDTOORDERColumn" msprop:Generator_UserColumnName="NEEDTOORDER" type="xs:string" minOccurs="0" />
               <xs:element name="FINALNEEDTOORDER" msprop:Generator_ColumnVarNameInTable="columnFINALNEEDTOORDER" msprop:Generator_ColumnPropNameInRow="FINALNEEDTOORDER" msprop:Generator_ColumnPropNameInTable="FINALNEEDTOORDERColumn" msprop:Generator_UserColumnName="FINALNEEDTOORDER" type="xs:string" minOccurs="0" />
               <xs:element name="TOORDER" msprop:Generator_ColumnVarNameInTable="columnTOORDER" msprop:Generator_ColumnPropNameInRow="TOORDER" msprop:Generator_ColumnPropNameInTable="TOORDERColumn" msprop:Generator_UserColumnName="TOORDER" type="xs:string" minOccurs="0" />
+              <xs:element name="PHYSICAL2" msprop:Generator_ColumnVarNameInTable="columnPHYSICAL2" msprop:Generator_ColumnPropNameInRow="PHYSICAL2" msprop:Generator_ColumnPropNameInTable="PHYSICAL2Column" msprop:Generator_UserColumnName="PHYSICAL2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BALALLOC" msprop:Generator_ColumnVarNameInTable="columnBALALLOC" msprop:Generator_ColumnPropNameInRow="BALALLOC" msprop:Generator_ColumnPropNameInTable="BALALLOCColumn" msprop:Generator_UserColumnName="BALALLOC" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

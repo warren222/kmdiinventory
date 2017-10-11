@@ -301,7 +301,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.25in</Height>
+              <Height>0.19792in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -347,7 +347,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.25in</Height>
+              <Height>0.1875in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -393,7 +393,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.25in</Height>
+              <Height>0.1875in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -406,7 +406,7 @@
                             <TextRun>
                               <Value>=rownumber("TYPECOLOR")</Value>
                               <Style>
-                                <FontSize>7pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -438,7 +438,7 @@
                             <TextRun>
                               <Value>=Fields!ARTICLENO.Value</Value>
                               <Style>
-                                <FontSize>7pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -470,7 +470,7 @@
                             <TextRun>
                               <Value>=Fields!DESCRIPTION.Value</Value>
                               <Style>
-                                <FontSize>7pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -502,7 +502,7 @@
                             <TextRun>
                               <Value>=Fields!UNIT.Value</Value>
                               <Style>
-                                <FontSize>7pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -532,9 +532,9 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=format((Fields!PHYSICAL.Value*Fields!UFACTOR.Value),"N2")</Value>
+                              <Value>=format(Fields!PHYSICAL2.Value,"N2")</Value>
                               <Style>
-                                <FontSize>7pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -568,7 +568,7 @@
                             <TextRun>
                               <Value />
                               <Style>
-                                <FontSize>7pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -600,7 +600,7 @@
                             <TextRun>
                               <Value />
                               <Style>
-                                <FontSize>7pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -632,7 +632,7 @@
                             <TextRun>
                               <Value />
                               <Style>
-                                <FontSize>7pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -715,7 +715,7 @@
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
         <Left>0.01389in</Left>
-        <Height>1.08333in</Height>
+        <Height>0.90625in</Height>
         <Width>7.98611in</Width>
         <Style>
           <Border>
@@ -724,13 +724,13 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>1.08333in</Height>
+    <Height>0.90625in</Height>
     <Style />
   </Body>
   <Width>8in</Width>
   <Page>
     <PageHeader>
-      <Height>0.83889in</Height>
+      <Height>1.11667in</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -805,6 +805,37 @@
           <Height>0.25in</Height>
           <Width>3.94097in</Width>
           <ZIndex>2</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="OverallTotalPages3">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>="As Of "+Parameters!asofdate.Value</Value>
+                  <Style />
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>OverallTotalPages</rd:DefaultName>
+          <Top>0.86667in</Top>
+          <Height>0.25in</Height>
+          <Width>3.94097in</Width>
+          <ZIndex>3</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -902,7 +933,7 @@
         </Field>
         <Field Name="UFACTOR">
           <DataField>UFACTOR</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="TYPECOLOR">
           <DataField>TYPECOLOR</DataField>
@@ -926,7 +957,7 @@
         </Field>
         <Field Name="QTY">
           <DataField>QTY</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="UNIT">
           <DataField>UNIT</DataField>
@@ -946,19 +977,19 @@
         </Field>
         <Field Name="ALLOCATION">
           <DataField>ALLOCATION</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="FREE">
           <DataField>FREE</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="STOCKORDER">
           <DataField>STOCKORDER</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="MINIMUM">
           <DataField>MINIMUM</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="ISSUE">
           <DataField>ISSUE</DataField>
@@ -980,10 +1011,30 @@
           <DataField>COLORBASED</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="CONSUMPTION">
+          <DataField>CONSUMPTION</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="NEEDTOORDER">
+          <DataField>NEEDTOORDER</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FINALNEEDTOORDER">
+          <DataField>FINALNEEDTOORDER</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TOORDER">
+          <DataField>TOORDER</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PHYSICAL2">
+          <DataField>PHYSICAL2</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>inventoryds</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\kmdim\Documents\kinventory\kinventory\inventoryds.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\kmdim\Documents\kinventory\kmdiinventory\kinventory\inventoryds.xsd</rd:SchemaPath>
         <rd:TableName>STOCKS_TB</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
@@ -991,6 +1042,14 @@
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="asofdate">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+  </ReportParameters>
   <EmbeddedImages>
     <EmbeddedImage Name="transpa">
       <MIMEType>image/png</MIMEType>

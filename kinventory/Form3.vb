@@ -32,7 +32,7 @@ unit.Text,
 location.Text,
 min.Text, colorbased.Text)
             sql.loadstocks()
-            Form2.KryptonButton17.PerformClick()
+            Form2.KryptonButton1.PerformClick()
         End If
     End Sub
     Public Sub remove()

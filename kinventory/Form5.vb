@@ -121,15 +121,17 @@ declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_t
         End Try
     End Sub
     Private Sub KryptonButton1_Click(sender As Object, e As EventArgs) Handles KryptonButton1.Click
-
-
+        Dim x As Double
+        If balanceqty.Text = "" Then
+            x = 0
+        Else
+            x = balanceqty.Text
+        End If
         If transtype.Text = "Allocation" And xyzref.Text = "" Then
                 Dim orig As Double = initialqty.Text
                 Dim newqty As Double = qty.Text
-            Dim bal As Double = balanceqty.Text
-            If bal = "" Then
-                bal = 0
-            End If
+            Dim bal As Double = x
+
             Dim result As Double = orig - newqty
 
                 If result >= 0 Then

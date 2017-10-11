@@ -586,6 +586,13 @@ update reference_tb set
     End Sub
 
     Private Sub transcosthead_MouseDown(sender As Object, e As MouseEventArgs) Handles transcosthead.MouseDown
+        Dim phasedout As String
+        If KryptonCheckBox1.Checked = True Then
+            phasedout = " phasedout = 'Yes'"
+        Else
+            phasedout = " not phasedout = 'Yes'"
+        End If
+
         Dim x As Integer = transcosthead.SelectedIndex
         transtypecolor.Text = ""
         transarticleno.Text = ""
@@ -593,7 +600,7 @@ update reference_tb set
         transphysical.Text = 0
         transfree.Text = 0
         currentallocation.Text = 0
-        sql.costheadinput()
+        sql.costheadinput(phasedout)
         If x > transcosthead.Items.Count - 1 Then
             transcosthead.SelectedIndex = -1
         Else
@@ -602,6 +609,13 @@ update reference_tb set
     End Sub
 
     Private Sub transtypecolor_MouseDown(sender As Object, e As MouseEventArgs) Handles transtypecolor.MouseDown
+        Dim phasedout As String
+        If KryptonCheckBox1.Checked = True Then
+            phasedout = " and phasedout = 'Yes'"
+        Else
+            phasedout = " and not phasedout = 'Yes'"
+        End If
+
         transarticleno.Text = ""
         transarticleno.Text = ""
         transdescription.Text = ""
@@ -611,9 +625,15 @@ update reference_tb set
 
         Dim x As Integer = transtypecolor.SelectedIndex
         If transcosthead.Text = "" Then
-            sql.typecolorinput1()
+            Dim phasedout1 As String
+            If KryptonCheckBox1.Checked = True Then
+                phasedout1 = " phasedout = 'Yes'"
+            Else
+                phasedout1 = " not phasedout = 'Yes'"
+            End If
+            sql.typecolorinput1(phasedout1)
         Else
-            sql.typecolorinput(transcosthead.Text)
+            sql.typecolorinput(transcosthead.Text, phasedout)
         End If
         If x > transtypecolor.Items.Count - 1 Then
             transtypecolor.SelectedIndex = -1
@@ -623,6 +643,7 @@ update reference_tb set
     End Sub
 
     Private Sub transarticleno_MouseDown(sender As Object, e As MouseEventArgs) Handles transarticleno.MouseDown
+
         transdescription.Text = ""
         transphysical.Text = 0
         transfree.Text = 0
@@ -1448,6 +1469,12 @@ on a.stockno = b.stockno"
     End Sub
 
     Private Sub costheadsearch_MouseDown(sender As Object, e As MouseEventArgs) Handles costheadsearch.MouseDown
+        Dim phasedout As String
+        If phasedoutsearch.Checked = True Then
+            phasedout = " and phasedout = 'Yes'"
+        Else
+            phasedout = " and not phasedout = 'Yes'"
+        End If
         Dim x As Integer = costheadsearch.SelectedIndex
         Dim ssupplier As String = supplier.Text
         If ssupplier = "" Then
@@ -1455,7 +1482,7 @@ on a.stockno = b.stockno"
         Else
             ssupplier = "'" & ssupplier & "'"
         End If
-        sql.loadcostheadsearch(ssupplier)
+        sql.loadcostheadsearch(ssupplier, phasedout)
         typecolorsearch.Text = ""
         articlenosearch.Text = ""
         If x > costheadsearch.Items.Count - 1 Then
@@ -1467,6 +1494,12 @@ on a.stockno = b.stockno"
     End Sub
 
     Private Sub typecolorsearch_MouseDown(sender As Object, e As MouseEventArgs) Handles typecolorsearch.MouseDown
+        Dim phasedout As String
+        If phasedoutsearch.Checked = True Then
+            phasedout = " and phasedout = 'Yes'"
+        Else
+            phasedout = " and not phasedout = 'Yes'"
+        End If
         Dim x As Integer = typecolorsearch.SelectedIndex
         Dim ssupplier As String = supplier.Text
         Dim scosthead As String = costheadsearch.Text
@@ -1480,7 +1513,7 @@ on a.stockno = b.stockno"
         Else
             scosthead = "'" & scosthead & "'"
         End If
-        sql.loadtypecolorsearch(ssupplier, scosthead)
+        sql.loadtypecolorsearch(ssupplier, scosthead, phasedout)
         articlenosearch.Text = ""
         If x > typecolorsearch.Items.Count - 1 Then
             typecolorsearch.SelectedIndex = -1
@@ -1490,6 +1523,12 @@ on a.stockno = b.stockno"
     End Sub
 
     Private Sub articlenosearch_MouseDown(sender As Object, e As MouseEventArgs) Handles articlenosearch.MouseDown
+        Dim phasedout As String
+        If phasedoutsearch.Checked = True Then
+            phasedout = " and phasedout = 'Yes'"
+        Else
+            phasedout = " and not phasedout = 'Yes'"
+        End If
         Dim x As Integer = articlenosearch.SelectedIndex
         Dim ssupplier As String = supplier.Text
         Dim scosthead As String = costheadsearch.Text
@@ -1510,7 +1549,7 @@ on a.stockno = b.stockno"
         Else
             stypecolor = "'" & stypecolor & "'"
         End If
-        sql.loadarticlesearch(ssupplier, scosthead, stypecolor)
+        sql.loadarticlesearch(ssupplier, scosthead, stypecolor, phasedout)
 
         If x > articlenosearch.Items.Count - 1 Then
             articlenosearch.SelectedIndex = -1
@@ -1753,25 +1792,29 @@ on a.stockno = b.stockno"
     End Sub
 
     Private Sub KryptonButton18_Click(sender As Object, e As EventArgs) Handles KryptonButton18.Click
+        KryptonButton26.PerformClick()
+
+
+
         sql.loaddummies()
         mydummyDataGridView1.SelectAll()
         If ir.Checked = True And scr.Checked = False Then
             Dim phasedout As String
             Dim toorder As String
             If reportpasedout.Checked = True Then
-                phasedout = "yes"
+                phasedout = " phasedout = 'yes'"
             Else
-                phasedout = ""
+                phasedout = " phasedout = phasedout"
             End If
             If reporttoorder.Checked = True Then
-                toorder = "yes"
+                toorder = " toorder='yes'"
             Else
-                toorder = ""
+                toorder = " toorder=toorder"
             End If
 
             Dim str As String
             'If reportsupplier.Text = "" And reportstatus.Text = "" Then
-            '    str = "select * from stocks_tb where phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+            '    str = "select * from stocks_tb where " & phasedout & " and " & toorder & ""
             'ElseIf Not reportsupplier.Text = "" And Not reportstatus.Text = "" Then
             '    str = "select * from stocks_tb where supplier='" & reportsupplier.Text & "' and status= '" & reportstatus.Text & "' and phasedout = '" & phasedout & "'  and toorder='" & toorder & "'"
             'ElseIf reportsupplier.Text = "" And Not reportstatus.Text = "" Then
@@ -1793,69 +1836,69 @@ on a.stockno = b.stockno"
             Dim fcol As String = "status"
 
             If a = "" And b = "" And c = "" And d = "" And f = "" Then
-                str = "select * from stocks_tb where phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & phasedout & " and " & toorder & ""
             ElseIf a = "" And b = "" And c = "" And d = "" And Not f = "" Then
-                str = "select * from stocks_tb where " & fcol & "='" & f & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & fcol & "='" & f & "' and " & phasedout & " and " & toorder & ""
             ElseIf a = "" And b = "" And c = "" And Not d = "" And f = "" Then
-                str = "select * from stocks_tb where " & dcol & "='" & d & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & dcol & "='" & d & "' and " & phasedout & " and " & toorder & ""
             ElseIf a = "" And b = "" And c = "" And Not d = "" And Not f = "" Then
-                str = "select * from stocks_tb where " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and " & phasedout & " and " & toorder & ""
             ElseIf a = "" And b = "" And Not c = "" And d = "" And f = "" Then
-                str = "select * from stocks_tb where " & ccol & "='" & c & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & ccol & "='" & c & "' and " & phasedout & " and " & toorder & ""
             ElseIf a = "" And b = "" And Not c = "" And d = "" And Not f = "" Then
-                str = "select * from stocks_tb where " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and " & phasedout & " and " & toorder & ""
             ElseIf a = "" And b = "" And Not c = "" And Not d = "" And f = "" Then
-                str = "select * from stocks_tb where " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & phasedout & " and " & toorder & ""
             ElseIf a = "" And b = "" And Not c = "" And Not d = "" And Not f = "" Then
-                str = "select * from stocks_tb where " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and " & phasedout & " and " & toorder & ""
             ElseIf a = "" And Not b = "" And c = "" And d = "" And f = "" Then
-                str = "select * from stocks_tb where " & bcol & "='" & b & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & bcol & "='" & b & "' and " & phasedout & " and " & toorder & ""
             ElseIf a = "" And Not b = "" And c = "" And d = "" And Not f = "" Then
-                str = "select * from stocks_tb where " & bcol & "='" & b & "' and " & fcol & "='" & f & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & bcol & "='" & b & "' and " & fcol & "='" & f & "' and " & phasedout & " and " & toorder & ""
             ElseIf a = "" And Not b = "" And c = "" And Not d = "" And f = "" Then
-                str = "select * from stocks_tb where " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and " & phasedout & " and " & toorder & ""
             ElseIf a = "" And Not b = "" And c = "" And Not d = "" And Not f = "" Then
-                str = "select * from stocks_tb where " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and " & phasedout & " and " & toorder & ""
             ElseIf a = "" And Not b = "" And Not c = "" And d = "" And f = "" Then
-                str = "select * from stocks_tb where " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & phasedout & " and " & toorder & ""
             ElseIf a = "" And Not b = "" And Not c = "" And d = "" And Not f = "" Then
-                str = "select * from stocks_tb where " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and " & phasedout & " and " & toorder & ""
             ElseIf a = "" And Not b = "" And Not c = "" And Not d = "" And f = "" Then
-                str = "select * from stocks_tb where " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & phasedout & " and " & toorder & ""
             ElseIf a = "" And Not b = "" And Not c = "" And Not d = "" And Not f = "" Then
-                str = "select * from stocks_tb where " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and " & phasedout & " and " & toorder & ""
             ElseIf Not a = "" And b = "" And c = "" And d = "" And f = "" Then
-                str = "select * from stocks_tb where " & acol & "='" & a & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & phasedout & " and " & toorder & ""
             ElseIf Not a = "" And b = "" And c = "" And d = "" And Not f = "" Then
-                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & fcol & "='" & f & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & fcol & "='" & f & "' and " & phasedout & " and " & toorder & ""
             ElseIf Not a = "" And b = "" And c = "" And Not d = "" And f = "" Then
-                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & dcol & "='" & d & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & dcol & "='" & d & "' and " & phasedout & " and " & toorder & ""
             ElseIf Not a = "" And b = "" And c = "" And Not d = "" And Not f = "" Then
-                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and " & phasedout & " and " & toorder & ""
             ElseIf Not a = "" And b = "" And Not c = "" And d = "" And f = "" Then
-                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & ccol & "='" & c & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & ccol & "='" & c & "' and " & phasedout & " and " & toorder & ""
             ElseIf Not a = "" And b = "" And Not c = "" And d = "" And Not f = "" Then
-                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and " & phasedout & " and " & toorder & ""
             ElseIf Not a = "" And b = "" And Not c = "" And Not d = "" And f = "" Then
-                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & phasedout & " and " & toorder & ""
             ElseIf Not a = "" And b = "" And Not c = "" And Not d = "" And Not f = "" Then
-                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and " & phasedout & " and " & toorder & ""
             ElseIf Not a = "" And Not b = "" And c = "" And d = "" And f = "" Then
-                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & bcol & "='" & b & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & phasedout & " and " & toorder & ""
             ElseIf Not a = "" And Not b = "" And c = "" And d = "" And Not f = "" Then
-                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & fcol & "='" & f & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & fcol & "='" & f & "' and " & phasedout & " and " & toorder & ""
             ElseIf Not a = "" And Not b = "" And c = "" And Not d = "" And f = "" Then
-                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and " & phasedout & " and " & toorder & ""
             ElseIf Not a = "" And Not b = "" And c = "" And Not d = "" And Not f = "" Then
-                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and " & phasedout & " and " & toorder & ""
             ElseIf Not a = "" And Not b = "" And Not c = "" And d = "" And f = "" Then
-                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & phasedout & " and " & toorder & ""
             ElseIf Not a = "" And Not b = "" And Not c = "" And d = "" And Not f = "" Then
-                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and " & phasedout & " and " & toorder & ""
             ElseIf Not a = "" And Not b = "" And Not c = "" And Not d = "" And f = "" Then
-                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & phasedout & " and " & toorder & ""
             ElseIf Not a = "" And Not b = "" And Not c = "" And Not d = "" And Not f = "" Then
-                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and phasedout = '" & phasedout & "' and toorder='" & toorder & "'"
+                str = "select * from stocks_tb where " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and " & phasedout & " and " & toorder & ""
             End If
 
             sql.reporting(str)
@@ -2331,7 +2374,13 @@ on a.stockno = b.stockno where b.myyear='" & myyear.Text & "'"
 
     Private Sub supplier_MouseDown(sender As Object, e As MouseEventArgs) Handles supplier.MouseDown
         Dim x As Integer = supplier.SelectedIndex
-        sql.loadsuppliersearch()
+        Dim PHASEDOUT As String
+        If phasedoutsearch.Checked = True Then
+            PHASEDOUT = " PHASEDOUT = 'Yes'"
+        Else
+            PHASEDOUT = " NOT PHASEDOUT = 'Yes'"
+        End If
+        sql.loadsuppliersearch(PHASEDOUT)
         costheadsearch.Text = ""
         typecolorsearch.Text = ""
         articlenosearch.Text = ""
@@ -2415,5 +2464,203 @@ on a.stockno = b.stockno where b.myyear='" & myyear.Text & "'"
 
     Private Sub issueqty_Leave(sender As Object, e As EventArgs) Handles issueqty.Leave
         loopissue.Text = issueqty.Text
+    End Sub
+
+    Private Sub KryptonSplitContainer8_Panel1_Paint(sender As Object, e As PaintEventArgs) Handles KryptonSplitContainer8.Panel1.Paint
+
+    End Sub
+
+    Private Sub referenceDataGridView_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles referenceDataGridView.CellContentClick
+
+    End Sub
+
+    Private Sub KryptonButton26_Click(sender As Object, e As EventArgs) Handles KryptonButton26.Click
+        updatep2()
+        gettoupdate(transdate.Text)
+        stocksgridview.SelectAll()
+
+        ProgressBar2.Visible = True
+        ProgressBar2.Maximum = stocksStocksno.Items.Count
+        ProgressBar2.Value = 0
+        Try
+            sql.sqlcon.Open()
+            For i As Integer = 0 To stocksStocksno.Items.Count - 1
+                Dim stockno As String = stocksStocksno.Items(i).ToString
+                autoupdatestock2(stockno, transdate.Text)
+                ProgressBar2.Value += 1
+            Next
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+
+        If ProgressBar2.Value = ProgressBar2.Maximum Then
+            MessageBox.Show("Complete", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            ProgressBar2.Visible = False
+        End If
+
+        gettoupdate(transdate.Text)
+    End Sub
+    Public Sub updatep2()
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "update stocks_tb set physical2=physical"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            sqlcmd.ExecuteNonQuery()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+    Public Sub autoupdatestock2(ByVal stockno As String, ByVal md As String)
+        Try
+
+            Dim str As String = "
+                                   declare @return as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' AND TRANSTYPE='Return'  and transdate <= '" & md & "')+0
+                                    declare @addadjustment as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' AND TRANSTYPE='+Adjustment'  and transdate <= '" & md & "')+0
+                                    declare @minadjustment as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' AND TRANSTYPE='-Adjustment'  and transdate <= '" & md & "')+0
+                                    declare @receipt as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' AND TRANSTYPE='Receipt' AND NOT XYZ='Order'  and transdate <= '" & md & "')+0
+                                    declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation'  and transdate <= '" & md & "')+0
+                                    declare @receiptorder as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' AND TRANSTYPE='Receipt' AND XYZ='Order'  and transdate <= '" & md & "')+0
+                                    declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' AND TRANSTYPE='Issue' AND XYZ ='Allocation'  and transdate <= '" & md & "')+0
+                                    declare @totalreceipt as decimal(10,2)=@receipt+@receiptorder
+                                    declare @totalissue as decimal(10,2)=@issue+@issueallocation
+            update stocks_tb set 
+                                    
+                                    physical2=(QTY+@totalreceipt+@return+@addadjustment)-(@totalissue+@minadjustment)
+                               
+                                    where stockno='" & stockno & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            sqlcmd.ExecuteNonQuery()
+        Catch ex As SqlException
+            If ex.Number = 1205 Then
+            Else
+                MsgBox(ex.ToString)
+            End If
+        End Try
+    End Sub
+    Public Sub gettoupdate(ByVal ldate As String)
+        Try
+            sql.sqlcon.Open()
+            Dim ds As New DataSet
+            Dim bs As New BindingSource
+            Dim da As New SqlDataAdapter
+            ds.Clear()
+            Dim str As String = "
+select * from stocks_tb where stockno in (select distinct(stockno) from trans_tb where transdate > '" & ldate & "' and not transtype='Allocation')"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "stocks_tb")
+            bs.DataSource = ds
+            bs.DataMember = "stocks_tb"
+            stocksgridview.DataSource = bs
+
+            stocksgridview.Columns("UFACTOR").Visible = False
+            stocksgridview.Columns("MONETARY").Visible = False
+            stocksgridview.Columns("UNITPRICE").Visible = False
+            stocksgridview.Columns("DESCRIPTION").Visible = False
+            stocksgridview.Columns("UNIT").Visible = False
+            stocksgridview.Columns("LOCATION").Visible = False
+            stocksgridview.Columns("HEADER").Visible = False
+            stocksgridview.Columns("AVEUSAGE").Visible = False
+            stocksgridview.Columns("QTY").Visible = False
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+
+
+    Public Sub gettofoil()
+        Try
+            sql.sqlcon.Open()
+            Dim ds As New DataSet
+            Dim bs As New BindingSource
+            Dim da As New SqlDataAdapter
+            ds.Clear()
+            Dim str As String = "
+select * from stocks_tb where tofoil='yes' order by articleno asc"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "stocks_tb")
+            bs.DataSource = ds
+            bs.DataMember = "stocks_tb"
+            stocksgridview.DataSource = bs
+
+            stocksgridview.Columns("UFACTOR").Visible = False
+            stocksgridview.Columns("MONETARY").Visible = False
+            stocksgridview.Columns("UNITPRICE").Visible = False
+            stocksgridview.Columns("DESCRIPTION").Visible = False
+            stocksgridview.Columns("UNIT").Visible = False
+            stocksgridview.Columns("LOCATION").Visible = False
+            stocksgridview.Columns("HEADER").Visible = False
+            stocksgridview.Columns("AVEUSAGE").Visible = False
+            stocksgridview.Columns("QTY").Visible = False
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+
+    Private Sub KryptonButton29_Click(sender As Object, e As EventArgs) Handles KryptonButton29.Click
+        gettofoil()
+        stocksgridview.SelectAll()
+
+        ProgressBar2.Visible = True
+        ProgressBar2.Maximum = stocksStocksno.Items.Count
+        ProgressBar2.Value = 0
+        For i As Integer = 0 To stocksStocksno.Items.Count - 1
+            Dim stockno As String = stocksStocksno.Items(i).ToString
+            gettotalbalqty(stockno, tofoilstartdate.Text)
+            ProgressBar2.Value += 1
+        Next
+        gettofoil()
+        tofoilreport()
+        Form11.ShowDialog()
+    End Sub
+    Public Sub tofoilreport()
+        Try
+
+            Dim str As String = "select * from stocks_tb where tofoil='yes'"
+            Dim ds As New inventoryds
+            ds.Clear
+            Dim da As New SqlDataAdapter
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds.STOCKS_TB)
+            Form11.STOCKS_TBBindingSource.DataSource = ds.STOCKS_TB.DefaultView
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+    Public Sub gettotalbalqty(ByVal stockno As String, ByVal mydate As String)
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "
+declare @sdate as date ='" & mydate & "'
+declare @totalbalqty as decimal(10,2)=(select sum(isnull(balqty,0)) from trans_tb
+WHERE 
+transtype='Allocation'
+and
+stockno='" & stockno & "'
+and
+case when isdate(duedate)=1 then cast(duedate as date) end between @sdate and DATEADD(month, +2, @sdate))
+
+UPDATE stocks_tb set balalloc = @totalbalqty where stockno = '" & stockno & "'
+
+"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            sqlcmd.ExecuteNonQuery()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
     End Sub
 End Class

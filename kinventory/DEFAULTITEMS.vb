@@ -161,8 +161,14 @@ Public Class DEFAULTITEMS
     End Sub
 
     Private Sub supplier_MouseDown(sender As Object, e As MouseEventArgs) Handles supplier.MouseDown
+        Dim phasedout As String
+        If phasedoutsearch.Checked = True Then
+            phasedout = " phasedout = 'Yes'"
+        Else
+            phasedout = " not phasedout = 'Yes'"
+        End If
         Dim x As Integer = supplier.SelectedIndex
-        loadsuppliersearch()
+        loadsuppliersearch(phasedout)
         costheadsearch.Text = ""
         typecolorsearch.Text = ""
         articlenosearch.Text = ""
@@ -172,13 +178,13 @@ Public Class DEFAULTITEMS
             supplier.SelectedIndex = x
         End If
     End Sub
-    Public Sub loadsuppliersearch()
+    Public Sub loadsuppliersearch(ByVal phasedout As String)
         Try
             sql.sqlcon.Open()
             Dim supplierds As New DataSet
             Dim supplierbindingsource As New BindingSource
             supplierds.Clear()
-            Dim str As String = "select distinct supplier from stocks_tb"
+            Dim str As String = "select distinct supplier from stocks_tb where " & phasedout & ""
             sqlcmd = New SqlCommand(str, sql.sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(supplierds, "stocks_tb")
@@ -194,6 +200,12 @@ Public Class DEFAULTITEMS
     End Sub
 
     Private Sub costheadsearch_MouseDown(sender As Object, e As MouseEventArgs) Handles costheadsearch.MouseDown
+        Dim phasedout As String
+        If phasedoutsearch.Checked = True Then
+            phasedout = " and phasedout = 'Yes'"
+        Else
+            phasedout = " and not phasedout = 'Yes'"
+        End If
         Dim x As Integer = costheadsearch.SelectedIndex
         Dim ssupplier As String = supplier.Text
         If ssupplier = "" Then
@@ -201,7 +213,7 @@ Public Class DEFAULTITEMS
         Else
             ssupplier = "'" & ssupplier & "'"
         End If
-        loadcostheadsearch(ssupplier)
+        loadcostheadsearch(ssupplier, phasedout)
         typecolorsearch.Text = ""
         articlenosearch.Text = ""
         If x > costheadsearch.Items.Count - 1 Then
@@ -210,13 +222,13 @@ Public Class DEFAULTITEMS
             costheadsearch.SelectedIndex = x
         End If
     End Sub
-    Public Sub loadcostheadsearch(ByVal supplier As String)
+    Public Sub loadcostheadsearch(ByVal supplier As String, ByVal phasedout As String)
         Try
             sql.sqlcon.Open()
             Dim costheadds As New DataSet
             Dim costheadbindingsource As New BindingSource
             costheadds.Clear()
-            Dim str As String = "select distinct costhead from stocks_tb where supplier  = " & supplier & ""
+            Dim str As String = "select distinct costhead from stocks_tb where supplier  = " & supplier & " " & phasedout & ""
             sqlcmd = New SqlCommand(str, sql.sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(costheadds, "stocks_tb")
@@ -232,6 +244,12 @@ Public Class DEFAULTITEMS
     End Sub
 
     Private Sub typecolorsearch_MouseDown(sender As Object, e As MouseEventArgs) Handles typecolorsearch.MouseDown
+        Dim phasedout As String
+        If phasedoutsearch.Checked = True Then
+            phasedout = " and phasedout = 'Yes'"
+        Else
+            phasedout = " and not phasedout = 'Yes'"
+        End If
         Dim x As Integer = typecolorsearch.SelectedIndex
         Dim ssupplier As String = supplier.Text
         Dim scosthead As String = costheadsearch.Text
@@ -245,7 +263,7 @@ Public Class DEFAULTITEMS
         Else
             scosthead = "'" & scosthead & "'"
         End If
-        loadtypecolorsearch(ssupplier, scosthead)
+        loadtypecolorsearch(ssupplier, scosthead, phasedout)
         articlenosearch.Text = ""
         If x > typecolorsearch.Items.Count - 1 Then
             typecolorsearch.SelectedIndex = -1
@@ -253,13 +271,13 @@ Public Class DEFAULTITEMS
             typecolorsearch.SelectedIndex = x
         End If
     End Sub
-    Public Sub loadtypecolorsearch(ByVal supplier As String, ByVal costhead As String)
+    Public Sub loadtypecolorsearch(ByVal supplier As String, ByVal costhead As String, ByVal phasedout As String)
         Try
             sql.sqlcon.Open()
             Dim typecolords As New DataSet
             Dim typecolorbs As New BindingSource
             typecolords.Clear()
-            Dim str1 As String = "select distinct typecolor from stocks_tb where supplier = " & supplier & " and costhead=" & costhead & ""
+            Dim str1 As String = "select distinct typecolor from stocks_tb where supplier = " & supplier & " and costhead=" & costhead & " " & phasedout & ""
             sqlcmd = New SqlCommand(str1, sql.sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(typecolords, "stocks_tb")
@@ -275,6 +293,12 @@ Public Class DEFAULTITEMS
     End Sub
 
     Private Sub articlenosearch_MouseDown(sender As Object, e As MouseEventArgs) Handles articlenosearch.MouseDown
+        Dim phasedout As String
+        If phasedoutsearch.Checked = True Then
+            phasedout = " and phasedout = 'Yes'"
+        Else
+            phasedout = " and not phasedout = 'Yes'"
+        End If
         Dim x As Integer = articlenosearch.SelectedIndex
         Dim ssupplier As String = supplier.Text
         Dim scosthead As String = costheadsearch.Text
@@ -295,7 +319,7 @@ Public Class DEFAULTITEMS
         Else
             stypecolor = "'" & stypecolor & "'"
         End If
-        loadarticlesearch(ssupplier, scosthead, stypecolor)
+        loadarticlesearch(ssupplier, scosthead, stypecolor, phasedout)
 
         If x > articlenosearch.Items.Count - 1 Then
             articlenosearch.SelectedIndex = -1
@@ -304,13 +328,13 @@ Public Class DEFAULTITEMS
         End If
 
     End Sub
-    Public Sub loadarticlesearch(ByVal supplier As String, ByVal costhead As String, ByVal typec As String)
+    Public Sub loadarticlesearch(ByVal supplier As String, ByVal costhead As String, ByVal typec As String, ByVal phasedout As String)
         Try
             sql.sqlcon.Open()
             Dim articleds As New DataSet
             Dim articlebs As New BindingSource
             articleds.Clear()
-            Dim str2 As String = "select distinct articleno from stocks_tb where supplier=" & supplier & " and costhead=" & costhead & " and typecolor=" & typec & ""
+            Dim str2 As String = "select distinct articleno from stocks_tb where supplier=" & supplier & " and costhead=" & costhead & " and typecolor=" & typec & "  " & phasedout & ""
             sqlcmd = New SqlCommand(str2, sql.sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(articleds, "stocks_tb")
