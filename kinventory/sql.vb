@@ -7,13 +7,14 @@ Imports System.Security.Cryptography
 Imports System.Windows.Forms.DataVisualization.Charting
 Public Class sql
     Dim datasource As String = Form9.myaccess.Text.ToString
-    Dim catalog As String = "heretosave"
+    Dim catalog As String = "finaltrans"
     Dim userid As String = "kmdiadmin"
     Dim password As String = "kmdiadmin"
     Public sqlcon As New SqlConnection With {.ConnectionString = "Data Source='" & datasource & "';Network Library=DBMSSOCN;Initial Catalog='" & catalog & "';User ID='" & userid & "';Password='" & password & "';"}
+    Public sqlcon1 As New SqlConnection With {.ConnectionString = "Data Source='121.58.229.248,49107';Network Library=DBMSSOCN;Initial Catalog='kmdidata';User ID='kmdiadmin';Password='kmdiadmin';"}
+
     Dim da As New SqlDataAdapter
     Dim sqlcmd As New SqlCommand
-
     'Dim scrollval As Integer
     'Dim transds As New DataSet
     'Dim transda As New SqlDataAdapter
@@ -29,7 +30,6 @@ Public Class sql
             Form2.stocksBindingSource.DataSource = ds
             Form2.stocksBindingSource.DataMember = "stocks_tb"
             Form2.stocksgridview.DataSource = Form2.stocksBindingSource
-
 
             Form2.stocksgridview.Columns("UFACTOR").Visible = False
             Form2.stocksgridview.Columns("MONETARY").Visible = False
@@ -539,7 +539,7 @@ where stockno='" & stockno & "'"
                              ByVal unit As String)
         Try
             sqlcon.Open()
-            Dim find As String = "select * from stocks_tb where costhead='" & costhead & "' and typecolor='" & typecolor & "' and articleno = '" & articleno & "' and not stockno = '" & stockno & "'"
+            Dim find As String = "Select * from stocks_tb where costhead='" & costhead & "' and typecolor='" & typecolor & "' and articleno = '" & articleno & "' and not stockno = '" & stockno & "'"
             sqlcmd = New SqlCommand(find, sqlcon)
             Dim read As SqlDataReader = sqlcmd.ExecuteReader
             If read.HasRows = True Then
@@ -1313,8 +1313,41 @@ on a.stockno = b.stockno"
         Try
             sqlcon.Open()
             Dim str As String
+
+
+            Dim physical As String
+            Dim l As String = "declare @sd as varchar(50)=(select physical from stocks_tb where stockno = '" & stockno & "')
+select @sd"
+            sqlcmd = New SqlCommand(l, sqlcon)
+            Dim read1 As SqlDataReader = sqlcmd.ExecuteReader
+            While read1.Read
+                physical = read1(0).ToString
+            End While
+            read1.Close()
+            Dim p As Double = physical
+            Dim q As Double = qty
+            Dim newbal As Double
+            If transtype = "Issue" Then
+                newbal = p - q
+            ElseIf transtype = "Order" Then
+                newbal = p
+            ElseIf transtype = "Receipt" Then
+                newbal = p + q
+            ElseIf transtype = "Return" Then
+                newbal = p + q
+            ElseIf transtype = "Supply" Then
+                newbal = p
+            ElseIf transtype = "Spare" Then
+                newbal = p
+            ElseIf transtype = "+Adjustment" Then
+                newbal = p + q
+            ElseIf transtype = "-Adjustment" Then
+                newbal = p - q
+            End If
+
             If transtype = "Allocation" Then
-                str = "insert into trans_tb 
+                str = "
+insert into trans_tb 
             (STOCKNO,
             TRANSTYPE,
             TRANSDATE,
@@ -1336,7 +1369,8 @@ on a.stockno = b.stockno"
            "'" & qty & "'," &
             "'" & Form1.Label1.Text & "')"
             Else
-                str = "insert into trans_tb 
+                str = "
+insert into trans_tb 
             (STOCKNO,
             TRANSTYPE,
             TRANSDATE,
@@ -1344,7 +1378,7 @@ on a.stockno = b.stockno"
             QTY,
             REFERENCE,
             ACCOUNT,
-            CONTROLNO,XYZ,XYZREF,REMARKS,INPUTTED) values ('" & stockno & "'," &
+            CONTROLNO,XYZ,XYZREF,REMARKS,BALQTY,INPUTTED) values ('" & stockno & "'," &
          "'" & transtype & "'," &
          "'" & transdate & "'," &
          "'" & duedate & "'," &
@@ -1355,6 +1389,7 @@ on a.stockno = b.stockno"
             "'" & xyz & "'," &
               "'" & XYZREF & "'," &
          "'" & remarks & "'," &
+           "'" & newbal & "'," &
             "'" & Form1.Label1.Text & "')"
             End If
 
@@ -1368,9 +1403,27 @@ on a.stockno = b.stockno"
                 read.Close()
             Else
                 read.Close()
-                Dim insert As String = "insert into reference_tb (reference,stockno) values('" & reference & "','" & stockno & "')"
+
+                Dim address As String
+                Try
+                    sqlcon1.Open()
+                    Dim getadd As String = "select fulladd from addendum_to_contract_tb where project_label = '" & reference & "'"
+                    sqlcmd = New SqlCommand(getadd, sqlcon1)
+                    Dim sd As SqlDataReader = sqlcmd.ExecuteReader
+                    While sd.Read
+                        address = sd(0).ToString
+                    End While
+                    sd.Close()
+                Catch ex As Exception
+                    MsgBox(ex.ToString)
+                Finally
+                    sqlcon1.Close()
+                End Try
+
+                Dim insert As String = "insert into reference_tb (reference,address,stockno) values('" & reference & "','" & address & "','" & stockno & "')"
                 sqlcmd = New SqlCommand(insert, sqlcon)
                 sqlcmd.ExecuteNonQuery()
+
             End If
 
             MessageBox.Show("Saved", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -1692,12 +1745,18 @@ INPUTTED from trans_tb where stockno='" & stockno & "' order by transdate desc"
             Form4.mytransgridview.Columns("DUEDATE").DefaultCellStyle.Format = "yyyy-MMM-dd"
             Form4.mytransgridview.Columns("stockno").Visible = False
 
-
             For i As Integer = 0 To Form4.mytransgridview.RowCount - 1 Step +1
                 Dim s As String = Form4.mytransgridview.Rows(i).Cells("balqty").Value.ToString
-                If Not s = "0.00" And Not s = "" Then
-
+                Dim t As String = Form4.mytransgridview.Rows(i).Cells("transtype").Value.ToString
+                If Not s = "0.00" And Not s = "" And T = "Allocation" Then
                     Form4.mytransgridview.Rows(i).Cells("balqty").Style.ForeColor = Color.Red
+                End If
+            Next
+            For i As Integer = 0 To Form4.mytransgridview.RowCount - 1 Step +1
+                Dim s As String = Form4.mytransgridview.Rows(i).Cells("xyzref").Value.ToString
+                Dim t As String = Form4.mytransgridview.Rows(i).Cells("transtype").Value.ToString
+                If Not s = "" And t = "Order" Then
+                    Form4.mytransgridview.Rows(i).DefaultCellStyle.BackColor = Color.Pink
                 End If
             Next
 
@@ -1871,9 +1930,16 @@ INPUTTED
 
             For i As Integer = 0 To Form4.mytransgridview.RowCount - 1 Step +1
                 Dim s As String = Form4.mytransgridview.Rows(i).Cells("balqty").Value.ToString
-                If Not s = "0.00" And Not s = "" Then
-
+                Dim t As String = Form4.mytransgridview.Rows(i).Cells("transtype").Value.ToString
+                If Not s = "0.00" And Not s = "" And t = "Allocation" Then
                     Form4.mytransgridview.Rows(i).Cells("balqty").Style.ForeColor = Color.Red
+                End If
+            Next
+            For i As Integer = 0 To Form4.mytransgridview.RowCount - 1 Step +1
+                Dim s As String = Form4.mytransgridview.Rows(i).Cells("xyzref").Value.ToString
+                Dim t As String = Form4.mytransgridview.Rows(i).Cells("transtype").Value.ToString
+                If Not s = "" And t = "Order" Then
+                    Form4.mytransgridview.Rows(i).DefaultCellStyle.BackColor = Color.Pink
                 End If
             Next
 
@@ -1891,7 +1957,7 @@ INPUTTED
             Dim str As String
 
 
-            If transaction = "Issue" Then
+            If transaction = "Issu33333e" Then
                 str = "       declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation')+0
                               declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
                               declare @totalissue as decimal(10,2)=@issue+@issueallocation
@@ -1951,7 +2017,7 @@ INPUTTED
                 Form4.balalloc.Text = read(7).ToString
                 If transaction = "" Then
 
-                ElseIf transaction = " Then ThenAllocation" Then
+                ElseIf transaction = "Allocation" Then
                     Form4.finalphysical.Text = 0
                     Form4.finalallocation.Text = read(1).ToString
                     Form4.finalfree.Text = 0
@@ -2024,90 +2090,90 @@ INPUTTED
             Else
 
 
-                For i As Integer = 0 To Form4.ComboBox1.Items.Count - 1
-                    refere = Form4.ComboBox1.Items(i).ToString
-                    Form4.ProgressBar1.Value += 1
-                    If Form4.ProgressBar1.Value = Form4.referencegridview.RowCount Then
-                        Form4.ProgressBar1.Value = 0
-                    End If
-                    'If transaction = "" Then
-                    '                    all = "  
-                    'declare @refe as varchar(max) = '" & refere & "'
-                    'declare @allocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Allocation')+0
-                    '                                                declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='CancelAlloc')+0
-                    '                                                declare @order as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Order')+0
-                    '                                                declare @return as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Return')+0
-                    '                                                declare @supply as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Supply')+0
-                    '                                                declare @spare as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Spare')+0
-                    '                                                declare @addadjustment as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='+Adjustment')+0
-                    '                                                declare @minadjustment as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='-Adjustment')+0
-                    '                                                declare @receipt as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Receipt' AND NOT XYZ='Order')+0
-                    '                                                declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation')+0
-                    '                                                declare @receiptorder as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Receipt' AND XYZ='Order')+0
-                    '                                                declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
-                    '                                                declare @totalreceipt as decimal(10,2)=@receipt+@receiptorder
-                    '                                                declare @totalissue as decimal(10,2)=@issue+@issueallocation
+                'For i As Integer = 0 To Form4.ComboBox1.Items.Count - 1
+                '    refere = Form4.ComboBox1.Items(i).ToString
+                '    Form4.ProgressBar1.Value += 1
+                '    If Form4.ProgressBar1.Value = Form4.referencegridview.RowCount Then
+                '        Form4.ProgressBar1.Value = 0
+                '    End If
+                'If transaction = "" Then
+                '                    all = "  
+                'declare @refe as varchar(max) = '" & refere & "'
+                'declare @allocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Allocation')+0
+                '                                                declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='CancelAlloc')+0
+                '                                                declare @order as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Order')+0
+                '                                                declare @return as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Return')+0
+                '                                                declare @supply as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Supply')+0
+                '                                                declare @spare as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Spare')+0
+                '                                                declare @addadjustment as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='+Adjustment')+0
+                '                                                declare @minadjustment as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='-Adjustment')+0
+                '                                                declare @receipt as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Receipt' AND NOT XYZ='Order')+0
+                '                                                declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation')+0
+                '                                                declare @receiptorder as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Receipt' AND XYZ='Order')+0
+                '                                                declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
+                '                                                declare @totalreceipt as decimal(10,2)=@receipt+@receiptorder
+                '                                                declare @totalissue as decimal(10,2)=@issue+@issueallocation
 
-                    '            declare @QTY as decimal(10,2)=(select qty from stocks_tb where stockno='" & stockno & "')
+                '            declare @QTY as decimal(10,2)=(select qty from stocks_tb where stockno='" & stockno & "')
 
-                    '                                                declare @finalphysical as decimal(10,2)=(@QTY+@totalreceipt+@return+@addadjustment)-(@totalissue+@minadjustment)
-                    '                                                declare @finalallocation as decimal(10,2)=@allocation-(@issueallocation+@cancelalloc)
-                    '                                                declare @finalfree as decimal(10,2)=(((@QTY+@totalreceipt+@return+@addadjustment)-(@allocation-@cancelalloc)))-(@issue+@minadjustment)
-                    '                                                declare @finalorder as decimal(10,2)=@order-@receiptorder
-                    '                                                declare @finalissue as decimal(10,2)=@totalissue
-                    '                                                declare @finalreceipt as decimal(10,2)=@totalreceipt
+                '                                                declare @finalphysical as decimal(10,2)=(@QTY+@totalreceipt+@return+@addadjustment)-(@totalissue+@minadjustment)
+                '                                                declare @finalallocation as decimal(10,2)=@allocation-(@issueallocation+@cancelalloc)
+                '                                                declare @finalfree as decimal(10,2)=(((@QTY+@totalreceipt+@return+@addadjustment)-(@allocation-@cancelalloc)))-(@issue+@minadjustment)
+                '                                                declare @finalorder as decimal(10,2)=@order-@receiptorder
+                '                                                declare @finalissue as decimal(10,2)=@totalissue
+                '                                                declare @finalreceipt as decimal(10,2)=@totalreceipt
 
-                    '                     select @refe as Reference,FORMAT(@finalorder,'N0') as StockOrder,FORMAT(@finalallocation,'N0') as Allocation
-                    '                     ,format(@finalreceipt,'N0') as TotalReceipt,FORMAT(@finalissue,'N0') as TotalIssue,FORMAT(@return,'N0') as TotalReturn
+                '                     select @refe as Reference,FORMAT(@finalorder,'N0') as StockOrder,FORMAT(@finalallocation,'N0') as Allocation
+                '                     ,format(@finalreceipt,'N0') as TotalReceipt,FORMAT(@finalissue,'N0') as TotalIssue,FORMAT(@return,'N0') as TotalReturn
 
-                    '                     select Reference,FORMAT(stockorder,'N0') as StockOrder,FORMAT(allocation,'N0') as Allocation
-                    '                     ,format(totalreceipt,'N0') as TotalReceipt,FORMAT(totalissue,'N0') as TotalIssue,FORMAT(totalreturn,'N0') as TotalReturn from reference_tb"
-                    '                    sqlcmd = New SqlCommand(all, sqlcon)
-                    '                    ada.SelectCommand = sqlcmd
-                    '                    ada.Fill(ads, "reference_tb")
+                '                     select Reference,FORMAT(stockorder,'N0') as StockOrder,FORMAT(allocation,'N0') as Allocation
+                '                     ,format(totalreceipt,'N0') as TotalReceipt,FORMAT(totalissue,'N0') as TotalIssue,FORMAT(totalreturn,'N0') as TotalReturn from reference_tb"
+                '                    sqlcmd = New SqlCommand(all, sqlcon)
+                '                    ada.SelectCommand = sqlcmd
+                '                    ada.Fill(ads, "reference_tb")
 
 
-                    If transaction = "Issue" Then
-                        all = "  
-declare @refe as varchar(max) = '" & refere & "'
-declare @allocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Allocation')+0
-                                 declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation')+0
-                                 declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
-                                 declare @totalissue as decimal(10,2)=@issue+@issueallocation
+                '                    If transaction = "Issue" Then
+                '                        all = "  
+                'declare @refe as varchar(max) = '" & refere & "'
+                'declare @allocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Allocation')+0
+                '                                 declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation')+0
+                '                                 declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
+                '                                 declare @totalissue as decimal(10,2)=@issue+@issueallocation
 
-                                 select @refe as Reference,0 as StockOrder,0 as Allocation
-                     ,0 as TotalReceipt,@totalissue as TotalIssue,0 as TotalReturn order by TotalIssue desc"
-                        sqlcmd = New SqlCommand(all, sqlcon)
-                        ada.SelectCommand = sqlcmd
-                        ada.Fill(ads, "dummy1")
-                    ElseIf transaction = "Receipt" Then
-                        all = "  
-declare @refe as varchar(max) = '" & refere & "'
- declare @receipt as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Receipt' AND NOT XYZ='Order')+0
-                                               declare @receiptorder as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Receipt' AND XYZ='Order')+0
-                                            declare @totalreceipt as decimal(10,2)=@receipt+@receiptorder
-                                         
-       
-                     select @refe as Reference,0 as StockOrder,0 as Allocation
-                     ,@totalreceipt as TotalReceipt,0 as TotalIssue,0 as TotalReturn order by TotalReceipt desc"
-                        sqlcmd = New SqlCommand(all, sqlcon)
-                        ada.SelectCommand = sqlcmd
-                        ada.Fill(ads, "dummy1")
-                    End If
+                '                                 select @refe as Reference,0 as StockOrder,0 as Allocation
+                '                     ,0 as TotalReceipt,@totalissue as TotalIssue,0 as TotalReturn order by TotalIssue desc"
+                '                        sqlcmd = New SqlCommand(all, sqlcon)
+                '                        ada.SelectCommand = sqlcmd
+                '                        ada.Fill(ads, "dummy1")
+                '                    ElseIf transaction = "Receipt" Then
+                '                        all = "  
+                'declare @refe as varchar(max) = '" & refere & "'
+                ' declare @receipt as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Receipt' AND NOT XYZ='Order')+0
+                '                                               declare @receiptorder as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Receipt' AND XYZ='Order')+0
+                '                                            declare @totalreceipt as decimal(10,2)=@receipt+@receiptorder
 
-                Next
+
+                '                     select @refe as Reference,0 as StockOrder,0 as Allocation
+                '                     ,@totalreceipt as TotalReceipt,0 as TotalIssue,0 as TotalReturn order by TotalReceipt desc"
+                '                        sqlcmd = New SqlCommand(all, sqlcon)
+                '                        ada.SelectCommand = sqlcmd
+                '                        ada.Fill(ads, "dummy1")
+                '                    End If
+
+                '                Next
             End If
-            If transaction = "Issue" Then
-                abs.DataSource = ads
-                abs.DataMember = "dummy1"
-                Form4.KryptonDataGridView1.DataSource = abs
-                Form4.KryptonDataGridView1.Columns("TotalIssue").DefaultCellStyle.Format = "N0"
-            ElseIf transaction = "Receipt" Then
-                abs.DataSource = ads
-                abs.DataMember = "dummy1"
-                Form4.KryptonDataGridView1.DataSource = abs
-                Form4.KryptonDataGridView1.Columns("TotalReceipt").DefaultCellStyle.Format = "N0"
-            ElseIf transaction = "" Then
+            'If transaction = "Issue" Then
+            '    abs.DataSource = ads
+            '    abs.DataMember = "dummy1"
+            '    Form4.KryptonDataGridView1.DataSource = abs
+            '    Form4.KryptonDataGridView1.Columns("TotalIssue").DefaultCellStyle.Format = "N0"
+            'ElseIf transaction = "Receipt" Then
+            '    abs.DataSource = ads
+            '    abs.DataMember = "dummy1"
+            '    Form4.KryptonDataGridView1.DataSource = abs
+            '    Form4.KryptonDataGridView1.Columns("TotalReceipt").DefaultCellStyle.Format = "N0"
+            If transaction = "" Then
                 abs.DataSource = ads
                 abs.DataMember = "reference_tb"
                 Form4.KryptonDataGridView1.DataSource = abs
@@ -2365,7 +2431,7 @@ on a.stockno = b.stockno where a.transno='" & transno & "'"
             sqlcon.Open()
             Dim ds As New DataSet
             ds.Clear()
-            Dim da As New SqlDataAdapter
+
             Dim str As String = "select a.REFERENCE,
 a.STOCKNO,
 b.COSTHEAD,
@@ -2376,11 +2442,12 @@ a.ALLOCATION,
 a.TOTALRECEIPT,
 a.TOTALISSUE,
 A.TOTALRETURN,
-b.description
+b.description,
+a.ADDRESS
 from reference_tb as a
 inner join
 stocks_tb as b
-on a.stockno=b.stockno"
+on a.stockno=b.stockno order by a.reference asc,a.stockorder desc,a.allocation desc"
             sqlcmd = New SqlCommand(str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "reference_tb")
@@ -2468,7 +2535,8 @@ a.ALLOCATION,
 a.TOTALRECEIPT,
 a.TOTALISSUE,
 A.TOTALRETURN,
-b.description
+b.description,
+a.ADDRESS
 from reference_tb as a
 inner join
 stocks_tb as b

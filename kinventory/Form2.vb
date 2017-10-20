@@ -149,62 +149,69 @@ Public Class Form2
     End Sub
 
     Private Sub KryptonButton4_Click(sender As Object, e As EventArgs) Handles KryptonButton4.Click
-        If transaction.Text = "Allocation" Then
-            allocationproccess()
-        ElseIf transaction.Text = "Order" Then
-            orderprocess()
-        ElseIf transaction.Text = "Receipt" Then
-            receiptprocess()
-        ElseIf transaction.Text = "Return" Then
-            returnprocess()
-        ElseIf transaction.Text = "Supply" Then
-            supplyprocess()
-        ElseIf transaction.Text = "Spare" Then
-            spareprocess()
-        ElseIf transaction.Text = "+Adjustment" Then
-            addadjustmentprocess()
-        ElseIf transaction.Text = "-Adjustment" Then
-            minadjustmentprocess()
-        ElseIf transaction.Text = "Issue" Then
-            Try
-                sql.sqlcon.Open()
-                Dim FINDALLOC As String = "Select ALLOCATION FROM REFERENCE_TB WHERE REFERENCE='" & reference.Text & "' AND STOCKNO='" & transstockno.Text & "'"
-                sqlcmd = New SqlCommand(FINDALLOC, sql.sqlcon)
-                Dim read As SqlDataReader = sqlcmd.ExecuteReader
-                If read.HasRows = True Then
-                    read.Close()
-                    Dim da As New SqlDataAdapter
-                    Dim ds As New DataSet
-                    ds.Clear()
-                    Dim bs As New BindingSource
-                    da.SelectCommand = sqlcmd
-                    da.Fill(ds, "reference_tb")
-                    bs.DataSource = ds
-                    bs.DataMember = "reference_tb"
-                    currentallocation.DataBindings.Clear()
-                    currentallocation.DataBindings.Add("text", bs, "allocation")
-                Else
-                    read.Close()
-                    currentallocation.DataBindings.Clear()
-                    currentallocation.Text = "0"
-                End If
-                sql.sqlcon.Close()
-                If currentallocation.Text = "0" Then
-                    issueprocess()
-                Else
-                    If MessageBox.Show("Issue current allocation first!
+        If reference.Text = "" Then
+            MessageBox.Show("input reference to proceed", "", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+        Else
+
+
+
+            If transaction.Text = "Allocation" Then
+                allocationproccess()
+            ElseIf transaction.Text = "Order" Then
+                orderprocess()
+            ElseIf transaction.Text = "Receipt" Then
+                receiptprocess()
+            ElseIf transaction.Text = "Return" Then
+                returnprocess()
+            ElseIf transaction.Text = "Supply" Then
+                supplyprocess()
+            ElseIf transaction.Text = "Spare" Then
+                spareprocess()
+            ElseIf transaction.Text = "+Adjustment" Then
+                addadjustmentprocess()
+            ElseIf transaction.Text = "-Adjustment" Then
+                minadjustmentprocess()
+            ElseIf transaction.Text = "Issue" Then
+                Try
+                    sql.sqlcon.Open()
+                    Dim FINDALLOC As String = "Select ALLOCATION FROM REFERENCE_TB WHERE REFERENCE='" & reference.Text & "' AND STOCKNO='" & transstockno.Text & "'"
+                    sqlcmd = New SqlCommand(FINDALLOC, sql.sqlcon)
+                    Dim read As SqlDataReader = sqlcmd.ExecuteReader
+                    If read.HasRows = True Then
+                        read.Close()
+                        Dim da As New SqlDataAdapter
+                        Dim ds As New DataSet
+                        ds.Clear()
+                        Dim bs As New BindingSource
+                        da.SelectCommand = sqlcmd
+                        da.Fill(ds, "reference_tb")
+                        bs.DataSource = ds
+                        bs.DataMember = "reference_tb"
+                        currentallocation.DataBindings.Clear()
+                        currentallocation.DataBindings.Add("text", bs, "allocation")
+                    Else
+                        read.Close()
+                        currentallocation.DataBindings.Clear()
+                        currentallocation.Text = "0"
+                    End If
+                    sql.sqlcon.Close()
+                    If currentallocation.Text = "0" Then
+                        issueprocess()
+                    Else
+                        If MessageBox.Show("Issue current allocation first!
 Current Allocation:  " & currentallocation.Text & "
 Go to Issue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.No Then
-                        Exit Sub
+                            Exit Sub
+                        End If
+                        TabControl1.SelectedIndex = 3
+                        issuereference.Text = reference.Text
                     End If
-                    TabControl1.SelectedIndex = 3
-                    issuereference.Text = reference.Text
-                End If
-            Catch ex As Exception
-                MsgBox(ex.ToString)
-            End Try
+                Catch ex As Exception
+                    MsgBox(ex.ToString)
+                End Try
+            End If
+            transaction.Focus()
         End If
-        transaction.Focus()
     End Sub
     Public Sub allocationproccess()
         Dim allocate As Double = transqty.Text
@@ -524,8 +531,7 @@ update trans_tb set qty = '" & qty & "',xyzref=@receipt where transno = '" & tra
                                     declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
                                     declare @totalreceipt as decimal(10,2)=@receipt+@receiptorder
                                     declare @totalissue as decimal(10,2)=@issue+@issueallocation
-            update stocks_tb set 
-                                    
+            update stocks_tb set  
                                     physical=(QTY+@totalreceipt+@return+@addadjustment)-(@totalissue+@minadjustment),
                                     allocation = @allocation-(@issueallocation+@cancelalloc),
                                     free=(((QTY+@totalreceipt+@return+@addadjustment)-(@allocation-@cancelalloc)))-(@issue+@minadjustment),
@@ -1274,9 +1280,17 @@ on a.stockno = b.stockno"
     Private Sub transgridview_SelectionChanged(sender As Object, e As EventArgs) Handles transgridview.SelectionChanged
         Dim selecteditem As DataGridViewSelectedRowCollection = transgridview.SelectedRows
         Form6.transno.Items.Clear()
+        reallocate.stockno.Items.Clear()
+        reallocate.reference.Items.Clear()
+        reallocate.transno.Items.Clear()
         For Each item As DataGridViewRow In selecteditem
             Dim x As String = item.Cells("transno").Value.ToString
+            Dim y As String = item.Cells("stockno").Value.ToString
+            Dim z As String = item.Cells("reference").Value.ToString
             Form6.transno.Items.Add(x)
+            reallocate.stockno.Items.Add(y)
+            reallocate.reference.Items.Add(z)
+            reallocate.transno.Items.Add(x)
         Next
     End Sub
 
@@ -1793,9 +1807,6 @@ on a.stockno = b.stockno"
 
     Private Sub KryptonButton18_Click(sender As Object, e As EventArgs) Handles KryptonButton18.Click
         KryptonButton26.PerformClick()
-
-
-
         sql.loaddummies()
         mydummyDataGridView1.SelectAll()
         If ir.Checked = True And scr.Checked = False Then
@@ -2056,7 +2067,6 @@ on a.stockno = b.stockno where b.myyear='" & myyear.Text & "'"
                 condition = "" & str & " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
             End If
 
-
             sql.anualreporting(condition, updateneedtoorder)
             Form7.ShowDialog()
         End If
@@ -2250,12 +2260,12 @@ on a.stockno = b.stockno where b.myyear='" & myyear.Text & "'"
     Private Sub referenceDataGridView_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles referenceDataGridView.CellClick
         If referenceDataGridView.RowCount >= 0 And e.RowIndex >= 0 Then
             editreference.reference.Text = referenceDataGridView.Item(0, e.RowIndex).Value.ToString
+            editaddress.address.Text = referenceDataGridView.Item(11, e.RowIndex).Value.ToString
             editreference.stockno.Text = referenceDataGridView.Item(1, e.RowIndex).Value.ToString
             editreference.costhead.Text = referenceDataGridView.Item(2, e.RowIndex).Value.ToString
             editreference.typecolor.Text = referenceDataGridView.Item(3, e.RowIndex).Value.ToString
             editreference.articleno.Text = referenceDataGridView.Item(4, e.RowIndex).Value.ToString
             editreference.allocation.Text = referenceDataGridView.Item(6, e.RowIndex).Value.ToString
-
             description.Text = referenceDataGridView.Item(10, e.RowIndex).Value.ToString
         End If
     End Sub
@@ -2351,7 +2361,7 @@ on a.stockno = b.stockno where b.myyear='" & myyear.Text & "'"
     End Sub
 
     Private Sub issueDataGridView_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles issueDataGridView.CellClick
-        If issueDataGridView.RowCount >= 0 Or e.RowIndex >= 0 Then
+        If issueDataGridView.RowCount >= 0 And e.RowIndex >= 0 Then
             KryptonTextBox1.Text = issueDataGridView.Item(0, e.RowIndex).Value.ToString
             KryptonTextBox2.Text = issueDataGridView.Item(1, e.RowIndex).Value.ToString
             description.Text = issueDataGridView.Item(7, e.RowIndex).Value.ToString
@@ -2466,13 +2476,7 @@ on a.stockno = b.stockno where b.myyear='" & myyear.Text & "'"
         loopissue.Text = issueqty.Text
     End Sub
 
-    Private Sub KryptonSplitContainer8_Panel1_Paint(sender As Object, e As PaintEventArgs) Handles KryptonSplitContainer8.Panel1.Paint
 
-    End Sub
-
-    Private Sub referenceDataGridView_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles referenceDataGridView.CellContentClick
-
-    End Sub
 
     Private Sub KryptonButton26_Click(sender As Object, e As EventArgs) Handles KryptonButton26.Click
         updatep2()
@@ -2544,12 +2548,57 @@ on a.stockno = b.stockno where b.myyear='" & myyear.Text & "'"
     Public Sub gettoupdate(ByVal ldate As String)
         Try
             sql.sqlcon.Open()
+
+            Dim a As String = reportsupplier.Text
+            Dim b As String = reportheader.Text
+            Dim c As String = reportcosthead.Text
+            Dim d As String = reporttypecolor.Text
+            Dim e As String = reportstatus.Text
+
+            Dim acol As String = "SUPPLIER"
+            Dim bcol As String = "HEADER"
+            Dim ccol As String = "COSTHEAD"
+            Dim dcol As String = "TYPECOLOR"
+            Dim ecol As String = "STATUS"
+
+            If a = "" Then
+                a = " supplier "
+            Else
+                a = "'" & reportsupplier.Text & "'"
+            End If
+            If b = "" Then
+                b = " header "
+            Else
+                b = "'" & reportheader.Text & "'"
+            End If
+            If c = "" Then
+                c = " costhead "
+            Else
+                c = "'" & reportcosthead.Text & "'"
+            End If
+            If d = "" Then
+                d = " typecolor "
+            Else
+                d = "'" & reporttypecolor.Text & "'"
+            End If
+            If e = "" Then
+                e = " status "
+            Else
+                e = "'" & reportstatus.Text & "'"
+            End If
+
             Dim ds As New DataSet
             Dim bs As New BindingSource
             Dim da As New SqlDataAdapter
             ds.Clear()
             Dim str As String = "
-select * from stocks_tb where stockno in (select distinct(stockno) from trans_tb where transdate > '" & ldate & "' and not transtype='Allocation')"
+select * from stocks_tb where stockno in (select distinct(stockno) from trans_tb where transdate > '" & ldate & "' and not transtype='Allocation')
+and " & acol & " = " & a & "
+and " & bcol & " = " & b & "
+and " & ccol & " = " & c & "
+and " & dcol & " = " & d & "
+and " & ecol & " = " & e & "
+"
             sqlcmd = New SqlCommand(str, sql.sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "stocks_tb")
@@ -2615,9 +2664,10 @@ select * from stocks_tb where tofoil='yes' order by articleno asc"
         ProgressBar2.Value = 0
         For i As Integer = 0 To stocksStocksno.Items.Count - 1
             Dim stockno As String = stocksStocksno.Items(i).ToString
-            gettotalbalqty(stockno, tofoilstartdate.Text)
+            gettotalbalqty(stockno, tofoilstartdate.Text, plusmonths.Text)
             ProgressBar2.Value += 1
         Next
+
         gettofoil()
         tofoilreport()
         Form11.ShowDialog()
@@ -2639,7 +2689,7 @@ select * from stocks_tb where tofoil='yes' order by articleno asc"
             sql.sqlcon.Close()
         End Try
     End Sub
-    Public Sub gettotalbalqty(ByVal stockno As String, ByVal mydate As String)
+    Public Sub gettotalbalqty(ByVal stockno As String, ByVal mydate As String, ByVal pmonths As String)
         Try
             sql.sqlcon.Open()
             Dim str As String = "
@@ -2650,17 +2700,51 @@ transtype='Allocation'
 and
 stockno='" & stockno & "'
 and
-case when isdate(duedate)=1 then cast(duedate as date) end between @sdate and DATEADD(month, +2, @sdate))
+case when isdate(duedate)=1 then cast(duedate as date) end <= DATEADD(month, +" & pmonths & ", @sdate))
 
 UPDATE stocks_tb set balalloc = @totalbalqty where stockno = '" & stockno & "'
 
 "
             sqlcmd = New SqlCommand(str, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()
+
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
             sql.sqlcon.Close()
         End Try
+    End Sub
+
+    Private Sub mymonth_Leave(sender As Object, e As EventArgs) Handles mymonth.Leave
+        If IsNumeric(mymonth.Text) Then
+        Else
+            MessageBox.Show("not numeric", "", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            mymonth.Focus()
+        End If
+    End Sub
+
+    Private Sub plusmonths_Leave(sender As Object, e As EventArgs) Handles plusmonths.Leave
+        If IsNumeric(plusmonths.Text) Then
+        Else
+            MessageBox.Show("not numeric", "", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            plusmonths.Focus()
+        End If
+    End Sub
+
+    Private Sub receiptGridView_KeyDown(sender As Object, e As KeyEventArgs) Handles receiptGridView.KeyDown
+        If e.KeyData = Keys.F1 Then
+            TabControl1.SelectedIndex = 1
+            transaction.Text = "Order"
+            reference.Text = receiptreference.Text
+            sql.movetoinput(receiptstockno.Text)
+        End If
+    End Sub
+
+    Private Sub ReallocateToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReallocateToolStripMenuItem.Click
+        reallocate.ShowDialog()
+    End Sub
+
+    Private Sub EditAddressToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditAddressToolStripMenuItem.Click
+        editaddress.ShowDialog()
     End Sub
 End Class

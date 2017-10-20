@@ -309,13 +309,9 @@ Public Class Form4
         End If
         referencegridview.SelectAll()
     End Sub
-
-
     Private Sub KryptonButton2_Click_1(sender As Object, e As EventArgs) Handles KryptonButton2.Click
         SQL.srockstransactiontb(stockno.Text)
     End Sub
-
-
     Private Sub min_Leave(sender As Object, e As EventArgs) Handles min.Leave
         If IsNumeric(min.Text) Then
         Else

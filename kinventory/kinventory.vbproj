@@ -125,6 +125,12 @@
     <Compile Include="DEFAULTITEMS.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="editaddress.Designer.vb">
+      <DependentUpon>editaddress.vb</DependentUpon>
+    </Compile>
+    <Compile Include="editaddress.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="editreference.Designer.vb">
       <DependentUpon>editreference.vb</DependentUpon>
     </Compile>
@@ -242,6 +248,12 @@
     <Compile Include="PhasedoutForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="reallocate.Designer.vb">
+      <DependentUpon>reallocate.vb</DependentUpon>
+    </Compile>
+    <Compile Include="reallocate.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="sql.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -256,6 +268,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DEFAULTITEMS.resx">
       <DependentUpon>DEFAULTITEMS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="editaddress.resx">
+      <DependentUpon>editaddress.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="editreference.resx">
       <DependentUpon>editreference.vb</DependentUpon>
@@ -310,6 +325,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PhasedoutForm.resx">
       <DependentUpon>PhasedoutForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reallocate.resx">
+      <DependentUpon>reallocate.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Report1.rdlc" />
     <EmbeddedResource Include="Report2.rdlc" />

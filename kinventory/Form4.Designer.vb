@@ -23,9 +23,9 @@ Partial Class Form4
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.min = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonLabel14 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonLabel13 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
@@ -81,7 +81,6 @@ Partial Class Form4
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.KryptonSplitContainer1 = New ComponentFactory.Krypton.Toolkit.KryptonSplitContainer()
         Me.KryptonSplitContainer2 = New ComponentFactory.Krypton.Toolkit.KryptonSplitContainer()
-        Me.KryptonDataGridView1 = New ComponentFactory.Krypton.Toolkit.KryptonDataGridView()
         Me.mytransgridview = New ComponentFactory.Krypton.Toolkit.KryptonDataGridView()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.KryptonLabel23 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
@@ -89,6 +88,7 @@ Partial Class Form4
         Me.finalfree = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.finalphysical = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.referencegridview = New ComponentFactory.Krypton.Toolkit.KryptonDataGridView()
+        Me.KryptonDataGridView1 = New ComponentFactory.Krypton.Toolkit.KryptonDataGridView()
         Me.balalloc = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonLabel32 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.finalreturn = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
@@ -181,9 +181,9 @@ Partial Class Form4
         CType(Me.KryptonSplitContainer2.Panel2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.KryptonSplitContainer2.Panel2.SuspendLayout()
         Me.KryptonSplitContainer2.SuspendLayout()
-        CType(Me.KryptonDataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.mytransgridview, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.referencegridview, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.KryptonDataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonGroup4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonGroup4.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.KryptonGroup4.Panel.SuspendLayout()
@@ -592,7 +592,6 @@ Partial Class Form4
         'KryptonGroup3.Panel
         '
         Me.KryptonGroup3.Panel.Controls.Add(Me.KryptonLabel11)
-        Me.KryptonGroup3.Panel.Controls.Add(Me.editbtn)
         Me.KryptonGroup3.Panel.Controls.Add(Me.savebtn)
         Me.KryptonGroup3.Panel.Controls.Add(Me.KryptonButton1)
         Me.KryptonGroup3.Panel.Controls.Add(Me.KryptonLabel10)
@@ -614,6 +613,7 @@ Partial Class Form4
         Me.KryptonGroup3.Panel.Controls.Add(Me.monetary)
         Me.KryptonGroup3.Panel.Controls.Add(Me.unitprice)
         Me.KryptonGroup3.Panel.Controls.Add(Me.KryptonLabel6)
+        Me.KryptonGroup3.Panel.Controls.Add(Me.editbtn)
         Me.KryptonGroup3.Size = New System.Drawing.Size(852, 167)
         Me.KryptonGroup3.StateCommon.Back.Color1 = System.Drawing.Color.WhiteSmoke
         Me.KryptonGroup3.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(156, Byte), Integer), CType(CType(235, Byte), Integer))
@@ -1001,47 +1001,8 @@ Partial Class Form4
         Me.KryptonSplitContainer2.Panel2.Controls.Add(Me.KryptonLabel24)
         Me.KryptonSplitContainer2.Panel2.StateCommon.Color1 = System.Drawing.Color.White
         Me.KryptonSplitContainer2.Size = New System.Drawing.Size(683, 445)
-        Me.KryptonSplitContainer2.SplitterDistance = 206
+        Me.KryptonSplitContainer2.SplitterDistance = 343
         Me.KryptonSplitContainer2.TabIndex = 0
-        '
-        'KryptonDataGridView1
-        '
-        Me.KryptonDataGridView1.AllowUserToAddRows = False
-        Me.KryptonDataGridView1.AllowUserToDeleteRows = False
-        Me.KryptonDataGridView1.AllowUserToOrderColumns = True
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.KryptonDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
-        Me.KryptonDataGridView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.KryptonDataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
-        Me.KryptonDataGridView1.ColumnHeadersHeight = 20
-        Me.KryptonDataGridView1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.KryptonDataGridView1.Location = New System.Drawing.Point(2, 41)
-        Me.KryptonDataGridView1.Name = "KryptonDataGridView1"
-        Me.KryptonDataGridView1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
-        Me.KryptonDataGridView1.ReadOnly = True
-        Me.KryptonDataGridView1.RowHeadersWidth = 25
-        Me.KryptonDataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.KryptonDataGridView1.Size = New System.Drawing.Size(683, 173)
-        Me.KryptonDataGridView1.StateCommon.Background.Color1 = System.Drawing.Color.White
-        Me.KryptonDataGridView1.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList
-        Me.KryptonDataGridView1.StateCommon.DataCell.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
-            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
-            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
-        Me.KryptonDataGridView1.StateCommon.DataCell.Border.Width = 0
-        Me.KryptonDataGridView1.StateCommon.DataCell.Content.Font = New System.Drawing.Font("Tahoma", 9.0!)
-        Me.KryptonDataGridView1.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(219, Byte), Integer))
-        Me.KryptonDataGridView1.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
-        Me.KryptonDataGridView1.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Dashed
-        Me.KryptonDataGridView1.StateCommon.HeaderColumn.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
-            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
-            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
-        Me.KryptonDataGridView1.StateCommon.HeaderColumn.Border.Width = 0
-        Me.KryptonDataGridView1.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White
-        Me.KryptonDataGridView1.StateCommon.HeaderColumn.Content.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.KryptonDataGridView1.StateCommon.HeaderColumn.Content.Hint = ComponentFactory.Krypton.Toolkit.PaletteTextHint.AntiAlias
-        Me.KryptonDataGridView1.TabIndex = 18
         '
         'mytransgridview
         '
@@ -1060,7 +1021,7 @@ Partial Class Form4
         Me.mytransgridview.ReadOnly = True
         Me.mytransgridview.RowHeadersWidth = 25
         Me.mytransgridview.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.mytransgridview.Size = New System.Drawing.Size(683, 206)
+        Me.mytransgridview.Size = New System.Drawing.Size(683, 343)
         Me.mytransgridview.StateCommon.Background.Color1 = System.Drawing.Color.White
         Me.mytransgridview.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList
         Me.mytransgridview.StateCommon.DataCell.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
@@ -1144,7 +1105,7 @@ Partial Class Form4
         Me.referencegridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.referencegridview.ColumnHeadersHeight = 20
         Me.referencegridview.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.referencegridview.Location = New System.Drawing.Point(346, 62)
+        Me.referencegridview.Location = New System.Drawing.Point(346, 199)
         Me.referencegridview.Name = "referencegridview"
         Me.referencegridview.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
         Me.referencegridview.ReadOnly = True
@@ -1169,6 +1130,45 @@ Partial Class Form4
         Me.referencegridview.StateCommon.HeaderColumn.Content.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
         Me.referencegridview.StateCommon.HeaderColumn.Content.Hint = ComponentFactory.Krypton.Toolkit.PaletteTextHint.AntiAlias
         Me.referencegridview.TabIndex = 20
+        '
+        'KryptonDataGridView1
+        '
+        Me.KryptonDataGridView1.AllowUserToAddRows = False
+        Me.KryptonDataGridView1.AllowUserToDeleteRows = False
+        Me.KryptonDataGridView1.AllowUserToOrderColumns = True
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.KryptonDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        Me.KryptonDataGridView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.KryptonDataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.KryptonDataGridView1.ColumnHeadersHeight = 20
+        Me.KryptonDataGridView1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.KryptonDataGridView1.Location = New System.Drawing.Point(2, 41)
+        Me.KryptonDataGridView1.Name = "KryptonDataGridView1"
+        Me.KryptonDataGridView1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
+        Me.KryptonDataGridView1.ReadOnly = True
+        Me.KryptonDataGridView1.RowHeadersWidth = 25
+        Me.KryptonDataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.KryptonDataGridView1.Size = New System.Drawing.Size(923, 2)
+        Me.KryptonDataGridView1.StateCommon.Background.Color1 = System.Drawing.Color.White
+        Me.KryptonDataGridView1.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList
+        Me.KryptonDataGridView1.StateCommon.DataCell.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.KryptonDataGridView1.StateCommon.DataCell.Border.Width = 0
+        Me.KryptonDataGridView1.StateCommon.DataCell.Content.Font = New System.Drawing.Font("Tahoma", 9.0!)
+        Me.KryptonDataGridView1.StateCommon.HeaderColumn.Back.Color1 = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(219, Byte), Integer))
+        Me.KryptonDataGridView1.StateCommon.HeaderColumn.Back.Color2 = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.KryptonDataGridView1.StateCommon.HeaderColumn.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Dashed
+        Me.KryptonDataGridView1.StateCommon.HeaderColumn.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.KryptonDataGridView1.StateCommon.HeaderColumn.Border.Width = 0
+        Me.KryptonDataGridView1.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.Color.White
+        Me.KryptonDataGridView1.StateCommon.HeaderColumn.Content.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.KryptonDataGridView1.StateCommon.HeaderColumn.Content.Hint = ComponentFactory.Krypton.Toolkit.PaletteTextHint.AntiAlias
+        Me.KryptonDataGridView1.TabIndex = 18
         '
         'balalloc
         '
@@ -1663,9 +1663,9 @@ Partial Class Form4
         Me.KryptonSplitContainer2.Panel2.PerformLayout()
         CType(Me.KryptonSplitContainer2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.KryptonSplitContainer2.ResumeLayout(False)
-        CType(Me.KryptonDataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.mytransgridview, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.referencegridview, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.KryptonDataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.KryptonGroup4.Panel, System.ComponentModel.ISupportInitialize).EndInit()
         Me.KryptonGroup4.Panel.ResumeLayout(False)
         Me.KryptonGroup4.Panel.PerformLayout()

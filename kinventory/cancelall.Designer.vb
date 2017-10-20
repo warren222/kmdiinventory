@@ -55,7 +55,7 @@ Partial Class cancelall
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(286, 159)
+        Me.Panel1.Size = New System.Drawing.Size(284, 156)
         Me.Panel1.TabIndex = 0
         '
         'ProgressBar1
@@ -141,23 +141,23 @@ Partial Class cancelall
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(286, 39)
+        Me.Panel3.Size = New System.Drawing.Size(284, 39)
         Me.Panel3.TabIndex = 38
         '
         'Button1
         '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Button1.BackColor = System.Drawing.Color.Transparent
         Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button1.Dock = System.Windows.Forms.DockStyle.Right
         Me.Button1.FlatAppearance.BorderSize = 0
         Me.Button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.Button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Aqua
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Button1.Location = New System.Drawing.Point(-181, 0)
+        Me.Button1.Location = New System.Drawing.Point(235, 0)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(49, 38)
+        Me.Button1.Size = New System.Drawing.Size(49, 39)
         Me.Button1.TabIndex = 38
         Me.Button1.Text = "x"
         Me.Button1.UseVisualStyleBackColor = False
@@ -182,7 +182,7 @@ Partial Class cancelall
         'KryptonGroup10.Panel
         '
         Me.KryptonGroup10.Panel.Controls.Add(Me.Panel1)
-        Me.KryptonGroup10.Size = New System.Drawing.Size(292, 165)
+        Me.KryptonGroup10.Size = New System.Drawing.Size(290, 162)
         Me.KryptonGroup10.StateCommon.Border.Color1 = System.Drawing.Color.Aqua
         Me.KryptonGroup10.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
@@ -277,13 +277,13 @@ Partial Class cancelall
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Green
-        Me.ClientSize = New System.Drawing.Size(293, 166)
+        Me.ClientSize = New System.Drawing.Size(291, 166)
+        Me.Controls.Add(Me.KryptonGroup10)
         Me.Controls.Add(Me.allalloc)
         Me.Controls.Add(Me.loopissue)
         Me.Controls.Add(Me.KryptonButton25)
         Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.LISTOFALLOCATIONGRIDVIEW)
-        Me.Controls.Add(Me.KryptonGroup10)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "cancelall"
         Me.Opacity = 0.96R

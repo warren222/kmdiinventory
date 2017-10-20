@@ -4,6 +4,7 @@ Public Class PhasedoutForm
     Dim xm As Integer
     Dim ym As Integer
     Dim sql As New sql
+    Public sqlcmd As New SqlCommand
     Private Sub KryptonButton2_Click(sender As Object, e As EventArgs) Handles KryptonButton2.Click
         Me.Close()
     End Sub
@@ -37,8 +38,104 @@ Public Class PhasedoutForm
             Next
         Else
         End If
+
+        If KryptonCheckBox7.Checked = True Then
+            For i As Integer = 0 To Form2.stocksStocksno.Items.Count - 1
+                Dim stockno As String = Form2.stocksStocksno.Items(i).ToString
+                upsupplier(supplier.Text, stockno)
+            Next
+        Else
+        End If
+        If KryptonCheckBox8.Checked = True Then
+            For i As Integer = 0 To Form2.stocksStocksno.Items.Count - 1
+                Dim stockno As String = Form2.stocksStocksno.Items(i).ToString
+                upcosthead(costhead.Text, stockno)
+            Next
+        Else
+        End If
+        If KryptonCheckBox6.Checked = True Then
+            For i As Integer = 0 To Form2.stocksStocksno.Items.Count - 1
+                Dim stockno As String = Form2.stocksStocksno.Items(i).ToString
+                uptypecolor(typecolor.Text, stockno)
+            Next
+        Else
+        End If
+        If KryptonCheckBox5.Checked = True Then
+            For i As Integer = 0 To Form2.stocksStocksno.Items.Count - 1
+                Dim stockno As String = Form2.stocksStocksno.Items(i).ToString
+                uparticleno(articleno.Text, stockno)
+            Next
+        Else
+        End If
+        If KryptonCheckBox9.Checked = True Then
+            For i As Integer = 0 To Form2.stocksStocksno.Items.Count - 1
+                Dim stockno As String = Form2.stocksStocksno.Items(i).ToString
+                upweight(weight.Text, stockno)
+            Next
+        Else
+        End If
         Form2.KryptonButton1.PerformClick()
 
+    End Sub
+    Public Sub upweight(ByVal myval As String, ByVal stockno As String)
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "update stocks_tb set weight='" & myval & "' where stockno='" & stockno & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            sqlcmd.ExecuteNonQuery()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+    Public Sub uparticleno(ByVal myval As String, ByVal stockno As String)
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "update stocks_tb set articleno='" & myval & "' where stockno='" & stockno & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            sqlcmd.ExecuteNonQuery()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+    Public Sub uptypecolor(ByVal myval As String, ByVal stockno As String)
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "update stocks_tb set typecolor='" & myval & "' where stockno='" & stockno & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            sqlcmd.ExecuteNonQuery()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+    Public Sub upcosthead(ByVal myval As String, ByVal stockno As String)
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "update stocks_tb set costhead='" & myval & "' where stockno='" & stockno & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            sqlcmd.ExecuteNonQuery()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+    Public Sub upsupplier(ByVal myval As String, ByVal stockno As String)
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "update stocks_tb set supplier='" & myval & "' where stockno='" & stockno & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            sqlcmd.ExecuteNonQuery()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
     End Sub
     Public Sub markphasedout(ByVal x As String)
         Try
@@ -61,10 +158,131 @@ Public Class PhasedoutForm
             KryptonButton1.Enabled = True
         End If
         colorbased.SelectedIndex = -1
+
+        loadsupplier()
+        loadcosthead()
+        loadtypecolor()
+        loadarticleno()
+        loadweight()
+    End Sub
+    Public Sub loadweight()
+        Try
+            sql.sqlcon.Open()
+            Dim ds As New DataSet
+            ds.Clear()
+            Dim da As New SqlDataAdapter
+            Dim str As String = "select distinct weight from stocks_tb "
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "stocks_tb")
+            Dim bs As New BindingSource
+            bs.DataSource = ds
+            bs.DataMember = "stocks_tb"
+            weight.DataSource = bs
+            weight.DisplayMember = "weight"
+            weight.SelectedIndex = -1
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+    Public Sub loadsupplier()
+        Try
+            sql.sqlcon.Open()
+            Dim ds As New DataSet
+            ds.Clear()
+            Dim da As New SqlDataAdapter
+            Dim str As String = "select distinct supplier from stocks_tb "
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "stocks_tb")
+            Dim bs As New BindingSource
+            bs.DataSource = ds
+            bs.DataMember = "stocks_tb"
+            supplier.DataSource = bs
+            supplier.DisplayMember = "supplier"
+            supplier.SelectedIndex = -1
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+    Public Sub loadcosthead()
+        Try
+            sql.sqlcon.Open()
+            Dim ds As New DataSet
+            ds.Clear()
+            Dim da As New SqlDataAdapter
+            Dim str As String = "select distinct costhead from stocks_tb "
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "stocks_tb")
+            Dim bs As New BindingSource
+            bs.DataSource = ds
+            bs.DataMember = "stocks_tb"
+            costhead.DataSource = bs
+            costhead.DisplayMember = "costhead"
+            costhead.SelectedIndex = -1
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+    Public Sub loadtypecolor()
+        Try
+            sql.sqlcon.Open()
+            Dim ds As New DataSet
+            ds.Clear()
+            Dim da As New SqlDataAdapter
+            Dim str As String = "select distinct typecolor from stocks_tb "
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "stocks_tb")
+            Dim bs As New BindingSource
+            bs.DataSource = ds
+            bs.DataMember = "stocks_tb"
+            typecolor.DataSource = bs
+            typecolor.DisplayMember = "typecolor"
+            typecolor.SelectedIndex = -1
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+    Public Sub loadarticleno()
+        Try
+            sql.sqlcon.Open()
+            Dim ds As New DataSet
+            ds.Clear()
+            Dim da As New SqlDataAdapter
+            Dim str As String = "select distinct articleno from stocks_tb "
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "stocks_tb")
+            Dim bs As New BindingSource
+            bs.DataSource = ds
+            bs.DataMember = "stocks_tb"
+            articleno.DataSource = bs
+            articleno.DisplayMember = "articleno"
+            articleno.SelectedIndex = -1
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Me.Close()
+        KryptonCheckBox9.Checked = False
+        KryptonCheckBox7.Checked = False
+        KryptonCheckBox8.Checked = False
+        KryptonCheckBox6.Checked = False
+        KryptonCheckBox5.Checked = False
     End Sub
 
     Private Sub KryptonPanel1_MouseDown(sender As Object, e As MouseEventArgs) Handles KryptonPanel1.MouseDown

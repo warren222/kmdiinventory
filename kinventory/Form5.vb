@@ -190,9 +190,13 @@ declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_t
             updatestock(newstockno.Text, reference.Text)
         End If
         If KryptonCheckBox2.Checked = True Then
-            updatenewreference(transno.Text, newreference.Text)
-            findnewreference(stockno.Text, newreference.Text)
-            updatestock(stockno.Text, newreference.Text)
+            If newreference.Text = "" Then
+                MessageBox.Show("select or input reference to proceed", "", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            Else
+                updatenewreference(transno.Text, newreference.Text)
+                findnewreference(stockno.Text, newreference.Text)
+                updatestock(stockno.Text, newreference.Text)
+            End If
         End If
         If KryptonCheckBox1.Checked = True And KryptonCheckBox2.Checked = True Then
             updatestock(newstockno.Text, newreference.Text)

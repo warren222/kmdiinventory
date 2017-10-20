@@ -38,7 +38,6 @@ Public Class cancelall
         For i As Integer = 0 To Form2.refcombo.Items.Count - 1
             Dim reference As String = Form2.refcombo.Items(i).ToString()
             Dim stockno As String = Form2.refstock.Items(i).ToString()
-
             getqty(stockno, reference)
             loopissue.Text = allalloc.Text
 
@@ -53,6 +52,9 @@ Public Class cancelall
             ProgressBar1.Value = ProgressBar1.Value + 1
         Next
         Form2.KryptonButton12.PerformClick()
+        Form2.reffromreference.Focus()
+        Button1.PerformClick()
+
     End Sub
     Public Sub loadallocationlist(ByVal a As String, ByVal b As String)
         Try
@@ -125,7 +127,7 @@ update reference_tb set
             sql.sqlcon.Open()
             Dim newcancelalloc As String = "
   declare @allocation as decimal(10,2)=(select  COALESCE(allocation,0) from reference_tb where stockno ='" & stockno & "' and reference = '" & reference & "')+0
-
+declare @bal as decimal(10,2)=(select physical from stocks_tb where stockno = '" & stockno & "')
 insert into trans_tb 
      (STOCKNO,
             TRANSTYPE,
@@ -134,7 +136,12 @@ insert into trans_tb
             QTY,
             REFERENCE,
             ACCOUNT,
-            CONTROLNO,XYZ,XYZREF,REMARKS,INPUTTED) values ('" & stockno & "'," &
+            CONTROLNO,
+            XYZ,
+            XYZREF,
+            REMARKS,
+            balqty,
+            INPUTTED) values ('" & stockno & "'," &
          "'CancelAlloc'," &
          "'" & Form2.transdate.Text & "'," &
          "''," &
@@ -145,6 +152,7 @@ insert into trans_tb
             "''," &
               "''," &
          "''," &
+          "@bal," &
             "'" & Form1.Label1.Text & "')"
             sqlcmd = New SqlCommand(newcancelalloc, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()
@@ -210,6 +218,8 @@ insert into trans_tb
             ProgressBar1.Value = ProgressBar1.Value + 1
         Next
         Form2.KryptonButton12.PerformClick()
+        Button1.PerformClick()
+
     End Sub
     Public Sub cancelorder(ByVal stockno As String, ByVal reference As String)
         Try
@@ -293,5 +303,9 @@ insert into trans_tb
         Finally
             sql.sqlcon.Close()
         End Try
+    End Sub
+
+    Private Sub cancelall_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        Form2.reffromreference.Focus()
     End Sub
 End Class

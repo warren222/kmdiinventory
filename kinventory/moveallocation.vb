@@ -166,6 +166,7 @@ insert into trans_tb
             TRANSDATE,
             DUEDATE,
             QTY,
+  balqty,
             REFERENCE,
             ACCOUNT,
             CONTROLNO,XYZ,XYZREF,REMARKS,INPUTTED) values ('" & nstockno & "'," &
@@ -173,6 +174,7 @@ insert into trans_tb
          "'" & Form2.transdate.Text & "'," &
          "''," &
          "@allocation," &
+           "@allocation," &
          "'" & newreference & "'," &
          "''," &
          "''," &
@@ -459,11 +461,16 @@ update trans_tb set qty = 0,xyzref='canceled' where stockno = '" & stockno & "' 
     Private Sub KryptonButton1_Click(sender As Object, e As EventArgs) Handles KryptonButton1.Click
         reference.Text = reference.Text.Replace("'", "`")
         reference.Text = reference.Text.Replace("""", "``")
-        If KryptonLabel8.Text = "Move Allocation" Then
-            mallocation()
-        ElseIf KryptonLabel8.Text = "Move Order" Then
-            morder()
+        If reference.Text = "" Then
+            MessageBox.Show("input reference to proceed", "", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+        Else
+            If KryptonLabel8.Text = "Move Allocation" Then
+                mallocation()
+            ElseIf KryptonLabel8.Text = "Move Order" Then
+                morder()
+            End If
         End If
+
     End Sub
     Public Sub mallocation()
         If editreference.allocation.Text = "0" Or editreference.allocation.Text = "" Then

@@ -24,12 +24,22 @@ Partial Class Form11
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim ReportDataSource1 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
-        Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
-        Me.inventoryds = New kinventory.inventoryds()
         Me.STOCKS_TBBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        CType(Me.inventoryds, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.inventoryds = New kinventory.inventoryds()
+        Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
         CType(Me.STOCKS_TBBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.inventoryds, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
+        '
+        'STOCKS_TBBindingSource
+        '
+        Me.STOCKS_TBBindingSource.DataMember = "STOCKS_TB"
+        Me.STOCKS_TBBindingSource.DataSource = Me.inventoryds
+        '
+        'inventoryds
+        '
+        Me.inventoryds.DataSetName = "inventoryds"
+        Me.inventoryds.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'ReportViewer1
         '
@@ -40,29 +50,20 @@ Partial Class Form11
         Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "kinventory.Report4.rdlc"
         Me.ReportViewer1.Location = New System.Drawing.Point(0, 0)
         Me.ReportViewer1.Name = "ReportViewer1"
-        Me.ReportViewer1.Size = New System.Drawing.Size(552, 486)
+        Me.ReportViewer1.Size = New System.Drawing.Size(830, 540)
         Me.ReportViewer1.TabIndex = 0
-        '
-        'inventoryds
-        '
-        Me.inventoryds.DataSetName = "inventoryds"
-        Me.inventoryds.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'STOCKS_TBBindingSource
-        '
-        Me.STOCKS_TBBindingSource.DataMember = "STOCKS_TB"
-        Me.STOCKS_TBBindingSource.DataSource = Me.inventoryds
         '
         'Form11
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(552, 486)
+        Me.ClientSize = New System.Drawing.Size(830, 540)
         Me.Controls.Add(Me.ReportViewer1)
         Me.Name = "Form11"
-        Me.Text = "Form11"
-        CType(Me.inventoryds, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ShowIcon = False
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         CType(Me.STOCKS_TBBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.inventoryds, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

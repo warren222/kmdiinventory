@@ -310,6 +310,7 @@ insert into trans_tb
             TRANSDATE,
             DUEDATE,
             QTY,
+  balqty,
             REFERENCE,
             ACCOUNT,
             CONTROLNO,XYZ,XYZREF,REMARKS,INPUTTED) values ('" & nstockno & "'," &
@@ -317,6 +318,7 @@ insert into trans_tb
          "'" & Form2.transdate.Text & "'," &
          "''," &
          "@allocation," &
+            "@allocation," &
          "'" & newreference & "'," &
          "''," &
          "''," &

@@ -158,8 +158,8 @@ Partial Class Form6
         '
         Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.Panel2.Controls.Add(Me.KryptonPanel1)
-        Me.Panel2.Controls.Add(Me.KryptonGroup1)
         Me.Panel2.Controls.Add(Me.transno)
+        Me.Panel2.Controls.Add(Me.KryptonGroup1)
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(227, 216)
@@ -221,7 +221,7 @@ Partial Class Form6
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Green
-        Me.ClientSize = New System.Drawing.Size(239, 219)
+        Me.ClientSize = New System.Drawing.Size(242, 226)
         Me.Controls.Add(Me.KryptonGroup3)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Form6"
