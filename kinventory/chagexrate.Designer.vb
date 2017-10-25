@@ -100,7 +100,7 @@ Partial Class chagexrate
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(290, 91)
+        Me.ClientSize = New System.Drawing.Size(289, 91)
         Me.Controls.Add(Me.transno)
         Me.Controls.Add(Me.KryptonButton1)
         Me.Controls.Add(Me.KryptonLabel3)

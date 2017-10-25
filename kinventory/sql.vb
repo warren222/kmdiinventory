@@ -2343,15 +2343,15 @@ INPUTTED
             Dim str As String = ""
             'order
             If Form5.transtype.Text = "Order" And Form5.xyzref.Text = "" Then
-                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "', qty = '" & qty & "' where transno = '" & transno & "'"
+                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "', qty = '" & qty & "',netamount=(xrate*unitprice)*" & qty & " where transno = '" & transno & "'"
             ElseIf Form5.transtype.Text = "Order" And Not Form5.xyzref.Text = "" Then
                 str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "' where transno = '" & transno & "'"
                 'receipt
             ElseIf Form5.transtype.Text = "Receipt" And Form5.xyzref.Text = "" Then
-                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "', qty = '" & qty & "' where transno = '" & transno & "'"
+                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "',qty = '" & qty & "',netamount=(xrate*unitprice)*" & qty & " where transno = '" & transno & "'"
             ElseIf Form5.transtype.Text = "Receipt" And Not Form5.xyzref.Text = "" Then
-                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "',qty = '" & qty & "' where transno = '" & transno & "'
-                       update trans_tb set qty = '" & qty & "' where transno = '" & xyzref & "'"
+                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "',qty = '" & qty & "',netamount=(xrate*unitprice)*" & qty & " where transno = '" & transno & "'
+                       update trans_tb set qty = '" & qty & "',netamount=(xrate*unitprice)*" & qty & " where transno = '" & xyzref & "'"
                 'allocation
             ElseIf Form5.transtype.Text = "Allocation" And Form5.xyzref.Text = "" Then
                 str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "', qty = '" & qty & "' where transno = '" & transno & "'"

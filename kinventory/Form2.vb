@@ -1304,6 +1304,8 @@ on a.stockno = b.stockno"
 
     Private Sub transgridview_SelectionChanged(sender As Object, e As EventArgs) Handles transgridview.SelectionChanged
         Dim selecteditem As DataGridViewSelectedRowCollection = transgridview.SelectedRows
+        transnocombo.Items.Clear()
+        transqtycombo.Items.Clear()
         Form6.transno.Items.Clear()
         reallocate.stockno.Items.Clear()
         reallocate.reference.Items.Clear()
@@ -1313,6 +1315,9 @@ on a.stockno = b.stockno"
             Dim x As String = item.Cells("transno").Value.ToString
             Dim y As String = item.Cells("stockno").Value.ToString
             Dim z As String = item.Cells("reference").Value.ToString
+            Dim a As String = item.Cells("qty").Value.ToString
+            transnocombo.Items.Add(x)
+            transqtycombo.Items.Add(a)
             Form6.transno.Items.Add(x)
             reallocate.stockno.Items.Add(y)
             reallocate.reference.Items.Add(z)
@@ -2812,5 +2817,107 @@ UPDATE stocks_tb set balalloc = @totalbalqty where stockno = '" & stockno & "'
 
     Private Sub ChangeXrateToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChangeXrateToolStripMenuItem.Click
         chagexrate.ShowDialog()
+    End Sub
+
+    Private Sub KryptonButton27_Click(sender As Object, e As EventArgs) Handles KryptonButton27.Click
+        For i As Integer = 0 To stocksStocksno.Items.Count - 1
+            Dim stockno As String = stocksStocksno.Items(i).ToString
+            getreceipttrans(stockno)
+        Next
+    End Sub
+    Public Sub getreceipttrans(ByVal stockno As String)
+        Try
+            sql.sqlcon.Open()
+            Dim da As New SqlDataAdapter
+            Dim ds As New DataSet
+            ds.Clear()
+            Dim getphysical As String = "select physical from stocks_tb where stockno='" & stockno & "'"
+
+            sqlcmd = New SqlCommand(getphysical, sql.sqlcon)
+            Dim read As SqlDataReader = sqlcmd.ExecuteReader
+            While read.Read
+                myphysical.Text = read(0).ToString
+                balphysical.Text = read(0).ToString
+            End While
+            read.Close()
+
+            Dim str As String = "select a.TRANSNO,
+a.STOCKNO,
+b.COSTHEAD,
+b.TYPECOLOR,
+B.ARTICLENO,
+B.DESCRIPTION,
+a.TRANSTYPE,
+a.TRANSDATE,
+a.DUEDATE,
+a.QTY,
+a.REFERENCE,
+a.ACCOUNT,
+a.CONTROLNO,
+a.xyz,
+a.REMARKS,
+a.UNITPRICE,
+a.XRATE,
+A.NETAMOUNT,
+A.INPUTTED
+ from trans_tb as a inner join stocks_tb as b
+on a.stockno = b.stockno where A.STOCKNO='" & stockno & "' and a.TRANSTYPE='Receipt' order by a.transdate ASC"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "trans_tb")
+            transBindingSource.DataSource = ds
+            transBindingSource.DataMember = "trans_tb"
+            transgridview.DataSource = transBindingSource
+            transgridview.Columns("DESCRIPTION").Visible = False
+            transgridview.Columns("xyz").Visible = False
+
+            transgridview.SelectAll()
+
+            For i As Integer = 0 To transnocombo.Items.Count - 1
+                Dim tno As String = transnocombo.Items(i).ToString
+                Dim qty As String = transqtycombo.Items(i).ToString
+
+                If balphysical.Text < 0 Then
+                Else
+                    calcrate(tno, qty)
+                End If
+            Next
+
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+    Public Sub calcrate(ByVal tno As String, ByVal qty As String)
+        Try
+
+            Dim mybal As Double = balphysical.Text
+            Dim myqty As Double = qty
+            Dim result As Double = mybal - myqty
+
+            If result > 0 Then
+                Dim mynet As Double = net.Text
+                Dim netamount As Double
+                Dim str As String = "select isnull(netamount,0) from trans_tb where transno='" & tno & "'"
+                sqlcmd = New SqlCommand(str, sql.sqlcon)
+                Dim read As SqlDataReader = sqlcmd.ExecuteReader
+                While read.Read
+                    netamount = read(0).ToString
+                End While
+                read.Close()
+                net.Text = mynet + netamount
+            Else
+                'get unit*rate*balqty then add to net
+                Dim str As String = "select "
+            End If
+
+            balphysical.Text = result
+
+
+            MsgBox(result)
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
     End Sub
 End Class
