@@ -75,7 +75,7 @@ Public Class PhasedoutForm
         Else
         End If
         Form2.KryptonButton1.PerformClick()
-
+        Button1.PerformClick()
     End Sub
     Public Sub upweight(ByVal myval As String, ByVal stockno As String)
         Try

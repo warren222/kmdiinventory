@@ -18,9 +18,10 @@ description.Text,
 qty.Text,
 unit.Text,
 location.Text,
-header.Text, colorbased.Text)
+header.Text, colorbased.Text, xrate.Text)
             'sql.loadstocks()
             Form2.KryptonButton1.PerformClick()
+            Button1.PerformClick()
         ElseIf Me.Text = "Edit" Then
             remove()
             sql.updatestocks(stockno.Text,
@@ -30,9 +31,10 @@ unitprice.Text,
 description.Text,
 unit.Text,
 location.Text,
-min.Text, colorbased.Text)
+min.Text, colorbased.Text, xrate.Text)
             sql.loadstocks()
             Form2.KryptonButton1.PerformClick()
+            Button1.PerformClick()
         End If
     End Sub
     Public Sub remove()
@@ -110,6 +112,7 @@ min.Text, colorbased.Text)
             monetary.Text = ""
             articleno.SelectedIndex = -1
             unitprice.Text = 0
+            xrate.Text = 0
             description.Text = ""
             qty.Text = 0
             unit.Text = ""
@@ -188,5 +191,11 @@ min.Text, colorbased.Text)
 
     Private Sub KryptonButton2_Click(sender As Object, e As EventArgs) Handles KryptonButton2.Click
         btn2()
+
+    End Sub
+
+    Private Sub xrate_Leave(sender As Object, e As EventArgs) Handles xrate.Leave
+        Dim name As String = "X-Rate"
+        validnumber(xrate, name)
     End Sub
 End Class

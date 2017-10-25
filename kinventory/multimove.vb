@@ -97,6 +97,7 @@ Public Class multimove
         Else
         End If
         Form2.KryptonButton12.PerformClick()
+        Button1.PerformClick()
     End Sub
     Public Sub mallocation(ByVal oldstockno As String, ByVal oldreference As String)
 

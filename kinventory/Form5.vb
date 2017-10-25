@@ -208,6 +208,7 @@ declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_t
         Form2.KryptonButton11.PerformClick()
         sql.selectreference(stockno.Text, reference.Text)
         KryptonButton3.PerformClick()
+        Button1.PerformClick()
         'If itcame.Text = "A" Then
         '    Form4.KryptonButton4.PerformClick()
         'End If

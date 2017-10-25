@@ -7,7 +7,7 @@ Imports System.Security.Cryptography
 Imports System.Windows.Forms.DataVisualization.Charting
 Public Class sql
     Dim datasource As String = Form9.myaccess.Text.ToString
-    Dim catalog As String = "finaltrans"
+    Dim catalog As String = "heretosave"
     Dim userid As String = "kmdiadmin"
     Dim password As String = "kmdiadmin"
     Public sqlcon As New SqlConnection With {.ConnectionString = "Data Source='" & datasource & "';Network Library=DBMSSOCN;Initial Catalog='" & catalog & "';User ID='" & userid & "';Password='" & password & "';"}
@@ -42,6 +42,7 @@ Public Class sql
             Form2.stocksgridview.Columns("QTY").Visible = False
             Form2.stocksgridview.Columns("NEEDTOORDER").Visible = False
             Form2.stocksgridview.Columns("FINALNEEDTOORDER").Visible = False
+
             loadsearchbox()
             fillform()
             notifycritical()
@@ -76,6 +77,7 @@ Public Class sql
             Form2.stocksgridview.Columns("HEADER").Visible = False
             Form2.stocksgridview.Columns("AVEUSAGE").Visible = False
             Form2.stocksgridview.Columns("QTY").Visible = False
+
             fillform()
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -433,7 +435,7 @@ Public Class sql
                  ByVal unit As String,
                  ByVal location As String,
                  ByVal header As String,
-                 ByVal colorbased As String)
+                 ByVal colorbased As String, ByVal xrate As String)
         Try
             sqlcon.Open()
             Dim find As String = "select * from stocks_tb where costhead='" & costhead & "' and typecolor='" & typecolor & "' and articleno='" & articleno & "'"
@@ -463,6 +465,7 @@ stockorder,
 minimum,
 ISSUE,
 colorbased,
+xrate,
 INPUTTED)values('" & supplier & "'," &
                           "'" & costhead & "'," &
                           "'" & ufactor & "'," &
@@ -482,6 +485,7 @@ INPUTTED)values('" & supplier & "'," &
                              "'0'," &
                                 "'0'," &
                           "'" & colorbased & "'," &
+                            "'" & xrate & "'," &
              "'" & Form1.Label1.Text & "')"
                 sqlcmd = New SqlCommand(str, sqlcon)
                 sqlcmd.ExecuteNonQuery()
@@ -501,7 +505,7 @@ INPUTTED)values('" & supplier & "'," &
                ByVal unit As String,
                ByVal location As String,
                ByVal min As String,
-                            ByVal colorbased As String)
+                            ByVal colorbased As String, ByVal xrate As String)
         Try
             sqlcon.Open()
             Dim str As String = "update stocks_tb set 
@@ -512,7 +516,8 @@ description='" & description & "',
 unit='" & unit & "',
 location='" & location & "',
 minimum='" & min & "',
-colorbased='" & colorbased & "'
+colorbased='" & colorbased & "',
+xrate = '" & xrate & "'
 where stockno='" & stockno & "'"
             sqlcmd = New SqlCommand(str, sqlcon)
             sqlcmd.ExecuteNonQuery()
@@ -608,7 +613,11 @@ a.REFERENCE,
 a.ACCOUNT,
 a.CONTROLNO,
 A.XYZ,
-a.REMARKS
+a.REMARKS,
+a.UNITPRICE,
+a.XRATE,
+A.NETAMOUNT,
+A.INPUTTED
  from trans_tb as a inner join stocks_tb as b
 on a.stockno = b.stockno order by a.transdate desc"
             sqlcmd = New SqlCommand(str, sqlcon)
@@ -961,7 +970,7 @@ on a.stockno = b.stockno"
             Dim ds As New DataSet
             Dim bs As New BindingSource
             ds.Clear()
-            Dim str As String = "select  articleno,description,physical,free,unit,stockno from stocks_tb where costhead = '" & costhead & "' and typecolor='" & typecolor & "'"
+            Dim str As String = "select  articleno,description,physical,free,unit,stockno,unitprice,xrate from stocks_tb where costhead = '" & costhead & "' and typecolor='" & typecolor & "'"
             sqlcmd = New SqlCommand(str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "stocks_tb")
@@ -974,11 +983,15 @@ on a.stockno = b.stockno"
             Form2.transfree.DataBindings.Clear()
             Form2.transunit.DataBindings.Clear()
             Form2.transstockno.DataBindings.Clear()
+            Form2.unitprice.DataBindings.Clear()
+            Form2.xrate.DataBindings.Clear()
             Form2.transdescription.DataBindings.Add("TEXT", bs, "DESCRIPTION")
             Form2.transphysical.DataBindings.Add("TEXT", bs, "PHYSICAL")
             Form2.transfree.DataBindings.Add("TEXT", bs, "FREE")
             Form2.transunit.DataBindings.Add("TEXT", bs, "UNIT")
             Form2.transstockno.DataBindings.Add("TEXT", bs, "STOCKNO")
+            Form2.unitprice.DataBindings.Add("TEXT", bs, "unitprice")
+            Form2.xrate.DataBindings.Add("TEXT", bs, "xrate")
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -991,7 +1004,7 @@ on a.stockno = b.stockno"
             Dim ds As New DataSet
             Dim bs As New BindingSource
             ds.Clear()
-            Dim str As String = "select  articleno,description,physical,free,unit,stockno from stocks_tb where " & a & " ='" & phasedout & "'"
+            Dim str As String = "select  articleno,description,physical,free,unit,stockno,unitprice,xrate from stocks_tb where " & a & " ='" & phasedout & "'"
             sqlcmd = New SqlCommand(str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "stocks_tb")
@@ -1004,11 +1017,15 @@ on a.stockno = b.stockno"
             Form2.transfree.DataBindings.Clear()
             Form2.transunit.DataBindings.Clear()
             Form2.transstockno.DataBindings.Clear()
+            Form2.unitprice.DataBindings.Clear()
+            Form2.xrate.DataBindings.Clear()
             Form2.transdescription.DataBindings.Add("TEXT", bs, "DESCRIPTION")
             Form2.transphysical.DataBindings.Add("TEXT", bs, "PHYSICAL")
             Form2.transfree.DataBindings.Add("TEXT", bs, "FREE")
             Form2.transunit.DataBindings.Add("TEXT", bs, "UNIT")
             Form2.transstockno.DataBindings.Add("TEXT", bs, "STOCKNO")
+            Form2.unitprice.DataBindings.Add("TEXT", bs, "unitprice")
+            Form2.xrate.DataBindings.Add("TEXT", bs, "xrate")
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -1021,7 +1038,7 @@ on a.stockno = b.stockno"
             Dim ds As New DataSet
             Dim bs As New BindingSource
             ds.Clear()
-            Dim str As String = "select  articleno,description,physical,free,unit,stockno from stocks_tb where costhead = '" & costhead & "' and  " & a & " ='" & phasedout & "'"
+            Dim str As String = "select  articleno,description,physical,free,unit,stockno,unitprice,xrate from stocks_tb where costhead = '" & costhead & "' and  " & a & " ='" & phasedout & "'"
             sqlcmd = New SqlCommand(str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "stocks_tb")
@@ -1034,11 +1051,15 @@ on a.stockno = b.stockno"
             Form2.transfree.DataBindings.Clear()
             Form2.transunit.DataBindings.Clear()
             Form2.transstockno.DataBindings.Clear()
+            Form2.unitprice.DataBindings.Clear()
+            Form2.xrate.DataBindings.Clear()
             Form2.transdescription.DataBindings.Add("TEXT", bs, "DESCRIPTION")
             Form2.transphysical.DataBindings.Add("TEXT", bs, "PHYSICAL")
             Form2.transfree.DataBindings.Add("TEXT", bs, "FREE")
             Form2.transunit.DataBindings.Add("TEXT", bs, "UNIT")
             Form2.transstockno.DataBindings.Add("TEXT", bs, "STOCKNO")
+            Form2.unitprice.DataBindings.Add("TEXT", bs, "unitprice")
+            Form2.xrate.DataBindings.Add("TEXT", bs, "xrate")
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -1051,7 +1072,7 @@ on a.stockno = b.stockno"
             Dim ds As New DataSet
             Dim bs As New BindingSource
             ds.Clear()
-            Dim str As String = "select  articleno,description,physical,free,unit,stockno from stocks_tb where typecolor = '" & typecolor & "' and  " & a & " ='" & phasedout & "'"
+            Dim str As String = "select  articleno,description,physical,free,unit,stockno,unitprice,xrate from stocks_tb where typecolor = '" & typecolor & "' and  " & a & " ='" & phasedout & "'"
             sqlcmd = New SqlCommand(str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "stocks_tb")
@@ -1064,11 +1085,15 @@ on a.stockno = b.stockno"
             Form2.transfree.DataBindings.Clear()
             Form2.transunit.DataBindings.Clear()
             Form2.transstockno.DataBindings.Clear()
+            Form2.unitprice.DataBindings.Clear()
+            Form2.xrate.DataBindings.Clear()
             Form2.transdescription.DataBindings.Add("TEXT", bs, "DESCRIPTION")
             Form2.transphysical.DataBindings.Add("TEXT", bs, "PHYSICAL")
             Form2.transfree.DataBindings.Add("TEXT", bs, "FREE")
             Form2.transunit.DataBindings.Add("TEXT", bs, "UNIT")
             Form2.transstockno.DataBindings.Add("TEXT", bs, "STOCKNO")
+            Form2.unitprice.DataBindings.Add("TEXT", bs, "unitprice")
+            Form2.xrate.DataBindings.Add("TEXT", bs, "xrate")
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -1309,7 +1334,7 @@ on a.stockno = b.stockno"
                           ByVal controlno As String,
                               ByVal xyz As String,
                               ByVal XYZREF As String,
-                              ByVal remarks As String)
+                              ByVal remarks As String, ByVal unitprice As String, ByVal xrate As String, ByVal netamount As String)
         Try
             sqlcon.Open()
             Dim str As String
@@ -1367,6 +1392,32 @@ insert into trans_tb
               "'" & XYZREF & "'," &
          "'" & remarks & "'," &
            "'" & qty & "'," &
+            "'" & Form1.Label1.Text & "')"
+            ElseIf transtype = "Order" Or transtype = "Receipt" Then
+                str = "
+insert into trans_tb 
+            (STOCKNO,
+            TRANSTYPE,
+            TRANSDATE,
+            DUEDATE,
+            QTY,
+            REFERENCE,
+            ACCOUNT,
+            CONTROLNO,XYZ,XYZREF,REMARKS,BALQTY,unitprice,xrate,netamount,INPUTTED) values ('" & stockno & "'," &
+         "'" & transtype & "'," &
+         "'" & transdate & "'," &
+         "'" & duedate & "'," &
+         "'" & qty & "'," &
+         "'" & reference & "'," &
+         "'" & account & "'," &
+         "'" & controlno & "'," &
+            "'" & xyz & "'," &
+              "'" & XYZREF & "'," &
+         "'" & remarks & "'," &
+           "'" & newbal & "'," &
+              "'" & unitprice & "'," &
+                 "'" & xrate & "'," &
+                    "'" & netamount & "'," &
             "'" & Form1.Label1.Text & "')"
             Else
                 str = "
@@ -1589,10 +1640,13 @@ a.REFERENCE,
 a.ACCOUNT,
 a.CONTROLNO,
 a.XYZ,
-b.description
+b.description,
+a.UNITPRICE,
+A.XRATE,
+A.NETAMOUNT
  from trans_tb as a
 inner join stocks_tb as b on a.stockno = b.stockno
-where a.reference='" & reference & "' and a.transtype = 'Order' and a.xyzref=''
+where a.reference='" & reference & "' and a.qty>0 and a.transtype = 'Order' and a.xyzref=''
 order by b.articleno asc"
             sqlcmd = New SqlCommand(Str, sqlcon)
             da.SelectCommand = sqlcmd
@@ -1667,7 +1721,7 @@ from
 reference_tb as a
 inner join stocks_tb as b
 on b.stockno=a.stockno
- where a.reference='" & reference & "'"
+ where a.reference='" & reference & "' and a.ALLOCATION>0"
             sqlcmd = New SqlCommand(Str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "reference_tb")
@@ -3088,6 +3142,8 @@ accttype='" & acctype & "' where id = '" & id & "'"
             Form2.transdescription.DataBindings.Clear()
             Form2.transphysical.DataBindings.Clear()
             Form2.transfree.DataBindings.Clear()
+            Form2.unitprice.DataBindings.Clear()
+            Form2.xrate.DataBindings.Clear()
 
             Form2.transstockno.DataBindings.Add("text", bs, "stockno")
             Form2.transcosthead.DataBindings.Add("text", bs, "costhead")
@@ -3096,6 +3152,8 @@ accttype='" & acctype & "' where id = '" & id & "'"
             Form2.transdescription.DataBindings.Add("text", bs, "description")
             Form2.transphysical.DataBindings.Add("text", bs, "physical")
             Form2.transfree.DataBindings.Add("text", bs, "free")
+            Form2.unitprice.DataBindings.Add("text", bs, "unitprice")
+            Form2.xrate.DataBindings.Add("text", bs, "xrate")
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally

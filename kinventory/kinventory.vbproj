@@ -113,6 +113,12 @@
     <Compile Include="cancelall.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="chagexrate.Designer.vb">
+      <DependentUpon>chagexrate.vb</DependentUpon>
+    </Compile>
+    <Compile Include="chagexrate.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="cuttinglist.Designer.vb">
       <DependentUpon>cuttinglist.vb</DependentUpon>
     </Compile>
@@ -262,6 +268,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="cancelall.resx">
       <DependentUpon>cancelall.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="chagexrate.resx">
+      <DependentUpon>chagexrate.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="cuttinglist.resx">
       <DependentUpon>cuttinglist.vb</DependentUpon>

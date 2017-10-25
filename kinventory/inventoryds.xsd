@@ -12,7 +12,7 @@
   <xs:element name="inventoryds" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="inventoryds" msprop:Generator_UserDSName="inventoryds">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="TRANS_TB" msprop:Generator_TableClassName="TRANS_TBDataTable" msprop:Generator_TableVarName="tableTRANS_TB" msprop:Generator_TablePropName="TRANS_TB" msprop:Generator_RowDeletingName="TRANS_TBRowDeleting" msprop:Generator_RowChangingName="TRANS_TBRowChanging" msprop:Generator_RowEvHandlerName="TRANS_TBRowChangeEventHandler" msprop:Generator_RowDeletedName="TRANS_TBRowDeleted" msprop:Generator_UserTableName="TRANS_TB" msprop:Generator_RowChangedName="TRANS_TBRowChanged" msprop:Generator_RowEvArgName="TRANS_TBRowChangeEvent" msprop:Generator_RowClassName="TRANS_TBRow">
+        <xs:element name="TRANS_TB" msprop:Generator_TableClassName="TRANS_TBDataTable" msprop:Generator_TableVarName="tableTRANS_TB" msprop:Generator_RowChangedName="TRANS_TBRowChanged" msprop:Generator_TablePropName="TRANS_TB" msprop:Generator_RowDeletingName="TRANS_TBRowDeleting" msprop:Generator_RowChangingName="TRANS_TBRowChanging" msprop:Generator_RowEvHandlerName="TRANS_TBRowChangeEventHandler" msprop:Generator_RowDeletedName="TRANS_TBRowDeleted" msprop:Generator_RowClassName="TRANS_TBRow" msprop:Generator_UserTableName="TRANS_TB" msprop:Generator_RowEvArgName="TRANS_TBRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="TRANSNO" msprop:Generator_ColumnVarNameInTable="columnTRANSNO" msprop:Generator_ColumnPropNameInRow="TRANSNO" msprop:Generator_ColumnPropNameInTable="TRANSNOColumn" msprop:Generator_UserColumnName="TRANSNO" type="xs:string" minOccurs="0" />
@@ -31,7 +31,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="STOCKS_TB" msprop:Generator_TableClassName="STOCKS_TBDataTable" msprop:Generator_TableVarName="tableSTOCKS_TB" msprop:Generator_TablePropName="STOCKS_TB" msprop:Generator_RowDeletingName="STOCKS_TBRowDeleting" msprop:Generator_RowChangingName="STOCKS_TBRowChanging" msprop:Generator_RowEvHandlerName="STOCKS_TBRowChangeEventHandler" msprop:Generator_RowDeletedName="STOCKS_TBRowDeleted" msprop:Generator_UserTableName="STOCKS_TB" msprop:Generator_RowChangedName="STOCKS_TBRowChanged" msprop:Generator_RowEvArgName="STOCKS_TBRowChangeEvent" msprop:Generator_RowClassName="STOCKS_TBRow">
+        <xs:element name="STOCKS_TB" msprop:Generator_TableClassName="STOCKS_TBDataTable" msprop:Generator_TableVarName="tableSTOCKS_TB" msprop:Generator_RowChangedName="STOCKS_TBRowChanged" msprop:Generator_TablePropName="STOCKS_TB" msprop:Generator_RowDeletingName="STOCKS_TBRowDeleting" msprop:Generator_RowChangingName="STOCKS_TBRowChanging" msprop:Generator_RowEvHandlerName="STOCKS_TBRowChangeEventHandler" msprop:Generator_RowDeletedName="STOCKS_TBRowDeleted" msprop:Generator_RowClassName="STOCKS_TBRow" msprop:Generator_UserTableName="STOCKS_TB" msprop:Generator_RowEvArgName="STOCKS_TBRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="STOCKNO" msprop:Generator_ColumnVarNameInTable="columnSTOCKNO" msprop:Generator_ColumnPropNameInRow="STOCKNO" msprop:Generator_ColumnPropNameInTable="STOCKNOColumn" msprop:Generator_UserColumnName="STOCKNO" type="xs:string" minOccurs="0" />
@@ -64,6 +64,7 @@
               <xs:element name="PHYSICAL2" msprop:Generator_ColumnVarNameInTable="columnPHYSICAL2" msprop:Generator_ColumnPropNameInRow="PHYSICAL2" msprop:Generator_ColumnPropNameInTable="PHYSICAL2Column" msprop:Generator_UserColumnName="PHYSICAL2" type="xs:decimal" minOccurs="0" />
               <xs:element name="BALALLOC" msprop:Generator_ColumnVarNameInTable="columnBALALLOC" msprop:Generator_ColumnPropNameInRow="BALALLOC" msprop:Generator_ColumnPropNameInTable="BALALLOCColumn" msprop:Generator_UserColumnName="BALALLOC" type="xs:decimal" minOccurs="0" />
               <xs:element name="WEIGHT" msprop:Generator_ColumnVarNameInTable="columnWEIGHT" msprop:Generator_ColumnPropNameInRow="WEIGHT" msprop:Generator_ColumnPropNameInTable="WEIGHTColumn" msprop:Generator_UserColumnName="WEIGHT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TOTALWEIGHT" msprop:Generator_ColumnVarNameInTable="columnTOTALWEIGHT" msprop:Generator_ColumnPropNameInRow="TOTALWEIGHT" msprop:Generator_ColumnPropNameInTable="TOTALWEIGHTColumn" msprop:Generator_UserColumnName="TOTALWEIGHT" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -65,6 +65,7 @@ Public Class Form4
         location.Text,
         unit.Text)
         Form2.KryptonButton1.PerformClick()
+        Button1.PerformClick()
     End Sub
     Public Sub remove()
         supplier.Text = supplier.Text.Replace("'", "")

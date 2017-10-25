@@ -92,6 +92,12 @@ Partial Class Form2
         Me.KryptonLabel16 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.controlno = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonGroup2 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
+        Me.netamount = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
+        Me.KryptonLabel65 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
+        Me.xrate = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
+        Me.unitprice = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
+        Me.KryptonLabel63 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
+        Me.KryptonLabel64 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonCheckBox1 = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
         Me.KryptonButton24 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.KryptonLabel20 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
@@ -268,6 +274,8 @@ Partial Class Form2
         Me.stocksBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.transBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.referencebs = New System.Windows.Forms.BindingSource(Me.components)
+        Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
+        Me.ChangeXrateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.transactionmenustrip.SuspendLayout()
         CType(Me.KryptonSplitContainer6, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonSplitContainer6.Panel1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -402,32 +410,32 @@ Partial Class Form2
         'transactionmenustrip
         '
         Me.transactionmenustrip.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.transactionmenustrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TransDateToolStripMenuItem, Me.DueDateToolStripMenuItem, Me.CuttingListToolStripMenuItem, Me.ReallocateToolStripMenuItem})
+        Me.transactionmenustrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TransDateToolStripMenuItem, Me.DueDateToolStripMenuItem, Me.CuttingListToolStripMenuItem, Me.ReallocateToolStripMenuItem, Me.ChangeXrateToolStripMenuItem})
         Me.transactionmenustrip.Name = "transactionmenustrip"
-        Me.transactionmenustrip.Size = New System.Drawing.Size(131, 92)
+        Me.transactionmenustrip.Size = New System.Drawing.Size(153, 136)
         '
         'TransDateToolStripMenuItem
         '
         Me.TransDateToolStripMenuItem.Name = "TransDateToolStripMenuItem"
-        Me.TransDateToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
+        Me.TransDateToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.TransDateToolStripMenuItem.Text = "trans date"
         '
         'DueDateToolStripMenuItem
         '
         Me.DueDateToolStripMenuItem.Name = "DueDateToolStripMenuItem"
-        Me.DueDateToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
+        Me.DueDateToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.DueDateToolStripMenuItem.Text = "due date"
         '
         'CuttingListToolStripMenuItem
         '
         Me.CuttingListToolStripMenuItem.Name = "CuttingListToolStripMenuItem"
-        Me.CuttingListToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
+        Me.CuttingListToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.CuttingListToolStripMenuItem.Text = "cutting list"
         '
         'ReallocateToolStripMenuItem
         '
         Me.ReallocateToolStripMenuItem.Name = "ReallocateToolStripMenuItem"
-        Me.ReallocateToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
+        Me.ReallocateToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ReallocateToolStripMenuItem.Text = "reallocate"
         '
         'Timer1
@@ -581,7 +589,7 @@ Partial Class Form2
         'KryptonGroup7
         '
         Me.KryptonGroup7.GroupBorderStyle = ComponentFactory.Krypton.Toolkit.PaletteBorderStyle.TabOneNote
-        Me.KryptonGroup7.Location = New System.Drawing.Point(3, 351)
+        Me.KryptonGroup7.Location = New System.Drawing.Point(3, 349)
         Me.KryptonGroup7.Name = "KryptonGroup7"
         '
         'KryptonGroup7.Panel
@@ -1198,11 +1206,17 @@ Partial Class Form2
         Me.KryptonGroup2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.KryptonGroup2.GroupBorderStyle = ComponentFactory.Krypton.Toolkit.PaletteBorderStyle.TabOneNote
-        Me.KryptonGroup2.Location = New System.Drawing.Point(7, 3)
+        Me.KryptonGroup2.Location = New System.Drawing.Point(7, 4)
         Me.KryptonGroup2.Name = "KryptonGroup2"
         '
         'KryptonGroup2.Panel
         '
+        Me.KryptonGroup2.Panel.Controls.Add(Me.netamount)
+        Me.KryptonGroup2.Panel.Controls.Add(Me.KryptonLabel65)
+        Me.KryptonGroup2.Panel.Controls.Add(Me.xrate)
+        Me.KryptonGroup2.Panel.Controls.Add(Me.unitprice)
+        Me.KryptonGroup2.Panel.Controls.Add(Me.KryptonLabel63)
+        Me.KryptonGroup2.Panel.Controls.Add(Me.KryptonLabel64)
         Me.KryptonGroup2.Panel.Controls.Add(Me.KryptonCheckBox1)
         Me.KryptonGroup2.Panel.Controls.Add(Me.KryptonButton24)
         Me.KryptonGroup2.Panel.Controls.Add(Me.KryptonLabel20)
@@ -1222,9 +1236,75 @@ Partial Class Form2
         Me.KryptonGroup2.Panel.Controls.Add(Me.transarticleno)
         Me.KryptonGroup2.Panel.Controls.Add(Me.transtypecolor)
         Me.KryptonGroup2.Panel.Controls.Add(Me.transcosthead)
-        Me.KryptonGroup2.Size = New System.Drawing.Size(236, 376)
+        Me.KryptonGroup2.Size = New System.Drawing.Size(236, 398)
         Me.KryptonGroup2.StateCommon.Back.Color1 = System.Drawing.SystemColors.Control
         Me.KryptonGroup2.TabIndex = 6
+        '
+        'netamount
+        '
+        Me.netamount.Location = New System.Drawing.Point(88, 357)
+        Me.netamount.Multiline = True
+        Me.netamount.Name = "netamount"
+        Me.netamount.Size = New System.Drawing.Size(78, 23)
+        Me.netamount.StateDisabled.Content.Color1 = System.Drawing.Color.Black
+        Me.netamount.TabIndex = 48
+        Me.netamount.Text = "0"
+        Me.netamount.Visible = False
+        '
+        'KryptonLabel65
+        '
+        Me.KryptonLabel65.Location = New System.Drawing.Point(6, 357)
+        Me.KryptonLabel65.Name = "KryptonLabel65"
+        Me.KryptonLabel65.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonLabel65.Size = New System.Drawing.Size(81, 19)
+        Me.KryptonLabel65.StateCommon.ShortText.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonLabel65.TabIndex = 47
+        Me.KryptonLabel65.Values.Text = "Net Amount"
+        Me.KryptonLabel65.Visible = False
+        '
+        'xrate
+        '
+        Me.xrate.Location = New System.Drawing.Point(88, 328)
+        Me.xrate.Multiline = True
+        Me.xrate.Name = "xrate"
+        Me.xrate.Size = New System.Drawing.Size(78, 23)
+        Me.xrate.StateDisabled.Content.Color1 = System.Drawing.Color.Black
+        Me.xrate.TabIndex = 46
+        Me.xrate.Text = "0"
+        Me.xrate.Visible = False
+        '
+        'unitprice
+        '
+        Me.unitprice.Location = New System.Drawing.Point(88, 300)
+        Me.unitprice.Multiline = True
+        Me.unitprice.Name = "unitprice"
+        Me.unitprice.Size = New System.Drawing.Size(78, 23)
+        Me.unitprice.StateDisabled.Content.Color1 = System.Drawing.Color.Black
+        Me.unitprice.TabIndex = 45
+        Me.unitprice.Text = "0"
+        Me.unitprice.Visible = False
+        '
+        'KryptonLabel63
+        '
+        Me.KryptonLabel63.Location = New System.Drawing.Point(6, 328)
+        Me.KryptonLabel63.Name = "KryptonLabel63"
+        Me.KryptonLabel63.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonLabel63.Size = New System.Drawing.Size(52, 19)
+        Me.KryptonLabel63.StateCommon.ShortText.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonLabel63.TabIndex = 44
+        Me.KryptonLabel63.Values.Text = "X-Rate"
+        Me.KryptonLabel63.Visible = False
+        '
+        'KryptonLabel64
+        '
+        Me.KryptonLabel64.Location = New System.Drawing.Point(6, 300)
+        Me.KryptonLabel64.Name = "KryptonLabel64"
+        Me.KryptonLabel64.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonLabel64.Size = New System.Drawing.Size(69, 19)
+        Me.KryptonLabel64.StateCommon.ShortText.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonLabel64.TabIndex = 43
+        Me.KryptonLabel64.Values.Text = "Unit Price"
+        Me.KryptonLabel64.Visible = False
         '
         'KryptonCheckBox1
         '
@@ -1240,7 +1320,7 @@ Partial Class Form2
         '
         'KryptonButton24
         '
-        Me.KryptonButton24.Location = New System.Drawing.Point(173, 4)
+        Me.KryptonButton24.Location = New System.Drawing.Point(173, 11)
         Me.KryptonButton24.Name = "KryptonButton24"
         Me.KryptonButton24.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
         Me.KryptonButton24.Size = New System.Drawing.Size(58, 23)
@@ -1253,7 +1333,7 @@ Partial Class Form2
         '
         'KryptonLabel20
         '
-        Me.KryptonLabel20.Location = New System.Drawing.Point(9, 4)
+        Me.KryptonLabel20.Location = New System.Drawing.Point(9, 11)
         Me.KryptonLabel20.Name = "KryptonLabel20"
         Me.KryptonLabel20.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel20.Size = New System.Drawing.Size(69, 19)
@@ -1264,7 +1344,7 @@ Partial Class Form2
         'transstockno
         '
         Me.transstockno.Enabled = False
-        Me.transstockno.Location = New System.Drawing.Point(85, 4)
+        Me.transstockno.Location = New System.Drawing.Point(85, 11)
         Me.transstockno.Multiline = True
         Me.transstockno.Name = "transstockno"
         Me.transstockno.Size = New System.Drawing.Size(82, 23)
@@ -1273,7 +1353,7 @@ Partial Class Form2
         '
         'transunit
         '
-        Me.transunit.Location = New System.Drawing.Point(175, 303)
+        Me.transunit.Location = New System.Drawing.Point(175, 271)
         Me.transunit.Name = "transunit"
         Me.transunit.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.transunit.Size = New System.Drawing.Size(35, 19)
@@ -1284,7 +1364,7 @@ Partial Class Form2
         'transfree
         '
         Me.transfree.Enabled = False
-        Me.transfree.Location = New System.Drawing.Point(88, 264)
+        Me.transfree.Location = New System.Drawing.Point(88, 242)
         Me.transfree.Multiline = True
         Me.transfree.Name = "transfree"
         Me.transfree.Size = New System.Drawing.Size(78, 23)
@@ -1295,7 +1375,7 @@ Partial Class Form2
         'transphysical
         '
         Me.transphysical.Enabled = False
-        Me.transphysical.Location = New System.Drawing.Point(88, 225)
+        Me.transphysical.Location = New System.Drawing.Point(88, 213)
         Me.transphysical.Multiline = True
         Me.transphysical.Name = "transphysical"
         Me.transphysical.Size = New System.Drawing.Size(78, 23)
@@ -1305,7 +1385,7 @@ Partial Class Form2
         '
         'KryptonLabel15
         '
-        Me.KryptonLabel15.Location = New System.Drawing.Point(6, 264)
+        Me.KryptonLabel15.Location = New System.Drawing.Point(6, 242)
         Me.KryptonLabel15.Name = "KryptonLabel15"
         Me.KryptonLabel15.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel15.Size = New System.Drawing.Size(38, 19)
@@ -1315,7 +1395,7 @@ Partial Class Form2
         '
         'KryptonLabel14
         '
-        Me.KryptonLabel14.Location = New System.Drawing.Point(6, 225)
+        Me.KryptonLabel14.Location = New System.Drawing.Point(6, 213)
         Me.KryptonLabel14.Name = "KryptonLabel14"
         Me.KryptonLabel14.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel14.Size = New System.Drawing.Size(61, 19)
@@ -1325,7 +1405,7 @@ Partial Class Form2
         '
         'KryptonButton4
         '
-        Me.KryptonButton4.Location = New System.Drawing.Point(29, 334)
+        Me.KryptonButton4.Location = New System.Drawing.Point(29, 386)
         Me.KryptonButton4.Name = "KryptonButton4"
         Me.KryptonButton4.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
         Me.KryptonButton4.Size = New System.Drawing.Size(181, 23)
@@ -1338,7 +1418,7 @@ Partial Class Form2
         '
         'transqty
         '
-        Me.transqty.Location = New System.Drawing.Point(88, 303)
+        Me.transqty.Location = New System.Drawing.Point(88, 271)
         Me.transqty.Multiline = True
         Me.transqty.Name = "transqty"
         Me.transqty.Size = New System.Drawing.Size(78, 23)
@@ -1348,7 +1428,7 @@ Partial Class Form2
         '
         'KryptonLabel13
         '
-        Me.KryptonLabel13.Location = New System.Drawing.Point(6, 303)
+        Me.KryptonLabel13.Location = New System.Drawing.Point(6, 271)
         Me.KryptonLabel13.Name = "KryptonLabel13"
         Me.KryptonLabel13.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel13.Size = New System.Drawing.Size(61, 19)
@@ -3529,6 +3609,15 @@ Partial Class Form2
         Me.EditAddressToolStripMenuItem.Size = New System.Drawing.Size(181, 22)
         Me.EditAddressToolStripMenuItem.Text = "edit address"
         '
+        'Timer2
+        '
+        '
+        'ChangeXrateToolStripMenuItem
+        '
+        Me.ChangeXrateToolStripMenuItem.Name = "ChangeXrateToolStripMenuItem"
+        Me.ChangeXrateToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ChangeXrateToolStripMenuItem.Text = "change x-rate"
+        '
         'Form2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -3911,4 +4000,12 @@ Partial Class Form2
     Friend WithEvents plusmonths As NumericUpDown
     Friend WithEvents ReallocateToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EditAddressToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents netamount As ComponentFactory.Krypton.Toolkit.KryptonTextBox
+    Friend WithEvents KryptonLabel65 As ComponentFactory.Krypton.Toolkit.KryptonLabel
+    Friend WithEvents xrate As ComponentFactory.Krypton.Toolkit.KryptonTextBox
+    Friend WithEvents unitprice As ComponentFactory.Krypton.Toolkit.KryptonTextBox
+    Friend WithEvents KryptonLabel63 As ComponentFactory.Krypton.Toolkit.KryptonLabel
+    Friend WithEvents KryptonLabel64 As ComponentFactory.Krypton.Toolkit.KryptonLabel
+    Friend WithEvents Timer2 As Timer
+    Friend WithEvents ChangeXrateToolStripMenuItem As ToolStripMenuItem
 End Class

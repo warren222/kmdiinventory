@@ -13,6 +13,7 @@ Public Class editaddress
         End If
         upaddress()
         Form2.KryptonButton12.PerformClick()
+        Me.Close()
     End Sub
     Public Sub upaddress()
         Try

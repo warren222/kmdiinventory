@@ -12,6 +12,7 @@ Public Class Form6
                 update(str)
             Next
             sql.loadtransactions(Form2.toprows.Text)
+            Button1.PerformClick()
         ElseIf KryptonLabel1.Text = "Edit Due date" Then
             For i As Integer = 0 To transno.Items.Count - 1
                 Dim trno As String = transno.Items(i)
@@ -19,6 +20,7 @@ Public Class Form6
                 update(str)
             Next
             sql.loadtransactions(Form2.toprows.Text)
+            Button1.PerformClick()
         Else
         End If
     End Sub

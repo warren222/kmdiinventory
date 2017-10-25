@@ -12,7 +12,7 @@
               <Width>0.65625in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.76388in</Width>
+              <Width>1.57638in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.48958in</Width>
@@ -42,7 +42,7 @@
               <Width>0.63542in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.42707in</Width>
+              <Width>0.61457in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -454,7 +454,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Weight</Value>
+                              <Value>Weight (kg)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -1057,7 +1057,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!WEIGHT.Value</Value>
+                              <Value>=iif((Fields!FINALNEEDTOORDER.Value*Fields!UFACTOR.Value)&gt;0,FORMAT((Fields!WEIGHT.Value)*(Fields!FINALNEEDTOORDER.Value*Fields!UFACTOR.Value),"N2"),"0.00")</Value>
                               <Style>
                                 <FontSize>6pt</FontSize>
                               </Style>
@@ -1157,8 +1157,76 @@
           </Border>
         </Style>
       </Tablix>
+      <Textbox Name="Textbox11">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>TOTAL WEIGHT :</Value>
+                <Style>
+                  <FontSize>7pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox11</rd:DefaultName>
+        <Top>1.06264in</Top>
+        <Left>6.20138in</Left>
+        <Height>0.18056in</Height>
+        <Width>0.88416in</Width>
+        <ZIndex>1</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox12">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=FORMAT(Fields!TOTALWEIGHT.Value,"N2")+"kg"</Value>
+                <Style>
+                  <FontSize>7pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox11</rd:DefaultName>
+        <Top>1.06264in</Top>
+        <Left>7.09943in</Left>
+        <Height>0.18056in</Height>
+        <Width>0.90057in</Width>
+        <ZIndex>2</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>1.02083in</Height>
+    <Height>1.2432in</Height>
     <Style />
   </Body>
   <Width>8in</Width>
@@ -1474,6 +1542,10 @@
         </Field>
         <Field Name="WEIGHT">
           <DataField>WEIGHT</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TOTALWEIGHT">
+          <DataField>TOTALWEIGHT</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
       </Fields>

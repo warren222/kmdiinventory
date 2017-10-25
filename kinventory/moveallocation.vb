@@ -495,6 +495,7 @@ update trans_tb set qty = 0,xyzref='canceled' where stockno = '" & stockno & "' 
             updatereference(newstockno.Text, reference.Text)
             autoupdatestock(newstockno.Text)
             Form2.KryptonButton12.PerformClick()
+            Button1.PerformClick()
         End If
     End Sub
     Public Sub morder()
@@ -520,6 +521,7 @@ update trans_tb set qty = 0,xyzref='canceled' where stockno = '" & stockno & "' 
             updatereference(newstockno.Text, reference.Text)
             autoupdatestock(newstockno.Text)
             Form2.KryptonButton12.PerformClick()
+            Button1.PerformClick()
         End If
     End Sub
     Private Sub Panel1_MouseDown(sender As Object, e As MouseEventArgs) Handles Panel1.MouseDown

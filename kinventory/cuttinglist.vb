@@ -135,6 +135,7 @@ Public Class cuttinglist
             sqlcmd = New SqlCommand(str, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()
             MessageBox.Show("Remarks Updated", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -145,6 +146,7 @@ Public Class cuttinglist
         Form2.KryptonButton11.PerformClick()
         Form2.transgridview.FirstDisplayedScrollingRowIndex = x
         Form2.transgridview.FirstDisplayedScrollingColumnIndex = y
+        Button1.PerformClick()
     End Sub
 
     Private Sub transtype_TextChanged(sender As Object, e As EventArgs) Handles transtype.TextChanged

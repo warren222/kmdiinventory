@@ -64,6 +64,7 @@ Public Class editreference
             updatereference(stockno.Text, reference.Text)
             autoupdatestock(stockno.Text)
             Form2.KryptonButton12.PerformClick()
+            Button1.PerformClick()
         End If
 
     End Sub
@@ -309,6 +310,7 @@ insert into trans_tb
             updatereference(stockno.Text, reference.Text)
             autoupdatestock(stockno.Text)
             Form2.KryptonButton12.PerformClick()
+            Button1.PerformClick()
         End If
     End Sub
     Public Sub cancelorder(ByVal stockno As String, ByVal reference As String)
