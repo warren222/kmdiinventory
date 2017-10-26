@@ -2820,16 +2820,25 @@ UPDATE stocks_tb set balalloc = @totalbalqty where stockno = '" & stockno & "'
     End Sub
 
     Private Sub KryptonButton27_Click(sender As Object, e As EventArgs) Handles KryptonButton27.Click
-        net.Text = 0
+        KryptonButton26.PerformClick()
+        KryptonButton15.PerformClick()
+        stocksgridview.SelectAll()
+        ProgressBar2.Visible = True
+        ProgressBar2.Maximum = stocksStocksno.Items.Count
+        ProgressBar2.Value = 0
         For i As Integer = 0 To stocksStocksno.Items.Count - 1
+            net.Text = 0
             Dim stockno As String = stocksStocksno.Items(i).ToString
             getreceipttrans(stockno)
+            ProgressBar2.Value += 1
         Next
     End Sub
     Public Sub getreceipttrans(ByVal stockno As String)
         Try
             sql.sqlcon.Open()
-            Dim getphysical As String = "select physical from stocks_tb where stockno='" & stockno & "'"
+            Dim getphysical As String = "
+update stocks_tb set netamount = 0 where stockno='" & stockno & "'
+select physical2 from stocks_tb where stockno='" & stockno & "'"
             sqlcmd = New SqlCommand(getphysical, sql.sqlcon)
             Dim read As SqlDataReader = sqlcmd.ExecuteReader
             While read.Read
@@ -2879,12 +2888,11 @@ UPDATE stocks_tb set balalloc = @totalbalqty where stockno = '" & stockno & "'
                 net.Text = mynet + netamount
 
                 Dim str1 As String = "update stocks_tb set netamount = '" & net.Text & "' where stockno = '" & stockno & "'"
-                    sqlcmd = New SqlCommand(str1, sql.sqlcon)
-                    sqlcmd.ExecuteNonQuery()
-
+                sqlcmd = New SqlCommand(str1, sql.sqlcon)
+                sqlcmd.ExecuteNonQuery()
             Else
                 'get unit*rate*balqty then add to net
-                Dim CONPO As Double = result * -1
+                Dim CONPO As Double = mybal
                 Dim latqty As Double
                 Dim str As String = "select (UNITPRICE*XRATE)*" & CONPO & " FROM TRANS_TB WHERE TRANSNO = '" & tno & "'"
                 sqlcmd = New SqlCommand(str, sql.sqlcon)
@@ -2900,11 +2908,9 @@ UPDATE stocks_tb set balalloc = @totalbalqty where stockno = '" & stockno & "'
                 sqlcmd.ExecuteNonQuery()
             End If
 
-
             balphysical.Text = result
 
 
-            MsgBox(result)
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
@@ -2913,6 +2919,7 @@ UPDATE stocks_tb set balalloc = @totalbalqty where stockno = '" & stockno & "'
         Try
             Dim da As New SqlDataAdapter
             Dim ds As New DataSet
+            Dim bs As New BindingSource
             ds.Clear()
             Dim str As String = "select a.TRANSNO,
 a.STOCKNO,
@@ -2934,13 +2941,13 @@ a.XRATE,
 A.NETAMOUNT,
 A.INPUTTED
  from trans_tb as a inner join stocks_tb as b
-on a.stockno = b.stockno where A.STOCKNO='" & STOCKNO & "' and a.TRANSTYPE='Receipt' order by a.transdate ASC"
+on a.stockno = b.stockno where A.STOCKNO='" & STOCKNO & "' and a.TRANSTYPE='Receipt' and a.transdate <= '" & transdate.Text & "' order by a.transdate ASC"
             sqlcmd = New SqlCommand(str, sql.sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "trans_tb")
-            transBindingSource.DataSource = ds
-            transBindingSource.DataMember = "trans_tb"
-            transgridview.DataSource = transBindingSource
+            bs.DataSource = ds
+            bs.DataMember = "trans_tb"
+            transgridview.DataSource = bs
             transgridview.Columns("DESCRIPTION").Visible = False
             transgridview.Columns("xyz").Visible = False
 
@@ -2950,5 +2957,6 @@ on a.stockno = b.stockno where A.STOCKNO='" & STOCKNO & "' and a.TRANSTYPE='Rece
             MsgBox(ex.ToString)
         End Try
     End Sub
+
 
 End Class
