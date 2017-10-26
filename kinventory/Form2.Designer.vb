@@ -24,17 +24,17 @@ Partial Class Form2
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form2))
-        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.transactionmenustrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.TransDateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -197,8 +197,10 @@ Partial Class Form2
         Me.KryptonLabel38 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.transtransaction = New System.Windows.Forms.ComboBox()
         Me.KryptonLabel42 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
-        Me.KryptonLabel56 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.transgridview = New ComponentFactory.Krypton.Toolkit.KryptonDataGridView()
+        Me.transqtycombo = New System.Windows.Forms.ComboBox()
+        Me.transnocombo = New System.Windows.Forms.ComboBox()
+        Me.KryptonLabel56 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonButton22 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.noofresults = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonButton21 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
@@ -252,6 +254,10 @@ Partial Class Form2
         Me.mydummycombobox = New System.Windows.Forms.ComboBox()
         Me.mydummyDataGridView1 = New ComponentFactory.Krypton.Toolkit.KryptonDataGridView()
         Me.KryptonButton26 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
+        Me.net = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
+        Me.balphysical = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
+        Me.myphysical = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
+        Me.KryptonButton27 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.ProgressBar2 = New System.Windows.Forms.ProgressBar()
         Me.KryptonButton20 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.KryptonButton17 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
@@ -276,12 +282,6 @@ Partial Class Form2
         Me.transBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.referencebs = New System.Windows.Forms.BindingSource(Me.components)
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
-        Me.KryptonButton27 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
-        Me.myphysical = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
-        Me.transnocombo = New System.Windows.Forms.ComboBox()
-        Me.balphysical = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
-        Me.net = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
-        Me.transqtycombo = New System.Windows.Forms.ComboBox()
         Me.transactionmenustrip.SuspendLayout()
         CType(Me.KryptonSplitContainer6, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonSplitContainer6.Panel1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -552,8 +552,8 @@ Partial Class Form2
         Me.stocksgridview.AllowUserToAddRows = False
         Me.stocksgridview.AllowUserToDeleteRows = False
         Me.stocksgridview.AllowUserToOrderColumns = True
-        DataGridViewCellStyle23.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.stocksgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle23
+        DataGridViewCellStyle13.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.stocksgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
         Me.stocksgridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.stocksgridview.ColumnHeadersHeight = 30
         Me.stocksgridview.Cursor = System.Windows.Forms.Cursors.Hand
@@ -1053,8 +1053,8 @@ Partial Class Form2
         Me.inputGridView.AllowUserToAddRows = False
         Me.inputGridView.AllowUserToDeleteRows = False
         Me.inputGridView.AllowUserToOrderColumns = True
-        DataGridViewCellStyle24.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.inputGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle24
+        DataGridViewCellStyle14.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.inputGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle14
         Me.inputGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.inputGridView.ColumnHeadersHeight = 20
         Me.inputGridView.Cursor = System.Windows.Forms.Cursors.Hand
@@ -1112,8 +1112,8 @@ Partial Class Form2
         Me.inputDataGridView1.AllowUserToAddRows = False
         Me.inputDataGridView1.AllowUserToDeleteRows = False
         Me.inputDataGridView1.AllowUserToOrderColumns = True
-        DataGridViewCellStyle25.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.inputDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle25
+        DataGridViewCellStyle15.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.inputDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle15
         Me.inputDataGridView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -1553,8 +1553,8 @@ Partial Class Form2
         Me.receiptDataGridView1.AllowUserToAddRows = False
         Me.receiptDataGridView1.AllowUserToDeleteRows = False
         Me.receiptDataGridView1.AllowUserToOrderColumns = True
-        DataGridViewCellStyle26.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.receiptDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle26
+        DataGridViewCellStyle16.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.receiptDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle16
         Me.receiptDataGridView1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.receiptDataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
@@ -1827,8 +1827,8 @@ Partial Class Form2
         Me.receiptGridView.AllowUserToAddRows = False
         Me.receiptGridView.AllowUserToDeleteRows = False
         Me.receiptGridView.AllowUserToOrderColumns = True
-        DataGridViewCellStyle27.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.receiptGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle27
+        DataGridViewCellStyle17.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.receiptGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle17
         Me.receiptGridView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -1885,8 +1885,8 @@ Partial Class Form2
         Me.issueDataGridView.AllowUserToAddRows = False
         Me.issueDataGridView.AllowUserToDeleteRows = False
         Me.issueDataGridView.AllowUserToOrderColumns = True
-        DataGridViewCellStyle28.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.issueDataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle28
+        DataGridViewCellStyle18.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.issueDataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle18
         Me.issueDataGridView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -1925,8 +1925,8 @@ Partial Class Form2
         Me.issueDataGridView1.AllowUserToAddRows = False
         Me.issueDataGridView1.AllowUserToDeleteRows = False
         Me.issueDataGridView1.AllowUserToOrderColumns = True
-        DataGridViewCellStyle29.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.issueDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle29
+        DataGridViewCellStyle19.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.issueDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle19
         Me.issueDataGridView1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.issueDataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
@@ -2350,8 +2350,8 @@ Partial Class Form2
         Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToAddRows = False
         Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToDeleteRows = False
         Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToOrderColumns = True
-        DataGridViewCellStyle30.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.LISTOFALLOCATIONGRIDVIEW.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle30
+        DataGridViewCellStyle20.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.LISTOFALLOCATIONGRIDVIEW.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle20
         Me.LISTOFALLOCATIONGRIDVIEW.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -2413,7 +2413,6 @@ Partial Class Form2
         '
         'KryptonSplitContainer5.Panel2
         '
-        Me.KryptonSplitContainer5.Panel2.Controls.Add(Me.transgridview)
         Me.KryptonSplitContainer5.Panel2.Controls.Add(Me.transqtycombo)
         Me.KryptonSplitContainer5.Panel2.Controls.Add(Me.transnocombo)
         Me.KryptonSplitContainer5.Panel2.Controls.Add(Me.KryptonLabel56)
@@ -2421,6 +2420,7 @@ Partial Class Form2
         Me.KryptonSplitContainer5.Panel2.Controls.Add(Me.noofresults)
         Me.KryptonSplitContainer5.Panel2.Controls.Add(Me.KryptonButton21)
         Me.KryptonSplitContainer5.Panel2.Controls.Add(Me.toprows)
+        Me.KryptonSplitContainer5.Panel2.Controls.Add(Me.transgridview)
         Me.KryptonSplitContainer5.Panel2.StateCommon.Color1 = System.Drawing.Color.White
         Me.KryptonSplitContainer5.Size = New System.Drawing.Size(1139, 383)
         Me.KryptonSplitContainer5.SplitterDistance = 235
@@ -2628,23 +2628,13 @@ Partial Class Form2
         Me.KryptonLabel42.TabIndex = 453
         Me.KryptonLabel42.Values.Text = "Date"
         '
-        'KryptonLabel56
-        '
-        Me.KryptonLabel56.Location = New System.Drawing.Point(3, 5)
-        Me.KryptonLabel56.Name = "KryptonLabel56"
-        Me.KryptonLabel56.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
-        Me.KryptonLabel56.Size = New System.Drawing.Size(71, 19)
-        Me.KryptonLabel56.StateCommon.ShortText.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.KryptonLabel56.TabIndex = 465
-        Me.KryptonLabel56.Values.Text = "Top Rows"
-        '
         'transgridview
         '
         Me.transgridview.AllowUserToAddRows = False
         Me.transgridview.AllowUserToDeleteRows = False
         Me.transgridview.AllowUserToOrderColumns = True
-        DataGridViewCellStyle31.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.transgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle31
+        DataGridViewCellStyle12.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.transgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle12
         Me.transgridview.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -2676,6 +2666,42 @@ Partial Class Form2
         Me.transgridview.StateCommon.HeaderColumn.Content.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
         Me.transgridview.StateCommon.HeaderColumn.Content.Hint = ComponentFactory.Krypton.Toolkit.PaletteTextHint.AntiAlias
         Me.transgridview.TabIndex = 1
+        '
+        'transqtycombo
+        '
+        Me.transqtycombo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.transqtycombo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.transqtycombo.DropDownHeight = 206
+        Me.transqtycombo.FormattingEnabled = True
+        Me.transqtycombo.IntegralHeight = False
+        Me.transqtycombo.Items.AddRange(New Object() {"Allocation", "Issue", "Order", "Receipt", "Return", "Supply", "Spare", "+Adjustment", "-Adjustment", "CancelAlloc"})
+        Me.transqtycombo.Location = New System.Drawing.Point(40, 152)
+        Me.transqtycombo.Name = "transqtycombo"
+        Me.transqtycombo.Size = New System.Drawing.Size(195, 24)
+        Me.transqtycombo.TabIndex = 468
+        '
+        'transnocombo
+        '
+        Me.transnocombo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.transnocombo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.transnocombo.DropDownHeight = 206
+        Me.transnocombo.FormattingEnabled = True
+        Me.transnocombo.IntegralHeight = False
+        Me.transnocombo.Items.AddRange(New Object() {"Allocation", "Issue", "Order", "Receipt", "Return", "Supply", "Spare", "+Adjustment", "-Adjustment", "CancelAlloc"})
+        Me.transnocombo.Location = New System.Drawing.Point(40, 122)
+        Me.transnocombo.Name = "transnocombo"
+        Me.transnocombo.Size = New System.Drawing.Size(195, 24)
+        Me.transnocombo.TabIndex = 467
+        '
+        'KryptonLabel56
+        '
+        Me.KryptonLabel56.Location = New System.Drawing.Point(3, 5)
+        Me.KryptonLabel56.Name = "KryptonLabel56"
+        Me.KryptonLabel56.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonLabel56.Size = New System.Drawing.Size(71, 19)
+        Me.KryptonLabel56.StateCommon.ShortText.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonLabel56.TabIndex = 465
+        Me.KryptonLabel56.Values.Text = "Top Rows"
         '
         'KryptonButton22
         '
@@ -2921,8 +2947,8 @@ Partial Class Form2
         Me.referenceDataGridView.AllowUserToAddRows = False
         Me.referenceDataGridView.AllowUserToDeleteRows = False
         Me.referenceDataGridView.AllowUserToOrderColumns = True
-        DataGridViewCellStyle32.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.referenceDataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle32
+        DataGridViewCellStyle21.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.referenceDataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle21
         Me.referenceDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.referenceDataGridView.ColumnHeadersHeight = 30
         Me.referenceDataGridView.Cursor = System.Windows.Forms.Cursors.Hand
@@ -3349,8 +3375,8 @@ Partial Class Form2
         Me.mydummyDataGridView1.AllowUserToAddRows = False
         Me.mydummyDataGridView1.AllowUserToDeleteRows = False
         Me.mydummyDataGridView1.AllowUserToOrderColumns = True
-        DataGridViewCellStyle33.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.mydummyDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle33
+        DataGridViewCellStyle22.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.mydummyDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle22
         Me.mydummyDataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.mydummyDataGridView1.ColumnHeadersHeight = 20
         Me.mydummyDataGridView1.Cursor = System.Windows.Forms.Cursors.Hand
@@ -3394,6 +3420,50 @@ Partial Class Form2
         Me.KryptonButton26.StateCommon.Content.ShortText.Font = New System.Drawing.Font("Microsoft JhengHei", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.KryptonButton26.TabIndex = 456
         Me.KryptonButton26.Values.Text = "Data - Date"
+        '
+        'net
+        '
+        Me.net.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.net.Location = New System.Drawing.Point(601, 30)
+        Me.net.Multiline = True
+        Me.net.Name = "net"
+        Me.net.Size = New System.Drawing.Size(83, 23)
+        Me.net.TabIndex = 459
+        Me.net.Text = "0"
+        '
+        'balphysical
+        '
+        Me.balphysical.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.balphysical.Location = New System.Drawing.Point(512, 30)
+        Me.balphysical.Multiline = True
+        Me.balphysical.Name = "balphysical"
+        Me.balphysical.Size = New System.Drawing.Size(83, 23)
+        Me.balphysical.TabIndex = 458
+        '
+        'myphysical
+        '
+        Me.myphysical.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.myphysical.Location = New System.Drawing.Point(423, 30)
+        Me.myphysical.Multiline = True
+        Me.myphysical.Name = "myphysical"
+        Me.myphysical.Size = New System.Drawing.Size(83, 23)
+        Me.myphysical.TabIndex = 457
+        '
+        'KryptonButton27
+        '
+        Me.KryptonButton27.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.KryptonButton27.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.KryptonButton27.Location = New System.Drawing.Point(855, 30)
+        Me.KryptonButton27.Name = "KryptonButton27"
+        Me.KryptonButton27.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
+        Me.KryptonButton27.Size = New System.Drawing.Size(66, 28)
+        Me.KryptonButton27.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.KryptonButton27.StateCommon.Border.Rounding = 0
+        Me.KryptonButton27.StateCommon.Content.ShortText.Font = New System.Drawing.Font("Microsoft JhengHei", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonButton27.TabIndex = 456
+        Me.KryptonButton27.Values.Text = "amount"
         '
         'ProgressBar2
         '
@@ -3629,76 +3699,6 @@ Partial Class Form2
         '
         'Timer2
         '
-        '
-        'KryptonButton27
-        '
-        Me.KryptonButton27.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.KryptonButton27.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.KryptonButton27.Location = New System.Drawing.Point(855, 30)
-        Me.KryptonButton27.Name = "KryptonButton27"
-        Me.KryptonButton27.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
-        Me.KryptonButton27.Size = New System.Drawing.Size(66, 28)
-        Me.KryptonButton27.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
-            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
-            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
-        Me.KryptonButton27.StateCommon.Border.Rounding = 0
-        Me.KryptonButton27.StateCommon.Content.ShortText.Font = New System.Drawing.Font("Microsoft JhengHei", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.KryptonButton27.TabIndex = 456
-        Me.KryptonButton27.Values.Text = "Update Data"
-        '
-        'myphysical
-        '
-        Me.myphysical.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.myphysical.Location = New System.Drawing.Point(423, 30)
-        Me.myphysical.Multiline = True
-        Me.myphysical.Name = "myphysical"
-        Me.myphysical.Size = New System.Drawing.Size(83, 23)
-        Me.myphysical.TabIndex = 457
-        '
-        'transnocombo
-        '
-        Me.transnocombo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.transnocombo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.transnocombo.DropDownHeight = 206
-        Me.transnocombo.FormattingEnabled = True
-        Me.transnocombo.IntegralHeight = False
-        Me.transnocombo.Items.AddRange(New Object() {"Allocation", "Issue", "Order", "Receipt", "Return", "Supply", "Spare", "+Adjustment", "-Adjustment", "CancelAlloc"})
-        Me.transnocombo.Location = New System.Drawing.Point(40, 122)
-        Me.transnocombo.Name = "transnocombo"
-        Me.transnocombo.Size = New System.Drawing.Size(195, 24)
-        Me.transnocombo.TabIndex = 467
-        '
-        'balphysical
-        '
-        Me.balphysical.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.balphysical.Location = New System.Drawing.Point(512, 30)
-        Me.balphysical.Multiline = True
-        Me.balphysical.Name = "balphysical"
-        Me.balphysical.Size = New System.Drawing.Size(83, 23)
-        Me.balphysical.TabIndex = 458
-        '
-        'net
-        '
-        Me.net.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.net.Location = New System.Drawing.Point(601, 30)
-        Me.net.Multiline = True
-        Me.net.Name = "net"
-        Me.net.Size = New System.Drawing.Size(83, 23)
-        Me.net.TabIndex = 459
-        Me.net.Text = "0"
-        '
-        'transqtycombo
-        '
-        Me.transqtycombo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.transqtycombo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.transqtycombo.DropDownHeight = 206
-        Me.transqtycombo.FormattingEnabled = True
-        Me.transqtycombo.IntegralHeight = False
-        Me.transqtycombo.Items.AddRange(New Object() {"Allocation", "Issue", "Order", "Receipt", "Return", "Supply", "Spare", "+Adjustment", "-Adjustment", "CancelAlloc"})
-        Me.transqtycombo.Location = New System.Drawing.Point(40, 152)
-        Me.transqtycombo.Name = "transqtycombo"
-        Me.transqtycombo.Size = New System.Drawing.Size(195, 24)
-        Me.transqtycombo.TabIndex = 468
         '
         'Form2
         '
