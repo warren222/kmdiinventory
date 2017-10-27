@@ -788,6 +788,8 @@ Partial Public Class inventoryds
         
         Private columnTOTALWEIGHT As Global.System.Data.DataColumn
         
+        Private columnNETAMOUNT As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
@@ -1072,6 +1074,14 @@ Partial Public Class inventoryds
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property NETAMOUNTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnNETAMOUNT
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -1116,7 +1126,7 @@ Partial Public Class inventoryds
                     ByVal TYPECOLOR As String,  _
                     ByVal MONETARY As String,  _
                     ByVal ARTICLENO As String,  _
-                    ByVal UNITPRICE As String,  _
+                    ByVal UNITPRICE As Decimal,  _
                     ByVal DESCRIPTION As String,  _
                     ByVal QTY As Decimal,  _
                     ByVal UNIT As String,  _
@@ -1139,9 +1149,10 @@ Partial Public Class inventoryds
                     ByVal PHYSICAL2 As Decimal,  _
                     ByVal BALALLOC As Decimal,  _
                     ByVal WEIGHT As Decimal,  _
-                    ByVal TOTALWEIGHT As Decimal) As STOCKS_TBRow
+                    ByVal TOTALWEIGHT As Decimal,  _
+                    ByVal NETAMOUNT As Decimal) As STOCKS_TBRow
             Dim rowSTOCKS_TBRow As STOCKS_TBRow = CType(Me.NewRow,STOCKS_TBRow)
-            Dim columnValuesArray() As Object = New Object() {STOCKNO, SUPPLIER, COSTHEAD, UFACTOR, TYPECOLOR, MONETARY, ARTICLENO, UNITPRICE, DESCRIPTION, QTY, UNIT, LOCATION, HEADER, PHYSICAL, ALLOCATION, FREE, STOCKORDER, MINIMUM, ISSUE, AVEUSAGE, STATUS, PHASEDOUT, COLORBASED, CONSUMPTION, NEEDTOORDER, FINALNEEDTOORDER, TOORDER, PHYSICAL2, BALALLOC, WEIGHT, TOTALWEIGHT}
+            Dim columnValuesArray() As Object = New Object() {STOCKNO, SUPPLIER, COSTHEAD, UFACTOR, TYPECOLOR, MONETARY, ARTICLENO, UNITPRICE, DESCRIPTION, QTY, UNIT, LOCATION, HEADER, PHYSICAL, ALLOCATION, FREE, STOCKORDER, MINIMUM, ISSUE, AVEUSAGE, STATUS, PHASEDOUT, COLORBASED, CONSUMPTION, NEEDTOORDER, FINALNEEDTOORDER, TOORDER, PHYSICAL2, BALALLOC, WEIGHT, TOTALWEIGHT, NETAMOUNT}
             rowSTOCKS_TBRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowSTOCKS_TBRow)
             Return rowSTOCKS_TBRow
@@ -1195,6 +1206,7 @@ Partial Public Class inventoryds
             Me.columnBALALLOC = MyBase.Columns("BALALLOC")
             Me.columnWEIGHT = MyBase.Columns("WEIGHT")
             Me.columnTOTALWEIGHT = MyBase.Columns("TOTALWEIGHT")
+            Me.columnNETAMOUNT = MyBase.Columns("NETAMOUNT")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1214,7 +1226,7 @@ Partial Public Class inventoryds
             MyBase.Columns.Add(Me.columnMONETARY)
             Me.columnARTICLENO = New Global.System.Data.DataColumn("ARTICLENO", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnARTICLENO)
-            Me.columnUNITPRICE = New Global.System.Data.DataColumn("UNITPRICE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            Me.columnUNITPRICE = New Global.System.Data.DataColumn("UNITPRICE", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnUNITPRICE)
             Me.columnDESCRIPTION = New Global.System.Data.DataColumn("DESCRIPTION", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnDESCRIPTION)
@@ -1262,6 +1274,8 @@ Partial Public Class inventoryds
             MyBase.Columns.Add(Me.columnWEIGHT)
             Me.columnTOTALWEIGHT = New Global.System.Data.DataColumn("TOTALWEIGHT", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnTOTALWEIGHT)
+            Me.columnNETAMOUNT = New Global.System.Data.DataColumn("NETAMOUNT", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnNETAMOUNT)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1880,10 +1894,10 @@ Partial Public Class inventoryds
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property UNITPRICE() As String
+        Public Property UNITPRICE() As Decimal
             Get
                 Try 
-                    Return CType(Me(Me.tableSTOCKS_TB.UNITPRICEColumn),String)
+                    Return CType(Me(Me.tableSTOCKS_TB.UNITPRICEColumn),Decimal)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'UNITPRICE' in table 'STOCKS_TB' is DBNull.", e)
                 End Try
@@ -2235,6 +2249,21 @@ Partial Public Class inventoryds
             End Get
             Set
                 Me(Me.tableSTOCKS_TB.TOTALWEIGHTColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property NETAMOUNT() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tableSTOCKS_TB.NETAMOUNTColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'NETAMOUNT' in table 'STOCKS_TB' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableSTOCKS_TB.NETAMOUNTColumn) = value
             End Set
         End Property
         
@@ -2608,6 +2637,18 @@ Partial Public Class inventoryds
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SetTOTALWEIGHTNull()
             Me(Me.tableSTOCKS_TB.TOTALWEIGHTColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsNETAMOUNTNull() As Boolean
+            Return Me.IsNull(Me.tableSTOCKS_TB.NETAMOUNTColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetNETAMOUNTNull()
+            Me(Me.tableSTOCKS_TB.NETAMOUNTColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     

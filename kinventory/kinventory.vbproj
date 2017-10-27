@@ -101,6 +101,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="accountinginventory.Designer.vb">
+      <DependentUpon>accountinginventory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="accountinginventory.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AllTrans.Designer.vb">
       <DependentUpon>AllTrans.vb</DependentUpon>
     </Compile>
@@ -263,6 +269,9 @@
     <Compile Include="sql.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="accountinginventory.resx">
+      <DependentUpon>accountinginventory.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AllTrans.resx">
       <DependentUpon>AllTrans.vb</DependentUpon>
     </EmbeddedResource>

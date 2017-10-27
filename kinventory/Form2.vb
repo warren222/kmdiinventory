@@ -2832,6 +2832,7 @@ UPDATE stocks_tb set balalloc = @totalbalqty where stockno = '" & stockno & "'
             getreceipttrans(stockno)
             ProgressBar2.Value += 1
         Next
+        accountinginventory.ShowDialog()
     End Sub
     Public Sub getreceipttrans(ByVal stockno As String)
         Try
@@ -2846,20 +2847,19 @@ select physical2 from stocks_tb where stockno='" & stockno & "'"
                 balphysical.Text = read(0).ToString
             End While
             read.Close()
-
-            GETTRANS(stockno)
-
-            For i As Integer = 0 To transnocombo.Items.Count - 1
-                Dim tno As String = transnocombo.Items(i).ToString
-                Dim qty As String = transqtycombo.Items(i).ToString
-
-                If balphysical.Text <= 0 Then
-
-                Else
-                    calcrate(tno, qty, stockno)
-                End If
-            Next
-
+            Dim checkphysical As Double = myphysical.Text
+            If checkphysical < 0 Then
+            Else
+                GETTRANS(stockno)
+                For i As Integer = 0 To transnocombo.Items.Count - 1
+                    Dim tno As String = transnocombo.Items(i).ToString
+                    Dim qty As String = transqtycombo.Items(i).ToString
+                    If balphysical.Text <= 0 Then
+                    Else
+                        calcrate(tno, qty, stockno)
+                    End If
+                Next
+            End If
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
