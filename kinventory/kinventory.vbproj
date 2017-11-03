@@ -107,6 +107,12 @@
     <Compile Include="accountinginventory.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="accountingreport.Designer.vb">
+      <DependentUpon>accountingreport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="accountingreport.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AllTrans.Designer.vb">
       <DependentUpon>AllTrans.vb</DependentUpon>
     </Compile>
@@ -227,6 +233,18 @@
     <Compile Include="moveallocation.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="msgbox1.Designer.vb">
+      <DependentUpon>msgbox1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="msgbox1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="msgbox2.Designer.vb">
+      <DependentUpon>msgbox2.vb</DependentUpon>
+    </Compile>
+    <Compile Include="msgbox2.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="multimove.Designer.vb">
       <DependentUpon>multimove.vb</DependentUpon>
     </Compile>
@@ -271,6 +289,9 @@
   <ItemGroup>
     <EmbeddedResource Include="accountinginventory.resx">
       <DependentUpon>accountinginventory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="accountingreport.resx">
+      <DependentUpon>accountingreport.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AllTrans.resx">
       <DependentUpon>AllTrans.vb</DependentUpon>
@@ -328,6 +349,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="moveallocation.resx">
       <DependentUpon>moveallocation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="msgbox1.resx">
+      <DependentUpon>msgbox1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="msgbox2.resx">
+      <DependentUpon>msgbox2.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="multimove.resx">
       <DependentUpon>multimove.vb</DependentUpon>

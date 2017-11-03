@@ -43,6 +43,35 @@ Public Class sql
             Form2.stocksgridview.Columns("NEEDTOORDER").Visible = False
             Form2.stocksgridview.Columns("FINALNEEDTOORDER").Visible = False
 
+
+            Form2.stocksgridview.Columns("ALLOCATION").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("FREE").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("STOCKORDER").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("MINIMUM").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("ISSUE").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("BALALLOC").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("WEIGHT").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("PHYSICAL").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("PHYSICAL2").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("UNITPRICE").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("XRATE").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("NETAMOUNT").DefaultCellStyle.Format = "N2"
+
+            Form2.stocksgridview.Columns("ALLOCATION").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("FREE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("STOCKORDER").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("MINIMUM").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("ISSUE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("BALALLOC").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("WEIGHT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("PHYSICAL").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("PHYSICAL2").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("UFACTOR").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("UNITPRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("XRATE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("NETAMOUNT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
             loadsearchbox()
             fillform()
             notifycritical()
@@ -77,6 +106,34 @@ Public Class sql
             Form2.stocksgridview.Columns("HEADER").Visible = False
             Form2.stocksgridview.Columns("AVEUSAGE").Visible = False
             Form2.stocksgridview.Columns("QTY").Visible = False
+
+            Form2.stocksgridview.Columns("ALLOCATION").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("FREE").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("STOCKORDER").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("MINIMUM").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("ISSUE").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("BALALLOC").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("WEIGHT").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("PHYSICAL").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("PHYSICAL2").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("UNITPRICE").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("XRATE").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("NETAMOUNT").DefaultCellStyle.Format = "N2"
+
+            Form2.stocksgridview.Columns("ALLOCATION").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("FREE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("STOCKORDER").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("MINIMUM").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("ISSUE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("BALALLOC").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("WEIGHT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("PHYSICAL").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("PHYSICAL2").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("UFACTOR").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("UNITPRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("XRATE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("NETAMOUNT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
             fillform()
         Catch ex As Exception
@@ -170,7 +227,7 @@ Public Class sql
             Dim supplierds As New DataSet
             Dim supplierbindingsource As New BindingSource
             supplierds.Clear()
-            Dim str As String = "select distinct supplier,phasedout from stocks_tb where " & phasedout & ""
+            Dim str As String = "select distinct supplier from stocks_tb where " & phasedout & ""
             sqlcmd = New SqlCommand(str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(supplierds, "stocks_tb")
@@ -614,6 +671,7 @@ a.ACCOUNT,
 a.CONTROLNO,
 A.XYZ,
 a.REMARKS,
+A.UFACTOR,
 a.UNITPRICE,
 a.XRATE,
 A.NETAMOUNT,
@@ -632,6 +690,17 @@ on a.stockno = b.stockno order by a.transdate desc"
             Form2.transgridview.Columns("xyz").Visible = False
             Form2.transgridview.Columns("TRANSDATE").DefaultCellStyle.Format = "yyyy-MMM-dd"
             Form2.transgridview.Columns("DUEDATE").DefaultCellStyle.Format = "yyyy-MMM-dd"
+            Form2.transgridview.Columns("QTY").DefaultCellStyle.Format = "N2"
+            Form2.transgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N2"
+            Form2.transgridview.Columns("UNITPRICE").DefaultCellStyle.Format = "N2"
+            Form2.transgridview.Columns("XRATE").DefaultCellStyle.Format = "N2"
+            Form2.transgridview.Columns("NETAMOUNT").DefaultCellStyle.Format = "N2"
+            Form2.transgridview.Columns("QTY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.transgridview.Columns("UFACTOR").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.transgridview.Columns("UNITPRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.transgridview.Columns("XRATE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.transgridview.Columns("NETAMOUNT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
 
             cuttinglist.transno.DataBindings.Clear()
             cuttinglist.remarks.DataBindings.Clear()
@@ -642,7 +711,7 @@ on a.stockno = b.stockno order by a.transdate desc"
             cuttinglist.allocation.DataBindings.Add("text", Form2.transBindingSource, "qty")
             cuttinglist.transtype.DataBindings.Add("text", Form2.transBindingSource, "TRANSTYPE")
 
-            Dim coutresult As String = "select FORMAT(count(a.TRANSNO),'N0')
+            Dim coutresult As String = "Select FORMAT(count(a.TRANSNO),'N0')
  from trans_tb as a inner join stocks_tb as b
 on a.stockno = b.stockno"
             sqlcmd = New SqlCommand(coutresult, sqlcon)
@@ -1334,7 +1403,7 @@ on a.stockno = b.stockno"
                           ByVal controlno As String,
                               ByVal xyz As String,
                               ByVal XYZREF As String,
-                              ByVal remarks As String, ByVal unitprice As String, ByVal xrate As String, ByVal netamount As String)
+                              ByVal remarks As String, ByVal ufactor As String, ByVal unitprice As String, ByVal xrate As String, ByVal netamount As String)
         Try
             sqlcon.Open()
             Dim str As String
@@ -1403,7 +1472,7 @@ insert into trans_tb
             QTY,
             REFERENCE,
             ACCOUNT,
-            CONTROLNO,XYZ,XYZREF,REMARKS,BALQTY,unitprice,xrate,netamount,INPUTTED) values ('" & stockno & "'," &
+            CONTROLNO,XYZ,XYZREF,REMARKS,BALQTY,ufactor,unitprice,xrate,netamount,INPUTTED) values ('" & stockno & "'," &
          "'" & transtype & "'," &
          "'" & transdate & "'," &
          "'" & duedate & "'," &
@@ -1415,6 +1484,7 @@ insert into trans_tb
               "'" & XYZREF & "'," &
          "'" & remarks & "'," &
            "'" & newbal & "'," &
+             "'" & ufactor & "'," &
               "'" & unitprice & "'," &
                  "'" & xrate & "'," &
                     "'" & netamount & "'," &
@@ -1477,7 +1547,7 @@ insert into trans_tb
 
             End If
 
-            MessageBox.Show("Saved", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            msgbox1.ShowDialog()
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -1762,6 +1832,185 @@ on b.stockno=a.stockno
             bs.DataMember = "reference_tb"
             Form2.issueDataGridView.DataSource = bs
             Form2.issueDataGridView.Columns("description").Visible = False
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sqlcon.Close()
+        End Try
+    End Sub
+    Public Sub srockstransactiontb2(ByVal stockno As String)
+        Try
+            sqlcon.Open()
+            Dim ds As New DataSet
+            Dim da As New SqlDataAdapter
+            ds.Clear()
+            Dim bs As New BindingSource
+            Dim str As String = "select TRANSNO,
+STOCKNO,
+TRANSTYPE,
+TRANSDATE,
+CASE WHEN ISDATE(DUEDATE)=1 THEN CAST(DUEDATE AS DATE) END AS DUEDATE,
+QTY,
+BALQTY,
+REFERENCE,
+ACCOUNT,
+CONTROLNO,
+XYZ,
+XYZREF,
+REMARKS,
+INPUTTED from trans_tb where 
+stockno='" & stockno & "' and
+not (transtype = 'Allocation' or transtype = 'CancelAlloc' or transtype='Order' or transtype = 'Spare') order by transdate desc"
+            sqlcmd = New SqlCommand(str, sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "trans_tb")
+            bs.DataSource = ds
+            bs.DataMember = "trans_tb"
+            Form4.mytransgridview.DataSource = bs
+            Form4.mytransgridview.Columns("TRANSDATE").DefaultCellStyle.Format = "yyyy-MMM-dd"
+            Form4.mytransgridview.Columns("DUEDATE").DefaultCellStyle.Format = "yyyy-MMM-dd"
+            Form4.mytransgridview.Columns("stockno").Visible = False
+
+            For i As Integer = 0 To Form4.mytransgridview.RowCount - 1 Step +1
+                Dim s As String = Form4.mytransgridview.Rows(i).Cells("balqty").Value.ToString
+                Dim t As String = Form4.mytransgridview.Rows(i).Cells("transtype").Value.ToString
+                If Not s = "0.00" And Not s = "" And t = "Allocation" Then
+                    Form4.mytransgridview.Rows(i).Cells("balqty").Style.ForeColor = Color.Red
+                End If
+            Next
+            For i As Integer = 0 To Form4.mytransgridview.RowCount - 1 Step +1
+                Dim s As String = Form4.mytransgridview.Rows(i).Cells("xyzref").Value.ToString
+                Dim t As String = Form4.mytransgridview.Rows(i).Cells("transtype").Value.ToString
+                If Not s = "" And t = "Order" Then
+                    Form4.mytransgridview.Rows(i).DefaultCellStyle.BackColor = Color.Pink
+                End If
+            Next
+
+            Dim all As String
+            Dim ada As New SqlDataAdapter
+            Dim ads As New DataSet
+            ads.Clear()
+            Dim abs As New BindingSource
+            all = "
+                     select Reference,stockorder as StockOrder,allocation as Allocation
+                     ,totalreceipt as TotalReceipt,totalissue as TotalIssue,totalreturn as TotalReturn from reference_tb where stockno='" & stockno & "'"
+            sqlcmd = New SqlCommand(all, sqlcon)
+            ada.SelectCommand = sqlcmd
+            ada.Fill(ads, "reference_tb")
+            abs.DataSource = ads
+            abs.DataMember = "reference_tb"
+            Form4.KryptonDataGridView1.DataSource = abs
+            Form4.KryptonDataGridView1.Columns("StockOrder").DefaultCellStyle.Format = "N0"
+            Form4.KryptonDataGridView1.Columns("Allocation").DefaultCellStyle.Format = "N0"
+            Form4.KryptonDataGridView1.Columns("TotalReceipt").DefaultCellStyle.Format = "N0"
+            Form4.KryptonDataGridView1.Columns("TotalIssue").DefaultCellStyle.Format = "N0"
+            Form4.KryptonDataGridView1.Columns("TotalReturn").DefaultCellStyle.Format = "N0"
+
+            Dim str1 As String = "select distinct reference from trans_tb where stockno='" & stockno & "'"
+            Dim ds1 As New DataSet
+            Dim da1 As New SqlDataAdapter
+            Dim bs1 As New BindingSource
+            sqlcmd = New SqlCommand(str1, sqlcon)
+            da1.SelectCommand = sqlcmd
+            da1.Fill(ds1, "trans_tb")
+            bs1.DataSource = ds1
+            bs1.DataMember = "trans_tb"
+            Form4.referencegridview.DataSource = bs1
+
+            Dim str2 As String = "
+                                    declare @allocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "' AND TRANSTYPE='Allocation')+0
+declare @balqty as decimal(10,2)=(select  COALESCE(sum(balqty),0) from trans_tb where stockno='" & stockno & "' AND TRANSTYPE='Allocation')+0
+                                    declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "' AND TRANSTYPE='CancelAlloc')+0
+                                    declare @order as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "' AND TRANSTYPE='Order')+0
+                                    declare @return as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "' AND TRANSTYPE='Return')+0
+                                    declare @supply as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "' AND TRANSTYPE='Supply')+0
+                                    declare @spare as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "' AND TRANSTYPE='Spare')+0
+                                    declare @addadjustment as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "' AND TRANSTYPE='+Adjustment')+0
+                                    declare @minadjustment as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "' AND TRANSTYPE='-Adjustment')+0
+                                    declare @receipt as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "' AND TRANSTYPE='Receipt' AND NOT XYZ='Order')+0
+                                    declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "' AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation')+0
+                                    declare @receiptorder as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "' AND TRANSTYPE='Receipt' AND XYZ='Order')+0
+                                    declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "' AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
+                                    declare @totalreceipt as decimal(10,2)=@receipt+@receiptorder
+                                    declare @totalissue as decimal(10,2)=@issue+@issueallocation
+
+declare @QTY as decimal(10,2)=(select qty from stocks_tb where stockno='" & stockno & "')
+
+                                    declare @finalphysical as decimal(10,2)=(@QTY+@totalreceipt+@return+@addadjustment)-(@totalissue+@minadjustment)
+                                    declare @finalallocation as decimal(10,2)=@allocation-(@issueallocation+@cancelalloc)
+                                    declare @finalfree as decimal(10,2)=(((@QTY+@totalreceipt+@return+@addadjustment)-(@allocation-@cancelalloc)))-(@issue+@minadjustment)
+                                    declare @finalorder as decimal(10,2)=@order-@receiptorder
+                                    declare @finalissue as decimal(10,2)=@totalissue
+                                    declare @finalreceipt as decimal(10,2)=@totalreceipt
+
+select format(@finalphysical,'N0'),FORMAT(@finalallocation,'N0'),
+FORMAT(@finalfree,'N0'),FORMAT(@finalorder,'N0'),FORMAT(@finalissue,'N0'),
+FORMAT(@finalreceipt,'N0'),FORMAT(@return,'N0'),format(@balqty,'N0')"
+            sqlcmd = New SqlCommand(str2, sqlcon)
+            Dim read As SqlDataReader = sqlcmd.ExecuteReader
+
+            While read.Read
+                Form4.finalphysical.Text = read(0).ToString
+                Form4.finalallocation.Text = read(1).ToString
+                Form4.finalfree.Text = read(2).ToString
+                Form4.finalorder.Text = read(3).ToString
+                Form4.finalissue.Text = read(4).ToString
+                Form4.finalreceipt.Text = read(5).ToString
+                Form4.finalreturn.Text = read(6).ToString
+                Form4.balalloc.Text = read(7).ToString
+            End While
+            read.Close()
+
+
+            '            Form4.referencegridview.SelectAll()
+            '            Dim refere As String
+            '            Dim ads As New DataSet
+            '            ads.Clear
+            '            Dim ada As New SqlDataAdapter
+            '            Dim abs As New BindingSource
+            '            Form4.KryptonDataGridView1.DataSource = Nothing
+            '            For i As Integer = 0 To Form4.ComboBox1.Items.Count - 1
+            '                refere = Form4.ComboBox1.Items(i).ToString
+            '                Dim all As String
+
+            '                all = "  
+            'declare @refe as varchar(max) = '" & refere & "'
+
+            '                                    declare @allocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "' and reference =  '" & refere & "' AND TRANSTYPE='Allocation')+0
+            '                                    declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "'  and reference =  '" & refere & "' AND TRANSTYPE='CancelAlloc')+0
+            '                                    declare @order as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "'  and reference =  '" & refere & "' AND TRANSTYPE='Order')+0
+            '                                    declare @return as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "'  and reference =  '" & refere & "' AND TRANSTYPE='Return')+0
+            '                                    declare @supply as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "'  and reference =  '" & refere & "' and TRANSTYPE='Supply')+0
+            '                                    declare @spare as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "'  and reference =  '" & refere & "' AND TRANSTYPE='Spare')+0
+            '                                    declare @addadjustment as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "'  and reference =  '" & refere & "' AND TRANSTYPE='+Adjustment')+0
+            '                                    declare @minadjustment as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "'  and reference =  '" & refere & "' AND TRANSTYPE='-Adjustment')+0
+            '                                    declare @receipt as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "'  and reference =  '" & refere & "' AND TRANSTYPE='Receipt' AND NOT XYZ='Order')+0
+            '                                    declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "'  and reference =  '" & refere & "' AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation')+0
+            '                                    declare @receiptorder as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "'  and reference =  '" & refere & "' AND TRANSTYPE='Receipt' AND XYZ='Order')+0
+            '                                    declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno='" & stockno & "'  and reference =  '" & refere & "' AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
+            '                                    declare @totalreceipt as decimal(10,2)=@receipt+@receiptorder
+            '                                    declare @totalissue as decimal(10,2)=@issue+@issueallocation
+
+            'declare @QTY as decimal(10,2)=(select qty from stocks_tb where stockno='" & stockno & "')
+
+            '                                    declare @finalphysical as decimal(10,2)=(@QTY+@totalreceipt+@return+@addadjustment)-(@totalissue+@minadjustment)
+            '                                    declare @finalallocation as decimal(10,2)=@allocation-(@issueallocation+@cancelalloc)
+            '                                    declare @finalfree as decimal(10,2)=(((@QTY+@totalreceipt+@return+@addadjustment)-(@allocation-@cancelalloc)))-(@issue+@minadjustment)
+            '                                    declare @finalorder as decimal(10,2)=@order-@receiptorder
+            '                                    declare @finalissue as decimal(10,2)=@totalissue
+            '                                    declare @finalreceipt as decimal(10,2)=@totalreceipt
+
+            '                     select @refe as Reference,FORMAT(@finalorder,'N0') as StockOrder,FORMAT(@finalallocation,'N0') as Allocation
+            '                     ,format(@finalreceipt,'N0') as TotalReceipt,FORMAT(@finalissue,'N0') as TotalIssue,FORMAT(@return,'N0') as TotalReturn"
+            '                sqlcmd = New SqlCommand(all, sqlcon)
+            '                    ada.SelectCommand = sqlcmd
+            '                ada.Fill(ads, "dummy1")
+            '            Next
+            '            ada.SelectCommand = sqlcmd
+            '            ada.Fill(ads, "dummy1")
+            '            abs.DataSource = ads
+            '            abs.DataMember = "dummy1"
+            '            Form4.KryptonDataGridView1.DataSource = abs
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -2259,6 +2508,16 @@ INPUTTED
             Form2.transgridview.Columns("DESCRIPTION").Visible = False
 
             Form2.transgridview.Columns("xyz").Visible = False
+            Form2.transgridview.Columns("QTY").DefaultCellStyle.Format = "N2"
+            Form2.transgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N2"
+            Form2.transgridview.Columns("UNITPRICE").DefaultCellStyle.Format = "N2"
+            Form2.transgridview.Columns("XRATE").DefaultCellStyle.Format = "N2"
+            Form2.transgridview.Columns("NETAMOUNT").DefaultCellStyle.Format = "N2"
+            Form2.transgridview.Columns("QTY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.transgridview.Columns("UFACTOR").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.transgridview.Columns("UNITPRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.transgridview.Columns("XRATE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.transgridview.Columns("NETAMOUNT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
             cuttinglist.transno.DataBindings.Clear()
             cuttinglist.remarks.DataBindings.Clear()
@@ -2343,15 +2602,15 @@ INPUTTED
             Dim str As String = ""
             'order
             If Form5.transtype.Text = "Order" And Form5.xyzref.Text = "" Then
-                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "', qty = '" & qty & "',netamount=(xrate*unitprice)*" & qty & " where transno = '" & transno & "'"
+                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "', qty = '" & qty & "',netamount=(xrate*unitprice)*(" & qty & "*ufactor) where transno = '" & transno & "'"
             ElseIf Form5.transtype.Text = "Order" And Not Form5.xyzref.Text = "" Then
                 str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "' where transno = '" & transno & "'"
                 'receipt
             ElseIf Form5.transtype.Text = "Receipt" And Form5.xyzref.Text = "" Then
-                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "',qty = '" & qty & "',netamount=(xrate*unitprice)*" & qty & " where transno = '" & transno & "'"
+                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "',qty = '" & qty & "',netamount=(xrate*unitprice)*(" & qty & "*ufactor) where transno = '" & transno & "'"
             ElseIf Form5.transtype.Text = "Receipt" And Not Form5.xyzref.Text = "" Then
-                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "',qty = '" & qty & "',netamount=(xrate*unitprice)*" & qty & " where transno = '" & transno & "'
-                       update trans_tb set qty = '" & qty & "',netamount=(xrate*unitprice)*" & qty & " where transno = '" & xyzref & "'"
+                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "',qty = '" & qty & "',netamount=(xrate*unitprice)*(" & qty & "*ufactor) where transno = '" & transno & "'
+                       update trans_tb set qty = '" & qty & "',netamount=(xrate*unitprice)*(" & qty & "*ufactor) where transno = '" & xyzref & "'"
                 'allocation
             ElseIf Form5.transtype.Text = "Allocation" And Form5.xyzref.Text = "" Then
                 str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "', qty = '" & qty & "' where transno = '" & transno & "'"
@@ -3144,7 +3403,7 @@ accttype='" & acctype & "' where id = '" & id & "'"
             Form2.transfree.DataBindings.Clear()
             Form2.unitprice.DataBindings.Clear()
             Form2.xrate.DataBindings.Clear()
-
+            Form2.ufactor.DataBindings.Clear()
             Form2.transstockno.DataBindings.Add("text", bs, "stockno")
             Form2.transcosthead.DataBindings.Add("text", bs, "costhead")
             Form2.transtypecolor.DataBindings.Add("text", bs, "typecolor")
@@ -3154,6 +3413,24 @@ accttype='" & acctype & "' where id = '" & id & "'"
             Form2.transfree.DataBindings.Add("text", bs, "free")
             Form2.unitprice.DataBindings.Add("text", bs, "unitprice")
             Form2.xrate.DataBindings.Add("text", bs, "xrate")
+            Form2.ufactor.DataBindings.Add("text", bs, "UFACTOR")
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sqlcon.Close()
+        End Try
+    End Sub
+    Public Sub loadmyreport(ByVal str As String)
+        Try
+            sqlcon.Open()
+            Dim ds As New inventoryds
+            ds.Clear()
+            Dim da As New SqlDataAdapter
+
+            sqlcmd = New SqlCommand(str, sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds.STOCKS_TB)
+            accountinginventory.STOCKS_TBBindingSource.DataSource = ds.STOCKS_TB.DefaultView
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally

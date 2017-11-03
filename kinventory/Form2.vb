@@ -200,13 +200,7 @@ Public Class Form2
                     If currentallocation.Text = "0" Then
                         issueprocess()
                     Else
-                        If MessageBox.Show("Issue current allocation first!
-Current Allocation:  " & currentallocation.Text & "
-Go to Issue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.No Then
-                            Exit Sub
-                        End If
-                        TabControl1.SelectedIndex = 3
-                        issuereference.Text = reference.Text
+                        msgbox2.ShowDialog()
                     End If
                 Catch ex As Exception
                     MsgBox(ex.ToString)
@@ -232,7 +226,7 @@ Go to Issue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Dia
                       reference.Text,
                       account.Text,
                       controlno.Text,
-                               XYZ, XYZREF, remarks.Text, unitprice.Text, xrate.Text, netamount.Text)
+                               XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
             sql.loadstocks()
@@ -261,7 +255,7 @@ Go to Issue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Dia
                    transqty.Text,
                    reference.Text,
                    account.Text,
-                   controlno.Text, XYZ, XYZREF, remarks.Text, unitprice.Text, xrate.Text, netamount.Text)
+                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
             sql.loadstocks()
@@ -290,7 +284,7 @@ Go to Issue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Dia
                    transqty.Text,
                    reference.Text,
                    account.Text,
-                   controlno.Text, XYZ, XYZREF, remarks.Text, unitprice.Text, xrate.Text, netamount.Text)
+                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
             sql.loadstocks()
@@ -317,7 +311,7 @@ Go to Issue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Dia
                    transqty.Text,
                    reference.Text,
                    account.Text,
-                   controlno.Text, XYZ, XYZREF, remarks.Text, unitprice.Text, xrate.Text, netamount.Text)
+                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
             sql.loadstocks()
@@ -344,7 +338,7 @@ Go to Issue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Dia
                    transqty.Text,
                    reference.Text,
                    account.Text,
-                   controlno.Text, XYZ, XYZREF, remarks.Text, unitprice.Text, xrate.Text, netamount.Text)
+                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
             sql.loadstocks()
@@ -371,7 +365,7 @@ Go to Issue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Dia
                    transqty.Text,
                    reference.Text,
                    account.Text,
-                   controlno.Text, XYZ, XYZREF, remarks.Text, unitprice.Text, xrate.Text, netamount.Text)
+                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
             sql.loadstocks()
@@ -398,7 +392,7 @@ Go to Issue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Dia
                    transqty.Text,
                    reference.Text,
                    account.Text,
-                   controlno.Text, XYZ, XYZREF, remarks.Text, unitprice.Text, xrate.Text, netamount.Text)
+                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
             sql.loadstocks()
@@ -425,7 +419,7 @@ Go to Issue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Dia
                    transqty.Text,
                    reference.Text,
                    account.Text,
-                   controlno.Text, XYZ, XYZREF, remarks.Text, unitprice.Text, xrate.Text, netamount.Text)
+                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
             sql.loadstocks()
@@ -456,7 +450,7 @@ Go to Issue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Dia
                    transqty.Text,
                    reference.Text,
                    account.Text,
-                   controlno.Text, XYZ, XYZREF, remarks.Text, unitprice.Text, xrate.Text, netamount.Text)
+                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
             sql.loadstocks()
@@ -506,12 +500,13 @@ Go to Issue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Dia
             Dim x As String = "
 declare @unitprice as decimal(10,2)=(select isnull(unitprice,0) from trans_tb where transno = '" & transno & "')
 declare @xrate as decimal(10,2)=(select isnull(xrate,0) from trans_tb where transno = '" & transno & "')
+declare @ufactor as decimal(10,2)=(select isnull(ufactor,0) from trans_tb where transno = '" & transno & "')
 declare @qty as decimal(10,2)=" & qty & "
-declare @netprice as decimal(10,2)=(@unitprice*@xrate)*@qty
+declare @netprice as decimal(10,2)=(@unitprice*@xrate)*(@qty*@ufactor)
 
 DECLARE @receipt as varchar(max)=(select transno from trans_tb where xyzref='" & transno & "')
 update trans_tb set qty = '" & qty & "',xyzref=@receipt,netamount=@netprice where transno = '" & transno & "'
-update trans_tb set unitprice=@unitprice,xrate=@xrate,netamount=@netprice where xyzref='" & transno & "'
+update trans_tb set ufactor=@ufactor,unitprice=@unitprice,xrate=@xrate,netamount=@netprice where xyzref='" & transno & "'
 "
             sqlcmd = New SqlCommand(x, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()
@@ -796,6 +791,7 @@ update reference_tb set
                 Dim unit As Double = 0
                 Dim rate As Double = 0
                 Dim amount As Double = 0
+                Dim ufactor As Double = 0
                 sql.newtransaction(receiptstockno.Text,
                        transaction,
                        transdate.Text,
@@ -803,7 +799,7 @@ update reference_tb set
                        receiptqty.Text,
                       receiptreference.Text,
                        account,
-                       controlno, XYZ, receipttransno.Text, remarks, unit, rate, amount)
+                       controlno, XYZ, receipttransno.Text, remarks, ufactor, unit, rate, amount)
                 updatetransaction(receiptqty.Text, receipttransno.Text)
                 updatestock(receiptstockno.Text, receiptreference.Text)
                 sql.loadstocks()
@@ -828,6 +824,7 @@ update reference_tb set
                 Dim unit As Double = 0
                 Dim rate As Double = 0
                 Dim amount As Double = 0
+                Dim ufactor As Double = 0
                 sql.newtransaction(receiptstockno.Text,
                        transaction,
                        transdate.Text,
@@ -835,7 +832,7 @@ update reference_tb set
                        receiptqty.Text,
                       receiptreference.Text,
                        account,
-                       controlno, XYZ, receipttransno.Text, remarks, unit, rate, amount)
+                       controlno, XYZ, receipttransno.Text, remarks, ufactor, unit, rate, amount)
                 updatetransaction(receiptqty.Text, receipttransno.Text)
 
                 Dim bal = order - myreceipt
@@ -986,7 +983,7 @@ select
                    issueqty.Text,
                  issuereference.Text,
                    issueaccount.Text,
-                   issuecontrolno.Text, XYZ, xyzref, issueremarks.Text, unitprice.Text, xrate.Text, netamount.Text)
+                   issuecontrolno.Text, XYZ, xyzref, issueremarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
 
             updatestock(issuestockno.Text, issuereference.Text)
             sql.loadstocks()
@@ -1072,6 +1069,7 @@ a.ACCOUNT,
 a.CONTROLNO,
 a.xyz,
 a.REMARKS,
+a.UFACTOR,
 a.UNITPRICE,
 a.XRATE,
 A.NETAMOUNT,
@@ -1399,18 +1397,23 @@ on a.stockno = b.stockno"
             unitprice.Visible = True
             xrate.Visible = True
             netamount.Visible = True
+            ufactor.Visible = True
             KryptonLabel63.Visible = True
             KryptonLabel64.Visible = True
             KryptonLabel65.Visible = True
+            KryptonLabel66.Visible = True
         Else
             unitprice.Visible = False
             xrate.Visible = False
             netamount.Visible = False
+            ufactor.Visible = False
             KryptonLabel63.Visible = False
             KryptonLabel64.Visible = False
             KryptonLabel65.Visible = False
+            KryptonLabel66.Visible = False
             xrate.Text = 0
             netamount.Text = 0
+            ufactor.Text = 0
         End If
     End Sub
 
@@ -2802,13 +2805,14 @@ UPDATE stocks_tb set balalloc = @totalbalqty where stockno = '" & stockno & "'
     End Sub
 
     Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer2.Tick
-        If IsNumeric(transqty.Text) And IsNumeric(unitprice.Text) And IsNumeric(xrate.Text) Then
+        If IsNumeric(transqty.Text) And IsNumeric(unitprice.Text) And IsNumeric(xrate.Text) And IsNumeric(ufactor.Text) Then
             Dim qty As Double = transqty.Text
             Dim unit As Double = unitprice.Text
             Dim rate As Double = xrate.Text
+            Dim ufact As Double = ufactor.Text
             Dim amount As Double
 
-            amount = (rate * unit) * qty
+            amount = (rate * unit) * (qty * ufact)
             netamount.Text = amount
         Else
             netamount.Text = 0
@@ -2832,7 +2836,12 @@ UPDATE stocks_tb set balalloc = @totalbalqty where stockno = '" & stockno & "'
             getreceipttrans(stockno)
             ProgressBar2.Value += 1
         Next
-        accountinginventory.ShowDialog()
+
+        If ProgressBar2.Value = ProgressBar2.Maximum Then
+            MessageBox.Show("Complete", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            ProgressBar2.Visible = False
+        End If
+        accountingreport.ShowDialog()
     End Sub
     Public Sub getreceipttrans(ByVal stockno As String)
         Try
@@ -2853,7 +2862,7 @@ select physical2 from stocks_tb where stockno='" & stockno & "'"
                 GETTRANS(stockno)
                 For i As Integer = 0 To transnocombo.Items.Count - 1
                     Dim tno As String = transnocombo.Items(i).ToString
-                    Dim qty As String = transqtycombo.Items(i).ToString
+                    Dim qty As String = Trim(transqtycombo.Items(i).ToString.Replace(",", ""))
                     If balphysical.Text <= 0 Then
                     Else
                         calcrate(tno, qty, stockno)
@@ -2894,7 +2903,7 @@ select physical2 from stocks_tb where stockno='" & stockno & "'"
                 'get unit*rate*balqty then add to net
                 Dim CONPO As Double = mybal
                 Dim latqty As Double
-                Dim str As String = "select (UNITPRICE*XRATE)*" & CONPO & " FROM TRANS_TB WHERE TRANSNO = '" & tno & "'"
+                Dim str As String = "select (UNITPRICE*XRATE)*(" & CONPO & "*ufactor) FROM TRANS_TB WHERE TRANSNO = '" & tno & "'"
                 sqlcmd = New SqlCommand(str, sql.sqlcon)
                 Dim read As SqlDataReader = sqlcmd.ExecuteReader
                 While read.Read
@@ -2958,5 +2967,28 @@ on a.stockno = b.stockno where A.STOCKNO='" & STOCKNO & "' and a.TRANSTYPE='Rece
         End Try
     End Sub
 
+    Private Sub KryptonButton28_Click(sender As Object, e As EventArgs) Handles KryptonButton28.Click
+
+
+        ProgressBar2.Visible = True
+        ProgressBar2.Maximum = stocksStocksno.Items.Count
+        ProgressBar2.Value = 0
+        For i As Integer = 0 To stocksStocksno.Items.Count - 1
+            net.Text = 0
+            Dim stockno As String = stocksStocksno.Items(i).ToString
+            getreceipttrans(stockno)
+            ProgressBar2.Value += 1
+        Next
+
+        If ProgressBar2.Value = ProgressBar2.Maximum Then
+            MessageBox.Show("Complete", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            ProgressBar2.Visible = False
+        End If
+
+    End Sub
+
+    Private Sub KryptonButton30_Click(sender As Object, e As EventArgs) Handles KryptonButton30.Click
+        accountingreport.ShowDialog()
+    End Sub
 
 End Class

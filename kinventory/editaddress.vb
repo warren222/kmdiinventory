@@ -3,6 +3,11 @@ Public Class editaddress
     Dim sql As New sql
     Public sqlcmd As New SqlCommand
     Private Sub editaddress_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If Form1.Label2.Text = "Guest" Then
+            KryptonButton1.Enabled = False
+        ElseIf Form1.Label2.Text = "Admin" Or Form1.Label2.Text = "Encoder" Then
+            KryptonButton1.Enabled = True
+        End If
 
     End Sub
 

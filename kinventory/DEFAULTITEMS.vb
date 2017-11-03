@@ -360,6 +360,8 @@ Public Class DEFAULTITEMS
             Form2.transfree.Text = stocksgridview.Item(15, e.RowIndex).Value.ToString
             Form2.transunit.Text = stocksgridview.Item(10, e.RowIndex).Value.ToString
             Form2.transstockno.Text = stocksgridview.Item(0, e.RowIndex).Value.ToString
+
+            sql.movetoinput(Form2.transstockno.Text)
         End If
     End Sub
 End Class

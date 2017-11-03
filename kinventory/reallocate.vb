@@ -133,4 +133,13 @@ update reference_tb set
             sql.sqlcon.Close()
         End Try
     End Sub
+
+    Private Sub reallocate_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If Form1.Label2.Text = "Guest" Then
+            cancelorderbtn.Enabled = False
+        ElseIf Form1.Label2.Text = "Admin" Or Form1.Label2.Text = "Encoder" Then
+            cancelorderbtn.Enabled = True
+        End If
+
+    End Sub
 End Class

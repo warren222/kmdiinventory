@@ -74,8 +74,27 @@ Public Class PhasedoutForm
             Next
         Else
         End If
+        If KryptonCheckBox10.Checked = True Then
+            For i As Integer = 0 To Form2.stocksStocksno.Items.Count - 1
+                Dim stockno As String = Form2.stocksStocksno.Items(i).ToString
+                upxrate(xrate.Text, stockno)
+            Next
+        Else
+        End If
         Form2.KryptonButton1.PerformClick()
         Button1.PerformClick()
+    End Sub
+    Public Sub upxrate(ByVal myval As String, ByVal stockno As String)
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "update stocks_tb set xrate='" & myval & "' where stockno='" & stockno & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            sqlcmd.ExecuteNonQuery()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
     End Sub
     Public Sub upweight(ByVal myval As String, ByVal stockno As String)
         Try
@@ -278,6 +297,7 @@ Public Class PhasedoutForm
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Me.Close()
+        KryptonCheckBox10.Checked = False
         KryptonCheckBox9.Checked = False
         KryptonCheckBox7.Checked = False
         KryptonCheckBox8.Checked = False
@@ -300,5 +320,44 @@ Public Class PhasedoutForm
 
     Private Sub KryptonPanel1_MouseUp(sender As Object, e As MouseEventArgs) Handles KryptonPanel1.MouseUp
         drag = False
+    End Sub
+
+    Private Sub xrate_Leave(sender As Object, e As EventArgs) Handles xrate.Leave
+        If IsNumeric(xrate.Text) Then
+        Else
+            MessageBox.Show("invalid x-rate", "", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            xrate.Focus()
+        End If
+    End Sub
+
+    Private Sub xrate_MouseDown(sender As Object, e As MouseEventArgs) Handles xrate.MouseDown
+        Dim i As Integer = xrate.SelectedIndex
+        loadxrate()
+        If i > xrate.Items.Count - 1 Then
+            xrate.SelectedIndex = -1
+        Else
+            xrate.SelectedIndex = i
+        End If
+    End Sub
+    Public Sub loadxrate()
+        Try
+            sql.sqlcon.Open()
+            Dim ds As New DataSet
+            ds.Clear()
+            Dim da As New SqlDataAdapter
+            Dim bs As New BindingSource
+            Dim str As String = "select distinct xrate from stocks_tb"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "stocks_tb")
+            bs.DataSource = ds
+            bs.DataMember = "stocks_tb"
+            xrate.DataSource = bs
+            xrate.DisplayMember = "xrate"
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
     End Sub
 End Class

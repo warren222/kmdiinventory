@@ -498,4 +498,8 @@ Public Class Form4
 
         e.Graphics.DrawString(rowIdx, rowFont, SystemBrushes.ControlText, headerBounds, centerFormat)
     End Sub
+
+    Private Sub KryptonButton3_Click(sender As Object, e As EventArgs) Handles KryptonButton3.Click
+        SQL.srockstransactiontb2(stockno.Text)
+    End Sub
 End Class
