@@ -2707,6 +2707,7 @@ Partial Class Form2
         Me.transqtycombo.Name = "transqtycombo"
         Me.transqtycombo.Size = New System.Drawing.Size(195, 24)
         Me.transqtycombo.TabIndex = 468
+        Me.transqtycombo.Visible = False
         '
         'KryptonLabel56
         '
@@ -2753,6 +2754,7 @@ Partial Class Form2
         Me.transnocombo.Name = "transnocombo"
         Me.transnocombo.Size = New System.Drawing.Size(195, 24)
         Me.transnocombo.TabIndex = 467
+        Me.transnocombo.Visible = False
         '
         'KryptonButton21
         '

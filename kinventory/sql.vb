@@ -7,7 +7,7 @@ Imports System.Security.Cryptography
 Imports System.Windows.Forms.DataVisualization.Charting
 Public Class sql
     Dim datasource As String = Form9.myaccess.Text.ToString
-    Dim catalog As String = "HERETOSAVE"
+    Dim catalog As String = "finaltrans"
     Dim userid As String = "kmdiadmin"
     Dim password As String = "kmdiadmin"
     Public sqlcon As New SqlConnection With {.ConnectionString = "Data Source='" & datasource & "';Network Library=DBMSSOCN;Initial Catalog='" & catalog & "';User ID='" & userid & "';Password='" & password & "';"}
@@ -2510,11 +2510,13 @@ INPUTTED
         Try
             sqlcon.Open()
             Dim ds As New DataSet
+
             ds.Clear()
 
             sqlcmd = New SqlCommand(search + " order by a.transdate desc", sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "trans_tb")
+            Form2.transBindingSource.DataSource = Nothing
             Form2.transBindingSource.DataSource = ds
             Form2.transBindingSource.DataMember = "trans_tb"
             Form2.transgridview.DataSource = Form2.transBindingSource
@@ -2545,7 +2547,7 @@ INPUTTED
             sqlcmd = New SqlCommand(count, sqlcon)
             Dim readerr As SqlDataReader = sqlcmd.ExecuteReader
             While readerr.Read
-                Form2.noofresults.Text = readerr(0).ToString() + " results found"
+                Form2.noofresults.Text = readerr(0).ToString() + " results found / Foreign currency : " + readerr(1).ToString
             End While
             readerr.Close()
         Catch ex As Exception
@@ -3380,7 +3382,7 @@ accttype='" & acctype & "' where id = '" & id & "'"
             ds.Clear()
             Dim da As New SqlDataAdapter
             Dim bs As New BindingSource
-            Dim str As String = "select distinct typecolor from stocks_tb where coathead = '" & costhead & "' order by typecolor asc"
+            Dim str As String = "select distinct typecolor from stocks_tb where costhead = '" & costhead & "' order by typecolor asc"
             sqlcmd = New SqlCommand(str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "stocks_tb")

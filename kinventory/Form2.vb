@@ -1070,7 +1070,7 @@ select
 
     Private Sub KryptonButton11_Click(sender As Object, e As EventArgs) Handles KryptonButton11.Click
         Dim search As String
-        Dim count As String = "select format(count(a.TRANSNO),'n0') from trans_tb as a inner join stocks_tb as b on a.stockno = b.stockno"
+        Dim count As String = "select format(count(a.TRANSNO),'n0'),format(sum(isnull(a.netamount,0)/isnull(a.xrate,0)),'n2') from trans_tb as a inner join stocks_tb as b on a.stockno = b.stockno"
         Dim countsearch As String
         Dim top As String = toprows.Text.Replace(",", "")
 
@@ -1082,14 +1082,14 @@ B.ARTICLENO,
 B.DESCRIPTION,
 a.TRANSTYPE,
 a.TRANSDATE,
-a.DUEDATE,
+case when isdate(a.DUEDATE)=1 then cast(a.duedate as date) end as DUEDATE,
 a.QTY,
 a.REFERENCE,
 a.ACCOUNT,
 a.CONTROLNO,
-a.xyz,
+A.XYZ,
 a.REMARKS,
-a.UFACTOR,
+A.UFACTOR,
 a.UNITPRICE,
 a.XRATE,
 A.NETAMOUNT,
@@ -1885,7 +1885,7 @@ on a.stockno = b.stockno"
             Dim phasedout As String
             Dim toorder As String
             If reportpasedout.Checked = True Then
-                phasedout = " phasedout = 'yes'"
+                phasedout = " phasedout like '&yes&'"
             Else
                 phasedout = " phasedout = phasedout"
             End If
@@ -2000,7 +2000,7 @@ on a.stockno=b.stockno where B.MYYEAR = '" & myyear.Text & "'"
 
 
 
-            Dim firststr As String = "DECLARE @TOWEIGHT AS DECIMAL(10,2)=(select sum(isnull((a.UFACTOR*a.FINALNEEDTOORDER)*a.WEIGHT,0)) from STOCKS_TB as a where a.finalneedtoorder >0 "
+            Dim firststr As String = "DECLARE @TOWEIGHT AS DECIMAL(10,2)=(select sum(isnull((a.UFACTOR*a.FINALNEEDTOORDER)*isnull(a.WEIGHT,0),0)) from STOCKS_TB as a where a.finalneedtoorder >0 "
             Dim str As String = "
 
 select 
@@ -2068,80 +2068,80 @@ on a.stockno = b.stockno where b.myyear='" & myyear.Text & "'"
 
 
             'If reportsupplier.Text = "" And reportstatus.Text = "" Then
-            '    condition = " and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            '    condition = " and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             'ElseIf Not reportsupplier.Text = "" And Not reportstatus.Text = "" Then
-            '    condition = " and a.supplier='" & reportsupplier.Text & "' and a.status= '" & reportstatus.Text & "' and a.phasedout = '" & phasedout & "'  and a.toorder='" & toorder & "' "
+            '    condition = " and a.supplier='" & reportsupplier.Text & "' and a.status= '" & reportstatus.Text & "' and a.phasedout like '%" & phasedout & "%'  and a.toorder='" & toorder & "' "
             'ElseIf reportsupplier.Text = "" And Not reportstatus.Text = "" Then
-            '    condition = " and a.status= '" & reportstatus.Text & "' and a.phasedout = '" & phasedout & "'  and a.toorder='" & toorder & "' "
+            '    condition = " and a.status= '" & reportstatus.Text & "' and a.phasedout like '%" & phasedout & "%'  and a.toorder='" & toorder & "' "
             'ElseIf Not reportsupplier.Text = "" And reportstatus.Text = "" Then
-            '    condition = " and a.supplier='" & reportsupplier.Text & "' and a.phasedout = '" & phasedout & "'  and a.toorder='" & toorder & "' "
+            '    condition = " and a.supplier='" & reportsupplier.Text & "' and a.phasedout like '%" & phasedout & "%'  and a.toorder='" & toorder & "' "
             'End If
 
             If a = "" And b = "" And c = "" And d = "" And f = "" Then
 
-                condition = " and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf a = "" And b = "" And c = "" And d = "" And Not f = "" Then
-                condition = " and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & fcol & "='" & f & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf a = "" And b = "" And c = "" And Not d = "" And f = "" Then
-                condition = " and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & dcol & "='" & d & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf a = "" And b = "" And c = "" And Not d = "" And Not f = "" Then
-                condition = " and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf a = "" And b = "" And Not c = "" And d = "" And f = "" Then
-                condition = " and " & ccol & "='" & c & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & ccol & "='" & c & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf a = "" And b = "" And Not c = "" And d = "" And Not f = "" Then
-                condition = " and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf a = "" And b = "" And Not c = "" And Not d = "" And f = "" Then
-                condition = " and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf a = "" And b = "" And Not c = "" And Not d = "" And Not f = "" Then
-                condition = " and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf a = "" And Not b = "" And c = "" And d = "" And f = "" Then
-                condition = " and " & bcol & "='" & b & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & bcol & "='" & b & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf a = "" And Not b = "" And c = "" And d = "" And Not f = "" Then
-                condition = " and " & bcol & "='" & b & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & bcol & "='" & b & "' and " & fcol & "='" & f & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf a = "" And Not b = "" And c = "" And Not d = "" And f = "" Then
-                condition = " and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf a = "" And Not b = "" And c = "" And Not d = "" And Not f = "" Then
-                condition = " and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf a = "" And Not b = "" And Not c = "" And d = "" And f = "" Then
-                condition = " and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf a = "" And Not b = "" And Not c = "" And d = "" And Not f = "" Then
-                condition = " and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf a = "" And Not b = "" And Not c = "" And Not d = "" And f = "" Then
-                condition = " and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf a = "" And Not b = "" And Not c = "" And Not d = "" And Not f = "" Then
-                condition = " and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf Not a = "" And b = "" And c = "" And d = "" And f = "" Then
-                condition = " and " & acol & "='" & a & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & acol & "='" & a & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf Not a = "" And b = "" And c = "" And d = "" And Not f = "" Then
-                condition = " and " & acol & "='" & a & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & acol & "='" & a & "' and " & fcol & "='" & f & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf Not a = "" And b = "" And c = "" And Not d = "" And f = "" Then
-                condition = " and " & acol & "='" & a & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & acol & "='" & a & "' and " & dcol & "='" & d & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf Not a = "" And b = "" And c = "" And Not d = "" And Not f = "" Then
-                condition = " and " & acol & "='" & a & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & acol & "='" & a & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf Not a = "" And b = "" And Not c = "" And d = "" And f = "" Then
-                condition = " and " & acol & "='" & a & "' and " & ccol & "='" & c & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & acol & "='" & a & "' and " & ccol & "='" & c & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf Not a = "" And b = "" And Not c = "" And d = "" And Not f = "" Then
-                condition = " and " & acol & "='" & a & "' and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & acol & "='" & a & "' and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf Not a = "" And b = "" And Not c = "" And Not d = "" And f = "" Then
-                condition = " and " & acol & "='" & a & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & acol & "='" & a & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf Not a = "" And b = "" And Not c = "" And Not d = "" And Not f = "" Then
-                condition = " and " & acol & "='" & a & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & acol & "='" & a & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf Not a = "" And Not b = "" And c = "" And d = "" And f = "" Then
-                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf Not a = "" And Not b = "" And c = "" And d = "" And Not f = "" Then
-                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & fcol & "='" & f & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf Not a = "" And Not b = "" And c = "" And Not d = "" And f = "" Then
-                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf Not a = "" And Not b = "" And c = "" And Not d = "" And Not f = "" Then
-                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf Not a = "" And Not b = "" And Not c = "" And d = "" And f = "" Then
-                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf Not a = "" And Not b = "" And Not c = "" And d = "" And Not f = "" Then
-                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf Not a = "" And Not b = "" And Not c = "" And Not d = "" And f = "" Then
-                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             ElseIf Not a = "" And Not b = "" And Not c = "" And Not d = "" And Not f = "" Then
-                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout like '%" & phasedout & "%' and a.toorder='" & toorder & "' "
             End If
             Dim mystr As String = "" & firststr & "" + condition + ")" + "" & str & "" + condition + " order by a.articleno asc"
             sql.anualreporting(mystr, updateneedtoorder)
