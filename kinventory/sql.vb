@@ -7,7 +7,7 @@ Imports System.Security.Cryptography
 Imports System.Windows.Forms.DataVisualization.Charting
 Public Class sql
     Dim datasource As String = Form9.myaccess.Text.ToString
-    Dim catalog As String = "heretosave"
+    Dim catalog As String = "HERETOSAVE"
     Dim userid As String = "kmdiadmin"
     Dim password As String = "kmdiadmin"
     Public sqlcon As New SqlConnection With {.ConnectionString = "Data Source='" & datasource & "';Network Library=DBMSSOCN;Initial Catalog='" & catalog & "';User ID='" & userid & "';Password='" & password & "';"}
@@ -1039,7 +1039,7 @@ on a.stockno = b.stockno"
             Dim ds As New DataSet
             Dim bs As New BindingSource
             ds.Clear()
-            Dim str As String = "select  articleno,description,physical,free,unit,stockno,unitprice,xrate from stocks_tb where costhead = '" & costhead & "' and typecolor='" & typecolor & "'"
+            Dim str As String = "select  articleno,description,physical,free,unit,stockno,unitprice,xrate,ufactor from stocks_tb where costhead = '" & costhead & "' and typecolor='" & typecolor & "'"
             sqlcmd = New SqlCommand(str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "stocks_tb")
@@ -1054,6 +1054,7 @@ on a.stockno = b.stockno"
             Form2.transstockno.DataBindings.Clear()
             Form2.unitprice.DataBindings.Clear()
             Form2.xrate.DataBindings.Clear()
+            Form2.ufactor.DataBindings.Clear()
             Form2.transdescription.DataBindings.Add("TEXT", bs, "DESCRIPTION")
             Form2.transphysical.DataBindings.Add("TEXT", bs, "PHYSICAL")
             Form2.transfree.DataBindings.Add("TEXT", bs, "FREE")
@@ -1061,6 +1062,7 @@ on a.stockno = b.stockno"
             Form2.transstockno.DataBindings.Add("TEXT", bs, "STOCKNO")
             Form2.unitprice.DataBindings.Add("TEXT", bs, "unitprice")
             Form2.xrate.DataBindings.Add("TEXT", bs, "xrate")
+            Form2.ufactor.DataBindings.Add("TEXT", bs, "ufactor")
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -1073,7 +1075,7 @@ on a.stockno = b.stockno"
             Dim ds As New DataSet
             Dim bs As New BindingSource
             ds.Clear()
-            Dim str As String = "select  articleno,description,physical,free,unit,stockno,unitprice,xrate from stocks_tb where " & a & " ='" & phasedout & "'"
+            Dim str As String = "select  articleno,description,physical,free,unit,stockno,unitprice,xrate,ufactor from stocks_tb where " & a & " ='" & phasedout & "'"
             sqlcmd = New SqlCommand(str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "stocks_tb")
@@ -1088,6 +1090,7 @@ on a.stockno = b.stockno"
             Form2.transstockno.DataBindings.Clear()
             Form2.unitprice.DataBindings.Clear()
             Form2.xrate.DataBindings.Clear()
+            Form2.ufactor.DataBindings.Clear()
             Form2.transdescription.DataBindings.Add("TEXT", bs, "DESCRIPTION")
             Form2.transphysical.DataBindings.Add("TEXT", bs, "PHYSICAL")
             Form2.transfree.DataBindings.Add("TEXT", bs, "FREE")
@@ -1095,6 +1098,7 @@ on a.stockno = b.stockno"
             Form2.transstockno.DataBindings.Add("TEXT", bs, "STOCKNO")
             Form2.unitprice.DataBindings.Add("TEXT", bs, "unitprice")
             Form2.xrate.DataBindings.Add("TEXT", bs, "xrate")
+            Form2.ufactor.DataBindings.Add("TEXT", bs, "ufactor")
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -1107,7 +1111,7 @@ on a.stockno = b.stockno"
             Dim ds As New DataSet
             Dim bs As New BindingSource
             ds.Clear()
-            Dim str As String = "select  articleno,description,physical,free,unit,stockno,unitprice,xrate from stocks_tb where costhead = '" & costhead & "' and  " & a & " ='" & phasedout & "'"
+            Dim str As String = "select  articleno,description,physical,free,unit,stockno,unitprice,xrate,ufactor from stocks_tb where costhead = '" & costhead & "' and  " & a & " ='" & phasedout & "'"
             sqlcmd = New SqlCommand(str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "stocks_tb")
@@ -1122,6 +1126,7 @@ on a.stockno = b.stockno"
             Form2.transstockno.DataBindings.Clear()
             Form2.unitprice.DataBindings.Clear()
             Form2.xrate.DataBindings.Clear()
+            Form2.ufactor.DataBindings.Clear()
             Form2.transdescription.DataBindings.Add("TEXT", bs, "DESCRIPTION")
             Form2.transphysical.DataBindings.Add("TEXT", bs, "PHYSICAL")
             Form2.transfree.DataBindings.Add("TEXT", bs, "FREE")
@@ -1129,6 +1134,7 @@ on a.stockno = b.stockno"
             Form2.transstockno.DataBindings.Add("TEXT", bs, "STOCKNO")
             Form2.unitprice.DataBindings.Add("TEXT", bs, "unitprice")
             Form2.xrate.DataBindings.Add("TEXT", bs, "xrate")
+            Form2.ufactor.DataBindings.Add("TEXT", bs, "ufactor")
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -1141,7 +1147,7 @@ on a.stockno = b.stockno"
             Dim ds As New DataSet
             Dim bs As New BindingSource
             ds.Clear()
-            Dim str As String = "select  articleno,description,physical,free,unit,stockno,unitprice,xrate from stocks_tb where typecolor = '" & typecolor & "' and  " & a & " ='" & phasedout & "'"
+            Dim str As String = "select  articleno,description,physical,free,unit,stockno,unitprice,xrate,ufactor from stocks_tb where typecolor = '" & typecolor & "' and  " & a & " ='" & phasedout & "'"
             sqlcmd = New SqlCommand(str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "stocks_tb")
@@ -1156,6 +1162,7 @@ on a.stockno = b.stockno"
             Form2.transstockno.DataBindings.Clear()
             Form2.unitprice.DataBindings.Clear()
             Form2.xrate.DataBindings.Clear()
+            Form2.ufactor.DataBindings.Clear()
             Form2.transdescription.DataBindings.Add("TEXT", bs, "DESCRIPTION")
             Form2.transphysical.DataBindings.Add("TEXT", bs, "PHYSICAL")
             Form2.transfree.DataBindings.Add("TEXT", bs, "FREE")
@@ -1163,6 +1170,7 @@ on a.stockno = b.stockno"
             Form2.transstockno.DataBindings.Add("TEXT", bs, "STOCKNO")
             Form2.unitprice.DataBindings.Add("TEXT", bs, "unitprice")
             Form2.xrate.DataBindings.Add("TEXT", bs, "xrate")
+            Form2.ufactor.DataBindings.Add("TEXT", bs, "ufactor")
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -1711,6 +1719,7 @@ a.ACCOUNT,
 a.CONTROLNO,
 a.XYZ,
 b.description,
+a.UFACTOR,
 a.UNITPRICE,
 A.XRATE,
 A.NETAMOUNT
@@ -1752,7 +1761,11 @@ a.REFERENCE,
 a.ACCOUNT,
 a.CONTROLNO,
 a.XYZ,
-b.description
+b.description,
+a.UFACTOR,
+a.UNITPRICE,
+A.XRATE,
+A.NETAMOUNT
  from trans_tb as a
 inner join stocks_tb as b on a.stockno = b.stockno
 where a.reference='" & reference & "' and a.stockno = '" & stocksno & "' and a.transtype = 'Order' and a.xyzref=''

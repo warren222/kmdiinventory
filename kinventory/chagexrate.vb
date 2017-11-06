@@ -25,6 +25,9 @@ Public Class chagexrate
             If KryptonCheckBox1.Checked = True Then
                 changeunit(tno, unit.Text)
             End If
+            If KryptonCheckBox2.Checked = True Then
+                changeufactor(tno, ufactor.Text)
+            End If
         Next
         MessageBox.Show(" update!", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Form2.KryptonButton11.PerformClick()
@@ -135,6 +138,58 @@ update trans_tb set netamount=(xrate*" & unit & ")*(qty*ufactor),unitprice=" & u
             sql.sqlcon.Close()
         End Try
     End Sub
+    Public Sub changeufactor(ByVal tno As String, ByVal ufactor As String)
+        Try
+            sql.sqlcon.Open()
+            Dim transtype As String
+            Dim xyz As String
+            Dim xyzref As String
+            Dim str As String = "select transtype,xyz,xyzref from trans_tb where transno = '" & tno & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            Dim read As SqlDataReader = sqlcmd.ExecuteReader
+            While read.Read
+                transtype = read(0).ToString
+                xyz = read(1).ToString
+                xyzref = read(2).ToString
+            End While
+            read.Close()
+            If (transtype = "Order" Or transtype = "Receipt") And xyz = "" And xyzref = "" Then
+                Try
+                    Dim updateorder As String = "update trans_tb set netamount=(xrate*unitprice)*(qty*" & ufactor & "),ufactor=" & ufactor & " where transno = '" & tno & "'"
+                    sqlcmd = New SqlCommand(updateorder, sql.sqlcon)
+                    sqlcmd.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox(ex.ToString)
+                End Try
+            ElseIf transtype = "Order" And xyz = "" And Not xyzref = "" Then
+                Try
+                    Dim updateorder As String = "
+update trans_tb set netamount=(xrate*unitprice)*(qty*" & ufactor & "),ufactor=" & ufactor & " where transno = '" & tno & "'
+update trans_tb set netamount=(xrate*unitprice)*(qty*" & ufactor & "),ufactor=" & ufactor & " where xyzref = '" & tno & "'"
+                    sqlcmd = New SqlCommand(updateorder, sql.sqlcon)
+                    sqlcmd.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox(ex.ToString)
+                End Try
+            ElseIf transtype = "Receipt" And Not xyz = "" And Not xyzref = "" Then
+                Try
+                    Dim updateorder As String = "
+update trans_tb set netamount=(xrate*unitprice)*(qty*" & ufactor & "),ufactor=" & ufactor & " where transno = '" & tno & "'
+update trans_tb set netamount=(xrate*unitprice)*(qty*" & ufactor & "),ufactor=" & ufactor & " where xyzref = '" & tno & "'"
+                    sqlcmd = New SqlCommand(updateorder, sql.sqlcon)
+                    sqlcmd.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox(ex.ToString)
+                End Try
+            Else
+
+            End If
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
 
     Private Sub chagexrate_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If Form1.Label2.Text = "Guest" Then
@@ -156,5 +211,14 @@ update trans_tb set netamount=(xrate*" & unit & ")*(qty*ufactor),unitprice=" & u
     Private Sub chagexrate_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         KryptonCheckBox8.Checked = False
         KryptonCheckBox1.Checked = False
+        KryptonCheckBox2.Checked = False
+    End Sub
+
+    Private Sub ufactor_Leave(sender As Object, e As EventArgs) Handles ufactor.Leave
+        If IsNumeric(ufactor.Text) Then
+        Else
+            MessageBox.Show("invalid ufactor", "", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ufactor.Focus()
+        End If
     End Sub
 End Class

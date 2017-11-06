@@ -821,10 +821,30 @@ update reference_tb set
                 Dim XYZ As String = "Order"
                 Dim remarks As String = ""
 
-                Dim unit As Double = 0
-                Dim rate As Double = 0
-                Dim amount As Double = 0
-                Dim ufactor As Double = 0
+                Dim unit As Double
+                Dim rate As Double
+                Dim amount As Double
+                Dim ufactor As Double
+                Dim rqty As Double = receiptqty.Text
+                Try
+                    sql.sqlcon.Open()
+                    Dim str As String = "select ufactor,unitprice,xrate from trans_tb where transno = '" & receipttransno.Text & "'"
+                    sqlcmd = New SqlCommand(str, sql.sqlcon)
+                    Dim read As SqlDataReader = sqlcmd.ExecuteReader
+                    While read.Read
+                        ufactor = read(0).ToString
+                        unit = read(1).ToString
+                        rate = read(2).ToString
+                    End While
+                    read.Close()
+                Catch ex As Exception
+                    MsgBox(ex.ToString)
+                Finally
+                    sql.sqlcon.Close()
+                End Try
+                amount = (rqty * ufactor) * (unit * rate)
+
+
                 sql.newtransaction(receiptstockno.Text,
                        transaction,
                        transdate.Text,
@@ -1980,9 +2000,9 @@ on a.stockno=b.stockno where B.MYYEAR = '" & myyear.Text & "'"
 
 
 
-
+            Dim firststr As String = "DECLARE @TOWEIGHT AS DECIMAL(10,2)=(select sum(isnull((a.UFACTOR*a.FINALNEEDTOORDER)*a.WEIGHT,0)) from STOCKS_TB as a where a.finalneedtoorder >0 "
             Dim str As String = "
-DECLARE @TOWEIGHT AS DECIMAL(10,2)=(select sum(isnull((UFACTOR*FINALNEEDTOORDER)*[WEIGHT],0)) from STOCKS_TB where finalneedtoorder >0)
+
 select 
 a.STOCKNO,
 a.SUPPLIER,
@@ -2048,82 +2068,83 @@ on a.stockno = b.stockno where b.myyear='" & myyear.Text & "'"
 
 
             'If reportsupplier.Text = "" And reportstatus.Text = "" Then
-            '    condition = "" & str & " and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
+            '    condition = " and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
             'ElseIf Not reportsupplier.Text = "" And Not reportstatus.Text = "" Then
-            '    condition = "" & str & " and a.supplier='" & reportsupplier.Text & "' and a.status= '" & reportstatus.Text & "' and a.phasedout = '" & phasedout & "'  and a.toorder='" & toorder & "' order by a.articleno asc"
+            '    condition = " and a.supplier='" & reportsupplier.Text & "' and a.status= '" & reportstatus.Text & "' and a.phasedout = '" & phasedout & "'  and a.toorder='" & toorder & "' "
             'ElseIf reportsupplier.Text = "" And Not reportstatus.Text = "" Then
-            '    condition = "" & str & " and a.status= '" & reportstatus.Text & "' and a.phasedout = '" & phasedout & "'  and a.toorder='" & toorder & "' order by a.articleno asc"
+            '    condition = " and a.status= '" & reportstatus.Text & "' and a.phasedout = '" & phasedout & "'  and a.toorder='" & toorder & "' "
             'ElseIf Not reportsupplier.Text = "" And reportstatus.Text = "" Then
-            '    condition = "" & str & " and a.supplier='" & reportsupplier.Text & "' and a.phasedout = '" & phasedout & "'  and a.toorder='" & toorder & "' order by a.articleno asc"
+            '    condition = " and a.supplier='" & reportsupplier.Text & "' and a.phasedout = '" & phasedout & "'  and a.toorder='" & toorder & "' "
             'End If
 
             If a = "" And b = "" And c = "" And d = "" And f = "" Then
-                condition = "" & str & " and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf a = "" And b = "" And c = "" And d = "" And Not f = "" Then
-                condition = "" & str & " and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf a = "" And b = "" And c = "" And Not d = "" And f = "" Then
-                condition = "" & str & " and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf a = "" And b = "" And c = "" And Not d = "" And Not f = "" Then
-                condition = "" & str & " and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf a = "" And b = "" And Not c = "" And d = "" And f = "" Then
-                condition = "" & str & " and " & ccol & "='" & c & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf a = "" And b = "" And Not c = "" And d = "" And Not f = "" Then
-                condition = "" & str & " and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf a = "" And b = "" And Not c = "" And Not d = "" And f = "" Then
-                condition = "" & str & " and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf a = "" And b = "" And Not c = "" And Not d = "" And Not f = "" Then
-                condition = "" & str & " and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf a = "" And Not b = "" And c = "" And d = "" And f = "" Then
-                condition = "" & str & " and " & bcol & "='" & b & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf a = "" And Not b = "" And c = "" And d = "" And Not f = "" Then
-                condition = "" & str & " and " & bcol & "='" & b & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf a = "" And Not b = "" And c = "" And Not d = "" And f = "" Then
-                condition = "" & str & " and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf a = "" And Not b = "" And c = "" And Not d = "" And Not f = "" Then
-                condition = "" & str & " and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf a = "" And Not b = "" And Not c = "" And d = "" And f = "" Then
-                condition = "" & str & " and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf a = "" And Not b = "" And Not c = "" And d = "" And Not f = "" Then
-                condition = "" & str & " and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf a = "" And Not b = "" And Not c = "" And Not d = "" And f = "" Then
-                condition = "" & str & " and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf a = "" And Not b = "" And Not c = "" And Not d = "" And Not f = "" Then
-                condition = "" & str & " and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf Not a = "" And b = "" And c = "" And d = "" And f = "" Then
-                condition = "" & str & " and " & acol & "='" & a & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf Not a = "" And b = "" And c = "" And d = "" And Not f = "" Then
-                condition = "" & str & " and " & acol & "='" & a & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf Not a = "" And b = "" And c = "" And Not d = "" And f = "" Then
-                condition = "" & str & " and " & acol & "='" & a & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf Not a = "" And b = "" And c = "" And Not d = "" And Not f = "" Then
-                condition = "" & str & " and " & acol & "='" & a & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf Not a = "" And b = "" And Not c = "" And d = "" And f = "" Then
-                condition = "" & str & " and " & acol & "='" & a & "' and " & ccol & "='" & c & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf Not a = "" And b = "" And Not c = "" And d = "" And Not f = "" Then
-                condition = "" & str & " and " & acol & "='" & a & "' and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf Not a = "" And b = "" And Not c = "" And Not d = "" And f = "" Then
-                condition = "" & str & " and " & acol & "='" & a & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf Not a = "" And b = "" And Not c = "" And Not d = "" And Not f = "" Then
-                condition = "" & str & " and " & acol & "='" & a & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf Not a = "" And Not b = "" And c = "" And d = "" And f = "" Then
-                condition = "" & str & " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf Not a = "" And Not b = "" And c = "" And d = "" And Not f = "" Then
-                condition = "" & str & " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf Not a = "" And Not b = "" And c = "" And Not d = "" And f = "" Then
-                condition = "" & str & " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf Not a = "" And Not b = "" And c = "" And Not d = "" And Not f = "" Then
-                condition = "" & str & " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf Not a = "" And Not b = "" And Not c = "" And d = "" And f = "" Then
-                condition = "" & str & " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf Not a = "" And Not b = "" And Not c = "" And d = "" And Not f = "" Then
-                condition = "" & str & " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf Not a = "" And Not b = "" And Not c = "" And Not d = "" And f = "" Then
-                condition = "" & str & " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            ElseIf Not a = "" And Not b = "" And Not c = "" And Not d = "" And Not f = "" Then
-                condition = "" & str & " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' order by a.articleno asc"
-            End If
 
-            sql.anualreporting(condition, updateneedtoorder)
+                condition = " and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf a = "" And b = "" And c = "" And d = "" And Not f = "" Then
+                condition = " and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf a = "" And b = "" And c = "" And Not d = "" And f = "" Then
+                condition = " and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf a = "" And b = "" And c = "" And Not d = "" And Not f = "" Then
+                condition = " and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf a = "" And b = "" And Not c = "" And d = "" And f = "" Then
+                condition = " and " & ccol & "='" & c & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf a = "" And b = "" And Not c = "" And d = "" And Not f = "" Then
+                condition = " and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf a = "" And b = "" And Not c = "" And Not d = "" And f = "" Then
+                condition = " and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf a = "" And b = "" And Not c = "" And Not d = "" And Not f = "" Then
+                condition = " and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf a = "" And Not b = "" And c = "" And d = "" And f = "" Then
+                condition = " and " & bcol & "='" & b & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf a = "" And Not b = "" And c = "" And d = "" And Not f = "" Then
+                condition = " and " & bcol & "='" & b & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf a = "" And Not b = "" And c = "" And Not d = "" And f = "" Then
+                condition = " and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf a = "" And Not b = "" And c = "" And Not d = "" And Not f = "" Then
+                condition = " and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf a = "" And Not b = "" And Not c = "" And d = "" And f = "" Then
+                condition = " and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf a = "" And Not b = "" And Not c = "" And d = "" And Not f = "" Then
+                condition = " and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf a = "" And Not b = "" And Not c = "" And Not d = "" And f = "" Then
+                condition = " and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf a = "" And Not b = "" And Not c = "" And Not d = "" And Not f = "" Then
+                condition = " and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf Not a = "" And b = "" And c = "" And d = "" And f = "" Then
+                condition = " and " & acol & "='" & a & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf Not a = "" And b = "" And c = "" And d = "" And Not f = "" Then
+                condition = " and " & acol & "='" & a & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf Not a = "" And b = "" And c = "" And Not d = "" And f = "" Then
+                condition = " and " & acol & "='" & a & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf Not a = "" And b = "" And c = "" And Not d = "" And Not f = "" Then
+                condition = " and " & acol & "='" & a & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf Not a = "" And b = "" And Not c = "" And d = "" And f = "" Then
+                condition = " and " & acol & "='" & a & "' and " & ccol & "='" & c & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf Not a = "" And b = "" And Not c = "" And d = "" And Not f = "" Then
+                condition = " and " & acol & "='" & a & "' and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf Not a = "" And b = "" And Not c = "" And Not d = "" And f = "" Then
+                condition = " and " & acol & "='" & a & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf Not a = "" And b = "" And Not c = "" And Not d = "" And Not f = "" Then
+                condition = " and " & acol & "='" & a & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf Not a = "" And Not b = "" And c = "" And d = "" And f = "" Then
+                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf Not a = "" And Not b = "" And c = "" And d = "" And Not f = "" Then
+                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf Not a = "" And Not b = "" And c = "" And Not d = "" And f = "" Then
+                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf Not a = "" And Not b = "" And c = "" And Not d = "" And Not f = "" Then
+                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf Not a = "" And Not b = "" And Not c = "" And d = "" And f = "" Then
+                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf Not a = "" And Not b = "" And Not c = "" And d = "" And Not f = "" Then
+                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf Not a = "" And Not b = "" And Not c = "" And Not d = "" And f = "" Then
+                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            ElseIf Not a = "" And Not b = "" And Not c = "" And Not d = "" And Not f = "" Then
+                condition = " and " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and a.phasedout = '" & phasedout & "' and a.toorder='" & toorder & "' "
+            End If
+            Dim mystr As String = "" & firststr & "" + condition + ")" + "" & str & "" + condition + " order by a.articleno asc"
+            sql.anualreporting(mystr, updateneedtoorder)
             Form7.ShowDialog()
         End If
     End Sub

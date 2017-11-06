@@ -28,12 +28,14 @@ Partial Class chagexrate
         Me.KryptonCheckBox8 = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
         Me.KryptonCheckBox1 = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
         Me.unit = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
+        Me.KryptonCheckBox2 = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
+        Me.ufactor = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.SuspendLayout()
         '
         'KryptonButton1
         '
         Me.KryptonButton1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.KryptonButton1.Location = New System.Drawing.Point(115, 146)
+        Me.KryptonButton1.Location = New System.Drawing.Point(107, 201)
         Me.KryptonButton1.Name = "KryptonButton1"
         Me.KryptonButton1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonButton1.Size = New System.Drawing.Size(75, 29)
@@ -65,7 +67,7 @@ Partial Class chagexrate
         '
         'xrate
         '
-        Me.xrate.Location = New System.Drawing.Point(20, 45)
+        Me.xrate.Location = New System.Drawing.Point(12, 166)
         Me.xrate.Multiline = True
         Me.xrate.Name = "xrate"
         Me.xrate.Size = New System.Drawing.Size(170, 29)
@@ -83,7 +85,7 @@ Partial Class chagexrate
         'transno
         '
         Me.transno.FormattingEnabled = True
-        Me.transno.Location = New System.Drawing.Point(20, 191)
+        Me.transno.Location = New System.Drawing.Point(20, 258)
         Me.transno.Name = "transno"
         Me.transno.Size = New System.Drawing.Size(263, 21)
         Me.transno.TabIndex = 469
@@ -91,7 +93,7 @@ Partial Class chagexrate
         'KryptonCheckBox8
         '
         Me.KryptonCheckBox8.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
-        Me.KryptonCheckBox8.Location = New System.Drawing.Point(20, 17)
+        Me.KryptonCheckBox8.Location = New System.Drawing.Point(12, 138)
         Me.KryptonCheckBox8.Name = "KryptonCheckBox8"
         Me.KryptonCheckBox8.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonCheckBox8.Size = New System.Drawing.Size(65, 22)
@@ -103,18 +105,18 @@ Partial Class chagexrate
         'KryptonCheckBox1
         '
         Me.KryptonCheckBox1.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
-        Me.KryptonCheckBox1.Location = New System.Drawing.Point(20, 80)
+        Me.KryptonCheckBox1.Location = New System.Drawing.Point(12, 75)
         Me.KryptonCheckBox1.Name = "KryptonCheckBox1"
         Me.KryptonCheckBox1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
-        Me.KryptonCheckBox1.Size = New System.Drawing.Size(47, 22)
+        Me.KryptonCheckBox1.Size = New System.Drawing.Size(82, 22)
         Me.KryptonCheckBox1.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.KryptonCheckBox1.TabIndex = 472
-        Me.KryptonCheckBox1.Text = "unit"
-        Me.KryptonCheckBox1.Values.Text = "unit"
+        Me.KryptonCheckBox1.Text = "Unit Price"
+        Me.KryptonCheckBox1.Values.Text = "Unit Price"
         '
         'unit
         '
-        Me.unit.Location = New System.Drawing.Point(20, 108)
+        Me.unit.Location = New System.Drawing.Point(12, 103)
         Me.unit.Multiline = True
         Me.unit.Name = "unit"
         Me.unit.Size = New System.Drawing.Size(170, 29)
@@ -129,11 +131,42 @@ Partial Class chagexrate
         Me.unit.TabIndex = 471
         Me.unit.Text = "0"
         '
+        'KryptonCheckBox2
+        '
+        Me.KryptonCheckBox2.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
+        Me.KryptonCheckBox2.Location = New System.Drawing.Point(12, 12)
+        Me.KryptonCheckBox2.Name = "KryptonCheckBox2"
+        Me.KryptonCheckBox2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonCheckBox2.Size = New System.Drawing.Size(74, 22)
+        Me.KryptonCheckBox2.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonCheckBox2.TabIndex = 474
+        Me.KryptonCheckBox2.Text = "U-factor"
+        Me.KryptonCheckBox2.Values.Text = "U-factor"
+        '
+        'ufactor
+        '
+        Me.ufactor.Location = New System.Drawing.Point(12, 40)
+        Me.ufactor.Multiline = True
+        Me.ufactor.Name = "ufactor"
+        Me.ufactor.Size = New System.Drawing.Size(170, 29)
+        Me.ufactor.StateCommon.Back.Color1 = System.Drawing.Color.White
+        Me.ufactor.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.ufactor.StateCommon.Border.Rounding = 0
+        Me.ufactor.StateCommon.Border.Width = 4
+        Me.ufactor.StateDisabled.Back.Color1 = System.Drawing.Color.White
+        Me.ufactor.StateDisabled.Content.Color1 = System.Drawing.Color.Black
+        Me.ufactor.TabIndex = 473
+        Me.ufactor.Text = "0"
+        '
         'chagexrate
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(203, 184)
+        Me.ClientSize = New System.Drawing.Size(196, 239)
+        Me.Controls.Add(Me.KryptonCheckBox2)
+        Me.Controls.Add(Me.ufactor)
         Me.Controls.Add(Me.KryptonCheckBox1)
         Me.Controls.Add(Me.unit)
         Me.Controls.Add(Me.KryptonCheckBox8)
@@ -154,4 +187,6 @@ Partial Class chagexrate
     Friend WithEvents KryptonCheckBox8 As ComponentFactory.Krypton.Toolkit.KryptonCheckBox
     Friend WithEvents KryptonCheckBox1 As ComponentFactory.Krypton.Toolkit.KryptonCheckBox
     Friend WithEvents unit As ComponentFactory.Krypton.Toolkit.KryptonTextBox
+    Friend WithEvents KryptonCheckBox2 As ComponentFactory.Krypton.Toolkit.KryptonCheckBox
+    Friend WithEvents ufactor As ComponentFactory.Krypton.Toolkit.KryptonTextBox
 End Class
