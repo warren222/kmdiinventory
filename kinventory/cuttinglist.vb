@@ -53,11 +53,17 @@ Public Class cuttinglist
         Else
             MessageBox.Show("invalid transaction", "", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
-        Dim x As Integer = Form2.transgridview.FirstDisplayedScrollingRowIndex
-        Dim y As Integer = Form2.transgridview.FirstDisplayedScrollingColumnIndex
-        Form2.KryptonButton11.PerformClick()
-        Form2.transgridview.FirstDisplayedScrollingRowIndex = x
-        Form2.transgridview.FirstDisplayedScrollingColumnIndex = y
+        Try
+            Dim x As Integer = Form2.transgridview.FirstDisplayedScrollingRowIndex
+            Dim y As Integer = Form2.transgridview.FirstDisplayedScrollingColumnIndex
+            Form2.KryptonButton11.PerformClick()
+            Form2.transgridview.FirstDisplayedScrollingRowIndex = x
+            Form2.transgridview.FirstDisplayedScrollingColumnIndex = y
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+
+        End Try
+
     End Sub
     Public Sub newcuttinglist(ByVal mytransno As String, ByVal qty As String)
         Try

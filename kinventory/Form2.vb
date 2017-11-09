@@ -789,7 +789,7 @@ update reference_tb set
                 Dim remarks As String = ""
 
                 Dim unit As Double = 0
-                Dim rate As Double = 0
+                Dim rate As Double = 1
                 Dim amount As Double = 0
                 Dim ufactor As Double = 0
                 sql.newtransaction(receiptstockno.Text,
@@ -1090,7 +1090,9 @@ a.CONTROLNO,
 A.XYZ,
 a.REMARKS,
 A.UFACTOR,
+(a.ufactor * a.qty) as CHECKER,
 a.UNITPRICE,
+((a.ufactor * a.qty)*a.unitprice) as CURRENCY,
 a.XRATE,
 A.NETAMOUNT,
 A.INPUTTED
@@ -2000,7 +2002,8 @@ on a.stockno=b.stockno where B.MYYEAR = '" & myyear.Text & "'"
 
 
 
-            Dim firststr As String = "DECLARE @TOWEIGHT AS DECIMAL(10,2)=(select sum(isnull((a.UFACTOR*a.FINALNEEDTOORDER)*isnull(a.WEIGHT,0),0)) from STOCKS_TB as a where a.finalneedtoorder >0 "
+            Dim firststr As String = "
+DECLARE @TOWEIGHT AS DECIMAL(10,2)=(select sum(isnull((a.UFACTOR*a.FINALNEEDTOORDER)*isnull(a.WEIGHT,0),0)) from STOCKS_TB as a where a.finalneedtoorder >0 "
             Dim str As String = "
 
 select 

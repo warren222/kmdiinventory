@@ -1226,7 +1226,7 @@ Partial Class Form2
         Me.KryptonGroup2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.KryptonGroup2.GroupBorderStyle = ComponentFactory.Krypton.Toolkit.PaletteBorderStyle.TabOneNote
-        Me.KryptonGroup2.Location = New System.Drawing.Point(7, 5)
+        Me.KryptonGroup2.Location = New System.Drawing.Point(7, 3)
         Me.KryptonGroup2.Name = "KryptonGroup2"
         '
         'KryptonGroup2.Panel
@@ -1258,7 +1258,7 @@ Partial Class Form2
         Me.KryptonGroup2.Panel.Controls.Add(Me.transarticleno)
         Me.KryptonGroup2.Panel.Controls.Add(Me.transtypecolor)
         Me.KryptonGroup2.Panel.Controls.Add(Me.transcosthead)
-        Me.KryptonGroup2.Size = New System.Drawing.Size(236, 338)
+        Me.KryptonGroup2.Size = New System.Drawing.Size(236, 340)
         Me.KryptonGroup2.StateCommon.Back.Color1 = System.Drawing.SystemColors.Control
         Me.KryptonGroup2.TabIndex = 6
         '
