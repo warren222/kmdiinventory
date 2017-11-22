@@ -228,9 +228,21 @@ declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_t
     Public Sub updatenewstockno(ByVal transno As String, ByVal stockno As String)
         Try
             sql.sqlcon.Open()
-            Dim str As String = "update trans_tb set stockno = '" & stockno & "' where transno = '" & transno & "'"
+            Dim str As String = "
+declare @unitprice as decimal(10,2) = (select unitprice from stocks_tb where stockno = '" & stockno & "')
+Declare @xrate as decimal(10,2) = (select xrate from stocks_tb where stockno = '" & stockno & "')
+declare @ufactor decimal(10,2)= (select ufactor from stocks_tb where stockno = '" & stockno & "')
+
+update trans_tb set 
+stockno = '" & stockno & "',
+unitprice=@unitprice,
+xrate=@xrate,
+ufactor=@ufactor,
+netamount=(@unitprice*@xrate)*(qty*@ufactor)
+where transno = '" & transno & "'"
             sqlcmd = New SqlCommand(str, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()
+
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -569,6 +581,7 @@ minimum adjustmment for this transaction is " & minimum & "", "Error", MessageBo
     End Sub
     Public Sub getphysical(ByVal stockno As String)
         Try
+            sql.sqlcon.Close()
             sql.sqlcon.Open()
             Dim str As String = "select physical from stocks_tb where stockno = '" & stockno & "'"
             sqlcmd = New SqlCommand(str, sql.sqlcon)

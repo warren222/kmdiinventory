@@ -1995,17 +1995,14 @@ on a.stockno = b.stockno"
 declare @buffmonth as decimal(10,2) = '" & mymonth.Text & "'
 update
 a
-set a.needtoorder=((((@buffmonth)*(b.CONSUMPTION/12))+(a.allocation+a.minimum))-(a.physical+a.stockorder))
+set a.CONSUMPTION
+=((((@buffmonth)*(b.CONSUMPTION/12))+(a.allocation+a.minimum))-(a.physical+a.stockorder))
 from STOCKS_TB as a
 inner join CONSUMPTIONTB as b
 on a.stockno=b.stockno where B.MYYEAR = '" & myyear.Text & "'"
-
-
-
             Dim firststr As String = "
-DECLARE @TOWEIGHT AS DECIMAL(10,2)=(select sum(isnull((a.UFACTOR*a.FINALNEEDTOORDER)*isnull(a.WEIGHT,0),0)) from STOCKS_TB as a where a.finalneedtoorder >0 "
+DECLARE @TOWEIGHT AS DECIMAL(10,2)=(select sum(isnull((a.UFACTOR*a.FINALNEEDTOORDER)*isnull(a.WEIGHT,0),0)) from STOCKS_TB as a where a.finalneedtoorder > 0 "
             Dim str As String = "
-
 select 
 a.STOCKNO,
 a.SUPPLIER,
