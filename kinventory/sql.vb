@@ -34,7 +34,7 @@ Public Class sql
 
             Form2.stocksgridview.Columns("UFACTOR").Visible = False
             Form2.stocksgridview.Columns("MONETARY").Visible = False
-            Form2.stocksgridview.Columns("UNITPRICE").Visible = False
+            Form2.stocksgridview.Columns("UNITPRICE").Visible = True
             Form2.stocksgridview.Columns("DESCRIPTION").Visible = False
             Form2.stocksgridview.Columns("UNIT").Visible = False
             Form2.stocksgridview.Columns("LOCATION").Visible = False
@@ -100,7 +100,7 @@ Public Class sql
 
             Form2.stocksgridview.Columns("UFACTOR").Visible = False
             Form2.stocksgridview.Columns("MONETARY").Visible = False
-            Form2.stocksgridview.Columns("UNITPRICE").Visible = False
+            Form2.stocksgridview.Columns("UNITPRICE").Visible = True
             Form2.stocksgridview.Columns("DESCRIPTION").Visible = False
             Form2.stocksgridview.Columns("UNIT").Visible = False
             Form2.stocksgridview.Columns("LOCATION").Visible = False

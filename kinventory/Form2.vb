@@ -1995,7 +1995,7 @@ on a.stockno = b.stockno"
 declare @buffmonth as decimal(10,2) = '" & mymonth.Text & "'
 update
 a
-set a.CONSUMPTION
+set a.needtoorder
 =((((@buffmonth)*(b.CONSUMPTION/12))+(a.allocation+a.minimum))-(a.physical+a.stockorder))
 from STOCKS_TB as a
 inner join CONSUMPTIONTB as b
