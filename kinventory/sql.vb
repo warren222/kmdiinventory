@@ -7,7 +7,7 @@ Imports System.Security.Cryptography
 Imports System.Windows.Forms.DataVisualization.Charting
 Public Class sql
     Dim datasource As String = Form9.myaccess.Text.ToString
-    Dim catalog As String = "finaltrans"
+    Dim catalog As String = "heretosave"
     Dim userid As String = "kmdiadmin"
     Dim password As String = "kmdiadmin"
     Public sqlcon As New SqlConnection With {.ConnectionString = "Data Source='" & datasource & "';Network Library=DBMSSOCN;Initial Catalog='" & catalog & "';User ID='" & userid & "';Password='" & password & "';"}
@@ -671,11 +671,13 @@ a.REFERENCE,
 a.ACCOUNT,
 a.CONTROLNO,
 A.XYZ,
+A.EXCESS,
 a.REMARKS,
 A.UFACTOR,
 (A.UFACTOR*A.QTY) AS CHECKER,
 a.UNITPRICE,
-((a.ufactor * a.qty)*a.unitprice) as CURRENCY,
+A.DISC,
+((a.ufactor * a.qty)*(a.unitprice-((a.disc*0.01)*a.unitprice))) as CURRENCY,
 a.XRATE,
 A.NETAMOUNT,
 A.INPUTTED
@@ -695,19 +697,23 @@ on a.stockno = b.stockno order by a.transdate desc"
             Form2.transgridview.Columns("TRANSDATE").DefaultCellStyle.Format = "yyyy-MMM-dd"
             Form2.transgridview.Columns("DUEDATE").DefaultCellStyle.Format = "yyyy-MMM-dd"
             Form2.transgridview.Columns("QTY").DefaultCellStyle.Format = "N2"
+            Form2.transgridview.Columns("EXCESS").DefaultCellStyle.Format = "N2"
             Form2.transgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N2"
             Form2.transgridview.Columns("UNITPRICE").DefaultCellStyle.Format = "N4"
             Form2.transgridview.Columns("XRATE").DefaultCellStyle.Format = "N2"
             Form2.transgridview.Columns("NETAMOUNT").DefaultCellStyle.Format = "N4"
             Form2.transgridview.Columns("CHECKER").DefaultCellStyle.Format = "N2"
             Form2.transgridview.Columns("CURRENCY").DefaultCellStyle.Format = "N2"
+            Form2.transgridview.Columns("DISC").DefaultCellStyle.Format = "N2"
             Form2.transgridview.Columns("QTY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.transgridview.Columns("EXCESS").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.transgridview.Columns("UFACTOR").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.transgridview.Columns("UNITPRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.transgridview.Columns("XRATE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.transgridview.Columns("NETAMOUNT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.transgridview.Columns("CHECKER").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.transgridview.Columns("CURRENCY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.transgridview.Columns("DISC").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             cuttinglist.transno.DataBindings.Clear()
             cuttinglist.remarks.DataBindings.Clear()
             cuttinglist.allocation.DataBindings.Clear()
@@ -1417,7 +1423,9 @@ on a.stockno = b.stockno"
                           ByVal controlno As String,
                               ByVal xyz As String,
                               ByVal XYZREF As String,
-                              ByVal remarks As String, ByVal ufactor As String, ByVal unitprice As String, ByVal xrate As String, ByVal netamount As String)
+                              ByVal remarks As String, ByVal ufactor As String,
+                              ByVal unitprice As String, ByVal disc As String,
+                              ByVal xrate As String, ByVal netamount As String)
         Try
             sqlcon.Open()
             Dim str As String
@@ -1463,7 +1471,7 @@ insert into trans_tb
             QTY,
             REFERENCE,
             ACCOUNT,
-            CONTROLNO,XYZ,XYZREF,REMARKS,BALQTY,ufactor,unitprice,xrate,netamount,INPUTTED) values ('" & stockno & "'," &
+            CONTROLNO,XYZ,XYZREF,REMARKS,BALQTY,ufactor,unitprice,disc,xrate,netamount,INPUTTED) values ('" & stockno & "'," &
          "'" & transtype & "'," &
          "'" & transdate & "'," &
          "'" & duedate & "'," &
@@ -1477,6 +1485,7 @@ insert into trans_tb
            "'" & qty & "'," &
              "'" & ufactor & "'," &
               "'" & unitprice & "'," &
+                  "'" & disc & "'," &
                  "'" & xrate & "'," &
                     "'" & netamount & "'," &
             "'" & Form1.Label1.Text & "')"
@@ -1490,7 +1499,7 @@ insert into trans_tb
             QTY,
             REFERENCE,
             ACCOUNT,
-            CONTROLNO,XYZ,XYZREF,REMARKS,BALQTY,ufactor,unitprice,xrate,netamount,INPUTTED) values ('" & stockno & "'," &
+            CONTROLNO,XYZ,XYZREF,REMARKS,BALQTY,ufactor,unitprice,disc,xrate,netamount,INPUTTED) values ('" & stockno & "'," &
          "'" & transtype & "'," &
          "'" & transdate & "'," &
          "'" & duedate & "'," &
@@ -1504,6 +1513,7 @@ insert into trans_tb
            "'" & newbal & "'," &
              "'" & ufactor & "'," &
               "'" & unitprice & "'," &
+                   "'" & disc & "'," &
                  "'" & xrate & "'," &
                     "'" & netamount & "'," &
             "'" & Form1.Label1.Text & "')"
@@ -1517,7 +1527,7 @@ insert into trans_tb
             QTY,
             REFERENCE,
             ACCOUNT,
-            CONTROLNO,XYZ,XYZREF,REMARKS,BALQTY,ufactor,unitprice,xrate,netamount,INPUTTED) values ('" & stockno & "'," &
+            CONTROLNO,XYZ,XYZREF,REMARKS,BALQTY,ufactor,unitprice,disc,xrate,netamount,INPUTTED) values ('" & stockno & "'," &
          "'" & transtype & "'," &
          "'" & transdate & "'," &
          "'" & duedate & "'," &
@@ -1531,6 +1541,7 @@ insert into trans_tb
            "'" & newbal & "'," &
              "'" & ufactor & "'," &
               "'" & unitprice & "'," &
+                    "'" & disc & "'," &
                  "'" & xrate & "'," &
                     "'" & netamount & "'," &
             "'" & Form1.Label1.Text & "')"
@@ -1926,6 +1937,7 @@ ACCOUNT,
 CONTROLNO,
 XYZ,
 XYZREF,
+EXCESS,
 REMARKS,
 UFACTOR,
 (ufactor * qty) as CHECKER,
@@ -1952,6 +1964,7 @@ not (transtype = 'Allocation' or transtype = 'CancelAlloc' or transtype='Order' 
             Form4.mytransgridview.Columns("NETAMOUNT").DefaultCellStyle.Format = "N2"
             Form4.mytransgridview.Columns("CHECKER").DefaultCellStyle.Format = "N2"
             Form4.mytransgridview.Columns("CURRENCY").DefaultCellStyle.Format = "N2"
+            Form4.mytransgridview.Columns("EXCESS").DefaultCellStyle.Format = "N2"
             Form4.mytransgridview.Columns("QTY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form4.mytransgridview.Columns("UFACTOR").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form4.mytransgridview.Columns("UNITPRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -1959,6 +1972,7 @@ not (transtype = 'Allocation' or transtype = 'CancelAlloc' or transtype='Order' 
             Form4.mytransgridview.Columns("NETAMOUNT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form4.mytransgridview.Columns("CHECKER").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form4.mytransgridview.Columns("CURRENCY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form4.mytransgridview.Columns("EXCESS").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
             For i As Integer = 0 To Form4.mytransgridview.RowCount - 1 Step +1
                 Dim s As String = Form4.mytransgridview.Rows(i).Cells("balqty").Value.ToString
@@ -2125,6 +2139,7 @@ ACCOUNT,
 CONTROLNO,
 XYZ,
 XYZREF,
+EXCESS,
 REMARKS,
 UFACTOR,
 (ufactor * qty) as CHECKER,
@@ -2149,6 +2164,7 @@ INPUTTED from trans_tb where stockno='" & stockno & "' order by transdate desc"
             Form4.mytransgridview.Columns("NETAMOUNT").DefaultCellStyle.Format = "N2"
             Form4.mytransgridview.Columns("CHECKER").DefaultCellStyle.Format = "N2"
             Form4.mytransgridview.Columns("CURRENCY").DefaultCellStyle.Format = "N2"
+            Form4.mytransgridview.Columns("EXCESS").DefaultCellStyle.Format = "N2"
             Form4.mytransgridview.Columns("QTY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form4.mytransgridview.Columns("UFACTOR").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form4.mytransgridview.Columns("UNITPRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -2156,6 +2172,7 @@ INPUTTED from trans_tb where stockno='" & stockno & "' order by transdate desc"
             Form4.mytransgridview.Columns("NETAMOUNT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form4.mytransgridview.Columns("CHECKER").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form4.mytransgridview.Columns("CURRENCY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form4.mytransgridview.Columns("EXCESS").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
             For i As Integer = 0 To Form4.mytransgridview.RowCount - 1 Step +1
                 Dim s As String = Form4.mytransgridview.Rows(i).Cells("balqty").Value.ToString
@@ -2325,6 +2342,7 @@ ACCOUNT,
 CONTROLNO,
 XYZ,
 XYZREF,
+EXCESS,
 REMARKS,
 UFACTOR,
 (ufactor * qty) as CHECKER,
@@ -2350,6 +2368,7 @@ INPUTTED
             Form4.mytransgridview.Columns("NETAMOUNT").DefaultCellStyle.Format = "N2"
             Form4.mytransgridview.Columns("CHECKER").DefaultCellStyle.Format = "N2"
             Form4.mytransgridview.Columns("CURRENCY").DefaultCellStyle.Format = "N2"
+            Form4.mytransgridview.Columns("EXCESS").DefaultCellStyle.Format = "N2"
             Form4.mytransgridview.Columns("QTY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form4.mytransgridview.Columns("UFACTOR").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form4.mytransgridview.Columns("UNITPRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -2357,7 +2376,7 @@ INPUTTED
             Form4.mytransgridview.Columns("NETAMOUNT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form4.mytransgridview.Columns("CHECKER").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form4.mytransgridview.Columns("CURRENCY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
+            Form4.mytransgridview.Columns("EXCESS").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
             Form4.mytransgridview.Columns("stockno").Visible = False
 
@@ -2641,19 +2660,23 @@ INPUTTED
 
             Form2.transgridview.Columns("xyz").Visible = False
             Form2.transgridview.Columns("QTY").DefaultCellStyle.Format = "N2"
+            Form2.transgridview.Columns("EXCESS").DefaultCellStyle.Format = "N2"
             Form2.transgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N2"
             Form2.transgridview.Columns("UNITPRICE").DefaultCellStyle.Format = "N4"
             Form2.transgridview.Columns("XRATE").DefaultCellStyle.Format = "N2"
             Form2.transgridview.Columns("NETAMOUNT").DefaultCellStyle.Format = "N2"
             Form2.transgridview.Columns("CHECKER").DefaultCellStyle.Format = "N2"
             Form2.transgridview.Columns("CURRENCY").DefaultCellStyle.Format = "N2"
+            Form2.transgridview.Columns("DISC").DefaultCellStyle.Format = "N2"
             Form2.transgridview.Columns("QTY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.transgridview.Columns("EXCESS").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.transgridview.Columns("UFACTOR").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.transgridview.Columns("UNITPRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.transgridview.Columns("XRATE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.transgridview.Columns("NETAMOUNT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.transgridview.Columns("CHECKER").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.transgridview.Columns("CURRENCY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.transgridview.Columns("DISC").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             cuttinglist.transno.DataBindings.Clear()
             cuttinglist.remarks.DataBindings.Clear()
             cuttinglist.allocation.DataBindings.Clear()
@@ -3541,6 +3564,7 @@ accttype='" & acctype & "' where id = '" & id & "'"
             Form2.unitprice.DataBindings.Clear()
             Form2.xrate.DataBindings.Clear()
             Form2.ufactor.DataBindings.Clear()
+            Form2.disc.DataBindings.Clear()
             Form2.transstockno.DataBindings.Add("text", bs, "stockno")
             Form2.transcosthead.DataBindings.Add("text", bs, "costhead")
             Form2.transtypecolor.DataBindings.Add("text", bs, "typecolor")
@@ -3551,6 +3575,7 @@ accttype='" & acctype & "' where id = '" & id & "'"
             Form2.unitprice.DataBindings.Add("text", bs, "unitprice")
             Form2.xrate.DataBindings.Add("text", bs, "xrate")
             Form2.ufactor.DataBindings.Add("text", bs, "UFACTOR")
+            Form2.disc.DataBindings.Add("text", bs, "DISC")
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally

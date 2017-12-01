@@ -96,13 +96,34 @@ Public Class PhasedoutForm
             Next
         Else
         End If
+        If KryptonCheckBox13.Checked = True Then
+            For i As Integer = 0 To Form2.stocksStocksno.Items.Count - 1
+                Dim stockno As String = Form2.stocksStocksno.Items(i).ToString
+                updisc(discount.Text, stockno)
+            Next
+        Else
+        End If
         Form2.KryptonButton1.PerformClick()
         Button1.PerformClick()
+    End Sub
+    Public Sub updisc(ByVal myval As String, ByVal stockno As String)
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "
+update stocks_tb set disc='" & myval & "' where stockno='" & stockno & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            sqlcmd.ExecuteNonQuery()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
     End Sub
     Public Sub upunitprice(ByVal myval As String, ByVal stockno As String)
         Try
             sql.sqlcon.Open()
-            Dim str As String = "update stocks_tb set unitprice='" & myval & "' where stockno='" & stockno & "'"
+            Dim str As String = "
+update stocks_tb set unitprice='" & myval & "' where stockno='" & stockno & "'"
             sqlcmd = New SqlCommand(str, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()
         Catch ex As Exception
@@ -336,6 +357,7 @@ Public Class PhasedoutForm
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Me.Close()
+        KryptonCheckBox13.Checked = False
         KryptonCheckBox12.Checked = False
         KryptonCheckBox11.Checked = False
         KryptonCheckBox10.Checked = False
@@ -458,6 +480,37 @@ Public Class PhasedoutForm
             bs.DataMember = "stocks_tb"
             unitprice.DataSource = bs
             unitprice.DisplayMember = "unitprice"
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+
+    Private Sub discount_MouseDown(sender As Object, e As MouseEventArgs) Handles discount.MouseDown
+        Dim i As Integer = discount.SelectedIndex
+        loaddisc()
+        If i > discount.Items.Count - 1 Then
+            discount.SelectedIndex = -1
+        Else
+            discount.SelectedIndex = i
+        End If
+    End Sub
+    Public Sub loaddisc()
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "select distinct disc from stocks_tb"
+            Dim bs As New BindingSource
+            Dim ds As New DataSet
+            ds.Clear()
+            Dim da As New SqlDataAdapter
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "stocks_tb")
+            bs.DataSource = ds
+            bs.DataMember = "stocks_tb"
+            discount.DataSource = bs
+            discount.DisplayMember = "disc"
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally

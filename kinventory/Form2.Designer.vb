@@ -93,6 +93,8 @@ Partial Class Form2
         Me.KryptonLabel16 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.controlno = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonGroup2 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
+        Me.disc = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
+        Me.KryptonLabel67 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.ufactor = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonLabel66 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.netamount = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
@@ -1226,11 +1228,13 @@ Partial Class Form2
         Me.KryptonGroup2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.KryptonGroup2.GroupBorderStyle = ComponentFactory.Krypton.Toolkit.PaletteBorderStyle.TabOneNote
-        Me.KryptonGroup2.Location = New System.Drawing.Point(7, 3)
+        Me.KryptonGroup2.Location = New System.Drawing.Point(7, -140)
         Me.KryptonGroup2.Name = "KryptonGroup2"
         '
         'KryptonGroup2.Panel
         '
+        Me.KryptonGroup2.Panel.Controls.Add(Me.disc)
+        Me.KryptonGroup2.Panel.Controls.Add(Me.KryptonLabel67)
         Me.KryptonGroup2.Panel.Controls.Add(Me.ufactor)
         Me.KryptonGroup2.Panel.Controls.Add(Me.KryptonLabel66)
         Me.KryptonGroup2.Panel.Controls.Add(Me.netamount)
@@ -1258,9 +1262,31 @@ Partial Class Form2
         Me.KryptonGroup2.Panel.Controls.Add(Me.transarticleno)
         Me.KryptonGroup2.Panel.Controls.Add(Me.transtypecolor)
         Me.KryptonGroup2.Panel.Controls.Add(Me.transcosthead)
-        Me.KryptonGroup2.Size = New System.Drawing.Size(236, 340)
+        Me.KryptonGroup2.Size = New System.Drawing.Size(236, 480)
         Me.KryptonGroup2.StateCommon.Back.Color1 = System.Drawing.SystemColors.Control
         Me.KryptonGroup2.TabIndex = 6
+        '
+        'disc
+        '
+        Me.disc.Location = New System.Drawing.Point(88, 328)
+        Me.disc.Multiline = True
+        Me.disc.Name = "disc"
+        Me.disc.Size = New System.Drawing.Size(78, 23)
+        Me.disc.StateDisabled.Content.Color1 = System.Drawing.Color.Black
+        Me.disc.TabIndex = 52
+        Me.disc.Text = "0"
+        Me.disc.Visible = False
+        '
+        'KryptonLabel67
+        '
+        Me.KryptonLabel67.Location = New System.Drawing.Point(6, 328)
+        Me.KryptonLabel67.Name = "KryptonLabel67"
+        Me.KryptonLabel67.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonLabel67.Size = New System.Drawing.Size(37, 19)
+        Me.KryptonLabel67.StateCommon.ShortText.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonLabel67.TabIndex = 51
+        Me.KryptonLabel67.Values.Text = "Disc"
+        Me.KryptonLabel67.Visible = False
         '
         'ufactor
         '
@@ -1286,7 +1312,7 @@ Partial Class Form2
         '
         'netamount
         '
-        Me.netamount.Location = New System.Drawing.Point(88, 382)
+        Me.netamount.Location = New System.Drawing.Point(89, 414)
         Me.netamount.Multiline = True
         Me.netamount.Name = "netamount"
         Me.netamount.Size = New System.Drawing.Size(78, 23)
@@ -1297,7 +1323,7 @@ Partial Class Form2
         '
         'KryptonLabel65
         '
-        Me.KryptonLabel65.Location = New System.Drawing.Point(6, 382)
+        Me.KryptonLabel65.Location = New System.Drawing.Point(7, 414)
         Me.KryptonLabel65.Name = "KryptonLabel65"
         Me.KryptonLabel65.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel65.Size = New System.Drawing.Size(81, 19)
@@ -1308,7 +1334,7 @@ Partial Class Form2
         '
         'xrate
         '
-        Me.xrate.Location = New System.Drawing.Point(88, 353)
+        Me.xrate.Location = New System.Drawing.Point(89, 385)
         Me.xrate.Multiline = True
         Me.xrate.Name = "xrate"
         Me.xrate.Size = New System.Drawing.Size(78, 23)
@@ -1319,7 +1345,7 @@ Partial Class Form2
         '
         'unitprice
         '
-        Me.unitprice.Location = New System.Drawing.Point(88, 325)
+        Me.unitprice.Location = New System.Drawing.Point(89, 357)
         Me.unitprice.Multiline = True
         Me.unitprice.Name = "unitprice"
         Me.unitprice.Size = New System.Drawing.Size(78, 23)
@@ -1330,7 +1356,7 @@ Partial Class Form2
         '
         'KryptonLabel63
         '
-        Me.KryptonLabel63.Location = New System.Drawing.Point(6, 353)
+        Me.KryptonLabel63.Location = New System.Drawing.Point(7, 385)
         Me.KryptonLabel63.Name = "KryptonLabel63"
         Me.KryptonLabel63.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel63.Size = New System.Drawing.Size(52, 19)
@@ -1341,7 +1367,7 @@ Partial Class Form2
         '
         'KryptonLabel64
         '
-        Me.KryptonLabel64.Location = New System.Drawing.Point(6, 325)
+        Me.KryptonLabel64.Location = New System.Drawing.Point(7, 357)
         Me.KryptonLabel64.Name = "KryptonLabel64"
         Me.KryptonLabel64.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel64.Size = New System.Drawing.Size(69, 19)
@@ -1449,10 +1475,10 @@ Partial Class Form2
         '
         'KryptonButton4
         '
-        Me.KryptonButton4.Location = New System.Drawing.Point(29, 410)
+        Me.KryptonButton4.Location = New System.Drawing.Point(9, 443)
         Me.KryptonButton4.Name = "KryptonButton4"
         Me.KryptonButton4.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
-        Me.KryptonButton4.Size = New System.Drawing.Size(181, 23)
+        Me.KryptonButton4.Size = New System.Drawing.Size(208, 23)
         Me.KryptonButton4.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
@@ -1486,7 +1512,7 @@ Partial Class Form2
         Me.transdescription.Location = New System.Drawing.Point(9, 186)
         Me.transdescription.Multiline = True
         Me.transdescription.Name = "transdescription"
-        Me.transdescription.Size = New System.Drawing.Size(222, 23)
+        Me.transdescription.Size = New System.Drawing.Size(208, 23)
         Me.transdescription.StateDisabled.Content.Color1 = System.Drawing.Color.Black
         Me.transdescription.TabIndex = 22
         '
@@ -4163,4 +4189,6 @@ Partial Class Form2
     Friend WithEvents KryptonButton30 As ComponentFactory.Krypton.Toolkit.KryptonButton
     Friend WithEvents ufactor As ComponentFactory.Krypton.Toolkit.KryptonTextBox
     Friend WithEvents KryptonLabel66 As ComponentFactory.Krypton.Toolkit.KryptonLabel
+    Friend WithEvents disc As ComponentFactory.Krypton.Toolkit.KryptonTextBox
+    Friend WithEvents KryptonLabel67 As ComponentFactory.Krypton.Toolkit.KryptonLabel
 End Class

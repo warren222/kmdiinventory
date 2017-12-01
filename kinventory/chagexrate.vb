@@ -51,7 +51,7 @@ Public Class chagexrate
             read.Close()
             If (transtype = "Order" Or transtype = "Receipt") And xyz = "" And xyzref = "" Then
                 Try
-                    Dim updateorder As String = "update trans_tb set netamount=(unitprice*" & rate & ")*(qty*ufactor),xrate=" & rate & " where transno = '" & tno & "'"
+                    Dim updateorder As String = "update trans_tb set netamount=((unitprice-((disc*0.01)*unitprice))*" & rate & ")*(qty*ufactor),xrate=" & rate & " where transno = '" & tno & "'"
                     sqlcmd = New SqlCommand(updateorder, sql.sqlcon)
                     sqlcmd.ExecuteNonQuery()
                 Catch ex As Exception
@@ -60,8 +60,8 @@ Public Class chagexrate
             ElseIf transtype = "Order" And xyz = "" And Not xyzref = "" Then
                 Try
                     Dim updateorder As String = "
-update trans_tb set netamount=(unitprice*" & rate & ")*(qty*ufactor),xrate=" & rate & " where transno = '" & tno & "'
-update trans_tb set netamount=(unitprice*" & rate & ")*(qty*ufactor),xrate=" & rate & " where xyzref = '" & tno & "'"
+update trans_tb set netamount=((unitprice-((disc*0.01)*unitprice)*" & rate & ")*(qty*ufactor),xrate=" & rate & " where transno = '" & tno & "'
+update trans_tb set netamount=((unitprice-((disc*0.01)*unitprice)*" & rate & ")*(qty*ufactor),xrate=" & rate & " where xyzref = '" & tno & "'"
                     sqlcmd = New SqlCommand(updateorder, sql.sqlcon)
                     sqlcmd.ExecuteNonQuery()
                 Catch ex As Exception
@@ -70,8 +70,8 @@ update trans_tb set netamount=(unitprice*" & rate & ")*(qty*ufactor),xrate=" & r
             ElseIf transtype = "Receipt" And Not xyz = "" And Not xyzref = "" Then
                 Try
                     Dim updateorder As String = "
-update trans_tb set netamount=(unitprice*" & rate & ")*(qty*ufactor),xrate=" & rate & " where transno = '" & tno & "'
-update trans_tb set netamount=(unitprice*" & rate & ")*(qty*ufactor),xrate=" & rate & " where xyzref = '" & tno & "'"
+update trans_tb set netamount=((unitprice-((disc*0.01)*unitprice)*" & rate & ")*(qty*ufactor),xrate=" & rate & " where transno = '" & tno & "'
+update trans_tb set netamount=((unitprice-((disc*0.01)*unitprice)*" & rate & ")*(qty*ufactor),xrate=" & rate & " where xyzref = '" & tno & "'"
                     sqlcmd = New SqlCommand(updateorder, sql.sqlcon)
                     sqlcmd.ExecuteNonQuery()
                 Catch ex As Exception
@@ -92,6 +92,7 @@ update trans_tb set netamount=(unitprice*" & rate & ")*(qty*ufactor),xrate=" & r
             Dim transtype As String
             Dim xyz As String
             Dim xyzref As String
+
             Dim str As String = "select transtype,xyz,xyzref from trans_tb where transno = '" & tno & "'"
             sqlcmd = New SqlCommand(str, sql.sqlcon)
             Dim read As SqlDataReader = sqlcmd.ExecuteReader
@@ -155,7 +156,7 @@ update trans_tb set netamount=(xrate*" & unit & ")*(qty*ufactor),unitprice=" & u
             read.Close()
             If (transtype = "Order" Or transtype = "Receipt") And xyz = "" And xyzref = "" Then
                 Try
-                    Dim updateorder As String = "update trans_tb set netamount=(xrate*unitprice)*(qty*" & ufactor & "),ufactor=" & ufactor & " where transno = '" & tno & "'"
+                    Dim updateorder As String = "update trans_tb set netamount=(xrate*(unitprice-((disc*0.01)*unitprice))*(qty*" & ufactor & "),ufactor=" & ufactor & " where transno = '" & tno & "'"
                     sqlcmd = New SqlCommand(updateorder, sql.sqlcon)
                     sqlcmd.ExecuteNonQuery()
                 Catch ex As Exception
@@ -164,8 +165,8 @@ update trans_tb set netamount=(xrate*" & unit & ")*(qty*ufactor),unitprice=" & u
             ElseIf transtype = "Order" And xyz = "" And Not xyzref = "" Then
                 Try
                     Dim updateorder As String = "
-update trans_tb set netamount=(xrate*unitprice)*(qty*" & ufactor & "),ufactor=" & ufactor & " where transno = '" & tno & "'
-update trans_tb set netamount=(xrate*unitprice)*(qty*" & ufactor & "),ufactor=" & ufactor & " where xyzref = '" & tno & "'"
+update trans_tb set netamount=(xrate*(unitprice-((disc*0.01)*unitprice))*(qty*" & ufactor & "),ufactor=" & ufactor & " where transno = '" & tno & "'
+update trans_tb set netamount=(xrate*(unitprice-((disc*0.01)*unitprice))*(qty*" & ufactor & "),ufactor=" & ufactor & " where xyzref = '" & tno & "'"
                     sqlcmd = New SqlCommand(updateorder, sql.sqlcon)
                     sqlcmd.ExecuteNonQuery()
                 Catch ex As Exception
@@ -174,8 +175,8 @@ update trans_tb set netamount=(xrate*unitprice)*(qty*" & ufactor & "),ufactor=" 
             ElseIf transtype = "Receipt" And Not xyz = "" And Not xyzref = "" Then
                 Try
                     Dim updateorder As String = "
-update trans_tb set netamount=(xrate*unitprice)*(qty*" & ufactor & "),ufactor=" & ufactor & " where transno = '" & tno & "'
-update trans_tb set netamount=(xrate*unitprice)*(qty*" & ufactor & "),ufactor=" & ufactor & " where xyzref = '" & tno & "'"
+update trans_tb set netamount=(xrate*(unitprice-((disc*0.01)*unitprice))*(qty*" & ufactor & "),ufactor=" & ufactor & " where transno = '" & tno & "'
+update trans_tb set netamount=(xrate*(unitprice-((disc*0.01)*unitprice))*(qty*" & ufactor & "),ufactor=" & ufactor & " where xyzref = '" & tno & "'"
                     sqlcmd = New SqlCommand(updateorder, sql.sqlcon)
                     sqlcmd.ExecuteNonQuery()
                 Catch ex As Exception

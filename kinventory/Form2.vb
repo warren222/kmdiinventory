@@ -93,15 +93,15 @@ Public Class Form2
             Form3.typecolor.Text = stocksgridview.Item(4, e.RowIndex).Value.ToString
             Form3.monetary.Text = stocksgridview.Item(5, e.RowIndex).Value.ToString
             Form3.articleno.Text = stocksgridview.Item(6, e.RowIndex).Value.ToString
-            Form3.unitprice.Text = stocksgridview.Item(7, e.RowIndex).Value.ToString
-            Form3.description.Text = stocksgridview.Item(8, e.RowIndex).Value.ToString
-            Form3.qty.Text = stocksgridview.Item(9, e.RowIndex).Value.ToString
-            Form3.unit.Text = stocksgridview.Item(10, e.RowIndex).Value.ToString
-            Form3.location.Text = stocksgridview.Item(11, e.RowIndex).Value.ToString
-            Form3.header.Text = stocksgridview.Item(12, e.RowIndex).Value.ToString
-            Form3.min.Text = stocksgridview.Item(17, e.RowIndex).Value.ToString
-            Form3.colorbased.Text = stocksgridview.Item(22, e.RowIndex).Value.ToString
-            Form3.xrate.Text = stocksgridview.Item(31, e.RowIndex).Value.ToString
+            Form3.unitprice.Text = stocksgridview.Item(8, e.RowIndex).Value.ToString
+            Form3.description.Text = stocksgridview.Item(9, e.RowIndex).Value.ToString
+            Form3.qty.Text = stocksgridview.Item(10, e.RowIndex).Value.ToString
+            Form3.unit.Text = stocksgridview.Item(11, e.RowIndex).Value.ToString
+            Form3.location.Text = stocksgridview.Item(12, e.RowIndex).Value.ToString
+            Form3.header.Text = stocksgridview.Item(13, e.RowIndex).Value.ToString
+            Form3.min.Text = stocksgridview.Item(18, e.RowIndex).Value.ToString
+            Form3.colorbased.Text = stocksgridview.Item(23, e.RowIndex).Value.ToString
+            Form3.xrate.Text = stocksgridview.Item(32, e.RowIndex).Value.ToString
 
             Form4.stockno.Text = stocksgridview.Item(0, e.RowIndex).Value.ToString
             Form4.supplier.Text = stocksgridview.Item(1, e.RowIndex).Value.ToString
@@ -109,20 +109,20 @@ Public Class Form2
             Form4.typecolor.Text = stocksgridview.Item(4, e.RowIndex).Value.ToString
             Form4.monetary.Text = stocksgridview.Item(5, e.RowIndex).Value.ToString
             Form4.articleno.Text = stocksgridview.Item(6, e.RowIndex).Value.ToString
-            Form4.unitprice.Text = stocksgridview.Item(7, e.RowIndex).Value.ToString
-            Form4.description.Text = stocksgridview.Item(8, e.RowIndex).Value.ToString
-            Form4.unit.Text = stocksgridview.Item(10, e.RowIndex).Value.ToString
-            Form4.location.Text = stocksgridview.Item(11, e.RowIndex).Value.ToString
-            Form4.header.Text = stocksgridview.Item(12, e.RowIndex).Value.ToString
-            Form4.qty.Text = stocksgridview.Item(13, e.RowIndex).Value.ToString
-            Form4.allocation.Text = stocksgridview.Item(14, e.RowIndex).Value.ToString
-            Form4.free.Text = stocksgridview.Item(15, e.RowIndex).Value.ToString
-            Form4.order.Text = stocksgridview.Item(16, e.RowIndex).Value.ToString
-            Form4.min.Text = stocksgridview.Item(17, e.RowIndex).Value.ToString
-            Form4.colorbased.Text = stocksgridview.Item(22, e.RowIndex).Value.ToString
+            Form4.unitprice.Text = stocksgridview.Item(8, e.RowIndex).Value.ToString
+            Form4.description.Text = stocksgridview.Item(9, e.RowIndex).Value.ToString
+            Form4.unit.Text = stocksgridview.Item(11, e.RowIndex).Value.ToString
+            Form4.location.Text = stocksgridview.Item(12, e.RowIndex).Value.ToString
+            Form4.header.Text = stocksgridview.Item(13, e.RowIndex).Value.ToString
+            Form4.qty.Text = stocksgridview.Item(14, e.RowIndex).Value.ToString
+            Form4.allocation.Text = stocksgridview.Item(15, e.RowIndex).Value.ToString
+            Form4.free.Text = stocksgridview.Item(16, e.RowIndex).Value.ToString
+            Form4.order.Text = stocksgridview.Item(17, e.RowIndex).Value.ToString
+            Form4.min.Text = stocksgridview.Item(18, e.RowIndex).Value.ToString
+            Form4.colorbased.Text = stocksgridview.Item(23, e.RowIndex).Value.ToString
 
-            description.Text = stocksgridview.Item(8, e.RowIndex).Value.ToString
-            location.Text = stocksgridview.Item(11, e.RowIndex).Value.ToString
+            description.Text = stocksgridview.Item(9, e.RowIndex).Value.ToString
+            location.Text = stocksgridview.Item(12, e.RowIndex).Value.ToString
         End If
     End Sub
 
@@ -226,7 +226,7 @@ Public Class Form2
                       reference.Text,
                       account.Text,
                       controlno.Text,
-                               XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
+                               XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
             sql.loadstocks()
@@ -255,7 +255,7 @@ Public Class Form2
                    transqty.Text,
                    reference.Text,
                    account.Text,
-                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
+                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
             sql.loadstocks()
@@ -284,7 +284,7 @@ Public Class Form2
                    transqty.Text,
                    reference.Text,
                    account.Text,
-                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
+                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
             sql.loadstocks()
@@ -311,7 +311,7 @@ Public Class Form2
                    transqty.Text,
                    reference.Text,
                    account.Text,
-                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
+                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
             sql.loadstocks()
@@ -338,7 +338,7 @@ Public Class Form2
                    transqty.Text,
                    reference.Text,
                    account.Text,
-                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
+                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
             sql.loadstocks()
@@ -365,7 +365,7 @@ Public Class Form2
                    transqty.Text,
                    reference.Text,
                    account.Text,
-                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
+                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
             sql.loadstocks()
@@ -392,7 +392,7 @@ Public Class Form2
                    transqty.Text,
                    reference.Text,
                    account.Text,
-                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
+                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
             sql.loadstocks()
@@ -419,7 +419,7 @@ Public Class Form2
                    transqty.Text,
                    reference.Text,
                    account.Text,
-                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
+                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
             sql.loadstocks()
@@ -450,7 +450,7 @@ Public Class Form2
                    transqty.Text,
                    reference.Text,
                    account.Text,
-                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
+                   controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
             sql.loadstocks()
@@ -792,6 +792,7 @@ update reference_tb set
                 Dim rate As Double = 1
                 Dim amount As Double = 0
                 Dim ufactor As Double = 0
+                Dim disc As Double = 0
                 sql.newtransaction(receiptstockno.Text,
                        transaction,
                        transdate.Text,
@@ -799,7 +800,7 @@ update reference_tb set
                        receiptqty.Text,
                       receiptreference.Text,
                        account,
-                       controlno, XYZ, receipttransno.Text, remarks, ufactor, unit, rate, amount)
+                       controlno, XYZ, receipttransno.Text, remarks, ufactor, unit, disc, rate, amount)
                 updatetransaction(receiptqty.Text, receipttransno.Text)
                 updatestock(receiptstockno.Text, receiptreference.Text)
                 sql.loadstocks()
@@ -825,16 +826,18 @@ update reference_tb set
                 Dim rate As Double
                 Dim amount As Double
                 Dim ufactor As Double
+                Dim disc As Double
                 Dim rqty As Double = receiptqty.Text
                 Try
                     sql.sqlcon.Open()
-                    Dim str As String = "select ufactor,unitprice,xrate from trans_tb where transno = '" & receipttransno.Text & "'"
+                    Dim str As String = "select ufactor,unitprice,xrate,disc from trans_tb where transno = '" & receipttransno.Text & "'"
                     sqlcmd = New SqlCommand(str, sql.sqlcon)
                     Dim read As SqlDataReader = sqlcmd.ExecuteReader
                     While read.Read
                         ufactor = read(0).ToString
                         unit = read(1).ToString
                         rate = read(2).ToString
+                        disc = read(3).ToString
                     End While
                     read.Close()
                 Catch ex As Exception
@@ -842,7 +845,8 @@ update reference_tb set
                 Finally
                     sql.sqlcon.Close()
                 End Try
-                amount = (rqty * ufactor) * (unit * rate)
+                Dim discounted As Double = unit - ((disc * 0.01) * unit)
+                amount = (rqty * ufactor) * (discounted * rate)
 
 
                 sql.newtransaction(receiptstockno.Text,
@@ -852,7 +856,7 @@ update reference_tb set
                        receiptqty.Text,
                       receiptreference.Text,
                        account,
-                       controlno, XYZ, receipttransno.Text, remarks, ufactor, unit, rate, amount)
+                       controlno, XYZ, receipttransno.Text, remarks, ufactor, unit, disc, rate, amount)
                 updatetransaction(receiptqty.Text, receipttransno.Text)
 
                 Dim bal = order - myreceipt
@@ -1003,7 +1007,7 @@ select
                    issueqty.Text,
                  issuereference.Text,
                    issueaccount.Text,
-                   issuecontrolno.Text, XYZ, xyzref, issueremarks.Text, ufactor.Text, unitprice.Text, xrate.Text, netamount.Text)
+                   issuecontrolno.Text, XYZ, xyzref, issueremarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
 
             updatestock(issuestockno.Text, issuereference.Text)
             sql.loadstocks()
@@ -1088,11 +1092,13 @@ a.REFERENCE,
 a.ACCOUNT,
 a.CONTROLNO,
 A.XYZ,
+a.EXCESS,
 a.REMARKS,
 A.UFACTOR,
 (a.ufactor * a.qty) as CHECKER,
 a.UNITPRICE,
-((a.ufactor * a.qty)*a.unitprice) as CURRENCY,
+A.DISC,
+((a.ufactor * a.qty)*(a.unitprice-((a.disc*0.01)*a.unitprice))) as CURRENCY,
 a.XRATE,
 A.NETAMOUNT,
 A.INPUTTED
@@ -1312,7 +1318,7 @@ on a.stockno = b.stockno"
             description.Text = transgridview.Item(5, e.RowIndex).Value.ToString
 
             cuttinglist.transno.Text = transgridview.Item(0, e.RowIndex).Value.ToString
-            cuttinglist.remarks.Text = transgridview.Item(14, e.RowIndex).Value.ToString
+            cuttinglist.remarks.Text = transgridview.Item(15, e.RowIndex).Value.ToString
         End If
     End Sub
 
@@ -1420,22 +1426,27 @@ on a.stockno = b.stockno"
             xrate.Visible = True
             netamount.Visible = True
             ufactor.Visible = True
+            disc.Visible = True
             KryptonLabel63.Visible = True
             KryptonLabel64.Visible = True
             KryptonLabel65.Visible = True
             KryptonLabel66.Visible = True
+            KryptonLabel67.Visible = True
         Else
             unitprice.Visible = False
             xrate.Visible = False
             netamount.Visible = False
             ufactor.Visible = False
+            disc.Visible = False
             KryptonLabel63.Visible = False
             KryptonLabel64.Visible = False
             KryptonLabel65.Visible = False
             KryptonLabel66.Visible = False
+            KryptonLabel67.Visible = False
             xrate.Text = 0
             netamount.Text = 0
             ufactor.Text = 0
+            disc.Text = 0
         End If
     End Sub
 
@@ -2826,14 +2837,16 @@ UPDATE stocks_tb set balalloc = @totalbalqty where stockno = '" & stockno & "'
     End Sub
 
     Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer2.Tick
-        If IsNumeric(transqty.Text) And IsNumeric(unitprice.Text) And IsNumeric(xrate.Text) And IsNumeric(ufactor.Text) Then
+        If IsNumeric(transqty.Text) And IsNumeric(unitprice.Text) And IsNumeric(xrate.Text) And IsNumeric(ufactor.Text) And IsNumeric(disc.Text) Then
             Dim qty As Double = transqty.Text
             Dim unit As Double = unitprice.Text
             Dim rate As Double = xrate.Text
             Dim ufact As Double = ufactor.Text
+            Dim discount As Double = disc.Text
+            Dim discounted As Double = unit - ((discount * 0.01) * unit)
             Dim amount As Double
 
-            amount = (rate * unit) * (qty * ufact)
+            amount = (rate * discounted) * (qty * ufact)
             netamount.Text = amount
         Else
             netamount.Text = 0
