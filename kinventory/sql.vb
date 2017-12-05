@@ -7,7 +7,7 @@ Imports System.Security.Cryptography
 Imports System.Windows.Forms.DataVisualization.Charting
 Public Class sql
     Dim datasource As String = Form9.myaccess.Text.ToString
-    Dim catalog As String = "heretosave"
+    Dim catalog As String = "finaltrans"
     Dim userid As String = "kmdiadmin"
     Dim password As String = "kmdiadmin"
     Public sqlcon As New SqlConnection With {.ConnectionString = "Data Source='" & datasource & "';Network Library=DBMSSOCN;Initial Catalog='" & catalog & "';User ID='" & userid & "';Password='" & password & "';"}
@@ -23,7 +23,9 @@ Public Class sql
             sqlcon.Open()
             Dim ds As New DataSet
             ds.Clear()
-            Dim str As String = "select * from stocks_tb order by articleno asc"
+            Dim str As String = "select *
+ from stocks_tb
+order by articleno asc"
             sqlcmd = New SqlCommand(str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "stocks_tb")
@@ -121,6 +123,7 @@ Public Class sql
             Form2.stocksgridview.Columns("UNITPRICE").DefaultCellStyle.Format = "N4"
             Form2.stocksgridview.Columns("XRATE").DefaultCellStyle.Format = "N2"
             Form2.stocksgridview.Columns("NETAMOUNT").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("CONSUMPTION").DefaultCellStyle.Format = "N2"
 
             Form2.stocksgridview.Columns("ALLOCATION").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.stocksgridview.Columns("FREE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -135,6 +138,7 @@ Public Class sql
             Form2.stocksgridview.Columns("UNITPRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.stocksgridview.Columns("XRATE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.stocksgridview.Columns("NETAMOUNT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("CONSUMPTION").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
             fillform()
         Catch ex As Exception
@@ -2369,6 +2373,7 @@ INPUTTED
             Form4.mytransgridview.Columns("CHECKER").DefaultCellStyle.Format = "N2"
             Form4.mytransgridview.Columns("CURRENCY").DefaultCellStyle.Format = "N2"
             Form4.mytransgridview.Columns("EXCESS").DefaultCellStyle.Format = "N2"
+
             Form4.mytransgridview.Columns("QTY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form4.mytransgridview.Columns("UFACTOR").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form4.mytransgridview.Columns("UNITPRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -2760,15 +2765,15 @@ INPUTTED
             Dim str As String = ""
             'order
             If Form5.transtype.Text = "Order" And Form5.xyzref.Text = "" Then
-                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "', qty = '" & qty & "',netamount=(xrate*unitprice)*(" & qty & "*ufactor) where transno = '" & transno & "'"
+                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "', qty = '" & qty & "',netamount=(xrate*(unitprice-((disc*0.01)*unitprice)))*(" & qty & "*ufactor) where transno = '" & transno & "'"
             ElseIf Form5.transtype.Text = "Order" And Not Form5.xyzref.Text = "" Then
                 str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "' where transno = '" & transno & "'"
                 'receipt
             ElseIf Form5.transtype.Text = "Receipt" And Form5.xyzref.Text = "" Then
-                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "',qty = '" & qty & "',netamount=(xrate*unitprice)*(" & qty & "*ufactor) where transno = '" & transno & "'"
+                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "',qty = '" & qty & "',netamount=(xrate*(unitprice-((disc*0.01)*unitprice)))*(" & qty & "*ufactor) where transno = '" & transno & "'"
             ElseIf Form5.transtype.Text = "Receipt" And Not Form5.xyzref.Text = "" Then
-                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "',qty = '" & qty & "',netamount=(xrate*unitprice)*(" & qty & "*ufactor) where transno = '" & transno & "'
-                       update trans_tb set qty = '" & qty & "',netamount=(xrate*unitprice)*(" & qty & "*ufactor) where transno = '" & xyzref & "'"
+                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "',qty = '" & qty & "',netamount=(xrate*(unitprice-((disc*0.01)*unitprice)))*(" & qty & "*ufactor) where transno = '" & transno & "'
+                       update trans_tb set qty = '" & qty & "',netamount=(xrate*(unitprice-((disc*0.01)*unitprice)))*(" & qty & "*ufactor) where transno = '" & xyzref & "'"
                 'allocation
             ElseIf Form5.transtype.Text = "Allocation" And Form5.xyzref.Text = "" Then
                 str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "', qty = '" & qty & "' where transno = '" & transno & "'"
@@ -3170,7 +3175,8 @@ update stocks_tb set finalneedtoorder = needtoorder+(isnull(@totalneedtoorder,0)
                 read.Close()
                 Dim str As String = "
 declare @consumption as decimal(10,2)=(select sum(qty) from trans_tb where stockno='" & stockno & "' and transtype='Issue' and year(transdate)='" & myyear & "')
-update consumptiontb set consumption=isnull(@consumption,0) where stockno='" & stockno & "' and myyear='" & myyear & "'"
+update consumptiontb set consumption=isnull(@consumption,0) where stockno='" & stockno & "' and myyear='" & myyear & "'
+UPDATE STOCKS_TB SET consumption=isnull(@consumption,0) where stockno='" & stockno & "'"
                 sqlcmd = New SqlCommand(str, sqlcon)
                 sqlcmd.ExecuteNonQuery()
 
@@ -3179,7 +3185,9 @@ update consumptiontb set consumption=isnull(@consumption,0) where stockno='" & s
                 Dim str As String = "
 declare @consumption as decimal(10,2)=(select sum(qty) from trans_tb where stockno='" & stockno & "' and transtype='Issue' and year(transdate)='" & myyear & "')
 insert into consumptiontb
-(stockno,consumption,myyear)values('" & stockno & "',isnull(@consumption,0),'" & myyear & "')"
+(stockno,consumption,myyear)values('" & stockno & "',isnull(@consumption,0),'" & myyear & "')
+UPDATE STOCKS_TB SET consumption=isnull(@consumption,0) where stockno='" & stockno & "'
+"
                 sqlcmd = New SqlCommand(str, sqlcon)
                 sqlcmd.ExecuteNonQuery()
 
