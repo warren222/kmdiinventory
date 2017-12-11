@@ -2868,6 +2868,7 @@ UPDATE stocks_tb set balalloc = @totalbalqty where stockno = '" & stockno & "'
             net.Text = 0
             Dim stockno As String = stocksStocksno.Items(i).ToString
             getreceipttrans(stockno)
+            caculatefromstocks(stockno, balphysical.Text)
             ProgressBar2.Value += 1
         Next
 
@@ -2876,6 +2877,27 @@ UPDATE stocks_tb set balalloc = @totalbalqty where stockno = '" & stockno & "'
             ProgressBar2.Visible = False
         End If
         accountingreport.ShowDialog()
+    End Sub
+    Private Sub KryptonButton28_Click(sender As Object, e As EventArgs) Handles KryptonButton28.Click
+
+
+        ProgressBar2.Visible = True
+        ProgressBar2.Maximum = stocksStocksno.Items.Count
+        ProgressBar2.Value = 0
+        For i As Integer = 0 To stocksStocksno.Items.Count - 1
+            net.Text = 0
+            Dim stockno As String = stocksStocksno.Items(i).ToString
+            getreceipttrans(stockno)
+            caculatefromstocks(stockno, balphysical.Text)
+            ProgressBar2.Value += 1
+        Next
+
+        If ProgressBar2.Value = ProgressBar2.Maximum Then
+            MessageBox.Show("Complete", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            ProgressBar2.Visible = False
+        End If
+
     End Sub
     Public Sub getreceipttrans(ByVal stockno As String)
         Try
@@ -2920,7 +2942,6 @@ select physical2 from stocks_tb where stockno='" & stockno & "'"
             Dim mynet As Double = net.Text
             Dim netamount As Double
             If result >= 0 Then
-
                 Dim str As String = "select isnull(netamount,0) from trans_tb where transno='" & tno & "'"
                 sqlcmd = New SqlCommand(str, sql.sqlcon)
                 Dim read As SqlDataReader = sqlcmd.ExecuteReader
@@ -2956,6 +2977,32 @@ select physical2 from stocks_tb where stockno='" & stockno & "'"
 
         Catch ex As Exception
             MsgBox(ex.ToString)
+        End Try
+    End Sub
+    Public Sub caculatefromstocks(ByVal stockno As String, ByVal qty As String)
+        Try
+            sql.sqlcon.Open()
+
+            Dim str As String = " 
+declare @unitprice as decimal(10,2)=(select unitprice from stocks_tb where stockno='" & stockno & "')
+declare @xrate as decimal(10,2)=(select xrate from stocks_tb where stockno='" & stockno & "')
+declare @disc as decimal(10,2)=(select disc from stocks_tb where stockno='" & stockno & "')
+declare @ufactor as decimal(10,2)=(select xrate from stocks_tb where stockno='" & stockno & "')
+
+declare @netamount as decimal(10,2)=((@unitprice-((@disc*0.01)*@unitprice))*@xrate)*(" & qty & "*@ufactor)
+
+update stocks_tb set netamount=netamount+@netamount where stockno = '" & stockno & "'"
+            If qty > 0 Then
+                sqlcmd = New SqlCommand(str, sql.sqlcon)
+                sqlcmd.ExecuteReader()
+            Else
+
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
         End Try
     End Sub
     Public Sub GETTRANS(ByVal STOCKNO As String)
@@ -3001,25 +3048,8 @@ on a.stockno = b.stockno where A.STOCKNO='" & STOCKNO & "' and a.TRANSTYPE='Rece
         End Try
     End Sub
 
-    Private Sub KryptonButton28_Click(sender As Object, e As EventArgs) Handles KryptonButton28.Click
 
 
-        ProgressBar2.Visible = True
-        ProgressBar2.Maximum = stocksStocksno.Items.Count
-        ProgressBar2.Value = 0
-        For i As Integer = 0 To stocksStocksno.Items.Count - 1
-            net.Text = 0
-            Dim stockno As String = stocksStocksno.Items(i).ToString
-            getreceipttrans(stockno)
-            ProgressBar2.Value += 1
-        Next
-
-        If ProgressBar2.Value = ProgressBar2.Maximum Then
-            MessageBox.Show("Complete", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            ProgressBar2.Visible = False
-        End If
-
-    End Sub
 
     Private Sub KryptonButton30_Click(sender As Object, e As EventArgs) Handles KryptonButton30.Click
         accountingreport.ShowDialog()
