@@ -7,6 +7,7 @@
         Dim sql As New sql
         sql.sqlcon.Close()
         sql.login(user.Text, password.Text)
+
     End Sub
     Private Sub KryptonButton2_Click(sender As Object, e As EventArgs) Handles KryptonButton2.Click
         Me.Close()

@@ -26,6 +26,9 @@ Partial Class PhasedoutForm
         Me.KryptonButton1 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.KryptonButton2 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.KryptonGroup1 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
+        Me.KryptonCheckBox13 = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
+        Me.KryptonGroup15 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
+        Me.discount = New System.Windows.Forms.ComboBox()
         Me.KryptonCheckBox12 = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
         Me.KryptonGroup14 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
         Me.unitprice = New System.Windows.Forms.ComboBox()
@@ -65,13 +68,17 @@ Partial Class PhasedoutForm
         Me.Button1 = New System.Windows.Forms.Button()
         Me.KryptonGroup2 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.KryptonCheckBox13 = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
-        Me.KryptonGroup15 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
-        Me.discount = New System.Windows.Forms.ComboBox()
+        Me.KryptonGroup16 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
+        Me.ufactor = New System.Windows.Forms.ComboBox()
+        Me.KryptonCheckBox14 = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
         CType(Me.KryptonGroup1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonGroup1.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.KryptonGroup1.Panel.SuspendLayout()
         Me.KryptonGroup1.SuspendLayout()
+        CType(Me.KryptonGroup15, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.KryptonGroup15.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.KryptonGroup15.Panel.SuspendLayout()
+        Me.KryptonGroup15.SuspendLayout()
         CType(Me.KryptonGroup14, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonGroup14.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.KryptonGroup14.Panel.SuspendLayout()
@@ -127,10 +134,10 @@ Partial Class PhasedoutForm
         Me.KryptonGroup2.Panel.SuspendLayout()
         Me.KryptonGroup2.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        CType(Me.KryptonGroup15, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.KryptonGroup15.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.KryptonGroup15.Panel.SuspendLayout()
-        Me.KryptonGroup15.SuspendLayout()
+        CType(Me.KryptonGroup16, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.KryptonGroup16.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.KryptonGroup16.Panel.SuspendLayout()
+        Me.KryptonGroup16.SuspendLayout()
         Me.SuspendLayout()
         '
         'phasedout
@@ -187,6 +194,8 @@ Partial Class PhasedoutForm
         '
         'KryptonGroup1.Panel
         '
+        Me.KryptonGroup1.Panel.Controls.Add(Me.KryptonGroup16)
+        Me.KryptonGroup1.Panel.Controls.Add(Me.KryptonCheckBox14)
         Me.KryptonGroup1.Panel.Controls.Add(Me.KryptonCheckBox13)
         Me.KryptonGroup1.Panel.Controls.Add(Me.KryptonGroup15)
         Me.KryptonGroup1.Panel.Controls.Add(Me.KryptonCheckBox12)
@@ -220,6 +229,51 @@ Partial Class PhasedoutForm
         Me.KryptonGroup1.StateCommon.Border.DrawBorders = CType((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
         Me.KryptonGroup1.StateCommon.Border.Rounding = 100
         Me.KryptonGroup1.TabIndex = 13
+        '
+        'KryptonCheckBox13
+        '
+        Me.KryptonCheckBox13.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
+        Me.KryptonCheckBox13.Location = New System.Drawing.Point(287, 364)
+        Me.KryptonCheckBox13.Name = "KryptonCheckBox13"
+        Me.KryptonCheckBox13.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonCheckBox13.Size = New System.Drawing.Size(77, 22)
+        Me.KryptonCheckBox13.StateCommon.ShortText.Color1 = System.Drawing.Color.White
+        Me.KryptonCheckBox13.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonCheckBox13.TabIndex = 478
+        Me.KryptonCheckBox13.Text = "Discount"
+        Me.KryptonCheckBox13.Values.Text = "Discount"
+        '
+        'KryptonGroup15
+        '
+        Me.KryptonGroup15.Location = New System.Drawing.Point(287, 391)
+        Me.KryptonGroup15.Margin = New System.Windows.Forms.Padding(0)
+        Me.KryptonGroup15.Name = "KryptonGroup15"
+        '
+        'KryptonGroup15.Panel
+        '
+        Me.KryptonGroup15.Panel.Controls.Add(Me.discount)
+        Me.KryptonGroup15.Size = New System.Drawing.Size(232, 30)
+        Me.KryptonGroup15.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.KryptonGroup15.StateCommon.Border.Rounding = 0
+        Me.KryptonGroup15.StateCommon.Border.Width = 3
+        Me.KryptonGroup15.TabIndex = 479
+        '
+        'discount
+        '
+        Me.discount.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.discount.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.discount.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.discount.DropDownHeight = 206
+        Me.discount.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.discount.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.discount.FormattingEnabled = True
+        Me.discount.IntegralHeight = False
+        Me.discount.Location = New System.Drawing.Point(0, 0)
+        Me.discount.Name = "discount"
+        Me.discount.Size = New System.Drawing.Size(226, 24)
+        Me.discount.TabIndex = 19
         '
         'KryptonCheckBox12
         '
@@ -816,50 +870,51 @@ Partial Class PhasedoutForm
         Me.Panel1.Size = New System.Drawing.Size(576, 540)
         Me.Panel1.TabIndex = 458
         '
-        'KryptonCheckBox13
+        'KryptonGroup16
         '
-        Me.KryptonCheckBox13.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
-        Me.KryptonCheckBox13.Location = New System.Drawing.Point(287, 364)
-        Me.KryptonCheckBox13.Name = "KryptonCheckBox13"
-        Me.KryptonCheckBox13.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
-        Me.KryptonCheckBox13.Size = New System.Drawing.Size(77, 22)
-        Me.KryptonCheckBox13.StateCommon.ShortText.Color1 = System.Drawing.Color.White
-        Me.KryptonCheckBox13.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.KryptonCheckBox13.TabIndex = 478
-        Me.KryptonCheckBox13.Text = "Discount"
-        Me.KryptonCheckBox13.Values.Text = "Discount"
+        Me.KryptonGroup16.Location = New System.Drawing.Point(15, 391)
+        Me.KryptonGroup16.Margin = New System.Windows.Forms.Padding(0)
+        Me.KryptonGroup16.Name = "KryptonGroup16"
         '
-        'KryptonGroup15
+        'KryptonGroup16.Panel
         '
-        Me.KryptonGroup15.Location = New System.Drawing.Point(287, 391)
-        Me.KryptonGroup15.Margin = New System.Windows.Forms.Padding(0)
-        Me.KryptonGroup15.Name = "KryptonGroup15"
-        '
-        'KryptonGroup15.Panel
-        '
-        Me.KryptonGroup15.Panel.Controls.Add(Me.discount)
-        Me.KryptonGroup15.Size = New System.Drawing.Size(232, 30)
-        Me.KryptonGroup15.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+        Me.KryptonGroup16.Panel.Controls.Add(Me.ufactor)
+        Me.KryptonGroup16.Size = New System.Drawing.Size(232, 30)
+        Me.KryptonGroup16.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
-        Me.KryptonGroup15.StateCommon.Border.Rounding = 0
-        Me.KryptonGroup15.StateCommon.Border.Width = 3
-        Me.KryptonGroup15.TabIndex = 479
+        Me.KryptonGroup16.StateCommon.Border.Rounding = 0
+        Me.KryptonGroup16.StateCommon.Border.Width = 3
+        Me.KryptonGroup16.TabIndex = 481
         '
-        'discount
+        'ufactor
         '
-        Me.discount.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.discount.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.discount.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.discount.DropDownHeight = 206
-        Me.discount.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.discount.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.discount.FormattingEnabled = True
-        Me.discount.IntegralHeight = False
-        Me.discount.Location = New System.Drawing.Point(0, 0)
-        Me.discount.Name = "discount"
-        Me.discount.Size = New System.Drawing.Size(226, 24)
-        Me.discount.TabIndex = 19
+        Me.ufactor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ufactor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ufactor.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ufactor.DropDownHeight = 206
+        Me.ufactor.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ufactor.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ufactor.FormattingEnabled = True
+        Me.ufactor.IntegralHeight = False
+        Me.ufactor.Items.AddRange(New Object() {"Yes", "FM", "HIDE"})
+        Me.ufactor.Location = New System.Drawing.Point(0, 0)
+        Me.ufactor.Name = "ufactor"
+        Me.ufactor.Size = New System.Drawing.Size(226, 24)
+        Me.ufactor.TabIndex = 9
+        '
+        'KryptonCheckBox14
+        '
+        Me.KryptonCheckBox14.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
+        Me.KryptonCheckBox14.Location = New System.Drawing.Point(15, 364)
+        Me.KryptonCheckBox14.Name = "KryptonCheckBox14"
+        Me.KryptonCheckBox14.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonCheckBox14.Size = New System.Drawing.Size(76, 22)
+        Me.KryptonCheckBox14.StateCommon.ShortText.Color1 = System.Drawing.Color.White
+        Me.KryptonCheckBox14.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonCheckBox14.TabIndex = 480
+        Me.KryptonCheckBox14.Text = "U-Factor"
+        Me.KryptonCheckBox14.Values.Text = "U-Factor"
         '
         'PhasedoutForm
         '
@@ -880,6 +935,10 @@ Partial Class PhasedoutForm
         Me.KryptonGroup1.Panel.PerformLayout()
         CType(Me.KryptonGroup1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.KryptonGroup1.ResumeLayout(False)
+        CType(Me.KryptonGroup15.Panel, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.KryptonGroup15.Panel.ResumeLayout(False)
+        CType(Me.KryptonGroup15, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.KryptonGroup15.ResumeLayout(False)
         CType(Me.KryptonGroup14.Panel, System.ComponentModel.ISupportInitialize).EndInit()
         Me.KryptonGroup14.Panel.ResumeLayout(False)
         CType(Me.KryptonGroup14, System.ComponentModel.ISupportInitialize).EndInit()
@@ -935,10 +994,10 @@ Partial Class PhasedoutForm
         CType(Me.KryptonGroup2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.KryptonGroup2.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
-        CType(Me.KryptonGroup15.Panel, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.KryptonGroup15.Panel.ResumeLayout(False)
-        CType(Me.KryptonGroup15, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.KryptonGroup15.ResumeLayout(False)
+        CType(Me.KryptonGroup16.Panel, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.KryptonGroup16.Panel.ResumeLayout(False)
+        CType(Me.KryptonGroup16, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.KryptonGroup16.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -988,4 +1047,7 @@ Partial Class PhasedoutForm
     Friend WithEvents KryptonCheckBox13 As ComponentFactory.Krypton.Toolkit.KryptonCheckBox
     Friend WithEvents KryptonGroup15 As ComponentFactory.Krypton.Toolkit.KryptonGroup
     Friend WithEvents discount As ComboBox
+    Friend WithEvents KryptonGroup16 As ComponentFactory.Krypton.Toolkit.KryptonGroup
+    Friend WithEvents ufactor As ComboBox
+    Friend WithEvents KryptonCheckBox14 As ComponentFactory.Krypton.Toolkit.KryptonCheckBox
 End Class

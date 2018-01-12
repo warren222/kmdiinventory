@@ -344,6 +344,10 @@ Partial Public Class inventoryds
         
         Private columnARTICLENO As Global.System.Data.DataColumn
         
+        Private columnREMARKS As Global.System.Data.DataColumn
+        
+        Private columnBALQTY As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
@@ -484,6 +488,22 @@ Partial Public Class inventoryds
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property REMARKSColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnREMARKS
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property BALQTYColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnBALQTY
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -520,9 +540,9 @@ Partial Public Class inventoryds
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function AddTRANS_TBRow(ByVal TRANSNO As String, ByVal STOCKNO As String, ByVal TRANSTYPE As String, ByVal TRANSDATE As String, ByVal DUEDATE As String, ByVal QTY As String, ByVal REFERENCE As String, ByVal ACCOUNT As String, ByVal CONTROLNO As String, ByVal XYZ As String, ByVal XYZREF As String, ByVal TYPECOLOR As String, ByVal ARTICLENO As String) As TRANS_TBRow
+        Public Overloads Function AddTRANS_TBRow(ByVal TRANSNO As String, ByVal STOCKNO As String, ByVal TRANSTYPE As String, ByVal TRANSDATE As String, ByVal DUEDATE As String, ByVal QTY As String, ByVal REFERENCE As String, ByVal ACCOUNT As String, ByVal CONTROLNO As String, ByVal XYZ As String, ByVal XYZREF As String, ByVal TYPECOLOR As String, ByVal ARTICLENO As String, ByVal REMARKS As String, ByVal BALQTY As String) As TRANS_TBRow
             Dim rowTRANS_TBRow As TRANS_TBRow = CType(Me.NewRow,TRANS_TBRow)
-            Dim columnValuesArray() As Object = New Object() {TRANSNO, STOCKNO, TRANSTYPE, TRANSDATE, DUEDATE, QTY, REFERENCE, ACCOUNT, CONTROLNO, XYZ, XYZREF, TYPECOLOR, ARTICLENO}
+            Dim columnValuesArray() As Object = New Object() {TRANSNO, STOCKNO, TRANSTYPE, TRANSDATE, DUEDATE, QTY, REFERENCE, ACCOUNT, CONTROLNO, XYZ, XYZREF, TYPECOLOR, ARTICLENO, REMARKS, BALQTY}
             rowTRANS_TBRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowTRANS_TBRow)
             Return rowTRANS_TBRow
@@ -558,6 +578,8 @@ Partial Public Class inventoryds
             Me.columnXYZREF = MyBase.Columns("XYZREF")
             Me.columnTYPECOLOR = MyBase.Columns("TYPECOLOR")
             Me.columnARTICLENO = MyBase.Columns("ARTICLENO")
+            Me.columnREMARKS = MyBase.Columns("REMARKS")
+            Me.columnBALQTY = MyBase.Columns("BALQTY")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -589,6 +611,10 @@ Partial Public Class inventoryds
             MyBase.Columns.Add(Me.columnTYPECOLOR)
             Me.columnARTICLENO = New Global.System.Data.DataColumn("ARTICLENO", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnARTICLENO)
+            Me.columnREMARKS = New Global.System.Data.DataColumn("REMARKS", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnREMARKS)
+            Me.columnBALQTY = New Global.System.Data.DataColumn("BALQTY", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnBALQTY)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1617,6 +1643,36 @@ Partial Public Class inventoryds
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property REMARKS() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableTRANS_TB.REMARKSColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'REMARKS' in table 'TRANS_TB' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableTRANS_TB.REMARKSColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property BALQTY() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableTRANS_TB.BALQTYColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'BALQTY' in table 'TRANS_TB' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableTRANS_TB.BALQTYColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IsTRANSNONull() As Boolean
             Return Me.IsNull(Me.tableTRANS_TB.TRANSNOColumn)
         End Function
@@ -1769,6 +1825,30 @@ Partial Public Class inventoryds
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SetARTICLENONull()
             Me(Me.tableTRANS_TB.ARTICLENOColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsREMARKSNull() As Boolean
+            Return Me.IsNull(Me.tableTRANS_TB.REMARKSColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetREMARKSNull()
+            Me(Me.tableTRANS_TB.REMARKSColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsBALQTYNull() As Boolean
+            Return Me.IsNull(Me.tableTRANS_TB.BALQTYColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetBALQTYNull()
+            Me(Me.tableTRANS_TB.BALQTYColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     

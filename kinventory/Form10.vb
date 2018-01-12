@@ -100,6 +100,8 @@ Public Class Form10
             bs.datamember = "account_tb"
             accoutgridview.DataSource = bs
             accoutgridview.Columns("password").Visible = False
+            accoutgridview.Columns("stockscolumns").Visible = False
+            accoutgridview.Columns("transcolumns").Visible = False
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally

@@ -35,4 +35,8 @@
     Private Sub ManageAccountsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ManageAccountsToolStripMenuItem.Click
         Form10.ShowDialog()
     End Sub
+
+    Private Sub ManageColumnsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ManageColumnsToolStripMenuItem.Click
+        managecolumns.ShowDialog()
+    End Sub
 End Class

@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form4
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,12 +20,12 @@ Partial Class Form4
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.min = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonLabel14 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonLabel13 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
@@ -127,6 +127,7 @@ Partial Class Form4
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.KryptonGroup5 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
+        Me.UpdateAmountToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.KryptonGroup2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonGroup2.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.KryptonGroup2.Panel.SuspendLayout()
@@ -189,6 +190,7 @@ Partial Class Form4
         CType(Me.KryptonGroup4.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.KryptonGroup4.Panel.SuspendLayout()
         Me.KryptonGroup4.SuspendLayout()
+        Me.transactionMenuStrip1.SuspendLayout()
         CType(Me.KryptonPanel1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.KryptonPanel1.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -1010,8 +1012,8 @@ Partial Class Form4
         Me.mytransgridview.AllowUserToAddRows = False
         Me.mytransgridview.AllowUserToDeleteRows = False
         Me.mytransgridview.AllowUserToOrderColumns = True
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.mytransgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle7.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.mytransgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
         Me.mytransgridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.mytransgridview.ColumnHeadersHeight = 20
         Me.mytransgridview.Cursor = System.Windows.Forms.Cursors.Hand
@@ -1099,8 +1101,8 @@ Partial Class Form4
         Me.referencegridview.AllowUserToAddRows = False
         Me.referencegridview.AllowUserToDeleteRows = False
         Me.referencegridview.AllowUserToOrderColumns = True
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.referencegridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle8.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.referencegridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle8
         Me.referencegridview.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.referencegridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
@@ -1137,8 +1139,8 @@ Partial Class Form4
         Me.KryptonDataGridView1.AllowUserToAddRows = False
         Me.KryptonDataGridView1.AllowUserToDeleteRows = False
         Me.KryptonDataGridView1.AllowUserToOrderColumns = True
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.KryptonDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle9.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.KryptonDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
         Me.KryptonDataGridView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -1151,7 +1153,7 @@ Partial Class Form4
         Me.KryptonDataGridView1.ReadOnly = True
         Me.KryptonDataGridView1.RowHeadersWidth = 25
         Me.KryptonDataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.KryptonDataGridView1.Size = New System.Drawing.Size(1163, 0)
+        Me.KryptonDataGridView1.Size = New System.Drawing.Size(1283, 0)
         Me.KryptonDataGridView1.StateCommon.Background.Color1 = System.Drawing.Color.White
         Me.KryptonDataGridView1.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList
         Me.KryptonDataGridView1.StateCommon.DataCell.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
@@ -1525,8 +1527,9 @@ Partial Class Form4
         'transactionMenuStrip1
         '
         Me.transactionMenuStrip1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.transactionMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UpdateAmountToolStripMenuItem})
         Me.transactionMenuStrip1.Name = "transactionMenuStrip1"
-        Me.transactionMenuStrip1.Size = New System.Drawing.Size(61, 4)
+        Me.transactionMenuStrip1.Size = New System.Drawing.Size(160, 26)
         '
         'KryptonPanel1
         '
@@ -1608,6 +1611,12 @@ Partial Class Form4
         Me.KryptonGroup5.StateCommon.Border.Width = 1
         Me.KryptonGroup5.TabIndex = 459
         '
+        'UpdateAmountToolStripMenuItem
+        '
+        Me.UpdateAmountToolStripMenuItem.Name = "UpdateAmountToolStripMenuItem"
+        Me.UpdateAmountToolStripMenuItem.Size = New System.Drawing.Size(159, 22)
+        Me.UpdateAmountToolStripMenuItem.Text = "Update Amount"
+        '
         'Form4
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1686,6 +1695,7 @@ Partial Class Form4
         Me.KryptonGroup4.Panel.PerformLayout()
         CType(Me.KryptonGroup4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.KryptonGroup4.ResumeLayout(False)
+        Me.transactionMenuStrip1.ResumeLayout(False)
         CType(Me.KryptonPanel1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.KryptonPanel1.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
@@ -1798,4 +1808,5 @@ Partial Class Form4
     Friend WithEvents KryptonLabel32 As ComponentFactory.Krypton.Toolkit.KryptonLabel
     Friend WithEvents ProgressBar1 As ProgressBar
     Friend WithEvents KryptonButton3 As ComponentFactory.Krypton.Toolkit.KryptonButton
+    Friend WithEvents UpdateAmountToolStripMenuItem As ToolStripMenuItem
 End Class

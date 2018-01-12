@@ -502,4 +502,18 @@ Public Class Form4
     Private Sub KryptonButton3_Click(sender As Object, e As EventArgs) Handles KryptonButton3.Click
         SQL.srockstransactiontb2(stockno.Text)
     End Sub
+
+    Private Sub UpdateAmountToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UpdateAmountToolStripMenuItem.Click
+        Form12.ShowDialog()
+    End Sub
+
+    Private Sub mytransgridview_SelectionChanged(sender As Object, e As EventArgs) Handles mytransgridview.SelectionChanged
+        Dim selecteditems As DataGridViewSelectedRowCollection = mytransgridview.SelectedRows
+        Dim x As String
+        Form12.transno.Items.Clear()
+        For Each selecteditem As DataGridViewRow In selecteditems
+            x = selecteditem.Cells("transno").Value.ToString
+            Form12.transno.Items.Add(x)
+        Next
+    End Sub
 End Class

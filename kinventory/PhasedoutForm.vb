@@ -103,6 +103,13 @@ Public Class PhasedoutForm
             Next
         Else
         End If
+        If KryptonCheckBox14.Checked = True Then
+            For i As Integer = 0 To Form2.stocksStocksno.Items.Count - 1
+                Dim stockno As String = Form2.stocksStocksno.Items(i).ToString
+                upufactor(ufactor.Text, stockno)
+            Next
+        Else
+        End If
         Form2.KryptonButton1.PerformClick()
         Button1.PerformClick()
     End Sub
@@ -148,6 +155,18 @@ update stocks_tb set unitprice='" & myval & "' where stockno='" & stockno & "'"
         Try
             sql.sqlcon.Open()
             Dim str As String = "update stocks_tb set xrate='" & myval & "' where stockno='" & stockno & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            sqlcmd.ExecuteNonQuery()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+    Public Sub upufactor(ByVal myval As String, ByVal stockno As String)
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "update stocks_tb set ufactor='" & myval & "' where stockno='" & stockno & "'"
             sqlcmd = New SqlCommand(str, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()
         Catch ex As Exception
@@ -366,7 +385,7 @@ update stocks_tb set unitprice='" & myval & "' where stockno='" & stockno & "'"
         KryptonCheckBox8.Checked = False
         KryptonCheckBox6.Checked = False
         KryptonCheckBox5.Checked = False
-
+        KryptonCheckBox14.Checked = False
     End Sub
 
     Private Sub KryptonPanel1_MouseDown(sender As Object, e As MouseEventArgs) Handles KryptonPanel1.MouseDown
@@ -517,4 +536,36 @@ update stocks_tb set unitprice='" & myval & "' where stockno='" & stockno & "'"
             sql.sqlcon.Close()
         End Try
     End Sub
+
+    Private Sub ufactor_MouseDown(sender As Object, e As MouseEventArgs) Handles ufactor.MouseDown
+        Dim i As Integer = ufactor.SelectedIndex
+        loadufactor()
+        If i > ufactor.Items.Count - 1 Then
+            ufactor.SelectedIndex = -1
+        Else
+            ufactor.SelectedIndex = i
+        End If
+    End Sub
+    Public Sub loadufactor()
+        Try
+            sql.sqlcon.Open()
+            Dim ds As New DataSet
+            ds.Clear()
+            Dim da As New SqlDataAdapter
+            Dim bs As New BindingSource
+            Dim str As String = "select distinct ufactor from stocks_tb"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "stocks_tb")
+            bs.DataSource = ds
+            bs.DataMember = "stocks_tb"
+            ufactor.DataSource = bs
+            ufactor.DisplayMember = "ufactor"
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+
 End Class

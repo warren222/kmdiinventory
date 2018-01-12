@@ -73,10 +73,11 @@ order by articleno asc"
             Form2.stocksgridview.Columns("UNITPRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.stocksgridview.Columns("XRATE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.stocksgridview.Columns("NETAMOUNT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
+            managecols()
             loadsearchbox()
             fillform()
             notifycritical()
+
         Catch ex As SqlException
             If ex.Number = 1205 Then
             Else
@@ -109,6 +110,8 @@ order by articleno asc"
             Form2.stocksgridview.Columns("HEADER").Visible = False
             Form2.stocksgridview.Columns("AVEUSAGE").Visible = False
             Form2.stocksgridview.Columns("QTY").Visible = False
+            Form2.stocksgridview.Columns("NEEDTOORDER").Visible = False
+            Form2.stocksgridview.Columns("FINALNEEDTOORDER").Visible = False
 
             Form2.stocksgridview.Columns("ALLOCATION").DefaultCellStyle.Format = "N2"
             Form2.stocksgridview.Columns("FREE").DefaultCellStyle.Format = "N2"
@@ -141,6 +144,7 @@ order by articleno asc"
             Form2.stocksgridview.Columns("CONSUMPTION").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
             fillform()
+            managecols()
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -765,7 +769,7 @@ on a.stockno = b.stockno"
             Form2.transactioncosthead.SelectedIndex = -1
 
             notifycritical()
-
+            tmanagecols()
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -2698,6 +2702,8 @@ INPUTTED
                 Form2.noofresults.Text = readerr(0).ToString() + " results found / Foreign currency : " + readerr(1).ToString
             End While
             readerr.Close()
+
+            tmanagecols()
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -3258,6 +3264,257 @@ UPDATE STOCKS_TB SET consumption=isnull(@consumption,0) where stockno='" & stock
                 Form1.Label2.DataBindings.Add("text", bs, "ACCTTYPE")
                 Form9.KryptonLabel2.DataBindings.Clear()
                 Form9.KryptonLabel2.DataBindings.Add("text", bs, "ACCTTYPE")
+                Dim scolumns As String
+                Dim tcolumns As String
+                Dim cs As String = "select stockscolumns,transcolumns from account_tb where username COLLATE Latin1_General_CS_AS ='" & username & "' and password COLLATE Latin1_General_CS_AS =  '" & password & "'"
+                sqlcmd = New SqlCommand(cs, sqlcon)
+                Dim a As SqlDataReader = sqlcmd.ExecuteReader
+                While a.Read
+                    scolumns = a(0).ToString
+                    tcolumns = a(1).ToString
+                End While
+                a.Close()
+
+                If scolumns.Contains("stockno") Then
+                    managecolumns.Stockno.Checked = True
+                Else
+                    managecolumns.Stockno.Checked = False
+                End If
+                If scolumns.Contains("supplier") Then
+                    managecolumns.supplier.Checked = True
+                Else
+                    managecolumns.supplier.Checked = False
+                End If
+                If scolumns.Contains("costhead") Then
+                    managecolumns.costhead.Checked = True
+                Else
+                    managecolumns.costhead.Checked = False
+                End If
+                If scolumns.Contains("typecolor") Then
+                    managecolumns.typecolor.Checked = True
+                Else
+                    managecolumns.typecolor.Checked = False
+                End If
+                If scolumns.Contains("articleno") Then
+                    managecolumns.articleno.Checked = True
+                Else
+                    managecolumns.articleno.Checked = False
+                End If
+                If scolumns.Contains("disc") Then
+                    managecolumns.disc.Checked = True
+                Else
+                    managecolumns.disc.Checked = False
+                End If
+                If scolumns.Contains("unitprice") Then
+                    managecolumns.unitprice.Checked = True
+                Else
+                    managecolumns.unitprice.Checked = False
+                End If
+                If scolumns.Contains("physical") Then
+                    managecolumns.physical.Checked = True
+                Else
+                    managecolumns.physical.Checked = False
+                End If
+                If scolumns.Contains("allocation") Then
+                    managecolumns.Allocation.Checked = True
+                Else
+                    managecolumns.Allocation.Checked = False
+                End If
+                If scolumns.Contains("free") Then
+                    managecolumns.Free.Checked = True
+                Else
+                    managecolumns.Free.Checked = False
+                End If
+                If scolumns.Contains("stockorder") Then
+                    managecolumns.stockorder.Checked = True
+                Else
+                    managecolumns.stockorder.Checked = False
+                End If
+                If scolumns.Contains("minimum") Then
+                    managecolumns.minimum.Checked = True
+                Else
+                    managecolumns.minimum.Checked = False
+                End If
+                If scolumns.Contains("issue") Then
+                    managecolumns.issue.Checked = True
+                Else
+                    managecolumns.issue.Checked = False
+                End If
+                If scolumns.Contains("status") Then
+                    managecolumns.status.Checked = True
+                Else
+                    managecolumns.status.Checked = False
+                End If
+                If scolumns.Contains("phasedout") Then
+                    managecolumns.phasedout.Checked = True
+                Else
+                    managecolumns.phasedout.Checked = False
+                End If
+                If scolumns.Contains("basedcolor") Then
+                    managecolumns.COLORBASED.Checked = True
+                Else
+                    managecolumns.COLORBASED.Checked = False
+                End If
+                If scolumns.Contains("inputted") Then
+                    managecolumns.INPUTTED.Checked = True
+                Else
+                    managecolumns.INPUTTED.Checked = False
+                End If
+                If scolumns.Contains("toorder") Then
+                    managecolumns.TOORDER.Checked = True
+                Else
+                    managecolumns.TOORDER.Checked = False
+                End If
+                If scolumns.Contains("tofoil") Then
+                    managecolumns.TOFOIL.Checked = True
+                Else
+                    managecolumns.TOFOIL.Checked = False
+                End If
+                If scolumns.Contains("balalloc") Then
+                    managecolumns.balalloc.Checked = True
+                Else
+                    managecolumns.balalloc.Checked = False
+                End If
+                If scolumns.Contains("physical2") Then
+                    managecolumns.physical2.Checked = True
+                Else
+                    managecolumns.physical2.Checked = False
+                End If
+                If scolumns.Contains("weight") Then
+                    managecolumns.WEIGHT.Checked = True
+                Else
+                    managecolumns.WEIGHT.Checked = False
+                End If
+                If scolumns.Contains("xrate") Then
+                    managecolumns.XRATE.Checked = True
+                Else
+                    managecolumns.XRATE.Checked = False
+                End If
+                If scolumns.Contains("netamount") Then
+                    managecolumns.NETAMOUNT.Checked = True
+                Else
+                    managecolumns.NETAMOUNT.Checked = False
+                End If
+                If scolumns.Contains("consumption") Then
+                    managecolumns.CONSUMPTION.Checked = True
+                Else
+                    managecolumns.CONSUMPTION.Checked = False
+                End If
+
+
+
+                'transaction
+                If tcolumns.Contains("transno") Then
+                    managecolumns.transno.Checked = True
+                Else
+                    managecolumns.transno.Checked = False
+                End If
+                If tcolumns.Contains("stockno") Then
+                    managecolumns.tstockno.Checked = True
+                Else
+                    managecolumns.tstockno.Checked = False
+                End If
+                If tcolumns.Contains("costhead") Then
+                    managecolumns.tcosthead.Checked = True
+                Else
+                    managecolumns.tcosthead.Checked = False
+                End If
+                If tcolumns.Contains("typecolor") Then
+                    managecolumns.ttypecolor.Checked = True
+                Else
+                    managecolumns.ttypecolor.Checked = False
+                End If
+                If tcolumns.Contains("articleno") Then
+                    managecolumns.tarticleno.Checked = True
+                Else
+                    managecolumns.tarticleno.Checked = False
+                End If
+                If tcolumns.Contains("transtype") Then
+                    managecolumns.transtype.Checked = True
+                Else
+                    managecolumns.transtype.Checked = False
+                End If
+                If tcolumns.Contains("transdate") Then
+                    managecolumns.transdate.Checked = True
+                Else
+                    managecolumns.transdate.Checked = False
+                End If
+                If tcolumns.Contains("duedate") Then
+                    managecolumns.duedate.Checked = True
+                Else
+                    managecolumns.duedate.Checked = False
+                End If
+                If tcolumns.Contains("qty") Then
+                    managecolumns.qty.Checked = True
+                Else
+                    managecolumns.qty.Checked = False
+                End If
+                If tcolumns.Contains("reference") Then
+                    managecolumns.reference.Checked = True
+                Else
+                    managecolumns.reference.Checked = False
+                End If
+                If tcolumns.Contains("account") Then
+                    managecolumns.account.Checked = True
+                Else
+                    managecolumns.account.Checked = False
+                End If
+                If tcolumns.Contains("controlno") Then
+                    managecolumns.controlno.Checked = True
+                Else
+                    managecolumns.controlno.Checked = False
+                End If
+                If tcolumns.Contains("excess") Then
+                    managecolumns.excess.Checked = True
+                Else
+                    managecolumns.excess.Checked = False
+                End If
+                If tcolumns.Contains("remarks") Then
+                    managecolumns.remarks.Checked = True
+                Else
+                    managecolumns.remarks.Checked = False
+                End If
+                If tcolumns.Contains("ufactor") Then
+                    managecolumns.Ufactor.Checked = True
+                Else
+                    managecolumns.Ufactor.Checked = False
+                End If
+                If tcolumns.Contains("checker") Then
+                    managecolumns.Checker.Checked = True
+                Else
+                    managecolumns.Checker.Checked = False
+                End If
+                If tcolumns.Contains("unitprice") Then
+                    managecolumns.tunitprice.Checked = True
+                Else
+                    managecolumns.tunitprice.Checked = False
+                End If
+                If tcolumns.Contains("Currency") Then
+                    managecolumns.Currency.Checked = True
+                Else
+                    managecolumns.Currency.Checked = False
+                End If
+                If tcolumns.Contains("xrate") Then
+                    managecolumns.txrate.Checked = True
+                Else
+                    managecolumns.txrate.Checked = False
+                End If
+                If tcolumns.Contains("netamount") Then
+                    managecolumns.tnetamount.Checked = True
+                Else
+                    managecolumns.tnetamount.Checked = False
+                End If
+                If tcolumns.Contains("inputted") Then
+                    managecolumns.tinputted.Checked = True
+                Else
+                    managecolumns.tinputted.Checked = False
+                End If
+                If tcolumns.Contains("disc") Then
+                    managecolumns.tdisc.Checked = True
+                Else
+                    managecolumns.tdisc.Checked = False
+                End If
+
                 Form1.Show()
                 Form9.Hide()
             Else
@@ -3605,6 +3862,263 @@ accttype='" & acctype & "' where id = '" & id & "'"
             MsgBox(ex.ToString)
         Finally
             sqlcon.Close()
+        End Try
+    End Sub
+    Public Sub managecols()
+        Try
+            'STOCKNO
+            If managecolumns.Stockno.Checked = True Then
+                Form2.stocksgridview.Columns("STOCKNO").Visible = True
+            Else
+                Form2.stocksgridview.Columns("STOCKNO").Visible = False
+            End If
+            If managecolumns.supplier.Checked = True Then
+                Form2.stocksgridview.Columns("SUPPLIER").Visible = True
+            Else
+                Form2.stocksgridview.Columns("SUPPLIER").Visible = False
+            End If
+            If managecolumns.costhead.Checked = True Then
+                Form2.stocksgridview.Columns("COSTHEAD").Visible = True
+            Else
+                Form2.stocksgridview.Columns("COSTHEAD").Visible = False
+            End If
+            If managecolumns.typecolor.Checked = True Then
+                Form2.stocksgridview.Columns("TYPECOLOR").Visible = True
+            Else
+                Form2.stocksgridview.Columns("TYPECOLOR").Visible = False
+            End If
+            If managecolumns.articleno.Checked = True Then
+                Form2.stocksgridview.Columns("ARTICLENO").Visible = True
+            Else
+                Form2.stocksgridview.Columns("ARTICLENO").Visible = False
+            End If
+            If managecolumns.disc.Checked = True Then
+                Form2.stocksgridview.Columns("DISC").Visible = True
+            Else
+                Form2.stocksgridview.Columns("DISC").Visible = False
+            End If
+            If managecolumns.unitprice.Checked = True Then
+                Form2.stocksgridview.Columns("UNITPRICE").Visible = True
+            Else
+                Form2.stocksgridview.Columns("UNITPRICE").Visible = False
+            End If
+            If managecolumns.physical.Checked = True Then
+                Form2.stocksgridview.Columns("PHYSICAL").Visible = True
+            Else
+                Form2.stocksgridview.Columns("PHYSICAL").Visible = False
+            End If
+            If managecolumns.Allocation.Checked = True Then
+                Form2.stocksgridview.Columns("ALLOCATION").Visible = True
+            Else
+                Form2.stocksgridview.Columns("ALLOCATION").Visible = False
+            End If
+            If managecolumns.Free.Checked = True Then
+                Form2.stocksgridview.Columns("FREE").Visible = True
+            Else
+                Form2.stocksgridview.Columns("FREE").Visible = False
+            End If
+            If managecolumns.stockorder.Checked = True Then
+                Form2.stocksgridview.Columns("STOCKORDER").Visible = True
+            Else
+                Form2.stocksgridview.Columns("STOCKORDER").Visible = False
+            End If
+            If managecolumns.minimum.Checked = True Then
+                Form2.stocksgridview.Columns("MINIMUM").Visible = True
+            Else
+                Form2.stocksgridview.Columns("MINIMUM").Visible = False
+            End If
+            If managecolumns.issue.Checked = True Then
+                Form2.stocksgridview.Columns("ISSUE").Visible = True
+            Else
+                Form2.stocksgridview.Columns("ISSUE").Visible = False
+            End If
+            If managecolumns.status.Checked = True Then
+                Form2.stocksgridview.Columns("STATUS").Visible = True
+            Else
+                Form2.stocksgridview.Columns("STATUS").Visible = False
+            End If
+            If managecolumns.phasedout.Checked = True Then
+                Form2.stocksgridview.Columns("PHASEDOUT").Visible = True
+            Else
+                Form2.stocksgridview.Columns("PHASEDOUT").Visible = False
+            End If
+            If managecolumns.COLORBASED.Checked = True Then
+                Form2.stocksgridview.Columns("COLORBASED").Visible = True
+            Else
+                Form2.stocksgridview.Columns("COLORBASED").Visible = False
+            End If
+            If managecolumns.INPUTTED.Checked = True Then
+                Form2.stocksgridview.Columns("INPUTTED").Visible = True
+            Else
+                Form2.stocksgridview.Columns("INPUTTED").Visible = False
+            End If
+            If managecolumns.TOORDER.Checked = True Then
+                Form2.stocksgridview.Columns("TOORDER").Visible = True
+            Else
+                Form2.stocksgridview.Columns("TOORDER").Visible = False
+            End If
+            If managecolumns.TOFOIL.Checked = True Then
+                Form2.stocksgridview.Columns("TOFOIL").Visible = True
+            Else
+                Form2.stocksgridview.Columns("TOFOIL").Visible = False
+            End If
+            If managecolumns.BALALLOC.Checked = True Then
+                Form2.stocksgridview.Columns("BALALLOC").Visible = True
+            Else
+                Form2.stocksgridview.Columns("BALALLOC").Visible = False
+            End If
+            If managecolumns.physical2.Checked = True Then
+                Form2.stocksgridview.Columns("PHYSICAL2").Visible = True
+            Else
+                Form2.stocksgridview.Columns("PHYSICAL2").Visible = False
+            End If
+            If managecolumns.WEIGHT.Checked = True Then
+                Form2.stocksgridview.Columns("WEIGHT").Visible = True
+            Else
+                Form2.stocksgridview.Columns("WEIGHT").Visible = False
+            End If
+            If managecolumns.XRATE.Checked = True Then
+                Form2.stocksgridview.Columns("XRATE").Visible = True
+            Else
+                Form2.stocksgridview.Columns("XRATE").Visible = False
+            End If
+            If managecolumns.NETAMOUNT.Checked = True Then
+                Form2.stocksgridview.Columns("NETAMOUNT").Visible = True
+            Else
+                Form2.stocksgridview.Columns("NETAMOUNT").Visible = False
+            End If
+            If managecolumns.CONSUMPTION.Checked = True Then
+                Form2.stocksgridview.Columns("CONSUMPTION").Visible = True
+            Else
+                Form2.stocksgridview.Columns("CONSUMPTION").Visible = False
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+    End Sub
+    Public Sub tmanagecols()
+        Try
+
+
+            'transaction
+            If managecolumns.transno.Checked = True Then
+                Form2.transgridview.Columns("TRANSNO").Visible = True
+            Else
+                Form2.transgridview.Columns("TRANSNO").Visible = False
+            End If
+            If managecolumns.tstockno.Checked = True Then
+                Form2.transgridview.Columns("STOCKNO").Visible = True
+            Else
+                Form2.transgridview.Columns("STOCKNO").Visible = False
+            End If
+            If managecolumns.tcosthead.Checked = True Then
+                Form2.transgridview.Columns("COSTHEAD").Visible = True
+            Else
+                Form2.transgridview.Columns("COSTHEAD").Visible = False
+            End If
+            If managecolumns.ttypecolor.Checked = True Then
+                Form2.transgridview.Columns("typecolor").Visible = True
+            Else
+                Form2.transgridview.Columns("typecolor").Visible = False
+            End If
+            If managecolumns.tarticleno.Checked = True Then
+                Form2.transgridview.Columns("articleno").Visible = True
+            Else
+                Form2.transgridview.Columns("articleno").Visible = False
+            End If
+            If managecolumns.transtype.Checked = True Then
+                Form2.transgridview.Columns("transtype").Visible = True
+            Else
+                Form2.transgridview.Columns("transtype").Visible = False
+            End If
+            If managecolumns.transtype.Checked = True Then
+                Form2.transgridview.Columns("transtype").Visible = True
+            Else
+                Form2.transgridview.Columns("transtype").Visible = False
+            End If
+            If managecolumns.transdate.Checked = True Then
+                Form2.transgridview.Columns("transdate").Visible = True
+            Else
+                Form2.transgridview.Columns("transdate").Visible = False
+            End If
+            If managecolumns.duedate.Checked = True Then
+                Form2.transgridview.Columns("duedate").Visible = True
+            Else
+                Form2.transgridview.Columns("duedate").Visible = False
+            End If
+            If managecolumns.qty.Checked = True Then
+                Form2.transgridview.Columns("qty").Visible = True
+            Else
+                Form2.transgridview.Columns("qty").Visible = False
+            End If
+            If managecolumns.reference.Checked = True Then
+                Form2.transgridview.Columns("reference").Visible = True
+            Else
+                Form2.transgridview.Columns("reference").Visible = False
+            End If
+            If managecolumns.account.Checked = True Then
+                Form2.transgridview.Columns("account").Visible = True
+            Else
+                Form2.transgridview.Columns("account").Visible = False
+            End If
+            If managecolumns.controlno.Checked = True Then
+                Form2.transgridview.Columns("controlno").Visible = True
+            Else
+                Form2.transgridview.Columns("controlno").Visible = False
+            End If
+            If managecolumns.excess.Checked = True Then
+                Form2.transgridview.Columns("excess").Visible = True
+            Else
+                Form2.transgridview.Columns("excess").Visible = False
+            End If
+            If managecolumns.remarks.Checked = True Then
+                Form2.transgridview.Columns("remarks").Visible = True
+            Else
+                Form2.transgridview.Columns("remarks").Visible = False
+            End If
+            If managecolumns.Ufactor.Checked = True Then
+                Form2.transgridview.Columns("ufactor").Visible = True
+            Else
+                Form2.transgridview.Columns("ufactor").Visible = False
+            End If
+            If managecolumns.Checker.Checked = True Then
+                Form2.transgridview.Columns("checker").Visible = True
+            Else
+                Form2.transgridview.Columns("checker").Visible = False
+            End If
+            If managecolumns.tunitprice.Checked = True Then
+                Form2.transgridview.Columns("unitprice").Visible = True
+            Else
+                Form2.transgridview.Columns("unitprice").Visible = False
+            End If
+            If managecolumns.Currency.Checked = True Then
+                Form2.transgridview.Columns("Currency").Visible = True
+            Else
+                Form2.transgridview.Columns("Currency").Visible = False
+            End If
+            If managecolumns.txrate.Checked = True Then
+                Form2.transgridview.Columns("xrate").Visible = True
+            Else
+                Form2.transgridview.Columns("xrate").Visible = False
+            End If
+            If managecolumns.tnetamount.Checked = True Then
+                Form2.transgridview.Columns("netamount").Visible = True
+            Else
+                Form2.transgridview.Columns("netamount").Visible = False
+            End If
+            If managecolumns.tinputted.Checked = True Then
+                Form2.transgridview.Columns("inputted").Visible = True
+            Else
+                Form2.transgridview.Columns("inputted").Visible = False
+            End If
+            If managecolumns.tdisc.Checked = True Then
+                Form2.transgridview.Columns("disc").Visible = True
+            Else
+                Form2.transgridview.Columns("disc").Visible = False
+            End If
+        Catch ex As Exception
+            MsgBox(ex.ToString)
         End Try
     End Sub
 End Class

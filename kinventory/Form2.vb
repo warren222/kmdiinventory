@@ -1075,6 +1075,7 @@ select
     Private Sub KryptonButton11_Click(sender As Object, e As EventArgs) Handles KryptonButton11.Click
         Dim search As String
         Dim count As String = "select format(count(a.TRANSNO),'n0'),format(sum(isnull(a.netamount,0)/isnull(a.xrate,0)),'n2') from trans_tb as a inner join stocks_tb as b on a.stockno = b.stockno"
+
         Dim countsearch As String
         Dim top As String = toprows.Text.Replace(",", "")
 
@@ -1769,7 +1770,7 @@ on a.stockno = b.stockno"
 " & dcol & " like " & d & " and
 " & fcol & " = " & f & " and
 " & gcol & "= " & g & ""
-        Dim search As String = "select * from stocks_tb " & condition & ""
+        Dim search As String = "select * from stocks_tb as a " & condition & ""
         sql.searchstocks(search)
     End Sub
 
@@ -1898,7 +1899,7 @@ on a.stockno = b.stockno"
             Dim phasedout As String
             Dim toorder As String
             If reportpasedout.Checked = True Then
-                phasedout = " phasedout like '&yes&'"
+                phasedout = " phasedout like '%yes%'"
             Else
                 phasedout = " phasedout = phasedout"
             End If

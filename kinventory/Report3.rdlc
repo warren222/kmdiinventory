@@ -990,7 +990,8 @@
                             <TextRun>
                               <Value>=FORMAT((Fields!FINALNEEDTOORDER.Value*Fields!UFACTOR.Value),"N2")</Value>
                               <Style>
-                                <FontSize>6pt</FontSize>
+                                <FontSize>=iif((Fields!FINALNEEDTOORDER.Value*Fields!UFACTOR.Value)&gt;0,"8pt","6pt")</FontSize>
+                                <FontWeight>=iif((Fields!FINALNEEDTOORDER.Value*Fields!UFACTOR.Value)&gt;0,"Bold","Normal")</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1012,6 +1013,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>

@@ -31,6 +31,7 @@ Partial Class Form1
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.ManageColumnsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -55,18 +56,18 @@ Partial Class Form1
         'NewToolStripMenuItem
         '
         Me.NewToolStripMenuItem.Name = "NewToolStripMenuItem"
-        Me.NewToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.NewToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.NewToolStripMenuItem.Text = "Inventory"
         '
         'LogOutToolStripMenuItem
         '
         Me.LogOutToolStripMenuItem.Name = "LogOutToolStripMenuItem"
-        Me.LogOutToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.LogOutToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.LogOutToolStripMenuItem.Text = "log out"
         '
         'AccountsToolStripMenuItem
         '
-        Me.AccountsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ManageAccountsToolStripMenuItem})
+        Me.AccountsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ManageAccountsToolStripMenuItem, Me.ManageColumnsToolStripMenuItem})
         Me.AccountsToolStripMenuItem.Name = "AccountsToolStripMenuItem"
         Me.AccountsToolStripMenuItem.Size = New System.Drawing.Size(69, 20)
         Me.AccountsToolStripMenuItem.Text = "Accounts"
@@ -108,6 +109,12 @@ Partial Class Form1
         Me.Panel1.Size = New System.Drawing.Size(1088, 0)
         Me.Panel1.TabIndex = 459
         '
+        'ManageColumnsToolStripMenuItem
+        '
+        Me.ManageColumnsToolStripMenuItem.Name = "ManageColumnsToolStripMenuItem"
+        Me.ManageColumnsToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
+        Me.ManageColumnsToolStripMenuItem.Text = "Manage Columns"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -140,4 +147,5 @@ Partial Class Form1
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents ManageColumnsToolStripMenuItem As ToolStripMenuItem
 End Class

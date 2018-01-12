@@ -1,16 +1,8 @@
 ﻿Imports System.Data.SqlClient
-Public Class chagexrate
-    Public sqlcmd As New SqlCommand
-    Public da As New SqlDataAdapter
+Public Class Form12
     Dim sql As New sql
-    Private Sub xrate_Leave(sender As Object, e As EventArgs) Handles xrate.Leave
-        If IsNumeric(xrate.Text) Then
-        Else
-            MessageBox.Show("invalid x-rate", "", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            xrate.Focus()
-        End If
-    End Sub
-
+    Public da As New SqlDataAdapter
+    Public sqlcmd As New SqlCommand
     Private Sub KryptonButton1_Click(sender As Object, e As EventArgs) Handles KryptonButton1.Click
 
         If MessageBox.Show("Update record?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then
@@ -33,9 +25,8 @@ Public Class chagexrate
             End If
         Next
         MessageBox.Show(" update!", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        Form2.KryptonButton11.PerformClick()
+        Form4.KryptonButton4.PerformClick()
         Me.Close()
-
     End Sub
     Public Sub changerate(ByVal tno As String, ByVal rate As String)
         Try
@@ -255,7 +246,7 @@ update trans_tb set netamount=(xrate*(unitprice-((" & disc & "*0.01)*unitprice))
         End Try
     End Sub
 
-    Private Sub chagexrate_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub Form12_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If Form1.Label2.Text = "Guest" Then
             KryptonButton1.Enabled = False
         ElseIf Form1.Label2.Text = "Admin" Or Form1.Label2.Text = "Encoder" Then
@@ -264,15 +255,7 @@ update trans_tb set netamount=(xrate*(unitprice-((" & disc & "*0.01)*unitprice))
 
     End Sub
 
-    Private Sub unit_Leave(sender As Object, e As EventArgs) Handles unit.Leave
-        If IsNumeric(unit.Text) Then
-        Else
-            MessageBox.Show("invalid unit price", "", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            unit.Focus()
-        End If
-    End Sub
-
-    Private Sub chagexrate_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+    Private Sub Form12_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         KryptonCheckBox8.Checked = False
         KryptonCheckBox1.Checked = False
         KryptonCheckBox2.Checked = False
@@ -287,11 +270,27 @@ update trans_tb set netamount=(xrate*(unitprice-((" & disc & "*0.01)*unitprice))
         End If
     End Sub
 
+    Private Sub unit_Leave(sender As Object, e As EventArgs) Handles unit.Leave
+        If IsNumeric(unit.Text) Then
+        Else
+            MessageBox.Show("invalid unit price", "", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            unit.Focus()
+        End If
+    End Sub
+
     Private Sub discount_Leave(sender As Object, e As EventArgs) Handles discount.Leave
         If IsNumeric(discount.Text) Then
         Else
             MessageBox.Show("invalid discount", "", MessageBoxButtons.OK, MessageBoxIcon.Error)
             discount.Focus()
+        End If
+    End Sub
+
+    Private Sub xrate_Leave(sender As Object, e As EventArgs) Handles xrate.Leave
+        If IsNumeric(xrate.Text) Then
+        Else
+            MessageBox.Show("invalid xrate", "", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            xrate.Focus()
         End If
     End Sub
 End Class
