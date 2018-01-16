@@ -540,7 +540,7 @@ Partial Public Class inventoryds
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function AddTRANS_TBRow(ByVal TRANSNO As String, ByVal STOCKNO As String, ByVal TRANSTYPE As String, ByVal TRANSDATE As String, ByVal DUEDATE As String, ByVal QTY As String, ByVal REFERENCE As String, ByVal ACCOUNT As String, ByVal CONTROLNO As String, ByVal XYZ As String, ByVal XYZREF As String, ByVal TYPECOLOR As String, ByVal ARTICLENO As String, ByVal REMARKS As String, ByVal BALQTY As String) As TRANS_TBRow
+        Public Overloads Function AddTRANS_TBRow(ByVal TRANSNO As String, ByVal STOCKNO As String, ByVal TRANSTYPE As String, ByVal TRANSDATE As Date, ByVal DUEDATE As String, ByVal QTY As String, ByVal REFERENCE As String, ByVal ACCOUNT As String, ByVal CONTROLNO As String, ByVal XYZ As String, ByVal XYZREF As String, ByVal TYPECOLOR As String, ByVal ARTICLENO As String, ByVal REMARKS As String, ByVal BALQTY As String) As TRANS_TBRow
             Dim rowTRANS_TBRow As TRANS_TBRow = CType(Me.NewRow,TRANS_TBRow)
             Dim columnValuesArray() As Object = New Object() {TRANSNO, STOCKNO, TRANSTYPE, TRANSDATE, DUEDATE, QTY, REFERENCE, ACCOUNT, CONTROLNO, XYZ, XYZREF, TYPECOLOR, ARTICLENO, REMARKS, BALQTY}
             rowTRANS_TBRow.ItemArray = columnValuesArray
@@ -591,7 +591,7 @@ Partial Public Class inventoryds
             MyBase.Columns.Add(Me.columnSTOCKNO)
             Me.columnTRANSTYPE = New Global.System.Data.DataColumn("TRANSTYPE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnTRANSTYPE)
-            Me.columnTRANSDATE = New Global.System.Data.DataColumn("TRANSDATE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            Me.columnTRANSDATE = New Global.System.Data.DataColumn("TRANSDATE", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnTRANSDATE)
             Me.columnDUEDATE = New Global.System.Data.DataColumn("DUEDATE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnDUEDATE)
@@ -1493,10 +1493,10 @@ Partial Public Class inventoryds
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TRANSDATE() As String
+        Public Property TRANSDATE() As Date
             Get
                 Try 
-                    Return CType(Me(Me.tableTRANS_TB.TRANSDATEColumn),String)
+                    Return CType(Me(Me.tableTRANS_TB.TRANSDATEColumn),Date)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TRANSDATE' in table 'TRANS_TB' is DBNull.", e)
                 End Try

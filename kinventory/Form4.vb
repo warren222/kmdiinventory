@@ -516,4 +516,9 @@ Public Class Form4
             Form12.transno.Items.Add(x)
         Next
     End Sub
+
+    Private Sub KryptonButton5_Click(sender As Object, e As EventArgs) Handles KryptonButton5.Click
+        KryptonButton4.PerformClick()
+        Form13.ShowDialog()
+    End Sub
 End Class

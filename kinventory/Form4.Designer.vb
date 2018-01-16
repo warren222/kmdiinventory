@@ -122,12 +122,13 @@ Partial Class Form4
         Me.todate = New ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker()
         Me.transadate = New ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker()
         Me.transactionMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.UpdateAmountToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.KryptonPanel1 = New ComponentFactory.Krypton.Toolkit.KryptonPanel()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.KryptonGroup5 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
-        Me.UpdateAmountToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.KryptonButton5 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         CType(Me.KryptonGroup2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonGroup2.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.KryptonGroup2.Panel.SuspendLayout()
@@ -1153,7 +1154,7 @@ Partial Class Form4
         Me.KryptonDataGridView1.ReadOnly = True
         Me.KryptonDataGridView1.RowHeadersWidth = 25
         Me.KryptonDataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.KryptonDataGridView1.Size = New System.Drawing.Size(1283, 0)
+        Me.KryptonDataGridView1.Size = New System.Drawing.Size(1403, 0)
         Me.KryptonDataGridView1.StateCommon.Background.Color1 = System.Drawing.Color.White
         Me.KryptonDataGridView1.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList
         Me.KryptonDataGridView1.StateCommon.DataCell.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
@@ -1301,6 +1302,7 @@ Partial Class Form4
         '
         'KryptonGroup4.Panel
         '
+        Me.KryptonGroup4.Panel.Controls.Add(Me.KryptonButton5)
         Me.KryptonGroup4.Panel.Controls.Add(Me.KryptonButton3)
         Me.KryptonGroup4.Panel.Controls.Add(Me.ProgressBar1)
         Me.KryptonGroup4.Panel.Controls.Add(Me.KryptonLabel28)
@@ -1320,7 +1322,7 @@ Partial Class Form4
         Me.KryptonGroup4.Panel.Controls.Add(Me.KryptonLabel21)
         Me.KryptonGroup4.Panel.Controls.Add(Me.todate)
         Me.KryptonGroup4.Panel.Controls.Add(Me.transadate)
-        Me.KryptonGroup4.Size = New System.Drawing.Size(161, 498)
+        Me.KryptonGroup4.Size = New System.Drawing.Size(161, 521)
         Me.KryptonGroup4.StateCommon.Back.Color1 = System.Drawing.SystemColors.Control
         Me.KryptonGroup4.TabIndex = 0
         '
@@ -1339,7 +1341,7 @@ Partial Class Form4
         '
         'ProgressBar1
         '
-        Me.ProgressBar1.Location = New System.Drawing.Point(-1, 478)
+        Me.ProgressBar1.Location = New System.Drawing.Point(-1, 504)
         Me.ProgressBar1.Name = "ProgressBar1"
         Me.ProgressBar1.Size = New System.Drawing.Size(161, 16)
         Me.ProgressBar1.TabIndex = 454
@@ -1531,6 +1533,12 @@ Partial Class Form4
         Me.transactionMenuStrip1.Name = "transactionMenuStrip1"
         Me.transactionMenuStrip1.Size = New System.Drawing.Size(160, 26)
         '
+        'UpdateAmountToolStripMenuItem
+        '
+        Me.UpdateAmountToolStripMenuItem.Name = "UpdateAmountToolStripMenuItem"
+        Me.UpdateAmountToolStripMenuItem.Size = New System.Drawing.Size(159, 22)
+        Me.UpdateAmountToolStripMenuItem.Text = "Update Amount"
+        '
         'KryptonPanel1
         '
         Me.KryptonPanel1.Controls.Add(Me.Button2)
@@ -1611,11 +1619,18 @@ Partial Class Form4
         Me.KryptonGroup5.StateCommon.Border.Width = 1
         Me.KryptonGroup5.TabIndex = 459
         '
-        'UpdateAmountToolStripMenuItem
+        'KryptonButton5
         '
-        Me.UpdateAmountToolStripMenuItem.Name = "UpdateAmountToolStripMenuItem"
-        Me.UpdateAmountToolStripMenuItem.Size = New System.Drawing.Size(159, 22)
-        Me.UpdateAmountToolStripMenuItem.Text = "Update Amount"
+        Me.KryptonButton5.Location = New System.Drawing.Point(8, 475)
+        Me.KryptonButton5.Name = "KryptonButton5"
+        Me.KryptonButton5.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
+        Me.KryptonButton5.Size = New System.Drawing.Size(143, 23)
+        Me.KryptonButton5.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.KryptonButton5.StateCommon.Border.Rounding = 0
+        Me.KryptonButton5.TabIndex = 456
+        Me.KryptonButton5.Values.Text = "Report"
         '
         'Form4
         '
@@ -1809,4 +1824,5 @@ Partial Class Form4
     Friend WithEvents ProgressBar1 As ProgressBar
     Friend WithEvents KryptonButton3 As ComponentFactory.Krypton.Toolkit.KryptonButton
     Friend WithEvents UpdateAmountToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents KryptonButton5 As ComponentFactory.Krypton.Toolkit.KryptonButton
 End Class

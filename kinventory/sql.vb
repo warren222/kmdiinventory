@@ -2367,6 +2367,16 @@ INPUTTED
             bs.DataSource = ds
             bs.DataMember = "trans_tb"
             Form4.mytransgridview.DataSource = bs
+
+
+            Dim dss As New inventoryds
+            dss.Clear()
+            sqlcmd = New SqlCommand(str1 + " order by " & datetype & " desc ", sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(dss.TRANS_TB)
+            Form13.TRANS_TBBindingSource.DataSource = dss.TRANS_TB.DefaultView
+
+
             Form4.mytransgridview.Columns("TRANSDATE").DefaultCellStyle.Format = "yyyy-MMM-dd"
             Form4.mytransgridview.Columns("DUEDATE").DefaultCellStyle.Format = "yyyy-MMM-dd"
 
