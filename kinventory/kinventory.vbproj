@@ -239,6 +239,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>inventoryds.xsd</DependentUpon>
     </Compile>
+    <Compile Include="location.Designer.vb">
+      <DependentUpon>location.vb</DependentUpon>
+    </Compile>
+    <Compile Include="location.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="managecolumns.Designer.vb">
       <DependentUpon>managecolumns.vb</DependentUpon>
     </Compile>
@@ -370,6 +376,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form9.resx">
       <DependentUpon>Form9.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="location.resx">
+      <DependentUpon>location.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="managecolumns.resx">
       <DependentUpon>managecolumns.vb</DependentUpon>

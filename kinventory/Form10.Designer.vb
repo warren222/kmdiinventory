@@ -23,7 +23,7 @@ Partial Class Form10
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form10))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.KryptonLabel11 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.fullname = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonLabel1 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
@@ -372,9 +372,9 @@ Partial Class Form10
         Me.accoutgridview.AllowUserToOrderColumns = True
         Me.accoutgridview.AllowUserToResizeColumns = False
         Me.accoutgridview.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        Me.accoutgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
+        Me.accoutgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.accoutgridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.accoutgridview.ColumnHeadersHeight = 30
         Me.accoutgridview.Cursor = System.Windows.Forms.Cursors.Hand
