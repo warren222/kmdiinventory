@@ -796,6 +796,14 @@ update reference_tb set
                 MessageBox.Show("insufficient order", "Stop", MessageBoxButtons.OK, MessageBoxIcon.Stop)
             Else
 
+
+                locationform.articleno.Text = receiptarticleno.Text + " - " + "Receipt"
+                locationform.KryptonButton4.Enabled = True
+                locationform.KryptonButton5.Enabled = False
+                locationform.balance.Text = receiptqty.Text
+                locationform.stockno.Text = receiptstockno.Text
+                locationform.ShowDialog()
+
                 Dim transaction = "Receipt"
                 Dim duedate As String = ""
                 Dim account As String = ""
@@ -830,6 +838,17 @@ update reference_tb set
             ElseIf myreceipt = order Then
                 MessageBox.Show("0 balance expected", "Stop", MessageBoxButtons.OK, MessageBoxIcon.Stop)
             Else
+
+
+                locationform.articleno.Text = receiptarticleno.Text + " - " + "Receipt"
+                locationform.KryptonButton4.Enabled = True
+                locationform.KryptonButton5.Enabled = False
+                locationform.balance.Text = receiptqty.Text
+                locationform.stockno.Text = receiptstockno.Text
+                locationform.ShowDialog()
+
+
+
                 Dim transaction = "Receipt"
                 Dim duedate As String = ""
                 Dim account As String = ""
@@ -1578,7 +1597,13 @@ on a.stockno = b.stockno"
     Private Sub stocksgridview_MouseDown(sender As Object, e As MouseEventArgs) Handles stocksgridview.MouseDown
         If stocksgridview.RowCount >= 0 Then
             If e.Button = MouseButtons.Right Then
-                ContextMenuStrip1.Show(stocksgridview, New Point(e.X, e.Y))
+                If Form1.Label2.Text = "Guest" Then
+
+                Else
+                    ContextMenuStrip1.Show(stocksgridview, New Point(e.X, e.Y))
+                End If
+
+
                 'PhasedoutForm.ShowDialog()
             End If
         End If
@@ -1796,7 +1821,12 @@ on a.stockno = b.stockno"
 " & dcol & " like " & d & " and
 " & fcol & " = " & f & " and
 " & gcol & "= " & g & ""
-        Dim search As String = "select * from stocks_tb as a " & condition & ""
+        Dim search As String = "
+
+select 
+a.*,
+(select sum(qty) from LOCATIONTB where STOCKNO=a.STOCKNO) as MYLOCATION
+ from stocks_tb as a " & condition & ""
         sql.searchstocks(search)
     End Sub
 

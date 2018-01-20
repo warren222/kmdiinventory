@@ -9,8 +9,47 @@ Public Class locationform
     Dim y As Integer
     Dim drag As Boolean
     Private Sub location_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim l1 As New Transition(New TransitionType_Deceleration(300))
+        l1.add(Panel2, "Width", 28)
+        l1.add(locationgridview, "Top", 66)
+        l1.run()
+        locationgridview.Size = New Size(308, 380)
         LOADLOCATIONTB()
+        loadsummary()
+    End Sub
+    Public Sub loadsummary()
+        Try
+            sql.sqlcon.Open()
+            Dim ds As New DataSet
+            ds.Clear()
+            Dim bs As New BindingSource
 
+            Dim str As String = "
+select 
+
+LOCATION,sum(qty) AS QTY
+
+from LOCATIONTB group by location 
+
+union all
+
+select 'Total',sum(qty) from locationtb"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            DA.SelectCommand = sqlcmd
+            DA.Fill(ds, "locationtb")
+            bs.DataSource = ds
+            bs.DataMember = "locationtb"
+            KryptonDataGridView1.DataSource = bs
+            KryptonDataGridView1.Columns("LOCATION").DefaultCellStyle.Font = New Font("Tahoma", 10, FontStyle.Bold)
+            KryptonDataGridView1.Columns("QTY").DefaultCellStyle.Font = New Font("Tahoma", 10, FontStyle.Bold)
+            KryptonDataGridView1.Columns("QTY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            KryptonDataGridView1.Columns("QTY").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
+            KryptonDataGridView1.Columns("QTY").DefaultCellStyle.Format = "N2"
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
     End Sub
     Public Sub LOADLOCATIONTB()
         Try
@@ -36,7 +75,10 @@ select '','','Total',sum(qty) from locationtb where stockno = '" & stockno.Text 
             locationgridview.Columns("QTY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             locationgridview.Columns("QTY").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
             locationgridview.Columns("QTY").DefaultCellStyle.Format = "N2"
+            setlocation.Text = ""
+            currentqty.Text = "0"
             loadsetlocation()
+
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -116,7 +158,9 @@ insert into locationtb (ID,STOCKNO,LOCATION,QTY) VALUES  (@id,'" & stockno.Text 
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         If balance.Text = "0" Then
+            Me.Dispose()
             Me.Close()
+
         Else
             MessageBox.Show("", "", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If

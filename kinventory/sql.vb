@@ -23,9 +23,11 @@ Public Class sql
             sqlcon.Open()
             Dim ds As New DataSet
             ds.Clear()
-            Dim str As String = "select *
- from stocks_tb
-order by articleno asc"
+            Dim str As String = "select
+a.*,
+(select sum(qty) from LOCATIONTB where STOCKNO=a.STOCKNO) as MYLOCATION
+ from stocks_tb AS A
+order by A.articleno asc"
             sqlcmd = New SqlCommand(str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "stocks_tb")
@@ -59,6 +61,8 @@ order by articleno asc"
             Form2.stocksgridview.Columns("UNITPRICE").DefaultCellStyle.Format = "N4"
             Form2.stocksgridview.Columns("XRATE").DefaultCellStyle.Format = "N2"
             Form2.stocksgridview.Columns("NETAMOUNT").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("CONSUMPTION").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("MYLOCATION").DefaultCellStyle.Format = "N2"
 
             Form2.stocksgridview.Columns("ALLOCATION").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.stocksgridview.Columns("FREE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -73,11 +77,21 @@ order by articleno asc"
             Form2.stocksgridview.Columns("UNITPRICE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.stocksgridview.Columns("XRATE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.stocksgridview.Columns("NETAMOUNT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("CONSUMPTION").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            Form2.stocksgridview.Columns("MYLOCATION").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             managecols()
             loadsearchbox()
             fillform()
             notifycritical()
 
+
+            For i As Integer = 0 To Form2.stocksgridview.RowCount - 1 Step +1
+                Dim s As String = Form2.stocksgridview.Rows(i).Cells("PHYSICAL").Value.ToString
+                Dim t As String = Form2.stocksgridview.Rows(i).Cells("MYLOCATION").Value.ToString
+                If Not s = t Then
+                    Form2.stocksgridview.Rows(i).Cells("MYLOCATION").Style.ForeColor = Color.Red
+                End If
+            Next
         Catch ex As SqlException
             If ex.Number = 1205 Then
             Else
@@ -127,6 +141,7 @@ order by articleno asc"
             Form2.stocksgridview.Columns("XRATE").DefaultCellStyle.Format = "N2"
             Form2.stocksgridview.Columns("NETAMOUNT").DefaultCellStyle.Format = "N2"
             Form2.stocksgridview.Columns("CONSUMPTION").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("MYLOCATION").DefaultCellStyle.Format = "N2"
 
             Form2.stocksgridview.Columns("ALLOCATION").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.stocksgridview.Columns("FREE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -142,9 +157,17 @@ order by articleno asc"
             Form2.stocksgridview.Columns("XRATE").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.stocksgridview.Columns("NETAMOUNT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             Form2.stocksgridview.Columns("CONSUMPTION").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
+            Form2.stocksgridview.Columns("MYLOCATION").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             fillform()
             managecols()
+
+            For i As Integer = 0 To Form2.stocksgridview.RowCount - 1 Step +1
+                Dim s As String = Form2.stocksgridview.Rows(i).Cells("PHYSICAL").Value.ToString
+                Dim t As String = Form2.stocksgridview.Rows(i).Cells("MYLOCATION").Value.ToString
+                If Not s = t Then
+                    Form2.stocksgridview.Rows(i).Cells("MYLOCATION").Style.ForeColor = Color.Red
+                End If
+            Next
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
