@@ -15,11 +15,11 @@ Public Class locationform
         l1.run()
         locationgridview.Size = New Size(308, 380)
         LOADLOCATIONTB()
-        loadsummary()
+
     End Sub
     Public Sub loadsummary()
         Try
-            sql.sqlcon.Open()
+
             Dim ds As New DataSet
             ds.Clear()
             Dim bs As New BindingSource
@@ -47,8 +47,6 @@ select 'Total',sum(qty) from locationtb"
             KryptonDataGridView1.Columns("QTY").DefaultCellStyle.Format = "N2"
         Catch ex As Exception
             MsgBox(ex.ToString)
-        Finally
-            sql.sqlcon.Close()
         End Try
     End Sub
     Public Sub LOADLOCATIONTB()
@@ -78,7 +76,7 @@ select '','','Total',sum(qty) from locationtb where stockno = '" & stockno.Text 
             setlocation.Text = ""
             currentqty.Text = "0"
             loadsetlocation()
-
+            loadsummary()
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -328,5 +326,17 @@ insert into locationtb (ID,STOCKNO,LOCATION,QTY) VALUES  (@id,'" & stockno.Text 
             MessageBox.Show("non numeric data detected, please make sure you type a valid number", "", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             qty.Focus()
         End If
+    End Sub
+
+    Private Sub KryptonButton7_Click(sender As Object, e As EventArgs) Handles KryptonButton7.Click
+        Dim t1 As New Transition(New TransitionType_Acceleration(300))
+        If Panel4.Width = 592 Then
+            t1.add(Panel4, "Width", 920)
+            t1.run()
+        Else
+            t1.add(Panel4, "Width", 592)
+            t1.run()
+        End If
+
     End Sub
 End Class

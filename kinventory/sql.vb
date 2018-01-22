@@ -86,9 +86,11 @@ order by A.articleno asc"
 
 
             For i As Integer = 0 To Form2.stocksgridview.RowCount - 1 Step +1
-                Dim s As String = Form2.stocksgridview.Rows(i).Cells("PHYSICAL").Value.ToString
-                Dim t As String = Form2.stocksgridview.Rows(i).Cells("MYLOCATION").Value.ToString
-                If Not s = t Then
+                Dim s As String = Trim(Form2.stocksgridview.Rows(i).Cells("PHYSICAL").Value.ToString)
+                Dim t As String = Trim(Form2.stocksgridview.Rows(i).Cells("MYLOCATION").Value.ToString)
+                If s = t Then
+                    Form2.stocksgridview.Rows(i).Cells("MYLOCATION").Style.ForeColor = Color.Black
+                Else
                     Form2.stocksgridview.Rows(i).Cells("MYLOCATION").Style.ForeColor = Color.Red
                 End If
             Next
@@ -164,7 +166,9 @@ order by A.articleno asc"
             For i As Integer = 0 To Form2.stocksgridview.RowCount - 1 Step +1
                 Dim s As String = Form2.stocksgridview.Rows(i).Cells("PHYSICAL").Value.ToString
                 Dim t As String = Form2.stocksgridview.Rows(i).Cells("MYLOCATION").Value.ToString
-                If Not s = t Then
+                If s = t Then
+                    Form2.stocksgridview.Rows(i).Cells("MYLOCATION").Style.ForeColor = Color.Black
+                Else
                     Form2.stocksgridview.Rows(i).Cells("MYLOCATION").Style.ForeColor = Color.Red
                 End If
             Next
@@ -3433,6 +3437,11 @@ UPDATE STOCKS_TB SET consumption=isnull(@consumption,0) where stockno='" & stock
                 Else
                     managecolumns.CONSUMPTION.Checked = False
                 End If
+                If scolumns.Contains("mylocation") Then
+                    managecolumns.mylocation.Checked = True
+                Else
+                    managecolumns.mylocation.Checked = False
+                End If
 
 
 
@@ -4025,7 +4034,11 @@ accttype='" & acctype & "' where id = '" & id & "'"
             Else
                 Form2.stocksgridview.Columns("CONSUMPTION").Visible = False
             End If
-
+            If managecolumns.mylocation.Checked = True Then
+                Form2.stocksgridview.Columns("MYLOCATION").Visible = True
+            Else
+                Form2.stocksgridview.Columns("MYLOCATION").Visible = False
+            End If
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try

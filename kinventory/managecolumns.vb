@@ -158,6 +158,12 @@ Public Class managecolumns
         Else
             consumption1 = " "
         End If
+        Dim mylocation1 As String
+        If mylocation.Checked = True Then
+            mylocation1 = "mylocation "
+        Else
+            mylocation1 = " "
+        End If
         colmns = stockno1 + supplier1 +
             costhead1 + typecolor1 + articleno1 +
             discount1 + unitprice1 + physical1 +
@@ -165,7 +171,7 @@ Public Class managecolumns
             minimum1 + issue1 + status1 + phasedout1 +
             basedcolor1 + inputted1 + toorder1 + tofoil1 +
             balalloc1 + physical21 + weight1 + xrate1 +
-            netamount1 + consumption1
+            netamount1 + consumption1 + mylocation1
         colmns = Trim(colmns)
         sql.managecols()
 
@@ -484,7 +490,11 @@ Public Class managecolumns
             Else
                 CONSUMPTION.Checked = False
             End If
-
+            If scolumns.Contains("mylocation") Then
+                mylocation.Checked = True
+            Else
+                mylocation.Checked = False
+            End If
 
 
             'transaction
@@ -609,5 +619,9 @@ Public Class managecolumns
 
     Private Sub managecolumns_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         closeme()
+    End Sub
+
+    Private Sub managecolumns_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
     End Sub
 End Class
