@@ -212,6 +212,7 @@ Partial Class Form2
         Me.TabPage7 = New System.Windows.Forms.TabPage()
         Me.KryptonSplitContainer8 = New ComponentFactory.Krypton.Toolkit.KryptonSplitContainer()
         Me.KryptonGroup8 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
+        Me.KryptonButton31 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.KryptonLabel45 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonLabel46 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonLabel47 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
@@ -285,12 +286,12 @@ Partial Class Form2
         Me.MoveOrderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditAddressToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
-        Me.stocksBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.transBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.referencebs = New System.Windows.Forms.BindingSource(Me.components)
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.PHASEDoUTToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LocationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.stocksBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.transBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.referencebs = New System.Windows.Forms.BindingSource(Me.components)
         Me.transactionmenustrip.SuspendLayout()
         CType(Me.KryptonSplitContainer6, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonSplitContainer6.Panel1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -405,10 +406,10 @@ Partial Class Form2
         Me.KryptonSplitContainer1.Panel2.SuspendLayout()
         Me.KryptonSplitContainer1.SuspendLayout()
         Me.referencemenustrip.SuspendLayout()
+        Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.stocksBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.transBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.referencebs, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ImageList1
@@ -2860,6 +2861,7 @@ Partial Class Form2
         '
         'KryptonGroup8.Panel
         '
+        Me.KryptonGroup8.Panel.Controls.Add(Me.KryptonButton31)
         Me.KryptonGroup8.Panel.Controls.Add(Me.KryptonLabel45)
         Me.KryptonGroup8.Panel.Controls.Add(Me.KryptonLabel46)
         Me.KryptonGroup8.Panel.Controls.Add(Me.KryptonLabel47)
@@ -2874,6 +2876,19 @@ Partial Class Form2
         Me.KryptonGroup8.Size = New System.Drawing.Size(165, 377)
         Me.KryptonGroup8.StateCommon.Back.Color1 = System.Drawing.SystemColors.Control
         Me.KryptonGroup8.TabIndex = 1
+        '
+        'KryptonButton31
+        '
+        Me.KryptonButton31.Location = New System.Drawing.Point(11, 338)
+        Me.KryptonButton31.Name = "KryptonButton31"
+        Me.KryptonButton31.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
+        Me.KryptonButton31.Size = New System.Drawing.Size(143, 25)
+        Me.KryptonButton31.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.KryptonButton31.StateCommon.Border.Rounding = 0
+        Me.KryptonButton31.TabIndex = 13
+        Me.KryptonButton31.Values.Text = "Checklisted"
         '
         'KryptonLabel45
         '
@@ -3955,10 +3970,10 @@ Partial Class Form2
         CType(Me.KryptonSplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.KryptonSplitContainer1.ResumeLayout(False)
         Me.referencemenustrip.ResumeLayout(False)
+        Me.ContextMenuStrip1.ResumeLayout(False)
         CType(Me.stocksBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.transBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.referencebs, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -4218,4 +4233,5 @@ Partial Class Form2
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
     Friend WithEvents PHASEDoUTToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LocationToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents KryptonButton31 As ComponentFactory.Krypton.Toolkit.KryptonButton
 End Class

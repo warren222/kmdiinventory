@@ -22,8 +22,8 @@ Partial Class locationform
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.KryptonLabel5 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.id = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonLabel1 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
@@ -57,8 +57,8 @@ Partial Class locationform
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.KryptonButton7 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.KryptonDataGridView1 = New ComponentFactory.Krypton.Toolkit.KryptonDataGridView()
         Me.KryptonLabel10 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
+        Me.KryptonDataGridView1 = New ComponentFactory.Krypton.Toolkit.KryptonDataGridView()
         CType(Me.locationgridview, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonPanel1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.KryptonPanel1.SuspendLayout()
@@ -198,9 +198,9 @@ Partial Class locationform
         Me.locationgridview.AllowUserToOrderColumns = True
         Me.locationgridview.AllowUserToResizeColumns = False
         Me.locationgridview.AllowUserToResizeRows = False
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
-        Me.locationgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        Me.locationgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.locationgridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.locationgridview.ColumnHeadersHeight = 30
         Me.locationgridview.Cursor = System.Windows.Forms.Cursors.Hand
@@ -643,6 +643,17 @@ Partial Class locationform
         Me.Panel4.Size = New System.Drawing.Size(592, 459)
         Me.Panel4.TabIndex = 480
         '
+        'KryptonLabel10
+        '
+        Me.KryptonLabel10.Location = New System.Drawing.Point(598, 46)
+        Me.KryptonLabel10.Name = "KryptonLabel10"
+        Me.KryptonLabel10.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonLabel10.Size = New System.Drawing.Size(175, 24)
+        Me.KryptonLabel10.StateCommon.ShortText.Color1 = System.Drawing.Color.White
+        Me.KryptonLabel10.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonLabel10.TabIndex = 481
+        Me.KryptonLabel10.Values.Text = "Location Summary Table"
+        '
         'KryptonDataGridView1
         '
         Me.KryptonDataGridView1.AllowUserToAddRows = False
@@ -650,9 +661,9 @@ Partial Class locationform
         Me.KryptonDataGridView1.AllowUserToOrderColumns = True
         Me.KryptonDataGridView1.AllowUserToResizeColumns = False
         Me.KryptonDataGridView1.AllowUserToResizeRows = False
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.White
-        Me.KryptonDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        Me.KryptonDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.KryptonDataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.KryptonDataGridView1.ColumnHeadersHeight = 30
         Me.KryptonDataGridView1.Cursor = System.Windows.Forms.Cursors.Hand
@@ -684,17 +695,6 @@ Partial Class locationform
         Me.KryptonDataGridView1.StateCommon.HeaderColumn.Content.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
         Me.KryptonDataGridView1.StateCommon.HeaderColumn.Content.Hint = ComponentFactory.Krypton.Toolkit.PaletteTextHint.AntiAlias
         Me.KryptonDataGridView1.TabIndex = 480
-        '
-        'KryptonLabel10
-        '
-        Me.KryptonLabel10.Location = New System.Drawing.Point(598, 46)
-        Me.KryptonLabel10.Name = "KryptonLabel10"
-        Me.KryptonLabel10.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
-        Me.KryptonLabel10.Size = New System.Drawing.Size(175, 24)
-        Me.KryptonLabel10.StateCommon.ShortText.Color1 = System.Drawing.Color.White
-        Me.KryptonLabel10.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.KryptonLabel10.TabIndex = 481
-        Me.KryptonLabel10.Values.Text = "Location Table Summary"
         '
         'locationform
         '

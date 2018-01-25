@@ -32,29 +32,66 @@ Public Class cancelall
             MessageBox.Show("Operation Cancelled", "", MessageBoxButtons.OK, MessageBoxIcon.Stop)
             Exit Sub
         End If
-        ProgressBar1.Visible = True
-        ProgressBar1.Value = 0
-        ProgressBar1.Maximum = Form2.refcombo.Items.Count
-        For i As Integer = 0 To Form2.refcombo.Items.Count - 1
-            Dim reference As String = Form2.refcombo.Items(i).ToString()
-            Dim stockno As String = Form2.refstock.Items(i).ToString()
-            getqty(stockno, reference)
-            loopissue.Text = allalloc.Text
+        If header.Text = "Form2" Then
+            ProgressBar1.Visible = True
+            ProgressBar1.Value = 0
+            ProgressBar1.Maximum = Form2.refcombo.Items.Count
+            For i As Integer = 0 To Form2.refcombo.Items.Count - 1
+                Dim reference As String = Form2.refcombo.Items(i).ToString()
+                Dim stockno As String = Form2.refstock.Items(i).ToString()
+                getqty(stockno, reference)
+                loopissue.Text = allalloc.Text
 
-            loadallocationlist(reference, stockno)
-            LISTOFALLOCATIONGRIDVIEW.SelectAll()
-            KryptonButton25.PerformClick()
+                loadallocationlist(reference, stockno)
+                LISTOFALLOCATIONGRIDVIEW.SelectAll()
+                KryptonButton25.PerformClick()
 
-            updatereference(stockno, reference)
-            cancelalloc(stockno, reference)
-            updatereference(stockno, reference)
-            autoupdatestock(stockno)
-            ProgressBar1.Value = ProgressBar1.Value + 1
-        Next
-        Form2.KryptonButton12.PerformClick()
-        Form2.reffromreference.Focus()
-        Button1.PerformClick()
+                updatereference(stockno, reference)
+                cancelalloc(stockno, reference)
+                updatereference(stockno, reference)
+                autoupdatestock(stockno)
+                ProgressBar1.Value = ProgressBar1.Value + 1
+            Next
+            Form2.KryptonButton12.PerformClick()
+            Form2.reffromreference.Focus()
+            Button1.PerformClick()
+        ElseIf header.Text = "checklisted" Then
+            ProgressBar1.Visible = True
+            ProgressBar1.Value = 0
+            ProgressBar1.Maximum = checklisted.refcombo.Items.Count
+            For i As Integer = 0 To checklisted.refcombo.Items.Count - 1
+                Dim reference As String = checklisted.refcombo.Items(i).ToString()
+                Dim stockno As String = checklisted.refstock.Items(i).ToString()
+                getqty(stockno, reference)
+                loopissue.Text = allalloc.Text
 
+                loadallocationlist(reference, stockno)
+                LISTOFALLOCATIONGRIDVIEW.SelectAll()
+                KryptonButton25.PerformClick()
+
+                updatereference(stockno, reference)
+                cancelalloc(stockno, reference)
+                updatereference(stockno, reference)
+                autoupdatestock(stockno)
+                ProgressBar1.Value = ProgressBar1.Value + 1
+            Next
+            updateca()
+            checklisted.KryptonButton3.PerformClick()
+            Button1.PerformClick()
+        End If
+
+    End Sub
+    Public Sub updateca()
+        Try
+            sql.sqlcon1.Open()
+            Dim str As String = "update addendum_to_contract_tb set ca='Cancelled' where project_label = '" & checklisted.projectlabel.Text & "' and NOT CHECKLISTED ='' and ca = ''"
+            sqlcmd = New SqlCommand(str, sql.sqlcon1)
+            sqlcmd.ExecuteNonQuery()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon1.Close()
+        End Try
     End Sub
     Public Sub loadallocationlist(ByVal a As String, ByVal b As String)
         Try

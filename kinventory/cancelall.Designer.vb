@@ -22,7 +22,7 @@ Partial Class cancelall
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.KryptonButton2 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
@@ -36,6 +36,7 @@ Partial Class cancelall
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.LISTOFALLOCATIONGRIDVIEW = New ComponentFactory.Krypton.Toolkit.KryptonDataGridView()
         Me.allalloc = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
+        Me.header = New System.Windows.Forms.TextBox()
         Me.Panel1.SuspendLayout()
         Me.Panel3.SuspendLayout()
         CType(Me.KryptonGroup10, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -232,8 +233,8 @@ Partial Class cancelall
         Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToAddRows = False
         Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToDeleteRows = False
         Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToOrderColumns = True
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.LISTOFALLOCATIONGRIDVIEW.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.LISTOFALLOCATIONGRIDVIEW.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.LISTOFALLOCATIONGRIDVIEW.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.LISTOFALLOCATIONGRIDVIEW.ColumnHeadersHeight = 20
         Me.LISTOFALLOCATIONGRIDVIEW.Cursor = System.Windows.Forms.Cursors.Hand
@@ -272,12 +273,20 @@ Partial Class cancelall
         Me.allalloc.TabIndex = 464
         Me.allalloc.Text = "0"
         '
+        'header
+        '
+        Me.header.Location = New System.Drawing.Point(406, 299)
+        Me.header.Name = "header"
+        Me.header.Size = New System.Drawing.Size(100, 20)
+        Me.header.TabIndex = 465
+        '
         'cancelall
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Green
-        Me.ClientSize = New System.Drawing.Size(291, 166)
+        Me.ClientSize = New System.Drawing.Size(294, 167)
+        Me.Controls.Add(Me.header)
         Me.Controls.Add(Me.KryptonGroup10)
         Me.Controls.Add(Me.allalloc)
         Me.Controls.Add(Me.loopissue)
@@ -316,4 +325,5 @@ Partial Class cancelall
     Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents LISTOFALLOCATIONGRIDVIEW As ComponentFactory.Krypton.Toolkit.KryptonDataGridView
     Friend WithEvents allalloc As ComponentFactory.Krypton.Toolkit.KryptonTextBox
+    Friend WithEvents header As TextBox
 End Class

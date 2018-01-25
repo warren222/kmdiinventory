@@ -60,7 +60,6 @@ Public Class Form2
         Dim rowFont As New System.Drawing.Font("Microsoft Sans Serif", 8.0!,
             System.Drawing.FontStyle.Regular,
             System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-
         Dim centerFormat = New StringFormat()
         centerFormat.Alignment = StringAlignment.Far
         centerFormat.LineAlignment = StringAlignment.Near
@@ -2514,6 +2513,8 @@ on a.stockno = b.stockno where b.myyear='" & myyear.Text & "'"
     End Sub
 
     Private Sub CancelMultiItemToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CancelMultiItemToolStripMenuItem.Click
+        cancelall.KryptonButton2.Visible = True
+        cancelall.header.Text = "Form2"
         cancelall.ShowDialog()
     End Sub
 
@@ -3122,5 +3123,15 @@ on a.stockno = b.stockno where A.STOCKNO='" & STOCKNO & "' and a.TRANSTYPE='Rece
         locationform.balance.Text = "0"
         locationform.stockno.Text = stocknoinput.Text
         locationform.ShowDialog()
+    End Sub
+
+
+
+    Private Sub KryptonButton31_Click(sender As Object, e As EventArgs) Handles KryptonButton31.Click
+        If Form1.Label2.Text = "Guest" Then
+
+        Else
+            checklisted.ShowDialog()
+        End If
     End Sub
 End Class

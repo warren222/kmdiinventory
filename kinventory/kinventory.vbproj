@@ -131,6 +131,12 @@
     <Compile Include="chagexrate.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="checklisted.Designer.vb">
+      <DependentUpon>checklisted.vb</DependentUpon>
+    </Compile>
+    <Compile Include="checklisted.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="cuttinglist.Designer.vb">
       <DependentUpon>cuttinglist.vb</DependentUpon>
     </Compile>
@@ -325,6 +331,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="chagexrate.resx">
       <DependentUpon>chagexrate.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="checklisted.resx">
+      <DependentUpon>checklisted.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="cuttinglist.resx">
       <DependentUpon>cuttinglist.vb</DependentUpon>

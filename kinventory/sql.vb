@@ -846,7 +846,7 @@ on a.stockno = b.stockno"
         End Try
     End Sub
     Public Sub wa()
-        Dim sqlcon2 As New SqlConnection With {.ConnectionString = "Data Source='192.168.1.21,49107';Network Library=DBMSSOCN;Initial Catalog='kmdidata';User ID='kmdiadmin';Password='kmdiadmin';"}
+        Dim sqlcon2 As New SqlConnection With {.ConnectionString = "Data Source='192.168.1.21,49107';Network Library=DBMSSOCN;Initial Catalog='heretosave';User ID='kmdiadmin';Password='kmdiadmin';"}
         Try
             sqlcon2.Open()
             Dim ds As New DataSet
