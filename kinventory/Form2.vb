@@ -160,67 +160,79 @@ Public Class Form2
                 locationform.KryptonButton4.Enabled = True
                 locationform.KryptonButton5.Enabled = False
                 locationform.balance.Text = transqty.Text
+                locationform.TRANSTYPE.Text = transaction.Text
                 locationform.stockno.Text = stocknoinput.Text
+                locationform.REFERENCE.Text = reference.Text
                 locationform.ShowDialog()
-            ElseIf transaction.Text = "Issue" Or transaction.Text = "-Adjustment" Then
+            ElseIf transaction.Text = "-Adjustment" Then
 
                 locationform.articleno.Text = transarticleno.Text + " - " + transaction.Text
                 locationform.KryptonButton4.Enabled = False
                 locationform.KryptonButton5.Enabled = True
                 locationform.balance.Text = transqty.Text
+                locationform.TRANSTYPE.Text = transaction.Text
                 locationform.stockno.Text = stocknoinput.Text
+                locationform.REFERENCE.Text = reference.Text
                 locationform.ShowDialog()
             End If
             If transaction.Text = "Allocation" Then
-                    allocationproccess()
-                ElseIf transaction.Text = "Order" Then
-                    orderprocess()
-                ElseIf transaction.Text = "Receipt" Then
-                    receiptprocess()
-                ElseIf transaction.Text = "Return" Then
-                    returnprocess()
-                ElseIf transaction.Text = "Supply" Then
-                    supplyprocess()
-                ElseIf transaction.Text = "Spare" Then
-                    spareprocess()
-                ElseIf transaction.Text = "+Adjustment" Then
-                    addadjustmentprocess()
-                ElseIf transaction.Text = "-Adjustment" Then
-                    minadjustmentprocess()
-                ElseIf transaction.Text = "Issue" Then
-                    Try
-                        sql.sqlcon.Open()
-                        Dim FINDALLOC As String = "Select ALLOCATION FROM REFERENCE_TB WHERE REFERENCE='" & reference.Text & "' AND STOCKNO='" & transstockno.Text & "'"
-                        sqlcmd = New SqlCommand(FINDALLOC, sql.sqlcon)
-                        Dim read As SqlDataReader = sqlcmd.ExecuteReader
-                        If read.HasRows = True Then
-                            read.Close()
-                            Dim da As New SqlDataAdapter
-                            Dim ds As New DataSet
-                            ds.Clear()
-                            Dim bs As New BindingSource
-                            da.SelectCommand = sqlcmd
-                            da.Fill(ds, "reference_tb")
-                            bs.DataSource = ds
-                            bs.DataMember = "reference_tb"
-                            currentallocation.DataBindings.Clear()
-                            currentallocation.DataBindings.Add("text", bs, "allocation")
-                        Else
-                            read.Close()
-                            currentallocation.DataBindings.Clear()
-                            currentallocation.Text = "0"
-                        End If
-                        sql.sqlcon.Close()
-                        If currentallocation.Text = "0" Then
-                            issueprocess()
-                        Else
-                            msgbox2.ShowDialog()
-                        End If
-                    Catch ex As Exception
-                        MsgBox(ex.ToString)
-                    End Try
-                End If
-                transaction.Focus()
+                allocationproccess()
+            ElseIf transaction.Text = "Order" Then
+                orderprocess()
+            ElseIf transaction.Text = "Receipt" Then
+                receiptprocess()
+            ElseIf transaction.Text = "Return" Then
+                returnprocess()
+            ElseIf transaction.Text = "Supply" Then
+                supplyprocess()
+            ElseIf transaction.Text = "Spare" Then
+                spareprocess()
+            ElseIf transaction.Text = "+Adjustment" Then
+                addadjustmentprocess()
+            ElseIf transaction.Text = "-Adjustment" Then
+                minadjustmentprocess()
+            ElseIf transaction.Text = "Issue" Then
+                Try
+                    sql.sqlcon.Open()
+                    Dim FINDALLOC As String = "Select ALLOCATION FROM REFERENCE_TB WHERE REFERENCE='" & reference.Text & "' AND STOCKNO='" & transstockno.Text & "'"
+                    sqlcmd = New SqlCommand(FINDALLOC, sql.sqlcon)
+                    Dim read As SqlDataReader = sqlcmd.ExecuteReader
+                    If read.HasRows = True Then
+                        read.Close()
+                        Dim da As New SqlDataAdapter
+                        Dim ds As New DataSet
+                        ds.Clear()
+                        Dim bs As New BindingSource
+                        da.SelectCommand = sqlcmd
+                        da.Fill(ds, "reference_tb")
+                        bs.DataSource = ds
+                        bs.DataMember = "reference_tb"
+                        currentallocation.DataBindings.Clear()
+                        currentallocation.DataBindings.Add("text", bs, "allocation")
+                    Else
+                        read.Close()
+                        currentallocation.DataBindings.Clear()
+                        currentallocation.Text = "0"
+                    End If
+                    sql.sqlcon.Close()
+                    If currentallocation.Text = "0" Then
+                        locationform.articleno.Text = transarticleno.Text + " - " + transaction.Text
+                        locationform.KryptonButton4.Enabled = False
+                        locationform.KryptonButton5.Enabled = True
+                        locationform.balance.Text = transqty.Text
+                        locationform.TRANSTYPE.Text = transaction.Text
+                        locationform.stockno.Text = stocknoinput.Text
+                        locationform.REFERENCE.Text = reference.Text
+                        locationform.ShowDialog()
+                        issueprocess()
+                    Else
+                        msgbox2.ShowDialog()
+                    End If
+                Catch ex As Exception
+                    MsgBox(ex.ToString)
+                End Try
+            End If
+            transaction.Focus()
             End If
     End Sub
     Public Sub allocationproccess()
@@ -800,7 +812,9 @@ update reference_tb set
                 locationform.KryptonButton4.Enabled = True
                 locationform.KryptonButton5.Enabled = False
                 locationform.balance.Text = receiptqty.Text
+                locationform.TRANSTYPE.Text = "Receipt"
                 locationform.stockno.Text = receiptstockno.Text
+                locationform.REFERENCE.Text = receiptreference.Text
                 locationform.ShowDialog()
 
                 Dim transaction = "Receipt"
@@ -843,6 +857,7 @@ update reference_tb set
                 locationform.KryptonButton4.Enabled = True
                 locationform.KryptonButton5.Enabled = False
                 locationform.balance.Text = receiptqty.Text
+                locationform.TRANSTYPE.Text = "Receipt"
                 locationform.stockno.Text = receiptstockno.Text
                 locationform.ShowDialog()
 
@@ -1031,7 +1046,9 @@ select
             locationform.KryptonButton4.Enabled = False
             locationform.KryptonButton5.Enabled = True
             locationform.balance.Text = issueqty.Text
+            locationform.TRANSTYPE.Text = "Issue"
             locationform.stockno.Text = issuestockno.Text
+            locationform.REFERENCE.Text = issuereference.Text
             locationform.ShowDialog()
 
 
@@ -3122,6 +3139,7 @@ on a.stockno = b.stockno where A.STOCKNO='" & STOCKNO & "' and a.TRANSTYPE='Rece
         locationform.articleno.Text = Form3.articleno.Text
         locationform.balance.Text = "0"
         locationform.stockno.Text = stocknoinput.Text
+        locationform.REFERENCE.Text = ""
         locationform.ShowDialog()
     End Sub
 

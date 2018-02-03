@@ -9,6 +9,13 @@ Public Class checklisted
     Dim DRAG As Boolean
     Private Sub KryptonButton3_Click(sender As Object, e As EventArgs) Handles KryptonButton3.Click
         loadchecklisted()
+        Dim i As Integer = REFERENCE.SelectedIndex
+        loadprojectlabelsearch()
+        If i > REFERENCE.Items.Count - 1 Then
+            REFERENCE.SelectedIndex = -1
+        Else
+            REFERENCE.SelectedIndex = i
+        End If
     End Sub
     Public Sub loadchecklisted()
         Try
@@ -104,7 +111,7 @@ on a.stockno=b.stockno where a.reference like '%" & reference & "%' and a.alloca
     End Sub
 
     Private Sub checklisted_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        loadchecklisted()
+        KryptonButton3.PerformClick()
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -128,4 +135,48 @@ on a.stockno=b.stockno where a.reference like '%" & reference & "%' and a.alloca
         End If
     End Sub
 
+
+    Public Sub loadprojectlabelsearch()
+        Try
+            sql.sqlcon1.Open()
+            Dim STR As String = "SELECT DISTINCT PROJECT_LABEL FROM ADDENDUM_TO_CONTRACT_TB WHERE NOT CHECKLISTED ='' AND CA = ''"
+            Dim DS As New DataSet
+            DS.Clear()
+            sqlcmd = New SqlCommand(STR, sql.sqlcon1)
+            da.SelectCommand = sqlcmd
+            da.Fill(DS, "ADDENDUM_TO_CONTRACT_TB")
+            Dim bs As New BindingSource
+            bs.DataSource = DS
+            bs.DataMember = "ADDENDUM_TO_CONTRACT_TB"
+            REFERENCE.DataSource = bs
+            REFERENCE.DisplayMember = "PROJECT_LABEL"
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon1.Close()
+        End Try
+    End Sub
+
+    Private Sub KryptonButton2_Click(sender As Object, e As EventArgs) Handles KryptonButton2.Click
+        searchprojectlabel(REFERENCE.Text)
+    End Sub
+    Public Sub searchprojectlabel(ByVal reference As String)
+        Try
+            sql.sqlcon1.Open()
+            Dim ds As New DataSet
+            Dim BS As New BindingSource
+            ds.Clear()
+            Dim STR As String = "SELECT PROJECT_LABEL,CHECKLISTED FROM ADDENDUM_TO_CONTRACT_TB WHERE project_label = '" & reference & "' and NOT CHECKLISTED ='' AND CA = ''"
+            sqlcmd = New SqlCommand(STR, sql.sqlcon1)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "ADDENDUM_TO_CONTRACT_TB")
+            BS.DataSource = ds
+            BS.DataMember = "ADDENDUM_TO_CONTRACT_TB"
+            CHECKLISTEDgridview.DataSource = BS
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon1.Close()
+        End Try
+    End Sub
 End Class

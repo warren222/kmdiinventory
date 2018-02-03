@@ -19,11 +19,9 @@ Public Class locationform
     End Sub
     Public Sub loadsummary()
         Try
-
             Dim ds As New DataSet
             ds.Clear()
             Dim bs As New BindingSource
-
             Dim str As String = "
 select 
 
@@ -87,19 +85,27 @@ select '','','Total',sum(qty) from locationtb where stockno = '" & stockno.Text 
     Private Sub KryptonButton1_Click(sender As Object, e As EventArgs) Handles KryptonButton1.Click
         location.Text = location.Text.Replace("'", "")
         location.Text = location.Text.Replace("""", "")
-        qty.Text = qty.Text.Replace("'", "")
-        qty.Text = qty.Text.Replace("""", "")
+
         additem()
         LOADLOCATIONTB()
     End Sub
     Public Sub additem()
         Try
             sql.sqlcon.Open()
-            Dim str As String = "
+            Dim find As String = "select * from locationtb where location = '" & location.Text & "' and stockno = '" & stockno.Text & "'"
+            sqlcmd = New SqlCommand(find, sql.sqlcon)
+            Dim read As SqlDataReader = sqlcmd.ExecuteReader
+            If read.HasRows = True Then
+                MessageBox.Show("unable to add: same location detected!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Else
+                read.Close()
+                Dim str As String = "
 declare @id as integer=(select isnull(max(id),0)+1 from locationtb)
-insert into locationtb (ID,STOCKNO,LOCATION,QTY) VALUES  (@id,'" & stockno.Text & "','" & location.Text & "','" & qty.Text & "')"
-            sqlcmd = New SqlCommand(str, sql.sqlcon)
-            sqlcmd.ExecuteNonQuery()
+insert into locationtb (ID,STOCKNO,LOCATION,QTY) VALUES  (@id,'" & stockno.Text & "','" & location.Text & "',0)"
+                sqlcmd = New SqlCommand(str, sql.sqlcon)
+                sqlcmd.ExecuteNonQuery()
+            End If
+            read.Close()
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -111,10 +117,11 @@ insert into locationtb (ID,STOCKNO,LOCATION,QTY) VALUES  (@id,'" & stockno.Text 
         If locationgridview.RowCount >= 0 And e.RowIndex >= 0 Then
             id.Text = locationgridview.Item(0, e.RowIndex).Value.ToString
             location.Text = locationgridview.Item(2, e.RowIndex).Value.ToString
-            qty.Text = locationgridview.Item(3, e.RowIndex).Value.ToString
+            adjustment.setlocation.Text = locationgridview.Item(2, e.RowIndex).Value.ToString
+            adjustment.currentqty.Text = locationgridview.Item(3, e.RowIndex).Value.ToString
         End If
 
-        qty.Text = qty.Text.Replace(",", "")
+
     End Sub
 
     Private Sub KryptonButton2_Click(sender As Object, e As EventArgs) Handles KryptonButton2.Click
@@ -124,9 +131,18 @@ insert into locationtb (ID,STOCKNO,LOCATION,QTY) VALUES  (@id,'" & stockno.Text 
     Public Sub updateitem()
         Try
             sql.sqlcon.Open()
-            Dim str As String = "update locationtb set location = '" & location.Text & "' , qty = '" & qty.Text & "' where id = '" & id.Text & "'"
-            sqlcmd = New SqlCommand(str, sql.sqlcon)
-            sqlcmd.ExecuteNonQuery()
+            Dim find As String = "select * from locationtb where location = '" & location.Text & "' and stockno = '" & stockno.Text & "'"
+            sqlcmd = New SqlCommand(find, sql.sqlcon)
+            Dim read As SqlDataReader = sqlcmd.ExecuteReader
+            If read.HasRows = True Then
+                MessageBox.Show("unable to update: same location detected!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Else
+                read.Close()
+                Dim str As String = "update locationtb set location = '" & location.Text & "' where id = '" & id.Text & "'"
+                sqlcmd = New SqlCommand(str, sql.sqlcon)
+                sqlcmd.ExecuteNonQuery()
+            End If
+            read.Close()
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -231,6 +247,7 @@ insert into locationtb (ID,STOCKNO,LOCATION,QTY) VALUES  (@id,'" & stockno.Text 
     End Sub
 
     Private Sub KryptonButton4_Click(sender As Object, e As EventArgs) Handles KryptonButton4.Click
+        inserthistory()
         additional()
         Dim loc As String = setlocation.Text
         setlocation.Text = ""
@@ -246,6 +263,40 @@ insert into locationtb (ID,STOCKNO,LOCATION,QTY) VALUES  (@id,'" & stockno.Text 
             balance.Text = balance.Text - setqty.Text
             setqty.Text = 0
 
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+    Public Sub inserthistory()
+        Try
+            sql.sqlcon.Open()
+            TRANSTYPE.Text = Trim(TRANSTYPE.Text)
+            location.Text = Trim(location.Text)
+            setlocation.Text = Trim(setlocation.Text)
+            setqty.Text = Trim(setqty.Text)
+            REFERENCE.Text = Trim(REFERENCE.Text)
+            Dim str As String = "
+declare @autonum as decimal(10,2)=(select max(id)+1 from lochistory)
+insert into lochistory
+(ID,
+TRANSTYPE,
+TRANSDATE,
+STOCKNO,
+REFERENCE,
+LOCATION,
+QTY)
+values
+(@autonum,
+'" & TRANSTYPE.Text & "'," &
+"'" & Form2.transdate.Text & "'," &
+"'" & stockno.Text & "'," &
+"'" & REFERENCE.Text & "'," &
+"'" & setlocation.Text & "'," &
+"'" & setqty.Text & "')"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            sqlcmd.ExecuteNonQuery()
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -274,6 +325,7 @@ insert into locationtb (ID,STOCKNO,LOCATION,QTY) VALUES  (@id,'" & stockno.Text 
         If x < y Then
             MessageBox.Show("insufficient stocks", "", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         Else
+            inserthistory()
             subtract()
             Dim loc As String = setlocation.Text
             setlocation.Text = ""
@@ -320,13 +372,7 @@ insert into locationtb (ID,STOCKNO,LOCATION,QTY) VALUES  (@id,'" & stockno.Text 
 
     End Sub
 
-    Private Sub qty_Leave(sender As Object, e As EventArgs) Handles qty.Leave
-        If IsNumeric(qty.Text) Then
-        Else
-            MessageBox.Show("non numeric data detected, please make sure you type a valid number", "", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            qty.Focus()
-        End If
-    End Sub
+
 
     Private Sub KryptonButton7_Click(sender As Object, e As EventArgs) Handles KryptonButton7.Click
         Dim t1 As New Transition(New TransitionType_Acceleration(300))
@@ -338,5 +384,38 @@ insert into locationtb (ID,STOCKNO,LOCATION,QTY) VALUES  (@id,'" & stockno.Text 
             t1.run()
         End If
 
+    End Sub
+
+    Private Sub KryptonDataGridView1_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles KryptonDataGridView1.CellDoubleClick
+        HISTORY.location.Text = summarylocation.Text
+        HISTORY.stockno.Text = ""
+        HISTORY.ShowDialog()
+    End Sub
+
+    Private Sub locationgridview_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles locationgridview.CellDoubleClick
+        HISTORY.location.Text = location.Text
+        HISTORY.stockno.Text = stockno.Text
+        HISTORY.ShowDialog()
+    End Sub
+
+    Private Sub KryptonDataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles KryptonDataGridView1.CellClick
+        If KryptonDataGridView1.RowCount >= 0 And e.RowIndex >= 0 Then
+            summarylocation.Text = KryptonDataGridView1.Item(0, e.RowIndex).Value.ToString
+        End If
+    End Sub
+
+    Private Sub locationgridview_MouseDown(sender As Object, e As MouseEventArgs) Handles locationgridview.MouseDown
+        If e.Button = MouseButtons.Right Then
+            ContextMenuStrip1.Show(locationgridview, New Point(e.X, e.Y))
+        End If
+    End Sub
+
+    Private Sub AdjustmentToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AdjustmentToolStripMenuItem.Click
+        adjustment.stockno.text = stockno.Text
+        adjustment.ShowDialog()
+    End Sub
+
+    Private Sub KryptonButton8_Click(sender As Object, e As EventArgs) Handles KryptonButton8.Click
+        LOADLOCATIONTB()
     End Sub
 End Class

@@ -23,8 +23,8 @@ Partial Class checklisted
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.CHECKLISTEDgridview = New ComponentFactory.Krypton.Toolkit.KryptonDataGridView()
         Me.projectlabel = New System.Windows.Forms.TextBox()
         Me.allocationGridView = New ComponentFactory.Krypton.Toolkit.KryptonDataGridView()
@@ -35,6 +35,9 @@ Partial Class checklisted
         Me.CancelAllocationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.KryptonButton1 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.KryptonButton2 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
+        Me.KryptonGroup8 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
+        Me.REFERENCE = New System.Windows.Forms.ComboBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.KryptonLabel6 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
@@ -43,6 +46,10 @@ Partial Class checklisted
         CType(Me.allocationGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        CType(Me.KryptonGroup8, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.KryptonGroup8.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.KryptonGroup8.Panel.SuspendLayout()
+        Me.KryptonGroup8.SuspendLayout()
         Me.Panel3.SuspendLayout()
         CType(Me.KryptonGroup1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonGroup1.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -57,9 +64,9 @@ Partial Class checklisted
         Me.CHECKLISTEDgridview.AllowUserToOrderColumns = True
         Me.CHECKLISTEDgridview.AllowUserToResizeColumns = False
         Me.CHECKLISTEDgridview.AllowUserToResizeRows = False
-        DataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.White
-        Me.CHECKLISTEDgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        Me.CHECKLISTEDgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.CHECKLISTEDgridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.CHECKLISTEDgridview.ColumnHeadersHeight = 30
         Me.CHECKLISTEDgridview.Cursor = System.Windows.Forms.Cursors.Hand
@@ -106,9 +113,9 @@ Partial Class checklisted
         Me.allocationGridView.AllowUserToOrderColumns = True
         Me.allocationGridView.AllowUserToResizeColumns = False
         Me.allocationGridView.AllowUserToResizeRows = False
-        DataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.Color.White
-        Me.allocationGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        Me.allocationGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.allocationGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.allocationGridView.ColumnHeadersHeight = 30
         Me.allocationGridView.Cursor = System.Windows.Forms.Cursors.Hand
@@ -202,6 +209,8 @@ Partial Class checklisted
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.KryptonButton2)
+        Me.Panel1.Controls.Add(Me.KryptonGroup8)
         Me.Panel1.Controls.Add(Me.Panel3)
         Me.Panel1.Controls.Add(Me.CHECKLISTEDgridview)
         Me.Panel1.Controls.Add(Me.KryptonButton3)
@@ -215,6 +224,53 @@ Partial Class checklisted
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(992, 466)
         Me.Panel1.TabIndex = 475
+        '
+        'KryptonButton2
+        '
+        Me.KryptonButton2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.KryptonButton2.Location = New System.Drawing.Point(392, 45)
+        Me.KryptonButton2.Name = "KryptonButton2"
+        Me.KryptonButton2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.ProfessionalSystem
+        Me.KryptonButton2.Size = New System.Drawing.Size(94, 27)
+        Me.KryptonButton2.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.KryptonButton2.StateCommon.Border.Rounding = 0
+        Me.KryptonButton2.StateCommon.Content.ShortText.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonButton2.TabIndex = 477
+        Me.KryptonButton2.Values.Text = "SEARCH"
+        '
+        'KryptonGroup8
+        '
+        Me.KryptonGroup8.Location = New System.Drawing.Point(93, 45)
+        Me.KryptonGroup8.Margin = New System.Windows.Forms.Padding(0)
+        Me.KryptonGroup8.Name = "KryptonGroup8"
+        '
+        'KryptonGroup8.Panel
+        '
+        Me.KryptonGroup8.Panel.Controls.Add(Me.REFERENCE)
+        Me.KryptonGroup8.Size = New System.Drawing.Size(296, 30)
+        Me.KryptonGroup8.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.KryptonGroup8.StateCommon.Border.Rounding = 0
+        Me.KryptonGroup8.StateCommon.Border.Width = 3
+        Me.KryptonGroup8.TabIndex = 476
+        '
+        'REFERENCE
+        '
+        Me.REFERENCE.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.REFERENCE.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.REFERENCE.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.REFERENCE.DropDownHeight = 206
+        Me.REFERENCE.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.REFERENCE.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.REFERENCE.FormattingEnabled = True
+        Me.REFERENCE.IntegralHeight = False
+        Me.REFERENCE.Location = New System.Drawing.Point(0, 0)
+        Me.REFERENCE.Name = "REFERENCE"
+        Me.REFERENCE.Size = New System.Drawing.Size(290, 24)
+        Me.REFERENCE.TabIndex = 9
         '
         'Panel3
         '
@@ -291,6 +347,10 @@ Partial Class checklisted
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        CType(Me.KryptonGroup8.Panel, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.KryptonGroup8.Panel.ResumeLayout(False)
+        CType(Me.KryptonGroup8, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.KryptonGroup8.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
         CType(Me.KryptonGroup1.Panel, System.ComponentModel.ISupportInitialize).EndInit()
@@ -315,4 +375,7 @@ Partial Class checklisted
     Friend WithEvents Button1 As Button
     Friend WithEvents KryptonLabel6 As ComponentFactory.Krypton.Toolkit.KryptonLabel
     Friend WithEvents KryptonGroup1 As ComponentFactory.Krypton.Toolkit.KryptonGroup
+    Friend WithEvents KryptonButton2 As ComponentFactory.Krypton.Toolkit.KryptonButton
+    Friend WithEvents KryptonGroup8 As ComponentFactory.Krypton.Toolkit.KryptonGroup
+    Friend WithEvents REFERENCE As ComboBox
 End Class
