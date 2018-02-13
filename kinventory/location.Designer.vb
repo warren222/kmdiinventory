@@ -23,8 +23,8 @@ Partial Class locationform
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.KryptonLabel5 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.id = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonLabel1 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
@@ -39,6 +39,7 @@ Partial Class locationform
         Me.articleno = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.KryptonButton8 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.balance = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonLabel4 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonGroup9 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
@@ -56,16 +57,17 @@ Partial Class locationform
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.KryptonButton7 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.updatelocation = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
+        Me.KryptonLabel11 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
+        Me.REFERENCE = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
+        Me.KryptonLabel3 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonDataGridView1 = New ComponentFactory.Krypton.Toolkit.KryptonDataGridView()
         Me.summarylocation = New System.Windows.Forms.TextBox()
         Me.TRANSTYPE = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonLabel10 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.AdjustmentToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.KryptonButton8 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
-        Me.KryptonLabel3 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
-        Me.KryptonLabel11 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
-        Me.REFERENCE = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
+        Me.TransferToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.locationgridview, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonPanel1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.KryptonPanel1.SuspendLayout()
@@ -152,6 +154,7 @@ Partial Class locationform
         'location
         '
         Me.location.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.location.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.location.Location = New System.Drawing.Point(39, 73)
         Me.location.Multiline = True
         Me.location.Name = "location"
@@ -174,9 +177,9 @@ Partial Class locationform
         Me.locationgridview.AllowUserToOrderColumns = True
         Me.locationgridview.AllowUserToResizeColumns = False
         Me.locationgridview.AllowUserToResizeRows = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
-        Me.locationgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.White
+        Me.locationgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
         Me.locationgridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.locationgridview.ColumnHeadersHeight = 30
         Me.locationgridview.Cursor = System.Windows.Forms.Cursors.Hand
@@ -315,6 +318,21 @@ Partial Class locationform
         Me.Panel1.Size = New System.Drawing.Size(313, 41)
         Me.Panel1.TabIndex = 466
         '
+        'KryptonButton8
+        '
+        Me.KryptonButton8.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.KryptonButton8.Location = New System.Drawing.Point(243, 8)
+        Me.KryptonButton8.Name = "KryptonButton8"
+        Me.KryptonButton8.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonButton8.Size = New System.Drawing.Size(60, 27)
+        Me.KryptonButton8.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.KryptonButton8.StateCommon.Border.Rounding = 4
+        Me.KryptonButton8.StateCommon.Content.ShortText.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonButton8.TabIndex = 465
+        Me.KryptonButton8.Values.Text = "Reload"
+        '
         'balance
         '
         Me.balance.Enabled = False
@@ -355,7 +373,7 @@ Partial Class locationform
         'KryptonGroup9.Panel
         '
         Me.KryptonGroup9.Panel.Controls.Add(Me.setlocation)
-        Me.KryptonGroup9.Size = New System.Drawing.Size(210, 43)
+        Me.KryptonGroup9.Size = New System.Drawing.Size(210, 32)
         Me.KryptonGroup9.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
@@ -370,12 +388,12 @@ Partial Class locationform
         Me.setlocation.Dock = System.Windows.Forms.DockStyle.Fill
         Me.setlocation.DropDownHeight = 206
         Me.setlocation.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.setlocation.Font = New System.Drawing.Font("Microsoft Sans Serif", 25.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, CType(0, Byte))
+        Me.setlocation.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, CType(0, Byte))
         Me.setlocation.FormattingEnabled = True
         Me.setlocation.IntegralHeight = False
         Me.setlocation.Location = New System.Drawing.Point(0, 0)
         Me.setlocation.Name = "setlocation"
-        Me.setlocation.Size = New System.Drawing.Size(202, 37)
+        Me.setlocation.Size = New System.Drawing.Size(202, 24)
         Me.setlocation.TabIndex = 19
         '
         'KryptonLabel6
@@ -604,6 +622,7 @@ Partial Class locationform
         '
         Me.Panel4.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.Panel4.Controls.Add(Me.locationgridview)
+        Me.Panel4.Controls.Add(Me.updatelocation)
         Me.Panel4.Controls.Add(Me.KryptonLabel11)
         Me.Panel4.Controls.Add(Me.REFERENCE)
         Me.Panel4.Controls.Add(Me.KryptonLabel3)
@@ -623,6 +642,62 @@ Partial Class locationform
         Me.Panel4.Size = New System.Drawing.Size(592, 459)
         Me.Panel4.TabIndex = 480
         '
+        'updatelocation
+        '
+        Me.updatelocation.Enabled = False
+        Me.updatelocation.Location = New System.Drawing.Point(131, 409)
+        Me.updatelocation.Multiline = True
+        Me.updatelocation.Name = "updatelocation"
+        Me.updatelocation.Size = New System.Drawing.Size(150, 29)
+        Me.updatelocation.StateCommon.Back.Color1 = System.Drawing.Color.White
+        Me.updatelocation.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.updatelocation.StateCommon.Border.Rounding = 0
+        Me.updatelocation.StateCommon.Border.Width = 4
+        Me.updatelocation.StateDisabled.Back.Color1 = System.Drawing.Color.White
+        Me.updatelocation.StateDisabled.Content.Color1 = System.Drawing.Color.Black
+        Me.updatelocation.TabIndex = 487
+        '
+        'KryptonLabel11
+        '
+        Me.KryptonLabel11.Location = New System.Drawing.Point(35, 374)
+        Me.KryptonLabel11.Name = "KryptonLabel11"
+        Me.KryptonLabel11.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonLabel11.Size = New System.Drawing.Size(88, 24)
+        Me.KryptonLabel11.StateCommon.ShortText.Color1 = System.Drawing.Color.White
+        Me.KryptonLabel11.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonLabel11.TabIndex = 486
+        Me.KryptonLabel11.Values.Text = "REFERENCE"
+        '
+        'REFERENCE
+        '
+        Me.REFERENCE.Enabled = False
+        Me.REFERENCE.Location = New System.Drawing.Point(131, 374)
+        Me.REFERENCE.Multiline = True
+        Me.REFERENCE.Name = "REFERENCE"
+        Me.REFERENCE.Size = New System.Drawing.Size(150, 29)
+        Me.REFERENCE.StateCommon.Back.Color1 = System.Drawing.Color.White
+        Me.REFERENCE.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.REFERENCE.StateCommon.Border.Rounding = 0
+        Me.REFERENCE.StateCommon.Border.Width = 4
+        Me.REFERENCE.StateDisabled.Back.Color1 = System.Drawing.Color.White
+        Me.REFERENCE.StateDisabled.Content.Color1 = System.Drawing.Color.Black
+        Me.REFERENCE.TabIndex = 485
+        '
+        'KryptonLabel3
+        '
+        Me.KryptonLabel3.Location = New System.Drawing.Point(35, 332)
+        Me.KryptonLabel3.Name = "KryptonLabel3"
+        Me.KryptonLabel3.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonLabel3.Size = New System.Drawing.Size(90, 24)
+        Me.KryptonLabel3.StateCommon.ShortText.Color1 = System.Drawing.Color.White
+        Me.KryptonLabel3.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonLabel3.TabIndex = 484
+        Me.KryptonLabel3.Values.Text = "TRANSTYPE"
+        '
         'KryptonDataGridView1
         '
         Me.KryptonDataGridView1.AllowUserToAddRows = False
@@ -630,9 +705,9 @@ Partial Class locationform
         Me.KryptonDataGridView1.AllowUserToOrderColumns = True
         Me.KryptonDataGridView1.AllowUserToResizeColumns = False
         Me.KryptonDataGridView1.AllowUserToResizeRows = False
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
-        Me.KryptonDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.White
+        Me.KryptonDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle8
         Me.KryptonDataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.KryptonDataGridView1.ColumnHeadersHeight = 30
         Me.KryptonDataGridView1.Cursor = System.Windows.Forms.Cursors.Hand
@@ -703,9 +778,9 @@ Partial Class locationform
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AdjustmentToolStripMenuItem})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AdjustmentToolStripMenuItem, Me.TransferToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(137, 26)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(137, 48)
         '
         'AdjustmentToolStripMenuItem
         '
@@ -713,59 +788,11 @@ Partial Class locationform
         Me.AdjustmentToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
         Me.AdjustmentToolStripMenuItem.Text = "Adjustment"
         '
-        'KryptonButton8
+        'TransferToolStripMenuItem
         '
-        Me.KryptonButton8.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.KryptonButton8.Location = New System.Drawing.Point(243, 8)
-        Me.KryptonButton8.Name = "KryptonButton8"
-        Me.KryptonButton8.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
-        Me.KryptonButton8.Size = New System.Drawing.Size(60, 27)
-        Me.KryptonButton8.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
-            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
-            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
-        Me.KryptonButton8.StateCommon.Border.Rounding = 4
-        Me.KryptonButton8.StateCommon.Content.ShortText.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.KryptonButton8.TabIndex = 465
-        Me.KryptonButton8.Values.Text = "Reload"
-        '
-        'KryptonLabel3
-        '
-        Me.KryptonLabel3.Location = New System.Drawing.Point(35, 332)
-        Me.KryptonLabel3.Name = "KryptonLabel3"
-        Me.KryptonLabel3.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
-        Me.KryptonLabel3.Size = New System.Drawing.Size(90, 24)
-        Me.KryptonLabel3.StateCommon.ShortText.Color1 = System.Drawing.Color.White
-        Me.KryptonLabel3.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.KryptonLabel3.TabIndex = 484
-        Me.KryptonLabel3.Values.Text = "TRANSTYPE"
-        '
-        'KryptonLabel11
-        '
-        Me.KryptonLabel11.Location = New System.Drawing.Point(35, 374)
-        Me.KryptonLabel11.Name = "KryptonLabel11"
-        Me.KryptonLabel11.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
-        Me.KryptonLabel11.Size = New System.Drawing.Size(88, 24)
-        Me.KryptonLabel11.StateCommon.ShortText.Color1 = System.Drawing.Color.White
-        Me.KryptonLabel11.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.KryptonLabel11.TabIndex = 486
-        Me.KryptonLabel11.Values.Text = "REFERENCE"
-        '
-        'REFERENCE
-        '
-        Me.REFERENCE.Enabled = False
-        Me.REFERENCE.Location = New System.Drawing.Point(131, 374)
-        Me.REFERENCE.Multiline = True
-        Me.REFERENCE.Name = "REFERENCE"
-        Me.REFERENCE.Size = New System.Drawing.Size(150, 29)
-        Me.REFERENCE.StateCommon.Back.Color1 = System.Drawing.Color.White
-        Me.REFERENCE.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
-            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
-            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
-        Me.REFERENCE.StateCommon.Border.Rounding = 0
-        Me.REFERENCE.StateCommon.Border.Width = 4
-        Me.REFERENCE.StateDisabled.Back.Color1 = System.Drawing.Color.White
-        Me.REFERENCE.StateDisabled.Content.Color1 = System.Drawing.Color.Black
-        Me.REFERENCE.TabIndex = 485
+        Me.TransferToolStripMenuItem.Name = "TransferToolStripMenuItem"
+        Me.TransferToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
+        Me.TransferToolStripMenuItem.Text = "Transfer"
         '
         'locationform
         '
@@ -841,4 +868,6 @@ Partial Class locationform
     Friend WithEvents KryptonLabel11 As ComponentFactory.Krypton.Toolkit.KryptonLabel
     Friend WithEvents REFERENCE As ComponentFactory.Krypton.Toolkit.KryptonTextBox
     Friend WithEvents KryptonLabel3 As ComponentFactory.Krypton.Toolkit.KryptonLabel
+    Friend WithEvents TransferToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents updatelocation As ComponentFactory.Krypton.Toolkit.KryptonTextBox
 End Class

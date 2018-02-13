@@ -117,8 +117,11 @@ insert into locationtb (ID,STOCKNO,LOCATION,QTY) VALUES  (@id,'" & stockno.Text 
         If locationgridview.RowCount >= 0 And e.RowIndex >= 0 Then
             id.Text = locationgridview.Item(0, e.RowIndex).Value.ToString
             location.Text = locationgridview.Item(2, e.RowIndex).Value.ToString
+            updatelocation.Text = locationgridview.Item(2, e.RowIndex).Value.ToString
             adjustment.setlocation.Text = locationgridview.Item(2, e.RowIndex).Value.ToString
             adjustment.currentqty.Text = locationgridview.Item(3, e.RowIndex).Value.ToString
+            transfer.location.Text = locationgridview.Item(2, e.RowIndex).Value.ToString
+            transfer.currentqty.Text = locationgridview.Item(3, e.RowIndex).Value.ToString
         End If
 
 
@@ -138,7 +141,9 @@ insert into locationtb (ID,STOCKNO,LOCATION,QTY) VALUES  (@id,'" & stockno.Text 
                 MessageBox.Show("unable to update: same location detected!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Else
                 read.Close()
-                Dim str As String = "update locationtb set location = '" & location.Text & "' where id = '" & id.Text & "'"
+                Dim str As String = "
+update lochistory set location = '" & location.Text & "' where location='" & updatelocation.Text & "' and stockno = '" & stockno.Text & "'
+update locationtb set location = '" & location.Text & "' where id = '" & id.Text & "'"
                 sqlcmd = New SqlCommand(str, sql.sqlcon)
                 sqlcmd.ExecuteNonQuery()
             End If
@@ -150,19 +155,28 @@ insert into locationtb (ID,STOCKNO,LOCATION,QTY) VALUES  (@id,'" & stockno.Text 
         End Try
     End Sub
     Private Sub KryptonButton3_Click(sender As Object, e As EventArgs) Handles KryptonButton3.Click
-        If MessageBox.Show("click yes to continue", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then
-            MessageBox.Show("operation cancelled", "", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-            Exit Sub
-        End If
         deleteitem()
         LOADLOCATIONTB()
     End Sub
     Public Sub deleteitem()
         Try
             sql.sqlcon.Open()
-            Dim str As String = "delete from locationtb where id = '" & id.Text & "'"
-            sqlcmd = New SqlCommand(str, sql.sqlcon)
-            sqlcmd.ExecuteNonQuery()
+            Dim find As String = "select * from lochistory where stockno= '" & stockno.Text & "' and location = '" & updatelocation.Text & "'"
+            sqlcmd = New SqlCommand(find, sql.sqlcon)
+            Dim read As SqlDataReader = sqlcmd.ExecuteReader
+            If read.HasRows = True Then
+                read.Close()
+                MessageBox.Show("unable to delete location, transaction history detected", "", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Else
+                read.Close()
+                If MessageBox.Show("click yes to continue", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then
+                    MessageBox.Show("operation cancelled", "", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                    Exit Sub
+                End If
+                Dim str As String = "delete from locationtb where id = '" & id.Text & "'"
+                sqlcmd = New SqlCommand(str, sql.sqlcon)
+                sqlcmd.ExecuteNonQuery()
+            End If
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -171,12 +185,39 @@ insert into locationtb (ID,STOCKNO,LOCATION,QTY) VALUES  (@id,'" & stockno.Text 
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        If balance.Text = "0" Then
+        Dim x As String
+        Dim y As String
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "select sum(qty) from locationtb where stockno = '" & stockno.Text & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            Dim read As SqlDataReader = sqlcmd.ExecuteReader
+            While read.Read
+                x = read(0).ToString
+            End While
+            read.Close()
+
+            Dim str1 As String = "select physical from stocks_tb where stockno = '" & stockno.Text & "'"
+            sqlcmd = New SqlCommand(str1, sql.sqlcon)
+            Dim read1 As SqlDataReader = sqlcmd.ExecuteReader
+            While read1.Read
+                y = read1(0).ToString
+            End While
+            read1.Close()
+        Catch ex As SqlException
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+
+
+        If Not balance.Text = "0" Then
+            MessageBox.Show("use remaining balance", "", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        ElseIf Not x = y Then
+            MessageBox.Show("location :" + x + " not equal to physical :" + y, "", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        Else
             Me.Dispose()
             Me.Close()
-
-        Else
-            MessageBox.Show("", "", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
 
     End Sub
@@ -247,12 +288,16 @@ insert into locationtb (ID,STOCKNO,LOCATION,QTY) VALUES  (@id,'" & stockno.Text 
     End Sub
 
     Private Sub KryptonButton4_Click(sender As Object, e As EventArgs) Handles KryptonButton4.Click
-        inserthistory()
-        additional()
-        Dim loc As String = setlocation.Text
-        setlocation.Text = ""
-        LOADLOCATIONTB()
-        setlocation.Text = loc
+        If balance.Text = 0 Then
+        Else
+            inserthistory()
+            additional()
+            Dim loc As String = setlocation.Text
+            setlocation.Text = ""
+            LOADLOCATIONTB()
+            setlocation.Text = loc
+        End If
+
     End Sub
     Public Sub additional()
         Try
@@ -319,20 +364,22 @@ values
     End Sub
 
     Private Sub KryptonButton5_Click(sender As Object, e As EventArgs) Handles KryptonButton5.Click
-        Dim x As Integer = currentqty.Text
-        Dim y As Integer = setqty.Text
-
-        If x < y Then
-            MessageBox.Show("insufficient stocks", "", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        If balance.Text = 0 Then
         Else
-            inserthistory()
-            subtract()
-            Dim loc As String = setlocation.Text
-            setlocation.Text = ""
-            LOADLOCATIONTB()
-            setlocation.Text = loc
-        End If
+            Dim x As Integer = currentqty.Text
+            Dim y As Integer = setqty.Text
 
+            If x < y Then
+                MessageBox.Show("insufficient stocks", "", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Else
+                inserthistory()
+                subtract()
+                Dim loc As String = setlocation.Text
+                setlocation.Text = ""
+                LOADLOCATIONTB()
+                setlocation.Text = loc
+            End If
+        End If
 
     End Sub
     Public Sub subtract()
@@ -417,5 +464,14 @@ values
 
     Private Sub KryptonButton8_Click(sender As Object, e As EventArgs) Handles KryptonButton8.Click
         LOADLOCATIONTB()
+    End Sub
+
+    Private Sub TransferToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TransferToolStripMenuItem.Click
+        transfer.stockno.Text = stockno.Text
+        transfer.ShowDialog()
+    End Sub
+
+    Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs) Handles Panel3.Paint
+
     End Sub
 End Class

@@ -104,6 +104,14 @@ values
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         setqty.Text = 0
-        Me.Close()
+        Me.Dispose()
+    End Sub
+
+    Private Sub setqty_Leave(sender As Object, e As EventArgs) Handles setqty.Leave
+        If IsNumeric(setqty.Text) Then
+        Else
+            MessageBox.Show("non numeric value detected")
+            setqty.Focus()
+        End If
     End Sub
 End Class

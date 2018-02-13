@@ -29,8 +29,8 @@ Public Class HISTORY
             End If
             Dim str As String = "
 
-declare @myadd as decimal(10,2)=(select isnull(sum(qty),0) from LOCHISTORY WHERE (TRANSTYPE='Receipt' or TRANSTYPE = 'Return' or TRANSTYPE='+Adjustment') and (" & acol & "=" & a & " and " & bcol & "=" & b & "))
-declare @mysub as decimal(10,2)=(select isnull(sum(qty),0) from LOCHISTORY WHERE (TRANSTYPE = 'Issue' or TRANSTYPE='-Adjustment') and (" & acol & "=" & a & " and " & bcol & "=" & b & "))
+declare @myadd as decimal(10,2)=(select isnull(sum(qty),0) from LOCHISTORY WHERE (TRANSTYPE='Receipt' or TRANSTYPE = 'Return' or TRANSTYPE='+Adjustment' or TRANSTYPE='+Transfer') and (" & acol & "=" & a & " and " & bcol & "=" & b & "))
+declare @mysub as decimal(10,2)=(select isnull(sum(qty),0) from LOCHISTORY WHERE (TRANSTYPE = 'Issue' or TRANSTYPE='-Adjustment' or TRANSTYPE = '-Transfer') and (" & acol & "=" & a & " and " & bcol & "=" & b & "))
 select ID
       ,TRANSTYPE
       ,TRANSDATE

@@ -156,22 +156,30 @@ Public Class Form2
             If transaction.Text = "Receipt" Or
                 transaction.Text = "Return" Or transaction.Text = "+Adjustment" Then
 
+                If transaction.Text = "Receipt" Then
+                    receiptprocess()
+                ElseIf transaction.Text = "Return" Then
+                    returnprocess()
+                ElseIf transaction.Text = "+Adjustment" Then
+                    addadjustmentprocess()
+                End If
+
                 locationform.articleno.Text = transarticleno.Text + " - " + transaction.Text
                 locationform.KryptonButton4.Enabled = True
                 locationform.KryptonButton5.Enabled = False
                 locationform.balance.Text = transqty.Text
                 locationform.TRANSTYPE.Text = transaction.Text
-                locationform.stockno.Text = stocknoinput.Text
+                locationform.stockno.Text = transstockno.Text
                 locationform.REFERENCE.Text = reference.Text
                 locationform.ShowDialog()
-            ElseIf transaction.Text = "-Adjustment" Then
-
+                ElseIf transaction.Text = "-Adjustment" Then
+                minadjustmentprocess()
                 locationform.articleno.Text = transarticleno.Text + " - " + transaction.Text
                 locationform.KryptonButton4.Enabled = False
                 locationform.KryptonButton5.Enabled = True
                 locationform.balance.Text = transqty.Text
                 locationform.TRANSTYPE.Text = transaction.Text
-                locationform.stockno.Text = stocknoinput.Text
+                locationform.stockno.Text = transstockno.Text
                 locationform.REFERENCE.Text = reference.Text
                 locationform.ShowDialog()
             End If
@@ -179,18 +187,10 @@ Public Class Form2
                 allocationproccess()
             ElseIf transaction.Text = "Order" Then
                 orderprocess()
-            ElseIf transaction.Text = "Receipt" Then
-                receiptprocess()
-            ElseIf transaction.Text = "Return" Then
-                returnprocess()
             ElseIf transaction.Text = "Supply" Then
                 supplyprocess()
             ElseIf transaction.Text = "Spare" Then
                 spareprocess()
-            ElseIf transaction.Text = "+Adjustment" Then
-                addadjustmentprocess()
-            ElseIf transaction.Text = "-Adjustment" Then
-                minadjustmentprocess()
             ElseIf transaction.Text = "Issue" Then
                 Try
                     sql.sqlcon.Open()
@@ -216,15 +216,15 @@ Public Class Form2
                     End If
                     sql.sqlcon.Close()
                     If currentallocation.Text = "0" Then
+                        issueprocess()
                         locationform.articleno.Text = transarticleno.Text + " - " + transaction.Text
                         locationform.KryptonButton4.Enabled = False
                         locationform.KryptonButton5.Enabled = True
                         locationform.balance.Text = transqty.Text
                         locationform.TRANSTYPE.Text = transaction.Text
-                        locationform.stockno.Text = stocknoinput.Text
+                        locationform.stockno.Text = transstockno.Text
                         locationform.REFERENCE.Text = reference.Text
                         locationform.ShowDialog()
-                        issueprocess()
                     Else
                         msgbox2.ShowDialog()
                     End If
@@ -808,14 +808,7 @@ update reference_tb set
             Else
 
 
-                locationform.articleno.Text = receiptarticleno.Text + " - " + "Receipt"
-                locationform.KryptonButton4.Enabled = True
-                locationform.KryptonButton5.Enabled = False
-                locationform.balance.Text = receiptqty.Text
-                locationform.TRANSTYPE.Text = "Receipt"
-                locationform.stockno.Text = receiptstockno.Text
-                locationform.REFERENCE.Text = receiptreference.Text
-                locationform.ShowDialog()
+
 
                 Dim transaction = "Receipt"
                 Dim duedate As String = ""
@@ -839,6 +832,16 @@ update reference_tb set
                        controlno, XYZ, receipttransno.Text, remarks, ufactor, unit, disc, rate, amount)
                 updatetransaction(receiptqty.Text, receipttransno.Text)
                 updatestock(receiptstockno.Text, receiptreference.Text)
+
+                locationform.articleno.Text = receiptarticleno.Text + " - " + "Receipt"
+                locationform.KryptonButton4.Enabled = True
+                locationform.KryptonButton5.Enabled = False
+                locationform.balance.Text = receiptqty.Text
+                locationform.TRANSTYPE.Text = "Receipt"
+                locationform.stockno.Text = receiptstockno.Text
+                locationform.REFERENCE.Text = receiptreference.Text
+                locationform.ShowDialog()
+
                 sql.loadstocks()
                 sql.loadtransactions(toprows.Text)
                 sql.searchreference(receiptreference.Text, receiptstockno.Text)
@@ -1042,17 +1045,6 @@ select
             MessageBox.Show("insufficient allocation", "Stop", MessageBoxButtons.OK, MessageBoxIcon.Stop)
         Else
 
-            locationform.articleno.Text = issuearticleno.Text + " - " + "Issue"
-            locationform.KryptonButton4.Enabled = False
-            locationform.KryptonButton5.Enabled = True
-            locationform.balance.Text = issueqty.Text
-            locationform.TRANSTYPE.Text = "Issue"
-            locationform.stockno.Text = issuestockno.Text
-            locationform.REFERENCE.Text = issuereference.Text
-            locationform.ShowDialog()
-
-
-
             loopissue.Text = issueqty.Text
             KryptonButton25.PerformClick()
             Dim duedate As String = ""
@@ -1070,6 +1062,17 @@ select
                    issuecontrolno.Text, XYZ, xyzref, issueremarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
 
             updatestock(issuestockno.Text, issuereference.Text)
+
+
+            locationform.articleno.Text = issuearticleno.Text + " - " + "Issue"
+            locationform.KryptonButton4.Enabled = False
+            locationform.KryptonButton5.Enabled = True
+            locationform.balance.Text = issueqty.Text
+            locationform.TRANSTYPE.Text = "Issue"
+            locationform.stockno.Text = issuestockno.Text
+            locationform.REFERENCE.Text = issuereference.Text
+            locationform.ShowDialog()
+
             sql.loadstocks()
             sql.loadtransactions(toprows.Text)
             sql.searchreferenceissue(issuereference.Text, issuestockno.Text)
@@ -1078,7 +1081,7 @@ select
 
             issueqty.Text = 0
 
-
+            KryptonButton9.PerformClick()
         End If
     End Sub
 
@@ -3151,5 +3154,17 @@ on a.stockno = b.stockno where A.STOCKNO='" & STOCKNO & "' and a.TRANSTYPE='Rece
         Else
             checklisted.ShowDialog()
         End If
+    End Sub
+
+    Private Sub stocksgridview_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles stocksgridview.ColumnHeaderMouseClick
+        For i As Integer = 0 To stocksgridview.RowCount - 1 Step +1
+            Dim s As String = Trim(stocksgridview.Rows(i).Cells("PHYSICAL").Value.ToString)
+            Dim t As String = Trim(stocksgridview.Rows(i).Cells("MYLOCATION").Value.ToString)
+            If s = t Then
+                stocksgridview.Rows(i).Cells("MYLOCATION").Style.ForeColor = Color.Black
+            Else
+                stocksgridview.Rows(i).Cells("MYLOCATION").Style.ForeColor = Color.Red
+            End If
+        Next
     End Sub
 End Class

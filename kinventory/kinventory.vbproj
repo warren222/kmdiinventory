@@ -327,6 +327,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="sql.vb" />
+    <Compile Include="transfer.Designer.vb">
+      <DependentUpon>transfer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="transfer.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="accountinginventory.resx">
@@ -443,6 +449,9 @@
     <EmbeddedResource Include="Report4.rdlc" />
     <EmbeddedResource Include="Report5.rdlc" />
     <EmbeddedResource Include="Report6.rdlc" />
+    <EmbeddedResource Include="transfer.resx">
+      <DependentUpon>transfer.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="inventoryds.xsc">
