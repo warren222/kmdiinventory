@@ -15,6 +15,34 @@ Public Class adjustment
     Public Sub inserthistory(ByVal transtype As String)
         Try
             sql.sqlcon.Open()
+
+
+            Dim physical As String
+            Dim l As String = "declare @sd as varchar(50)=(select sum(qty) from locationtb where stockno = '" & stockno.Text & "')
+select @sd"
+            sqlcmd = New SqlCommand(l, sql.sqlcon)
+            Dim read1 As SqlDataReader = sqlcmd.ExecuteReader
+            While read1.Read
+                physical = read1(0).ToString
+            End While
+            read1.Close()
+            Dim p As Double = physical
+            Dim q As Double = setqty.Text
+            Dim newbal As Double
+            If transtype = "Issue" Then
+                newbal = p - q
+            ElseIf transtype = "Receipt" Then
+                newbal = p + q
+            ElseIf transtype = "Return" Then
+                newbal = p + q
+            ElseIf transtype = "+Adjustment" Then
+                newbal = p + q
+            ElseIf transtype = "-Adjustment" Then
+                newbal = p - q
+            End If
+
+
+
             Dim str As String = "
 declare @autonum as decimal(10,2)=(select max(id)+1 from lochistory)
 insert into lochistory
@@ -24,7 +52,8 @@ TRANSDATE,
 STOCKNO,
 REFERENCE,
 LOCATION,
-QTY)
+QTY,
+BALQTY)
 values
 (@autonum,
 '" & transtype & "'," &
@@ -32,7 +61,7 @@ values
 "'" & stockno.Text & "'," &
 "''," &
 "'" & setlocation.Text & "'," &
-"'" & setqty.Text & "')"
+"'" & setqty.Text & "','" & newbal & "')"
             sqlcmd = New SqlCommand(str, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()
         Catch ex As Exception

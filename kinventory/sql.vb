@@ -7,11 +7,11 @@ Imports System.Security.Cryptography
 Imports System.Windows.Forms.DataVisualization.Charting
 Public Class sql
     Dim datasource As String = Form9.myaccess.Text.ToString
-    Dim catalog As String = "finaltrans"
+    Dim catalog As String = "FINALTRANS"
     Dim userid As String = "kmdiadmin"
     Dim password As String = "kmdiadmin"
     Public sqlcon As New SqlConnection With {.ConnectionString = "Data Source='" & datasource & "';Network Library=DBMSSOCN;Initial Catalog='" & catalog & "';User ID='" & userid & "';Password='" & password & "';"}
-    Public sqlcon1 As New SqlConnection With {.ConnectionString = "Data Source='121.58.229.248,49107';Network Library=DBMSSOCN;Initial Catalog='kmdidata';User ID='kmdiadmin';Password='kmdiadmin';"}
+    Public sqlcon1 As New SqlConnection With {.ConnectionString = "Data Source='121.58.229.248,49107';Network Library=DBMSSOCN;Initial Catalog='KMDIDATA';User ID='kmdiadmin';Password='kmdiadmin';"}
 
     Dim da As New SqlDataAdapter
     Dim sqlcmd As New SqlCommand
@@ -2939,6 +2939,10 @@ on a.stockno = b.stockno where a.transno='" & transno & "'"
             Form5.newcosthead.DataBindings.Add("text", bs, "COSTHEAD")
             Form5.newtypecolor.DataBindings.Add("text", bs, "TYPECOLOR")
             Form5.newarticleno.DataBindings.Add("text", bs, "ARTICLENO")
+
+
+
+
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally

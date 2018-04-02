@@ -85,10 +85,10 @@ declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_t
     End Sub
 
     Private Sub Form5_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If Form1.Label2.Text = "Guest" Then
-            KryptonButton1.Enabled = False
-        ElseIf Form1.Label2.Text = "Admin" Or Form1.Label2.Text = "Encoder" Then
+        If Form1.Label2.Text = "Admin" Or Form1.Label2.Text = "Encoder" Or Form1.Label2.Text = "Allocation" Then
             KryptonButton1.Enabled = True
+        Else
+            KryptonButton1.Enabled = False
         End If
         REFALLOC.Text = 0
         REFISSUE.Text = 0
@@ -121,6 +121,17 @@ declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_t
         End Try
     End Sub
     Private Sub KryptonButton1_Click(sender As Object, e As EventArgs) Handles KryptonButton1.Click
+        If Form1.Label2.Text = "Allocation" Then
+            If transtype.Text = "Allocation" Then
+                one()
+            Else
+                MsgBox("access denied!")
+            End If
+        Else
+            one()
+        End If
+    End Sub
+    Public Sub one()
         Dim x As Double
         If balanceqty.Text = "" Then
             x = 0
@@ -128,50 +139,20 @@ declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_t
             x = balanceqty.Text
         End If
         If transtype.Text = "Allocation" And xyzref.Text = "" Then
-                Dim orig As Double = initialqty.Text
-                Dim newqty As Double = qty.Text
+            Dim orig As Double = initialqty.Text
+            Dim newqty As Double = qty.Text
             Dim bal As Double = x
 
             Dim result As Double = orig - newqty
 
-                If result >= 0 Then
-                    'if result is positive compute balance qty
-                    Dim v As Double = bal - result
-                    If v >= 0 Then
-                        'if bal qty is positive
-                        Try
-                            sql.sqlcon.Open()
-                            Dim justupdate As String = "update trans_tb set balqty = '" & v & "' where transno = '" & transno.Text & "'"
-                            sqlcmd = New SqlCommand(justupdate, sql.sqlcon)
-                            sqlcmd.ExecuteNonQuery()
-                        Catch ex As Exception
-                            MsgBox(ex.ToString)
-                        Finally
-                            sql.sqlcon.Close()
-                        End Try
-                    ElseIf v < 0 Then
-                        'if bal is negative , update balqty to 0 then loop to another allocation
-                        Try
-                            sql.sqlcon.Open()
-                            Dim justupdate As String = "update trans_tb set balqty = 0 where transno = '" & transno.Text & "'"
-                            sqlcmd = New SqlCommand(justupdate, sql.sqlcon)
-                            sqlcmd.ExecuteNonQuery()
-                        Catch ex As Exception
-                            MsgBox(ex.ToString)
-                        Finally
-                            sql.sqlcon.Close()
-                        End Try
-                    loopissue.Text = v * -1
-                    loadallocationlist(reference.Text, stockno.Text)
-                    LISTOFALLOCATIONGRIDVIEW.SelectAll()
-                    KryptonButton25.PerformClick()
-
-                End If
-                ElseIf result < 0 Then
-                    'if result is negative then update balqty plus result multiply by negative one
+            If result >= 0 Then
+                'if result is positive compute balance qty
+                Dim v As Double = bal - result
+                If v >= 0 Then
+                    'if bal qty is positive
                     Try
                         sql.sqlcon.Open()
-                        Dim justupdate As String = "update trans_tb set balqty = balqty+" & (result * -1) & " where transno = '" & transno.Text & "'"
+                        Dim justupdate As String = "update trans_tb set balqty = '" & v & "' where transno = '" & transno.Text & "'"
                         sqlcmd = New SqlCommand(justupdate, sql.sqlcon)
                         sqlcmd.ExecuteNonQuery()
                     Catch ex As Exception
@@ -179,8 +160,38 @@ declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_t
                     Finally
                         sql.sqlcon.Close()
                     End Try
+                ElseIf v < 0 Then
+                    'if bal is negative , update balqty to 0 then loop to another allocation
+                    Try
+                        sql.sqlcon.Open()
+                        Dim justupdate As String = "update trans_tb set balqty = 0 where transno = '" & transno.Text & "'"
+                        sqlcmd = New SqlCommand(justupdate, sql.sqlcon)
+                        sqlcmd.ExecuteNonQuery()
+                    Catch ex As Exception
+                        MsgBox(ex.ToString)
+                    Finally
+                        sql.sqlcon.Close()
+                    End Try
+                    loopissue.Text = v * -1
+                    loadallocationlist(reference.Text, stockno.Text)
+                    LISTOFALLOCATIONGRIDVIEW.SelectAll()
+                    KryptonButton25.PerformClick()
+
                 End If
+            ElseIf result < 0 Then
+                'if result is negative then update balqty plus result multiply by negative one
+                Try
+                    sql.sqlcon.Open()
+                    Dim justupdate As String = "update trans_tb set balqty = balqty+" & (result * -1) & " where transno = '" & transno.Text & "'"
+                    sqlcmd = New SqlCommand(justupdate, sql.sqlcon)
+                    sqlcmd.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox(ex.ToString)
+                Finally
+                    sql.sqlcon.Close()
+                End Try
             End If
+        End If
 
         sql.updatetransdates(transno.Text, transdate.Text, duedate.Text, qty.Text, xyzref.Text)
 

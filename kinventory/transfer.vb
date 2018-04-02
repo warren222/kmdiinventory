@@ -22,6 +22,22 @@ Public Class transfer
     Public Sub inserthistory()
         Try
             sql.sqlcon.Open()
+
+
+
+            Dim physical As String
+            Dim l As String = "declare @sd as varchar(50)=(select sum(qty) from locationtb where stockno = '" & stockno.Text & "')
+select @sd"
+            SQLCMD = New SqlCommand(l, sql.sqlcon)
+            Dim read1 As SqlDataReader = SQLCMD.ExecuteReader
+            While read1.Read
+                physical = read1(0).ToString
+            End While
+            read1.Close()
+            Dim p As Double = physical
+            Dim q As Double = setqty.Text
+
+
             Dim str As String = "
 declare @autonum as decimal(10,2)=(select max(id)+1 from lochistory)
 insert into lochistory
@@ -31,7 +47,8 @@ TRANSDATE,
 STOCKNO,
 REFERENCE,
 LOCATION,
-QTY)
+QTY,
+balqty)
 values
 (@autonum,
 '-Transfer'," &
@@ -39,7 +56,7 @@ values
 "'" & stockno.Text & "'," &
 "''," &
 "'" & location.Text & "'," &
-"'" & setqty.Text & "')"
+"'" & setqty.Text & "','" & p & "')"
             SQLCMD = New SqlCommand(str, sql.sqlcon)
             SQLCMD.ExecuteNonQuery()
 
@@ -52,7 +69,8 @@ TRANSDATE,
 STOCKNO,
 REFERENCE,
 LOCATION,
-QTY)
+QTY,
+balqty)
 values
 (@autonum,
 '+Transfer'," &
@@ -60,7 +78,7 @@ values
 "'" & stockno.Text & "'," &
 "''," &
 "'" & setlocation.Text & "'," &
-"'" & setqty.Text & "')"
+"'" & setqty.Text & "','" & p & "')"
             SQLCMD = New SqlCommand(f, sql.sqlcon)
             SQLCMD.ExecuteNonQuery()
         Catch ex As Exception

@@ -50,6 +50,20 @@ Public Class Form2
             KryptonButton8.Enabled = True
             'reference
             KryptonButton14.Enabled = True
+        ElseIf Form1.Label2.Text = "Allocation" Then
+            KryptonButton2.Enabled = False
+            KryptonButton3.Enabled = False
+            KryptonButton23.Enabled = False
+            'input
+            KryptonButton4.Enabled = True
+            'receipt
+            KryptonButton5.Enabled = False
+            'issue
+            KryptonButton8.Enabled = False
+            'reference
+            KryptonButton14.Enabled = False
+            transaction.Text = "Allocation"
+            transaction.Enabled = False
         End If
     End Sub
 
@@ -1616,7 +1630,7 @@ on a.stockno = b.stockno"
     Private Sub stocksgridview_MouseDown(sender As Object, e As MouseEventArgs) Handles stocksgridview.MouseDown
         If stocksgridview.RowCount >= 0 Then
             If e.Button = MouseButtons.Right Then
-                If Form1.Label2.Text = "Guest" Then
+                If Form1.Label2.Text = "Guest" Or Form1.Label2.Text = "Allocation" Then
 
                 Else
                     ContextMenuStrip1.Show(stocksgridview, New Point(e.X, e.Y))

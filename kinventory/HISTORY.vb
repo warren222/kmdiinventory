@@ -31,15 +31,16 @@ Public Class HISTORY
 
 declare @myadd as decimal(10,2)=(select isnull(sum(qty),0) from LOCHISTORY WHERE (TRANSTYPE='Receipt' or TRANSTYPE = 'Return' or TRANSTYPE='+Adjustment' or TRANSTYPE='+Transfer') and (" & acol & "=" & a & " and " & bcol & "=" & b & "))
 declare @mysub as decimal(10,2)=(select isnull(sum(qty),0) from LOCHISTORY WHERE (TRANSTYPE = 'Issue' or TRANSTYPE='-Adjustment' or TRANSTYPE = '-Transfer') and (" & acol & "=" & a & " and " & bcol & "=" & b & "))
+
 select ID
       ,TRANSTYPE
       ,TRANSDATE
       ,STOCKNO
 ,REFERENCE
       ,LOCATION
-      ,QTY from lochistory  where " & acol & "=" & a & " and " & bcol & "=" & b & "
+      ,BALQTY,QTY from lochistory  where " & acol & "=" & a & " and " & bcol & "=" & b & "
 union 
-	  select '','','','','','Total',@myadd-@mysub from LOCHISTORY where " & acol & "=" & a & " and " & bcol & "=" & b & "
+	  select '','','','','','Total',0,@myadd-@mysub from LOCHISTORY where " & acol & "=" & a & " and " & bcol & "=" & b & "
       order by id desc
 
 "
@@ -61,7 +62,10 @@ union
             transactiongridview.Columns("transdate").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
             transactiongridview.Columns("transtype").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
             transactiongridview.Columns("qty").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            transactiongridview.Columns("balqty").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
+            transactiongridview.Columns("balqty").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             transactiongridview.Columns("qty").DefaultCellStyle.Format = "N2"
+            transactiongridview.Columns("balqty").DefaultCellStyle.Format = "N2"
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
