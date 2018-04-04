@@ -22,7 +22,7 @@ Partial Class DEFAULTITEMS
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.stocksgridview = New ComponentFactory.Krypton.Toolkit.KryptonDataGridView()
         Me.KryptonGroup1 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
         Me.KryptonLabel60 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
@@ -38,6 +38,7 @@ Partial Class DEFAULTITEMS
         Me.articlenosearch = New System.Windows.Forms.ComboBox()
         Me.typecolorsearch = New System.Windows.Forms.ComboBox()
         Me.costheadsearch = New System.Windows.Forms.ComboBox()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
         CType(Me.stocksgridview, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonGroup1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonGroup1.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -50,8 +51,8 @@ Partial Class DEFAULTITEMS
         Me.stocksgridview.AllowUserToAddRows = False
         Me.stocksgridview.AllowUserToDeleteRows = False
         Me.stocksgridview.AllowUserToOrderColumns = True
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.stocksgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.stocksgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.stocksgridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.stocksgridview.ColumnHeadersHeight = 30
         Me.stocksgridview.Cursor = System.Windows.Forms.Cursors.Hand
@@ -253,13 +254,21 @@ Partial Class DEFAULTITEMS
         Me.costheadsearch.Size = New System.Drawing.Size(143, 21)
         Me.costheadsearch.TabIndex = 0
         '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(207, 42)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(100, 20)
+        Me.TextBox1.TabIndex = 3
+        '
         'DEFAULTITEMS
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(866, 371)
-        Me.Controls.Add(Me.KryptonGroup1)
         Me.Controls.Add(Me.stocksgridview)
+        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.KryptonGroup1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Name = "DEFAULTITEMS"
         Me.ShowIcon = False
@@ -273,6 +282,7 @@ Partial Class DEFAULTITEMS
         CType(Me.KryptonGroup1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.KryptonGroup1.ResumeLayout(False)
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -291,4 +301,5 @@ Partial Class DEFAULTITEMS
     Friend WithEvents articlenosearch As ComboBox
     Friend WithEvents typecolorsearch As ComboBox
     Friend WithEvents costheadsearch As ComboBox
+    Friend WithEvents TextBox1 As TextBox
 End Class

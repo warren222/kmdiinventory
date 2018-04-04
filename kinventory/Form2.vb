@@ -269,8 +269,8 @@ Public Class Form2
                                XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
-            sql.loadstocks()
-            sql.loadtransactions(toprows.Text)
+            'sql.loadstocks()
+            'sql.loadtransactions(toprows.Text)
             Dim II As Integer = transarticleno.SelectedIndex
             sql.articlenoinput(transcosthead.Text, transtypecolor.Text)
             If II > transarticleno.Items.Count - 1 Then
@@ -298,8 +298,8 @@ Public Class Form2
                    controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
-            sql.loadstocks()
-            sql.loadtransactions(toprows.Text)
+            'sql.loadstocks()
+            'sql.loadtransactions(toprows.Text)
             Dim II As Integer = transarticleno.SelectedIndex
             sql.articlenoinput(transcosthead.Text, transtypecolor.Text)
             If II > transarticleno.Items.Count - 1 Then
@@ -327,8 +327,8 @@ Public Class Form2
                    controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
-            sql.loadstocks()
-            sql.loadtransactions(toprows.Text)
+            'sql.loadstocks()
+            'sql.loadtransactions(toprows.Text)
             Dim II As Integer = transarticleno.SelectedIndex
             sql.articlenoinput(transcosthead.Text, transtypecolor.Text)
             If II > transarticleno.Items.Count - 1 Then
@@ -354,8 +354,8 @@ Public Class Form2
                    controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
-            sql.loadstocks()
-            sql.loadtransactions(toprows.Text)
+            'sql.loadstocks()
+            'sql.loadtransactions(toprows.Text)
             Dim II As Integer = transarticleno.SelectedIndex
             sql.articlenoinput(transcosthead.Text, transtypecolor.Text)
             If II > transarticleno.Items.Count - 1 Then
@@ -381,8 +381,8 @@ Public Class Form2
                    controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
-            sql.loadstocks()
-            sql.loadtransactions(toprows.Text)
+            'sql.loadstocks()
+            'sql.loadtransactions(toprows.Text)
             Dim II As Integer = transarticleno.SelectedIndex
             sql.articlenoinput(transcosthead.Text, transtypecolor.Text)
             If II > transarticleno.Items.Count - 1 Then
@@ -408,8 +408,8 @@ Public Class Form2
                    controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
-            sql.loadstocks()
-            sql.loadtransactions(toprows.Text)
+            'sql.loadstocks()
+            'sql.loadtransactions(toprows.Text)
             Dim II As Integer = transarticleno.SelectedIndex
             sql.articlenoinput(transcosthead.Text, transtypecolor.Text)
             If II > transarticleno.Items.Count - 1 Then
@@ -435,8 +435,8 @@ Public Class Form2
                    controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
-            sql.loadstocks()
-            sql.loadtransactions(toprows.Text)
+            'sql.loadstocks()
+            'sql.loadtransactions(toprows.Text)
             Dim II As Integer = transarticleno.SelectedIndex
             sql.articlenoinput(transcosthead.Text, transtypecolor.Text)
             If II > transarticleno.Items.Count - 1 Then
@@ -462,8 +462,8 @@ Public Class Form2
                    controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
-            sql.loadstocks()
-            sql.loadtransactions(toprows.Text)
+            'sql.loadstocks()
+            'sql.loadtransactions(toprows.Text)
             Dim II As Integer = transarticleno.SelectedIndex
             sql.articlenoinput(transcosthead.Text, transtypecolor.Text)
             If II > transarticleno.Items.Count - 1 Then
@@ -493,8 +493,8 @@ Public Class Form2
                    controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
             updatestock(transstockno.Text, reference.Text)
             loadinputgridviews()
-            sql.loadstocks()
-            sql.loadtransactions(toprows.Text)
+            'sql.loadstocks()
+            'sql.loadtransactions(toprows.Text)
             Dim II As Integer = transarticleno.SelectedIndex
             sql.articlenoinput(transcosthead.Text, transtypecolor.Text)
             If II > transarticleno.Items.Count - 1 Then
@@ -856,8 +856,8 @@ update reference_tb set
                 locationform.REFERENCE.Text = receiptreference.Text
                 locationform.ShowDialog()
 
-                sql.loadstocks()
-                sql.loadtransactions(toprows.Text)
+                'sql.loadstocks()
+                'sql.loadtransactions(toprows.Text)
                 sql.searchreference(receiptreference.Text, receiptstockno.Text)
             End If
         ElseIf retainbal.Checked = True Then
@@ -928,8 +928,8 @@ update reference_tb set
                 neworderbalance(receipttransno.Text, bal)
 
                 updatestock(receiptstockno.Text, receiptreference.Text)
-                sql.loadstocks()
-                sql.loadtransactions(toprows.Text)
+                'sql.loadstocks()
+                'sql.loadtransactions(toprows.Text)
                 sql.searchreference(receiptreference.Text, receiptstockno.Text)
             End If
         End If
@@ -1087,8 +1087,8 @@ select
             locationform.REFERENCE.Text = issuereference.Text
             locationform.ShowDialog()
 
-            sql.loadstocks()
-            sql.loadtransactions(toprows.Text)
+            'sql.loadstocks()
+            'sql.loadtransactions(toprows.Text)
             sql.searchreferenceissue(issuereference.Text, issuestockno.Text)
             issueDataGridView.Visible = True
             KryptonGroup5.Visible = False
@@ -1485,6 +1485,7 @@ on a.stockno = b.stockno"
             currentallocation.Visible = True
             KryptonLabel50.Visible = True
             remarks.Visible = True
+
         Else
             KryptonLabel17.Visible = False
             controlno.Visible = False
@@ -1503,6 +1504,7 @@ on a.stockno = b.stockno"
             unitprice.Visible = True
             xrate.Visible = True
             netamount.Visible = True
+            currency.Visible = True
             ufactor.Visible = True
             disc.Visible = True
             KryptonLabel63.Visible = True
@@ -1510,10 +1512,12 @@ on a.stockno = b.stockno"
             KryptonLabel65.Visible = True
             KryptonLabel66.Visible = True
             KryptonLabel67.Visible = True
+            KryptonLabel68.Visible = True
         Else
             unitprice.Visible = False
             xrate.Visible = False
             netamount.Visible = False
+            currency.Visible = False
             ufactor.Visible = False
             disc.Visible = False
             KryptonLabel63.Visible = False
@@ -1521,10 +1525,12 @@ on a.stockno = b.stockno"
             KryptonLabel65.Visible = False
             KryptonLabel66.Visible = False
             KryptonLabel67.Visible = False
+            KryptonLabel68.Visible = False
             xrate.Text = 0
             netamount.Text = 0
             ufactor.Text = 0
             disc.Text = 0
+            currency.Text = 0
         End If
     End Sub
 
@@ -2937,11 +2943,15 @@ UPDATE stocks_tb set balalloc = @totalbalqty where stockno = '" & stockno & "'
             Dim discount As Double = disc.Text
             Dim discounted As Double = unit - ((discount * 0.01) * unit)
             Dim amount As Double
+            Dim foreign As Double
 
             amount = (rate * discounted) * (qty * ufact)
+            foreign = amount / rate
             netamount.Text = amount
+            currency.Text = foreign
         Else
             netamount.Text = 0
+            currency.Text = 0
         End If
     End Sub
 
@@ -3180,5 +3190,13 @@ on a.stockno = b.stockno where A.STOCKNO='" & STOCKNO & "' and a.TRANSTYPE='Rece
                 stocksgridview.Rows(i).Cells("MYLOCATION").Style.ForeColor = Color.Red
             End If
         Next
+    End Sub
+
+    Private Sub transqty_Leave(sender As Object, e As EventArgs) Handles transqty.Leave
+        If IsNumeric(transqty.Text) And IsNumeric(ufactor.Text) And ufactor.Visible = True Then
+            transqty.Text = Format(transqty.Text / ufactor.Text, "N2")
+        Else
+            Exit Sub
+        End If
     End Sub
 End Class

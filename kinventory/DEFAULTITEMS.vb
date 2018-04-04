@@ -42,6 +42,8 @@ Public Class DEFAULTITEMS
             stocksgridview.Columns("FINALNEEDTOORDER").Visible = False
             stocksgridview.Columns("INPUTTED").Visible = False
             stocksgridview.Columns("TOORDER").Visible = False
+            TextBox1.DataBindings.Clear()
+            TextBox1.DataBindings.Add("text", bs, "stockno")
 
         Catch ex As SqlException
             MsgBox(ex.ToString)
@@ -153,6 +155,8 @@ Public Class DEFAULTITEMS
             stocksgridview.Columns("INPUTTED").Visible = False
             stocksgridview.Columns("TOORDER").Visible = False
 
+            TextBox1.DataBindings.Clear()
+            TextBox1.DataBindings.Add("text", bs, "stockno")
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -363,5 +367,15 @@ Public Class DEFAULTITEMS
 
             sql.movetoinput(Form2.transstockno.Text)
         End If
+    End Sub
+
+    Private Sub supplier_KeyDown(sender As Object, e As KeyEventArgs) Handles typecolorsearch.KeyDown, supplier.KeyDown, status.KeyDown, costheadsearch.KeyDown, articlenosearch.KeyDown
+        If e.KeyData = Keys.Enter Then
+            KryptonButton1.PerformClick()
+        End If
+    End Sub
+
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+        sql.movetoinput(TextBox1.Text)
     End Sub
 End Class

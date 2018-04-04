@@ -24,17 +24,17 @@ Partial Class Form2
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form2))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle37 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle38 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle39 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle40 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle41 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle34 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle35 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle36 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle42 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle43 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle44 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.transactionmenustrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.TransDateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -93,6 +93,8 @@ Partial Class Form2
         Me.KryptonLabel16 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.controlno = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonGroup2 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
+        Me.currency = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
+        Me.KryptonLabel68 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.disc = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonLabel67 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.ufactor = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
@@ -563,8 +565,8 @@ Partial Class Form2
         Me.stocksgridview.AllowUserToAddRows = False
         Me.stocksgridview.AllowUserToDeleteRows = False
         Me.stocksgridview.AllowUserToOrderColumns = True
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.stocksgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle37.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.stocksgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle37
         Me.stocksgridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.stocksgridview.ColumnHeadersHeight = 30
         Me.stocksgridview.Cursor = System.Windows.Forms.Cursors.Hand
@@ -1064,8 +1066,8 @@ Partial Class Form2
         Me.inputGridView.AllowUserToAddRows = False
         Me.inputGridView.AllowUserToDeleteRows = False
         Me.inputGridView.AllowUserToOrderColumns = True
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.inputGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle38.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.inputGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle38
         Me.inputGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.inputGridView.ColumnHeadersHeight = 20
         Me.inputGridView.Cursor = System.Windows.Forms.Cursors.Hand
@@ -1123,8 +1125,8 @@ Partial Class Form2
         Me.inputDataGridView1.AllowUserToAddRows = False
         Me.inputDataGridView1.AllowUserToDeleteRows = False
         Me.inputDataGridView1.AllowUserToOrderColumns = True
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.inputDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle39.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.inputDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle39
         Me.inputDataGridView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -1233,11 +1235,13 @@ Partial Class Form2
         Me.KryptonGroup2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.KryptonGroup2.GroupBorderStyle = ComponentFactory.Krypton.Toolkit.PaletteBorderStyle.TabOneNote
-        Me.KryptonGroup2.Location = New System.Drawing.Point(7, 6)
+        Me.KryptonGroup2.Location = New System.Drawing.Point(7, 7)
         Me.KryptonGroup2.Name = "KryptonGroup2"
         '
         'KryptonGroup2.Panel
         '
+        Me.KryptonGroup2.Panel.Controls.Add(Me.currency)
+        Me.KryptonGroup2.Panel.Controls.Add(Me.KryptonLabel68)
         Me.KryptonGroup2.Panel.Controls.Add(Me.disc)
         Me.KryptonGroup2.Panel.Controls.Add(Me.KryptonLabel67)
         Me.KryptonGroup2.Panel.Controls.Add(Me.ufactor)
@@ -1267,13 +1271,35 @@ Partial Class Form2
         Me.KryptonGroup2.Panel.Controls.Add(Me.transarticleno)
         Me.KryptonGroup2.Panel.Controls.Add(Me.transtypecolor)
         Me.KryptonGroup2.Panel.Controls.Add(Me.transcosthead)
-        Me.KryptonGroup2.Size = New System.Drawing.Size(236, 438)
+        Me.KryptonGroup2.Size = New System.Drawing.Size(236, 431)
         Me.KryptonGroup2.StateCommon.Back.Color1 = System.Drawing.SystemColors.Control
         Me.KryptonGroup2.TabIndex = 6
         '
+        'currency
+        '
+        Me.currency.Location = New System.Drawing.Point(89, 372)
+        Me.currency.Multiline = True
+        Me.currency.Name = "currency"
+        Me.currency.Size = New System.Drawing.Size(118, 23)
+        Me.currency.StateDisabled.Content.Color1 = System.Drawing.Color.Black
+        Me.currency.TabIndex = 54
+        Me.currency.Text = "0"
+        Me.currency.Visible = False
+        '
+        'KryptonLabel68
+        '
+        Me.KryptonLabel68.Location = New System.Drawing.Point(7, 372)
+        Me.KryptonLabel68.Name = "KryptonLabel68"
+        Me.KryptonLabel68.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonLabel68.Size = New System.Drawing.Size(65, 19)
+        Me.KryptonLabel68.StateCommon.ShortText.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonLabel68.TabIndex = 53
+        Me.KryptonLabel68.Values.Text = "Currency"
+        Me.KryptonLabel68.Visible = False
+        '
         'disc
         '
-        Me.disc.Location = New System.Drawing.Point(88, 294)
+        Me.disc.Location = New System.Drawing.Point(88, 256)
         Me.disc.Multiline = True
         Me.disc.Name = "disc"
         Me.disc.Size = New System.Drawing.Size(78, 23)
@@ -1284,7 +1310,7 @@ Partial Class Form2
         '
         'KryptonLabel67
         '
-        Me.KryptonLabel67.Location = New System.Drawing.Point(6, 294)
+        Me.KryptonLabel67.Location = New System.Drawing.Point(6, 256)
         Me.KryptonLabel67.Name = "KryptonLabel67"
         Me.KryptonLabel67.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel67.Size = New System.Drawing.Size(37, 19)
@@ -1295,7 +1321,7 @@ Partial Class Form2
         '
         'ufactor
         '
-        Me.ufactor.Location = New System.Drawing.Point(88, 264)
+        Me.ufactor.Location = New System.Drawing.Point(88, 226)
         Me.ufactor.Multiline = True
         Me.ufactor.Name = "ufactor"
         Me.ufactor.Size = New System.Drawing.Size(78, 23)
@@ -1306,7 +1332,7 @@ Partial Class Form2
         '
         'KryptonLabel66
         '
-        Me.KryptonLabel66.Location = New System.Drawing.Point(6, 264)
+        Me.KryptonLabel66.Location = New System.Drawing.Point(6, 226)
         Me.KryptonLabel66.Name = "KryptonLabel66"
         Me.KryptonLabel66.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel66.Size = New System.Drawing.Size(63, 19)
@@ -1317,10 +1343,10 @@ Partial Class Form2
         '
         'netamount
         '
-        Me.netamount.Location = New System.Drawing.Point(89, 380)
+        Me.netamount.Location = New System.Drawing.Point(89, 343)
         Me.netamount.Multiline = True
         Me.netamount.Name = "netamount"
-        Me.netamount.Size = New System.Drawing.Size(78, 23)
+        Me.netamount.Size = New System.Drawing.Size(118, 23)
         Me.netamount.StateDisabled.Content.Color1 = System.Drawing.Color.Black
         Me.netamount.TabIndex = 48
         Me.netamount.Text = "0"
@@ -1328,7 +1354,7 @@ Partial Class Form2
         '
         'KryptonLabel65
         '
-        Me.KryptonLabel65.Location = New System.Drawing.Point(7, 380)
+        Me.KryptonLabel65.Location = New System.Drawing.Point(7, 343)
         Me.KryptonLabel65.Name = "KryptonLabel65"
         Me.KryptonLabel65.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel65.Size = New System.Drawing.Size(81, 19)
@@ -1339,7 +1365,7 @@ Partial Class Form2
         '
         'xrate
         '
-        Me.xrate.Location = New System.Drawing.Point(89, 351)
+        Me.xrate.Location = New System.Drawing.Point(89, 314)
         Me.xrate.Multiline = True
         Me.xrate.Name = "xrate"
         Me.xrate.Size = New System.Drawing.Size(78, 23)
@@ -1350,7 +1376,7 @@ Partial Class Form2
         '
         'unitprice
         '
-        Me.unitprice.Location = New System.Drawing.Point(89, 323)
+        Me.unitprice.Location = New System.Drawing.Point(89, 285)
         Me.unitprice.Multiline = True
         Me.unitprice.Name = "unitprice"
         Me.unitprice.Size = New System.Drawing.Size(78, 23)
@@ -1361,7 +1387,7 @@ Partial Class Form2
         '
         'KryptonLabel63
         '
-        Me.KryptonLabel63.Location = New System.Drawing.Point(7, 351)
+        Me.KryptonLabel63.Location = New System.Drawing.Point(7, 314)
         Me.KryptonLabel63.Name = "KryptonLabel63"
         Me.KryptonLabel63.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel63.Size = New System.Drawing.Size(52, 19)
@@ -1372,7 +1398,7 @@ Partial Class Form2
         '
         'KryptonLabel64
         '
-        Me.KryptonLabel64.Location = New System.Drawing.Point(7, 323)
+        Me.KryptonLabel64.Location = New System.Drawing.Point(7, 285)
         Me.KryptonLabel64.Name = "KryptonLabel64"
         Me.KryptonLabel64.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel64.Size = New System.Drawing.Size(69, 19)
@@ -1384,7 +1410,7 @@ Partial Class Form2
         'KryptonCheckBox1
         '
         Me.KryptonCheckBox1.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
-        Me.KryptonCheckBox1.Location = New System.Drawing.Point(9, 150)
+        Me.KryptonCheckBox1.Location = New System.Drawing.Point(9, 115)
         Me.KryptonCheckBox1.Name = "KryptonCheckBox1"
         Me.KryptonCheckBox1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonCheckBox1.Size = New System.Drawing.Size(94, 19)
@@ -1428,7 +1454,7 @@ Partial Class Form2
         '
         'transunit
         '
-        Me.transunit.Location = New System.Drawing.Point(175, 237)
+        Me.transunit.Location = New System.Drawing.Point(172, 199)
         Me.transunit.Name = "transunit"
         Me.transunit.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.transunit.Size = New System.Drawing.Size(35, 19)
@@ -1439,7 +1465,7 @@ Partial Class Form2
         'transfree
         '
         Me.transfree.Enabled = False
-        Me.transfree.Location = New System.Drawing.Point(88, 208)
+        Me.transfree.Location = New System.Drawing.Point(88, 170)
         Me.transfree.Multiline = True
         Me.transfree.Name = "transfree"
         Me.transfree.Size = New System.Drawing.Size(78, 23)
@@ -1450,7 +1476,7 @@ Partial Class Form2
         'transphysical
         '
         Me.transphysical.Enabled = False
-        Me.transphysical.Location = New System.Drawing.Point(88, 179)
+        Me.transphysical.Location = New System.Drawing.Point(88, 141)
         Me.transphysical.Multiline = True
         Me.transphysical.Name = "transphysical"
         Me.transphysical.Size = New System.Drawing.Size(78, 23)
@@ -1460,7 +1486,7 @@ Partial Class Form2
         '
         'KryptonLabel15
         '
-        Me.KryptonLabel15.Location = New System.Drawing.Point(6, 208)
+        Me.KryptonLabel15.Location = New System.Drawing.Point(6, 170)
         Me.KryptonLabel15.Name = "KryptonLabel15"
         Me.KryptonLabel15.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel15.Size = New System.Drawing.Size(38, 19)
@@ -1470,7 +1496,7 @@ Partial Class Form2
         '
         'KryptonLabel14
         '
-        Me.KryptonLabel14.Location = New System.Drawing.Point(6, 179)
+        Me.KryptonLabel14.Location = New System.Drawing.Point(6, 141)
         Me.KryptonLabel14.Name = "KryptonLabel14"
         Me.KryptonLabel14.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel14.Size = New System.Drawing.Size(61, 19)
@@ -1480,7 +1506,7 @@ Partial Class Form2
         '
         'KryptonButton4
         '
-        Me.KryptonButton4.Location = New System.Drawing.Point(9, 409)
+        Me.KryptonButton4.Location = New System.Drawing.Point(7, 400)
         Me.KryptonButton4.Name = "KryptonButton4"
         Me.KryptonButton4.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
         Me.KryptonButton4.Size = New System.Drawing.Size(208, 23)
@@ -1493,7 +1519,7 @@ Partial Class Form2
         '
         'transqty
         '
-        Me.transqty.Location = New System.Drawing.Point(88, 237)
+        Me.transqty.Location = New System.Drawing.Point(88, 199)
         Me.transqty.Multiline = True
         Me.transqty.Name = "transqty"
         Me.transqty.Size = New System.Drawing.Size(78, 23)
@@ -1503,7 +1529,7 @@ Partial Class Form2
         '
         'KryptonLabel13
         '
-        Me.KryptonLabel13.Location = New System.Drawing.Point(6, 237)
+        Me.KryptonLabel13.Location = New System.Drawing.Point(6, 199)
         Me.KryptonLabel13.Name = "KryptonLabel13"
         Me.KryptonLabel13.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel13.Size = New System.Drawing.Size(61, 19)
@@ -1514,7 +1540,7 @@ Partial Class Form2
         'transdescription
         '
         Me.transdescription.Enabled = False
-        Me.transdescription.Location = New System.Drawing.Point(109, 150)
+        Me.transdescription.Location = New System.Drawing.Point(109, 115)
         Me.transdescription.Multiline = True
         Me.transdescription.Name = "transdescription"
         Me.transdescription.Size = New System.Drawing.Size(119, 23)
@@ -1523,7 +1549,7 @@ Partial Class Form2
         '
         'KryptonLabel7
         '
-        Me.KryptonLabel7.Location = New System.Drawing.Point(6, 121)
+        Me.KryptonLabel7.Location = New System.Drawing.Point(6, 87)
         Me.KryptonLabel7.Name = "KryptonLabel7"
         Me.KryptonLabel7.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel7.Size = New System.Drawing.Size(73, 19)
@@ -1533,7 +1559,7 @@ Partial Class Form2
         '
         'KryptonLabel11
         '
-        Me.KryptonLabel11.Location = New System.Drawing.Point(6, 82)
+        Me.KryptonLabel11.Location = New System.Drawing.Point(6, 62)
         Me.KryptonLabel11.Name = "KryptonLabel11"
         Me.KryptonLabel11.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel11.Size = New System.Drawing.Size(76, 19)
@@ -1543,7 +1569,7 @@ Partial Class Form2
         '
         'KryptonLabel12
         '
-        Me.KryptonLabel12.Location = New System.Drawing.Point(5, 43)
+        Me.KryptonLabel12.Location = New System.Drawing.Point(5, 37)
         Me.KryptonLabel12.Name = "KryptonLabel12"
         Me.KryptonLabel12.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel12.Size = New System.Drawing.Size(68, 19)
@@ -1559,7 +1585,7 @@ Partial Class Form2
         Me.transarticleno.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.transarticleno.FormattingEnabled = True
         Me.transarticleno.IntegralHeight = False
-        Me.transarticleno.Location = New System.Drawing.Point(85, 121)
+        Me.transarticleno.Location = New System.Drawing.Point(85, 87)
         Me.transarticleno.Name = "transarticleno"
         Me.transarticleno.Size = New System.Drawing.Size(143, 23)
         Me.transarticleno.TabIndex = 6
@@ -1572,7 +1598,7 @@ Partial Class Form2
         Me.transtypecolor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.transtypecolor.FormattingEnabled = True
         Me.transtypecolor.IntegralHeight = False
-        Me.transtypecolor.Location = New System.Drawing.Point(85, 82)
+        Me.transtypecolor.Location = New System.Drawing.Point(85, 62)
         Me.transtypecolor.Name = "transtypecolor"
         Me.transtypecolor.Size = New System.Drawing.Size(143, 23)
         Me.transtypecolor.TabIndex = 5
@@ -1585,7 +1611,7 @@ Partial Class Form2
         Me.transcosthead.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.transcosthead.FormattingEnabled = True
         Me.transcosthead.IntegralHeight = False
-        Me.transcosthead.Location = New System.Drawing.Point(85, 43)
+        Me.transcosthead.Location = New System.Drawing.Point(85, 37)
         Me.transcosthead.Name = "transcosthead"
         Me.transcosthead.Size = New System.Drawing.Size(143, 23)
         Me.transcosthead.TabIndex = 4
@@ -1612,8 +1638,8 @@ Partial Class Form2
         Me.receiptDataGridView1.AllowUserToAddRows = False
         Me.receiptDataGridView1.AllowUserToDeleteRows = False
         Me.receiptDataGridView1.AllowUserToOrderColumns = True
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.receiptDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle40.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.receiptDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle40
         Me.receiptDataGridView1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.receiptDataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
@@ -1886,8 +1912,8 @@ Partial Class Form2
         Me.receiptGridView.AllowUserToAddRows = False
         Me.receiptGridView.AllowUserToDeleteRows = False
         Me.receiptGridView.AllowUserToOrderColumns = True
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.receiptGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle41.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.receiptGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle41
         Me.receiptGridView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -1944,8 +1970,8 @@ Partial Class Form2
         Me.issueDataGridView.AllowUserToAddRows = False
         Me.issueDataGridView.AllowUserToDeleteRows = False
         Me.issueDataGridView.AllowUserToOrderColumns = True
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.issueDataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle34.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.issueDataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle34
         Me.issueDataGridView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -1984,8 +2010,8 @@ Partial Class Form2
         Me.issueDataGridView1.AllowUserToAddRows = False
         Me.issueDataGridView1.AllowUserToDeleteRows = False
         Me.issueDataGridView1.AllowUserToOrderColumns = True
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.issueDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle35.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.issueDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle35
         Me.issueDataGridView1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.issueDataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
@@ -2409,8 +2435,8 @@ Partial Class Form2
         Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToAddRows = False
         Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToDeleteRows = False
         Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToOrderColumns = True
-        DataGridViewCellStyle8.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.LISTOFALLOCATIONGRIDVIEW.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle36.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.LISTOFALLOCATIONGRIDVIEW.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle36
         Me.LISTOFALLOCATIONGRIDVIEW.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -2692,8 +2718,8 @@ Partial Class Form2
         Me.transgridview.AllowUserToAddRows = False
         Me.transgridview.AllowUserToDeleteRows = False
         Me.transgridview.AllowUserToOrderColumns = True
-        DataGridViewCellStyle9.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.transgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle42.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.transgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle42
         Me.transgridview.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -3022,8 +3048,8 @@ Partial Class Form2
         Me.referenceDataGridView.AllowUserToAddRows = False
         Me.referenceDataGridView.AllowUserToDeleteRows = False
         Me.referenceDataGridView.AllowUserToOrderColumns = True
-        DataGridViewCellStyle10.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.referenceDataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle43.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.referenceDataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle43
         Me.referenceDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.referenceDataGridView.ColumnHeadersHeight = 30
         Me.referenceDataGridView.Cursor = System.Windows.Forms.Cursors.Hand
@@ -3402,8 +3428,8 @@ Partial Class Form2
         Me.mydummyDataGridView1.AllowUserToAddRows = False
         Me.mydummyDataGridView1.AllowUserToDeleteRows = False
         Me.mydummyDataGridView1.AllowUserToOrderColumns = True
-        DataGridViewCellStyle11.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.mydummyDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle44.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.mydummyDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle44
         Me.mydummyDataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.mydummyDataGridView1.ColumnHeadersHeight = 20
         Me.mydummyDataGridView1.Cursor = System.Windows.Forms.Cursors.Hand
@@ -4234,4 +4260,6 @@ Partial Class Form2
     Friend WithEvents PHASEDoUTToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LocationToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents KryptonButton31 As ComponentFactory.Krypton.Toolkit.KryptonButton
+    Friend WithEvents currency As ComponentFactory.Krypton.Toolkit.KryptonTextBox
+    Friend WithEvents KryptonLabel68 As ComponentFactory.Krypton.Toolkit.KryptonLabel
 End Class

@@ -3854,6 +3854,7 @@ accttype='" & acctype & "' where id = '" & id & "'"
     End Sub
     Public Sub movetoinput(ByVal stockno As String)
         Try
+            sqlcon.Close()
             sqlcon.Open()
             Dim ds As New DataSet
             ds.Clear()
