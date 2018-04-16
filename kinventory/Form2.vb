@@ -3194,7 +3194,7 @@ on a.stockno = b.stockno where A.STOCKNO='" & STOCKNO & "' and a.TRANSTYPE='Rece
 
     Private Sub transqty_Leave(sender As Object, e As EventArgs) Handles transqty.Leave
         If IsNumeric(transqty.Text) And IsNumeric(ufactor.Text) And ufactor.Visible = True Then
-            transqty.Text = Format(transqty.Text / ufactor.Text, "N2")
+            transqty.Text = transqty.Text / ufactor.Text
         Else
             Exit Sub
         End If

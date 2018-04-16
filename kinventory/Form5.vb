@@ -611,8 +611,8 @@ minimum adjustmment for this transaction is " & minimum & "", "Error", MessageBo
 
     Private Sub newcosthead_MouseDown(sender As Object, e As MouseEventArgs) Handles newcosthead.MouseDown
         newstockno.Text = ""
-        newtypecolor.SelectedIndex = -1
-        newarticleno.SelectedIndex = -1
+        'newtypecolor.SelectedIndex = -1
+        'newarticleno.SelectedIndex = -1
         Dim x As Integer = newcosthead.SelectedIndex
         Try
             sql.sqlcon.Open()
@@ -642,7 +642,7 @@ minimum adjustmment for this transaction is " & minimum & "", "Error", MessageBo
 
     Private Sub newtypecolor_MouseDown(sender As Object, e As MouseEventArgs) Handles newtypecolor.MouseDown
         newstockno.Text = ""
-        newarticleno.SelectedIndex = -1
+        'newarticleno.SelectedIndex = -1
         Dim x As Integer = newtypecolor.SelectedIndex
         If newcosthead.Text = "" Then
             typecolorgen1()
@@ -957,4 +957,71 @@ minimum adjustmment for this transaction is " & minimum & "", "Error", MessageBo
         End Try
     End Sub
 
+    Private Sub newcosthead_Leave(sender As Object, e As EventArgs) Handles newcosthead.Leave
+        'newtypecolor.SelectedIndex = -1
+        'newarticleno.SelectedIndex = -1
+
+
+        Try
+                sql.sqlcon.Open()
+                Dim str As String = "select from stocks_tb where costhead='" & newcosthead.Text & "' and typecolor = '" & newtypecolor.Text & "'"
+                sqlcmd = New SqlCommand(str, sql.sqlcon)
+                Dim read As SqlDataReader = sqlcmd.ExecuteReader
+                If read.HasRows = True Then
+                    read.Close()
+                Else
+                    read.Close()
+                    newtypecolor.SelectedIndex = -1
+                End If
+            Catch ex As Exception
+            Finally
+                sql.sqlcon.Close()
+            End Try
+
+
+        If Not newarticleno.Text = "" Then
+            Try
+                sql.sqlcon.Open()
+                Dim str As String = "select from stocks_tb where costhead='" & newcosthead.Text & "' and articleno = '" & newarticleno.Text & "'"
+                sqlcmd = New SqlCommand(str, sql.sqlcon)
+                Dim read As SqlDataReader = sqlcmd.ExecuteReader
+                If read.HasRows = True Then
+                    read.Close()
+
+                Else
+                    read.Close()
+                    newarticleno.SelectedIndex = -1
+                End If
+            Catch ex As Exception
+            Finally
+                sql.sqlcon.Close()
+            End Try
+        Else
+
+        End If
+
+    End Sub
+
+    Private Sub newtypecolor_Leave(sender As Object, e As EventArgs) Handles newtypecolor.Leave
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "select stockno from stocks_tb where costhead= '" & newcosthead.Text & "'
+and typecolor = '" & newtypecolor.Text & "' and articleno = '" & newarticleno.Text & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            Dim da As New SqlDataAdapter
+            Dim bs As New BindingSource
+            Dim ds As New DataSet
+            ds.Clear()
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "stocks_tb")
+            bs.DataSource = ds
+            bs.DataMember = "stocks_tb"
+            newstockno.DataBindings.Clear()
+            newstockno.DataBindings.Add("text", bs, "stockno")
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
 End Class

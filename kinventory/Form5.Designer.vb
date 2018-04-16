@@ -93,13 +93,13 @@ Partial Class Form5
         Me.KryptonGroup6 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.KryptonLabel27 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
+        Me.balanceqty = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonPanel1 = New ComponentFactory.Krypton.Toolkit.KryptonPanel()
         Me.KryptonLabel26 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.KryptonGroup1 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
         Me.KryptonGroup2 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
-        Me.KryptonLabel27 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
-        Me.balanceqty = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.loopissue = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonButton25 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
@@ -1079,6 +1079,32 @@ Partial Class Form5
         Me.Panel2.Size = New System.Drawing.Size(477, 505)
         Me.Panel2.TabIndex = 448
         '
+        'KryptonLabel27
+        '
+        Me.KryptonLabel27.Location = New System.Drawing.Point(254, 213)
+        Me.KryptonLabel27.Name = "KryptonLabel27"
+        Me.KryptonLabel27.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonLabel27.Size = New System.Drawing.Size(85, 22)
+        Me.KryptonLabel27.StateCommon.ShortText.Color1 = System.Drawing.Color.White
+        Me.KryptonLabel27.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonLabel27.TabIndex = 92
+        Me.KryptonLabel27.Values.Text = "Bal Quantity"
+        '
+        'balanceqty
+        '
+        Me.balanceqty.Enabled = False
+        Me.balanceqty.Location = New System.Drawing.Point(345, 213)
+        Me.balanceqty.Multiline = True
+        Me.balanceqty.Name = "balanceqty"
+        Me.balanceqty.Size = New System.Drawing.Size(125, 27)
+        Me.balanceqty.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.balanceqty.StateCommon.Border.Width = 3
+        Me.balanceqty.StateCommon.Content.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.balanceqty.StateDisabled.Content.Color1 = System.Drawing.Color.Black
+        Me.balanceqty.TabIndex = 91
+        '
         'KryptonPanel1
         '
         Me.KryptonPanel1.Controls.Add(Me.KryptonLabel26)
@@ -1159,32 +1185,6 @@ Partial Class Form5
         Me.KryptonGroup2.StateCommon.Border.DrawBorders = CType((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
         Me.KryptonGroup2.StateCommon.Border.Rounding = 100
         Me.KryptonGroup2.TabIndex = 453
-        '
-        'KryptonLabel27
-        '
-        Me.KryptonLabel27.Location = New System.Drawing.Point(254, 213)
-        Me.KryptonLabel27.Name = "KryptonLabel27"
-        Me.KryptonLabel27.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
-        Me.KryptonLabel27.Size = New System.Drawing.Size(85, 22)
-        Me.KryptonLabel27.StateCommon.ShortText.Color1 = System.Drawing.Color.White
-        Me.KryptonLabel27.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.KryptonLabel27.TabIndex = 92
-        Me.KryptonLabel27.Values.Text = "Bal Quantity"
-        '
-        'balanceqty
-        '
-        Me.balanceqty.Enabled = False
-        Me.balanceqty.Location = New System.Drawing.Point(345, 213)
-        Me.balanceqty.Multiline = True
-        Me.balanceqty.Name = "balanceqty"
-        Me.balanceqty.Size = New System.Drawing.Size(125, 27)
-        Me.balanceqty.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
-            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
-            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
-        Me.balanceqty.StateCommon.Border.Width = 3
-        Me.balanceqty.StateCommon.Content.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.balanceqty.StateDisabled.Content.Color1 = System.Drawing.Color.Black
-        Me.balanceqty.TabIndex = 91
         '
         'loopissue
         '
