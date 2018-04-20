@@ -193,7 +193,7 @@ declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_t
             End If
         End If
 
-        sql.updatetransdates(transno.Text, transdate.Text, duedate.Text, qty.Text, xyzref.Text)
+        sql.updatetransdates(transno.Text, transdate.Text, duedate.Text, qty.Text, xyzref.Text, ADJUSTMENTREMARKS.Text)
 
         If KryptonCheckBox1.Checked = True And Not newstockno.Text = "" Then
             updatenewstockno(transno.Text, newstockno.Text)
@@ -1023,5 +1023,52 @@ and typecolor = '" & newtypecolor.Text & "' and articleno = '" & newarticleno.Te
         Finally
             sql.sqlcon.Close()
         End Try
+    End Sub
+
+    Private Sub adjustment_Leave(sender As Object, e As EventArgs) Handles adjustment.Leave
+        If IsNumeric(adjustment.Text) Then
+        Else
+            MsgBox("invalid qty")
+            adjustment.Focus()
+        End If
+    End Sub
+    Dim tempbol As Boolean = True
+    Public mastr As String
+    Private Sub KryptonButton4_Click(sender As Object, e As EventArgs) Handles KryptonButton4.Click
+        If tempbol = True Then
+            mastr = ADJUSTMENTREMARKS.Text
+            tempbol = False
+        End If
+        qty.Text = Double.Parse(initialqty.Text) + Double.Parse(adjustment.Text)
+        workonremarks("+")
+        qty.Focus()
+    End Sub
+
+    Private Sub KryptonButton5_Click(sender As Object, e As EventArgs) Handles KryptonButton5.Click
+        If tempbol = True Then
+            mastr = ADJUSTMENTREMARKS.Text
+            tempbol = False
+        End If
+        qty.Text = Double.Parse(initialqty.Text) - Double.Parse(adjustment.Text)
+        workonremarks("-")
+        qty.Focus()
+    End Sub
+    Public Sub workonremarks(ByVal tr As String)
+        Dim total As Double = 0
+        Dim numbers() As String
+        Dim chars As String
+        Dim newremarks As String
+        If tr = "+" Then
+            numbers = Split(mastr + "+" + adjustment.Text, "+")
+        ElseIf tr = "-" Then
+            numbers = Split(mastr + "+" + "" & (Double.Parse(adjustment.Text) * -1) & "", "+")
+        End If
+
+        For Each number In numbers
+            total = total + Val(number)
+            chars = chars + "+" + "" & Val(number) & ""
+        Next
+        newremarks = chars + "=" + "" & total & ""
+        ADJUSTMENTREMARKS.Text = newremarks.Remove(0, 1)
     End Sub
 End Class

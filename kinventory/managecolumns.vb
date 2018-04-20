@@ -323,12 +323,18 @@ Public Class managecolumns
         Else
             disc1 = " "
         End If
+        Dim adjremarks1 As String
+        If adjqty.Checked = True Then
+            adjremarks1 = "adjustmentqty "
+        Else
+            adjremarks1 = " "
+        End If
         colmns = transno1 + tstockno1 + costhead1 +
             typecolor1 + articleno1 + transtype1 +
             transdate1 + duedate1 + qty1 + reference1 +
             account1 + controlno1 + excess1 + remarks1 +
             ufactors1 + checker1 + unitprice1 + Currency1 +
-            txrate1 + netamount1 + inputted1 + disc1
+            txrate1 + netamount1 + inputted1 + disc1 + adjremarks1
         colmns = Trim(colmns)
 
         sql.tmanagecols()
@@ -608,7 +614,11 @@ Public Class managecolumns
             Else
                 tdisc.Checked = False
             End If
-
+            If tcolumns.Contains("adjustmentqty") Then
+                adjqty.Checked = True
+            Else
+                adjqty.Checked = False
+            End If
 
         Catch ex As Exception
             MsgBox(ex.ToString)

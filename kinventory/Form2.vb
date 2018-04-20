@@ -1179,7 +1179,8 @@ A.DISC,
 ((a.ufactor * a.qty)*(a.unitprice-((a.disc*0.01)*a.unitprice))) as CURRENCY,
 a.XRATE,
 A.NETAMOUNT,
-A.INPUTTED
+A.INPUTTED,
+A.ADJUSTMENTQTY
  from trans_tb as a inner join stocks_tb as b
 on a.stockno = b.stockno"
         If all.Checked = True And Not transreference.Text = "" And Not transtransaction.Text = "" And Not transactioncosthead.Text = "" Then

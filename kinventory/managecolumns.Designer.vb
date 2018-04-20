@@ -25,6 +25,7 @@ Partial Class managecolumns
         Me.supplier = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.mylocation = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
         Me.physical2 = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
         Me.Stockno = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
         Me.CONSUMPTION = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
@@ -74,7 +75,7 @@ Partial Class managecolumns
         Me.tcosthead = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
         Me.KryptonButton1 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.KryptonButton2 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
-        Me.mylocation = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
+        Me.adjqty = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -138,6 +139,18 @@ Partial Class managecolumns
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Stocks Columns"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'mylocation
+        '
+        Me.mylocation.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
+        Me.mylocation.Location = New System.Drawing.Point(210, 318)
+        Me.mylocation.Name = "mylocation"
+        Me.mylocation.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.mylocation.Size = New System.Drawing.Size(98, 19)
+        Me.mylocation.StateCommon.ShortText.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.mylocation.TabIndex = 41
+        Me.mylocation.Text = "My Location"
+        Me.mylocation.Values.Text = "My Location"
         '
         'physical2
         '
@@ -429,6 +442,7 @@ Partial Class managecolumns
         '
         'TabPage2
         '
+        Me.TabPage2.Controls.Add(Me.adjqty)
         Me.TabPage2.Controls.Add(Me.tdisc)
         Me.TabPage2.Controls.Add(Me.tinputted)
         Me.TabPage2.Controls.Add(Me.tnetamount)
@@ -749,17 +763,17 @@ Partial Class managecolumns
         Me.KryptonButton2.TabIndex = 13
         Me.KryptonButton2.Values.Text = "Cancel"
         '
-        'mylocation
+        'adjqty
         '
-        Me.mylocation.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
-        Me.mylocation.Location = New System.Drawing.Point(210, 318)
-        Me.mylocation.Name = "mylocation"
-        Me.mylocation.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
-        Me.mylocation.Size = New System.Drawing.Size(98, 19)
-        Me.mylocation.StateCommon.ShortText.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.mylocation.TabIndex = 41
-        Me.mylocation.Text = "My Location"
-        Me.mylocation.Values.Text = "My Location"
+        Me.adjqty.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
+        Me.adjqty.Location = New System.Drawing.Point(210, 268)
+        Me.adjqty.Name = "adjqty"
+        Me.adjqty.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.adjqty.Size = New System.Drawing.Size(118, 19)
+        Me.adjqty.StateCommon.ShortText.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.adjqty.TabIndex = 75
+        Me.adjqty.Text = "Adjustment Qty"
+        Me.adjqty.Values.Text = "Adjustment Qty"
         '
         'managecolumns
         '
@@ -836,4 +850,5 @@ Partial Class managecolumns
     Friend WithEvents tcosthead As ComponentFactory.Krypton.Toolkit.KryptonCheckBox
     Friend WithEvents tdisc As ComponentFactory.Krypton.Toolkit.KryptonCheckBox
     Friend WithEvents mylocation As ComponentFactory.Krypton.Toolkit.KryptonCheckBox
+    Friend WithEvents adjqty As ComponentFactory.Krypton.Toolkit.KryptonCheckBox
 End Class

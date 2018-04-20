@@ -5,9 +5,11 @@ Imports System.Data.SqlClient
 Imports System.Configuration
 Imports System.Security.Cryptography
 Imports System.Windows.Forms.DataVisualization.Charting
+Imports System.ComponentModel
+
 Public Class sql
     Dim datasource As String = Form9.myaccess.Text.ToString
-    Dim catalog As String = "finaltrans"
+    Dim catalog As String = "FINALTRANS"
     Dim userid As String = "kmdiadmin"
     Dim password As String = "kmdiadmin"
     Public sqlcon As New SqlConnection With {.ConnectionString = "Data Source='" & datasource & "';Network Library=DBMSSOCN;Initial Catalog='" & catalog & "';User ID='" & userid & "';Password='" & password & "';"}
@@ -659,23 +661,23 @@ unitprice = '" & unitprice & "',
 aveusage='" & aveusage & "',
 location='" & location & "',
 UNIT='" & unit & "' where stockno='" & stockno & "'"
-            sqlcmd = New SqlCommand(str, sqlcon)
-            sqlcmd.ExecuteNonQuery()
-            MessageBox.Show("Stocks Updated!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Form4.supplier.Enabled = False
-            Form4.costhead.Enabled = False
-            Form4.header.Enabled = False
-            Form4.colorbased.Enabled = False
-            Form4.articleno.Enabled = False
-            Form4.typecolor.Enabled = False
-            Form4.description.Enabled = False
-            Form4.min.Enabled = False
-            Form4.monetary.Enabled = False
-            Form4.unitprice.Enabled = False
-            Form4.aveusage.Enabled = False
-            Form4.location.Enabled = False
-            Form4.unit.Enabled = False
-            Form4.editbtn.Visible = True
+                sqlcmd = New SqlCommand(str, sqlcon)
+                sqlcmd.ExecuteNonQuery()
+                MessageBox.Show("Stocks Updated!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Form4.supplier.Enabled = False
+                Form4.costhead.Enabled = False
+                Form4.header.Enabled = False
+                Form4.colorbased.Enabled = False
+                Form4.articleno.Enabled = False
+                Form4.typecolor.Enabled = False
+                Form4.description.Enabled = False
+                Form4.min.Enabled = False
+                Form4.monetary.Enabled = False
+                Form4.unitprice.Enabled = False
+                Form4.aveusage.Enabled = False
+                Form4.location.Enabled = False
+                Form4.unit.Enabled = False
+                Form4.editbtn.Visible = True
                 Form4.savebtn.Visible = False
             End If
         Catch ex As Exception
@@ -689,6 +691,30 @@ UNIT='" & unit & "' where stockno='" & stockno & "'"
         Try
             sqlcon.Open()
             Dim ds As New DataSet
+
+
+            Dim i As Integer
+            If Form2.transgridview.SortedColumn Is Nothing Then
+                i = 4
+            Else
+                i = Form2.transgridview.SortedColumn.Index
+            End If
+
+            Dim SetSortOrder As ListSortDirection
+            Dim GridSortOrder As SortOrder
+            GridSortOrder = Form2.transgridview.SortOrder
+            If GridSortOrder = Windows.Forms.SortOrder.Ascending Then
+                SetSortOrder = ListSortDirection.Ascending
+            ElseIf GridSortOrder = Windows.Forms.SortOrder.Descending Then
+                SetSortOrder = ListSortDirection.Descending
+            ElseIf GridSortOrder = Windows.Forms.SortOrder.None Then
+                SetSortOrder = ListSortDirection.Ascending
+            Else : GridSortOrder = ListSortDirection.Ascending
+
+            End If
+
+
+
             ds.Clear()
             top = top.Replace(",", "")
             Dim tops As String = "top " & top & " "
@@ -715,7 +741,8 @@ A.DISC,
 ((a.ufactor * a.qty)*(a.unitprice-((a.disc*0.01)*a.unitprice))) as CURRENCY,
 a.XRATE,
 A.NETAMOUNT,
-A.INPUTTED
+A.INPUTTED,
+A.ADJUSTMENTQTY
  from trans_tb as a inner join stocks_tb as b
 on a.stockno = b.stockno order by a.transdate desc"
             sqlcmd = New SqlCommand(str, sqlcon)
@@ -725,7 +752,7 @@ on a.stockno = b.stockno order by a.transdate desc"
             Form2.transBindingSource.DataSource = ds
             Form2.transBindingSource.DataMember = "trans_tb"
             Form2.transgridview.DataSource = Form2.transBindingSource
-
+            Form2.transgridview.Sort(Form2.transgridview.Columns(i), SetSortOrder)
             Form2.transgridview.Columns("DESCRIPTION").Visible = False
 
             Form2.transgridview.Columns("xyz").Visible = False
@@ -2212,7 +2239,7 @@ INPUTTED from trans_tb where stockno='" & stockno & "' order by transdate desc"
             For i As Integer = 0 To Form4.mytransgridview.RowCount - 1 Step +1
                 Dim s As String = Form4.mytransgridview.Rows(i).Cells("balqty").Value.ToString
                 Dim t As String = Form4.mytransgridview.Rows(i).Cells("transtype").Value.ToString
-                If Not s = "0.00" And Not s = "" And T = "Allocation" Then
+                If Not s = "0.00" And Not s = "" And t = "Allocation" Then
                     Form4.mytransgridview.Rows(i).Cells("balqty").Style.ForeColor = Color.Red
                 End If
             Next
@@ -2692,7 +2719,25 @@ INPUTTED
         Try
             sqlcon.Open()
             Dim ds As New DataSet
+            Dim i As Integer
+            If Form2.transgridview.SortedColumn Is Nothing Then
+                i = 4
+            Else
+                i = Form2.transgridview.SortedColumn.Index
+            End If
 
+            Dim SetSortOrder As ListSortDirection
+            Dim GridSortOrder As SortOrder
+            GridSortOrder = Form2.transgridview.SortOrder
+            If GridSortOrder = Windows.Forms.SortOrder.Ascending Then
+                SetSortOrder = ListSortDirection.Ascending
+            ElseIf GridSortOrder = Windows.Forms.SortOrder.Descending Then
+                SetSortOrder = ListSortDirection.Descending
+            ElseIf GridSortOrder = Windows.Forms.SortOrder.None Then
+                SetSortOrder = ListSortDirection.Ascending
+            Else : GridSortOrder = ListSortDirection.Ascending
+
+            End If
             ds.Clear()
 
             sqlcmd = New SqlCommand(search + " order by a.transdate desc", sqlcon)
@@ -2702,8 +2747,10 @@ INPUTTED
             Form2.transBindingSource.DataSource = ds
             Form2.transBindingSource.DataMember = "trans_tb"
             Form2.transgridview.DataSource = Form2.transBindingSource
-            Form2.transgridview.Columns("DESCRIPTION").Visible = False
 
+            Form2.transgridview.Sort(Form2.transgridview.Columns(i), SetSortOrder)
+
+            Form2.transgridview.Columns("DESCRIPTION").Visible = False
             Form2.transgridview.Columns("xyz").Visible = False
             Form2.transgridview.Columns("QTY").DefaultCellStyle.Format = "N2"
             Form2.transgridview.Columns("EXCESS").DefaultCellStyle.Format = "N2"
@@ -2727,18 +2774,25 @@ INPUTTED
             cuttinglist.remarks.DataBindings.Clear()
             cuttinglist.allocation.DataBindings.Clear()
             cuttinglist.transtype.DataBindings.Clear()
+            Form2.description.DataBindings.Clear()
             cuttinglist.transno.DataBindings.Add("text", Form2.transBindingSource, "transno")
             cuttinglist.remarks.DataBindings.Add("text", Form2.transBindingSource, "remarks")
             cuttinglist.allocation.DataBindings.Add("text", Form2.transBindingSource, "qty")
             cuttinglist.transtype.DataBindings.Add("text", Form2.transBindingSource, "TRANSTYPE")
+            Form2.description.DataBindings.Add("text", Form2.transBindingSource, "DESCRIPTION")
 
 
-            sqlcmd = New SqlCommand(count, sqlcon)
-            Dim readerr As SqlDataReader = sqlcmd.ExecuteReader
-            While readerr.Read
-                Form2.noofresults.Text = readerr(0).ToString() + " results found / Foreign currency : " + readerr(1).ToString
-            End While
-            readerr.Close()
+            If Form2.transtransaction.Text = "Receipt" Or Form2.transtransaction.Text = "Order" Then
+                sqlcmd = New SqlCommand(count, sqlcon)
+                Dim readerr As SqlDataReader = sqlcmd.ExecuteReader
+                While readerr.Read
+                    Form2.noofresults.Text = readerr(0).ToString() + " results found / Foreign currency : " + readerr(1).ToString
+                End While
+                readerr.Close()
+            End If
+
+
+
 
             tmanagecols()
         Catch ex As Exception
@@ -2802,7 +2856,7 @@ INPUTTED
             sqlcon.Close()
         End Try
     End Sub
-    Public Sub updatetransdates(ByVal transno As String, ByVal transdate As String, ByVal duedate As String, ByVal qty As String, ByVal xyzref As String)
+    Public Sub updatetransdates(ByVal transno As String, ByVal transdate As String, ByVal duedate As String, ByVal qty As String, ByVal xyzref As String, ByVal adjremarks As String)
         Try
             sqlcon.Open()
             Dim str As String = ""
@@ -2819,7 +2873,7 @@ INPUTTED
                        update trans_tb set qty = '" & qty & "',netamount=(xrate*(unitprice-((disc*0.01)*unitprice)))*(" & qty & "*ufactor) where transno = '" & xyzref & "'"
                 'allocation
             ElseIf Form5.transtype.Text = "Allocation" And Form5.xyzref.Text = "" Then
-                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "', qty = '" & qty & "' where transno = '" & transno & "'"
+                str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "', qty = '" & qty & "', adjustmentqty='" & adjremarks & "' where transno = '" & transno & "'"
             ElseIf Form5.transtype.Text = "Allocation" And Not Form5.xyzref.Text = "" Then
                 str = "update trans_tb set transdate='" & transdate & "',duedate ='" & duedate & "' where transno = '" & transno & "'"
                 'issue
@@ -2886,7 +2940,8 @@ a.REFERENCE,
 a.ACCOUNT,
 a.CONTROLNO,
 a.xyzref,
-a.balqty
+a.balqty,
+a.adjustmentqty
  from trans_tb as a inner join stocks_tb as b
 on a.stockno = b.stockno where a.transno='" & transno & "'"
             Dim ds As New DataSet
@@ -2915,6 +2970,7 @@ on a.stockno = b.stockno where a.transno='" & transno & "'"
             Form5.account.DataBindings.Clear()
             Form5.controlno.DataBindings.Clear()
             Form5.xyzref.DataBindings.Clear()
+            Form5.ADJUSTMENTREMARKS.DataBindings.Clear()
             Form5.stockno.DataBindings.Add("text", bs, "stockno")
             Form5.costhead.DataBindings.Add("text", bs, "COSTHEAD")
             Form5.typecolor.DataBindings.Add("text", bs, "TYPECOLOR")
@@ -2930,6 +2986,7 @@ on a.stockno = b.stockno where a.transno='" & transno & "'"
             Form5.account.DataBindings.Add("text", bs, "ACCOUNT")
             Form5.controlno.DataBindings.Add("text", bs, "CONTROLNO")
             Form5.xyzref.DataBindings.Add("text", bs, "xyzref")
+            Form5.ADJUSTMENTREMARKS.DataBindings.Add("text", bs, "adjustmentqty")
 
             Form5.newcosthead.DataBindings.Clear()
             Form5.newtypecolor.DataBindings.Clear()
@@ -3560,6 +3617,11 @@ UPDATE STOCKS_TB SET consumption=isnull(@consumption,0) where stockno='" & stock
                 Else
                     managecolumns.tdisc.Checked = False
                 End If
+                If tcolumns.Contains("adjustmentqty") Then
+                    managecolumns.adjqty.Checked = True
+                Else
+                    managecolumns.adjqty.Checked = False
+                End If
 
                 Form1.Show()
                 Form9.Hide()
@@ -4009,7 +4071,7 @@ accttype='" & acctype & "' where id = '" & id & "'"
             Else
                 Form2.stocksgridview.Columns("TOFOIL").Visible = False
             End If
-            If managecolumns.BALALLOC.Checked = True Then
+            If managecolumns.balalloc.Checked = True Then
                 Form2.stocksgridview.Columns("BALALLOC").Visible = True
             Else
                 Form2.stocksgridview.Columns("BALALLOC").Visible = False
@@ -4053,6 +4115,7 @@ accttype='" & acctype & "' where id = '" & id & "'"
 
 
             'transaction
+
             If managecolumns.transno.Checked = True Then
                 Form2.transgridview.Columns("TRANSNO").Visible = True
             Else
@@ -4075,8 +4138,10 @@ accttype='" & acctype & "' where id = '" & id & "'"
             End If
             If managecolumns.tarticleno.Checked = True Then
                 Form2.transgridview.Columns("articleno").Visible = True
+                Form2.transgridview.Columns("articleno").Frozen = True
             Else
                 Form2.transgridview.Columns("articleno").Visible = False
+                Form2.transgridview.Columns("articleno").Frozen = False
             End If
             If managecolumns.transtype.Checked = True Then
                 Form2.transgridview.Columns("transtype").Visible = True
@@ -4167,6 +4232,11 @@ accttype='" & acctype & "' where id = '" & id & "'"
                 Form2.transgridview.Columns("disc").Visible = True
             Else
                 Form2.transgridview.Columns("disc").Visible = False
+            End If
+            If managecolumns.adjqty.Checked = True Then
+                Form2.transgridview.Columns("adjustmentqty").Visible = True
+            Else
+                Form2.transgridview.Columns("adjustmentqty").Visible = False
             End If
         Catch ex As Exception
             MsgBox(ex.ToString)
