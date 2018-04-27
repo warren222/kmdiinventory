@@ -950,6 +950,7 @@ insert into trans_tb
             XYZ,
             XYZREF,
             REMARKS,
+ufactor,unitprice,disc,xrate,netamount
             INPUTTED)
 select
    STOCKNO,
@@ -962,7 +963,7 @@ select
             CONTROLNO,
             '',
             '',
-            REMARKS,
+            REMARKS,ufactor,unitprice,disc,xrate,(unitprice*xrate)*(" & bal & "*ufactor),
             '" & Form1.Label1.Text & "'
             from trans_tb where transno = " & transno & ""
             sqlcmd = New SqlCommand(str, sql.sqlcon)
