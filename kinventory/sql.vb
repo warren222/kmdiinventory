@@ -14,7 +14,6 @@ Public Class sql
     Dim password As String = "kmdiadmin"
     Public sqlcon As New SqlConnection With {.ConnectionString = "Data Source='" & datasource & "';Network Library=DBMSSOCN;Initial Catalog='" & catalog & "';User ID='" & userid & "';Password='" & password & "';"}
     Public sqlcon1 As New SqlConnection With {.ConnectionString = "Data Source='121.58.229.248,49107';Network Library=DBMSSOCN;Initial Catalog='KMDIDATA';User ID='kmdiadmin';Password='kmdiadmin';"}
-
     Dim da As New SqlDataAdapter
     Dim sqlcmd As New SqlCommand
     'Dim scrollval As Integer
@@ -3503,7 +3502,11 @@ UPDATE STOCKS_TB SET consumption=isnull(@consumption,0) where stockno='" & stock
                 Else
                     managecolumns.mylocation.Checked = False
                 End If
-
+                If scolumns.Contains("header") Then
+                    managecolumns.header.Checked = True
+                Else
+                    managecolumns.header.Checked = False
+                End If
 
 
                 'transaction
@@ -4105,6 +4108,11 @@ accttype='" & acctype & "' where id = '" & id & "'"
                 Form2.stocksgridview.Columns("MYLOCATION").Visible = True
             Else
                 Form2.stocksgridview.Columns("MYLOCATION").Visible = False
+            End If
+            If managecolumns.header.Checked = True Then
+                Form2.stocksgridview.Columns("header").Visible = True
+            Else
+                Form2.stocksgridview.Columns("header").Visible = False
             End If
         Catch ex As Exception
             MsgBox(ex.ToString)

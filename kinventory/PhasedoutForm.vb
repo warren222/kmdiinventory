@@ -110,8 +110,28 @@ Public Class PhasedoutForm
             Next
         Else
         End If
+        If KryptonCheckBox15.Checked = True Then
+            For i As Integer = 0 To Form2.stocksStocksno.Items.Count - 1
+                Dim stockno As String = Form2.stocksStocksno.Items(i).ToString
+                upheader(header.Text, stockno)
+            Next
+        Else
+        End If
         Form2.KryptonButton1.PerformClick()
         Button1.PerformClick()
+    End Sub
+    Public Sub upheader(ByVal header As String, ByVal stockno As String)
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "
+update stocks_tb set header='" & header & "' where stockno='" & stockno & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            sqlcmd.ExecuteNonQuery()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
     End Sub
     Public Sub updisc(ByVal myval As String, ByVal stockno As String)
         Try
@@ -568,4 +588,25 @@ update stocks_tb set unitprice='" & myval & "' where stockno='" & stockno & "'"
         End Try
     End Sub
 
+    Private Sub header_MouseDown(sender As Object, e As MouseEventArgs) Handles header.MouseDown
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "select distinct header from stocks_tb order by header asc"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            Dim ds As New DataSet
+            ds.Clear()
+            Dim bs As New BindingSource
+            Dim da As New SqlDataAdapter
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "stocks_tb")
+            bs.DataSource = ds
+            bs.DataMember = "stocks_tb"
+            header.DataSource = bs
+            header.DisplayMember = "header"
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
 End Class

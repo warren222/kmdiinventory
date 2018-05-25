@@ -164,6 +164,12 @@ Public Class managecolumns
         Else
             mylocation1 = " "
         End If
+        Dim header1 As String
+        If header.Checked = True Then
+            header1 = "header "
+        Else
+            header1 = " "
+        End If
         colmns = stockno1 + supplier1 +
             costhead1 + typecolor1 + articleno1 +
             discount1 + unitprice1 + physical1 +
@@ -171,7 +177,7 @@ Public Class managecolumns
             minimum1 + issue1 + status1 + phasedout1 +
             basedcolor1 + inputted1 + toorder1 + tofoil1 +
             balalloc1 + physical21 + weight1 + xrate1 +
-            netamount1 + consumption1 + mylocation1
+            netamount1 + consumption1 + mylocation1 + header1
         colmns = Trim(colmns)
         sql.managecols()
 
@@ -500,6 +506,11 @@ Public Class managecolumns
                 mylocation.Checked = True
             Else
                 mylocation.Checked = False
+            End If
+            If scolumns.Contains("header") Then
+                header.Checked = True
+            Else
+                header.Checked = False
             End If
 
 

@@ -892,6 +892,8 @@ update reference_tb set
                 Dim amount As Double
                 Dim ufactor As Double
                 Dim disc As Double
+
+                Dim unitTCT As String
                 Dim rqty As Double = receiptqty.Text
                 Try
                     sql.sqlcon.Open()
@@ -903,6 +905,7 @@ update reference_tb set
                         unit = read(1).ToString
                         rate = read(2).ToString
                         disc = read(3).ToString
+                        unitTCT = read(1).ToString
                     End While
                     read.Close()
                 Catch ex As Exception
@@ -921,7 +924,7 @@ update reference_tb set
                        receiptqty.Text,
                       receiptreference.Text,
                        account,
-                       controlno, XYZ, receipttransno.Text, remarks, ufactor, unit, disc, rate, amount)
+                       controlno, XYZ, receipttransno.Text, remarks, ufactor, unitTCT, disc, rate, amount)
                 updatetransaction(receiptqty.Text, receipttransno.Text)
 
                 Dim bal = order - myreceipt
@@ -2095,7 +2098,7 @@ a.*,
                 str = "select * from stocks_tb where " & acol & "='" & a & "' and " & bcol & "='" & b & "' and " & ccol & "='" & c & "' and " & dcol & "='" & d & "' and " & fcol & "='" & f & "' and " & phasedout & " and " & toorder & ""
             End If
 
-            sql.reporting(str)
+            sql.reporting(str + " order by articleno asc")
             Form8.ShowDialog()
         ElseIf ir.Checked = False And scr.Checked = True Then
             Dim parReportParam1 As New ReportParameter("buffermonth", Me.mymonth.Text)
@@ -3151,10 +3154,6 @@ on a.stockno = b.stockno where A.STOCKNO='" & STOCKNO & "' and a.TRANSTYPE='Rece
             MsgBox(ex.ToString)
         End Try
     End Sub
-
-
-
-
     Private Sub KryptonButton30_Click(sender As Object, e As EventArgs) Handles KryptonButton30.Click
         accountingreport.ShowDialog()
     End Sub
@@ -3200,5 +3199,28 @@ on a.stockno = b.stockno where A.STOCKNO='" & STOCKNO & "' and a.TRANSTYPE='Rece
         Else
             Exit Sub
         End If
+    End Sub
+
+    Private Sub KryptonButton32_Click(sender As Object, e As EventArgs) Handles KryptonButton32.Click
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "  SELECT
+a.header,sum(a.netamount) as MOVING,( select sum(netamount) from stocks_tb where PHASEDOUT LIKE '%Yes%' and header = a.header) AS PHASEDOUT
+  FROM stocks_tb as a where not a.PHASEDOUT = 'Yes'
+ group by header order by a.header asc
+"
+            Dim DS As New inventoryds
+            DS.Clear()
+            Dim DA As New SqlDataAdapter
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            DA.SelectCommand = sqlcmd
+            DA.Fill(DS.STOCKSTB1)
+            HEADERREPORTFRM.STOCKSTB1BindingSource.DataSource = DS.STOCKSTB1.DefaultView
+            HEADERREPORTFRM.ShowDialog()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
     End Sub
 End Class

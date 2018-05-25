@@ -138,6 +138,56 @@ declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_t
         Else
             x = balanceqty.Text
         End If
+        If transtype.Text = "Issue" Then
+            Dim maxtransaction As String
+            Try
+                sql.sqlcon.Open()
+                Dim findmax As String = "select max(transno) from trans_tb where 
+stockno='" & stockno.Text & "' and 
+reference = '" & reference.Text & "' and
+transtype = 'Issue'"
+                sqlcmd = New SqlCommand(findmax, sql.sqlcon)
+                Dim read As SqlDataReader = sqlcmd.ExecuteReader
+                While read.Read
+                    maxtransaction = read(0).ToString
+                End While
+                read.Close()
+            Catch ex As Exception
+                MsgBox(ex.ToString)
+            Finally
+                sql.sqlcon.Close()
+            End Try
+            If Not transno.Text = maxtransaction And Not initialqty.Text = qty.Text Then
+                MessageBox.Show("unable to update quantity
+proceed to latest issue", "", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            Else
+
+            End If
+
+            Dim orig As Double = initialqty.Text
+            Dim newqty As Double = qty.Text
+            Dim bal As Double = x
+
+            Dim result As Double = orig - newqty
+            Dim justupdate As String
+            If result >= 0 Then
+                Dim v As Double = bal + result
+                justupdate = "update trans_tb set balqty = '" & v & "' where transno = '" & transno.Text & "'"
+            Else
+                Dim v As Double = bal - (-1 * result)
+                justupdate = "update trans_tb set balqty = '" & v & "' where transno = '" & transno.Text & "'"
+            End If
+            Try
+                sql.sqlcon.Open()
+                sqlcmd = New SqlCommand(justupdate, sql.sqlcon)
+                sqlcmd.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox(ex.ToString)
+            Finally
+                sql.sqlcon.Close()
+            End Try
+        End If
         If transtype.Text = "Allocation" And xyzref.Text = "" Then
             Dim orig As Double = initialqty.Text
             Dim newqty As Double = qty.Text

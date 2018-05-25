@@ -51,6 +51,7 @@ Partial Class managecolumns
         Me.typecolor = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
         Me.costhead = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.adjqty = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
         Me.tdisc = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
         Me.tinputted = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
         Me.tnetamount = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
@@ -75,7 +76,7 @@ Partial Class managecolumns
         Me.tcosthead = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
         Me.KryptonButton1 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.KryptonButton2 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
-        Me.adjqty = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
+        Me.header = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -106,6 +107,7 @@ Partial Class managecolumns
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.header)
         Me.TabPage1.Controls.Add(Me.mylocation)
         Me.TabPage1.Controls.Add(Me.physical2)
         Me.TabPage1.Controls.Add(Me.Stockno)
@@ -143,7 +145,7 @@ Partial Class managecolumns
         'mylocation
         '
         Me.mylocation.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
-        Me.mylocation.Location = New System.Drawing.Point(210, 318)
+        Me.mylocation.Location = New System.Drawing.Point(142, 318)
         Me.mylocation.Name = "mylocation"
         Me.mylocation.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.mylocation.Size = New System.Drawing.Size(98, 19)
@@ -155,7 +157,7 @@ Partial Class managecolumns
         'physical2
         '
         Me.physical2.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
-        Me.physical2.Location = New System.Drawing.Point(210, 193)
+        Me.physical2.Location = New System.Drawing.Point(142, 193)
         Me.physical2.Name = "physical2"
         Me.physical2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.physical2.Size = New System.Drawing.Size(87, 19)
@@ -179,7 +181,7 @@ Partial Class managecolumns
         'CONSUMPTION
         '
         Me.CONSUMPTION.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
-        Me.CONSUMPTION.Location = New System.Drawing.Point(210, 293)
+        Me.CONSUMPTION.Location = New System.Drawing.Point(142, 293)
         Me.CONSUMPTION.Name = "CONSUMPTION"
         Me.CONSUMPTION.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.CONSUMPTION.Size = New System.Drawing.Size(144, 19)
@@ -191,7 +193,7 @@ Partial Class managecolumns
         'NETAMOUNT
         '
         Me.NETAMOUNT.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
-        Me.NETAMOUNT.Location = New System.Drawing.Point(210, 268)
+        Me.NETAMOUNT.Location = New System.Drawing.Point(142, 268)
         Me.NETAMOUNT.Name = "NETAMOUNT"
         Me.NETAMOUNT.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.NETAMOUNT.Size = New System.Drawing.Size(96, 19)
@@ -203,7 +205,7 @@ Partial Class managecolumns
         'XRATE
         '
         Me.XRATE.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
-        Me.XRATE.Location = New System.Drawing.Point(210, 243)
+        Me.XRATE.Location = New System.Drawing.Point(142, 243)
         Me.XRATE.Name = "XRATE"
         Me.XRATE.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.XRATE.Size = New System.Drawing.Size(67, 19)
@@ -215,7 +217,7 @@ Partial Class managecolumns
         'WEIGHT
         '
         Me.WEIGHT.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
-        Me.WEIGHT.Location = New System.Drawing.Point(210, 218)
+        Me.WEIGHT.Location = New System.Drawing.Point(142, 218)
         Me.WEIGHT.Name = "WEIGHT"
         Me.WEIGHT.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.WEIGHT.Size = New System.Drawing.Size(67, 19)
@@ -227,7 +229,7 @@ Partial Class managecolumns
         'TOFOIL
         '
         Me.TOFOIL.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
-        Me.TOFOIL.Location = New System.Drawing.Point(210, 143)
+        Me.TOFOIL.Location = New System.Drawing.Point(142, 143)
         Me.TOFOIL.Name = "TOFOIL"
         Me.TOFOIL.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.TOFOIL.Size = New System.Drawing.Size(66, 19)
@@ -239,7 +241,7 @@ Partial Class managecolumns
         'TOORDER
         '
         Me.TOORDER.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
-        Me.TOORDER.Location = New System.Drawing.Point(210, 118)
+        Me.TOORDER.Location = New System.Drawing.Point(142, 118)
         Me.TOORDER.Name = "TOORDER"
         Me.TOORDER.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.TOORDER.Size = New System.Drawing.Size(79, 19)
@@ -251,7 +253,7 @@ Partial Class managecolumns
         'INPUTTED
         '
         Me.INPUTTED.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
-        Me.INPUTTED.Location = New System.Drawing.Point(210, 93)
+        Me.INPUTTED.Location = New System.Drawing.Point(142, 93)
         Me.INPUTTED.Name = "INPUTTED"
         Me.INPUTTED.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.INPUTTED.Size = New System.Drawing.Size(74, 19)
@@ -263,7 +265,7 @@ Partial Class managecolumns
         'balalloc
         '
         Me.balalloc.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
-        Me.balalloc.Location = New System.Drawing.Point(210, 168)
+        Me.balalloc.Location = New System.Drawing.Point(142, 168)
         Me.balalloc.Name = "balalloc"
         Me.balalloc.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.balalloc.Size = New System.Drawing.Size(81, 19)
@@ -275,7 +277,7 @@ Partial Class managecolumns
         'COLORBASED
         '
         Me.COLORBASED.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
-        Me.COLORBASED.Location = New System.Drawing.Point(210, 68)
+        Me.COLORBASED.Location = New System.Drawing.Point(142, 68)
         Me.COLORBASED.Name = "COLORBASED"
         Me.COLORBASED.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.COLORBASED.Size = New System.Drawing.Size(99, 19)
@@ -287,7 +289,7 @@ Partial Class managecolumns
         'phasedout
         '
         Me.phasedout.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
-        Me.phasedout.Location = New System.Drawing.Point(210, 43)
+        Me.phasedout.Location = New System.Drawing.Point(142, 43)
         Me.phasedout.Name = "phasedout"
         Me.phasedout.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.phasedout.Size = New System.Drawing.Size(96, 19)
@@ -299,7 +301,7 @@ Partial Class managecolumns
         'status
         '
         Me.status.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
-        Me.status.Location = New System.Drawing.Point(210, 18)
+        Me.status.Location = New System.Drawing.Point(142, 18)
         Me.status.Name = "status"
         Me.status.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.status.Size = New System.Drawing.Size(63, 19)
@@ -472,6 +474,18 @@ Partial Class managecolumns
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Trans Columns"
         Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'adjqty
+        '
+        Me.adjqty.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
+        Me.adjqty.Location = New System.Drawing.Point(210, 268)
+        Me.adjqty.Name = "adjqty"
+        Me.adjqty.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.adjqty.Size = New System.Drawing.Size(118, 19)
+        Me.adjqty.StateCommon.ShortText.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.adjqty.TabIndex = 75
+        Me.adjqty.Text = "Adjustment Qty"
+        Me.adjqty.Values.Text = "Adjustment Qty"
         '
         'tdisc
         '
@@ -739,7 +753,7 @@ Partial Class managecolumns
         '
         'KryptonButton1
         '
-        Me.KryptonButton1.Location = New System.Drawing.Point(226, 407)
+        Me.KryptonButton1.Location = New System.Drawing.Point(227, 424)
         Me.KryptonButton1.Name = "KryptonButton1"
         Me.KryptonButton1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
         Me.KryptonButton1.Size = New System.Drawing.Size(68, 25)
@@ -752,7 +766,7 @@ Partial Class managecolumns
         '
         'KryptonButton2
         '
-        Me.KryptonButton2.Location = New System.Drawing.Point(310, 407)
+        Me.KryptonButton2.Location = New System.Drawing.Point(311, 424)
         Me.KryptonButton2.Name = "KryptonButton2"
         Me.KryptonButton2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
         Me.KryptonButton2.Size = New System.Drawing.Size(68, 25)
@@ -763,23 +777,23 @@ Partial Class managecolumns
         Me.KryptonButton2.TabIndex = 13
         Me.KryptonButton2.Values.Text = "Cancel"
         '
-        'adjqty
+        'header
         '
-        Me.adjqty.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
-        Me.adjqty.Location = New System.Drawing.Point(210, 268)
-        Me.adjqty.Name = "adjqty"
-        Me.adjqty.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
-        Me.adjqty.Size = New System.Drawing.Size(118, 19)
-        Me.adjqty.StateCommon.ShortText.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.adjqty.TabIndex = 75
-        Me.adjqty.Text = "Adjustment Qty"
-        Me.adjqty.Values.Text = "Adjustment Qty"
+        Me.header.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl
+        Me.header.Location = New System.Drawing.Point(275, 18)
+        Me.header.Name = "header"
+        Me.header.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.header.Size = New System.Drawing.Size(69, 19)
+        Me.header.StateCommon.ShortText.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.header.TabIndex = 42
+        Me.header.Text = "Header"
+        Me.header.Values.Text = "Header"
         '
         'managecolumns
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(402, 438)
+        Me.ClientSize = New System.Drawing.Size(425, 480)
         Me.Controls.Add(Me.KryptonButton2)
         Me.Controls.Add(Me.KryptonButton1)
         Me.Controls.Add(Me.TabControl1)
@@ -851,4 +865,5 @@ Partial Class managecolumns
     Friend WithEvents tdisc As ComponentFactory.Krypton.Toolkit.KryptonCheckBox
     Friend WithEvents mylocation As ComponentFactory.Krypton.Toolkit.KryptonCheckBox
     Friend WithEvents adjqty As ComponentFactory.Krypton.Toolkit.KryptonCheckBox
+    Friend WithEvents header As ComponentFactory.Krypton.Toolkit.KryptonCheckBox
 End Class
