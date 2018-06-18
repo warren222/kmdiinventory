@@ -54,7 +54,7 @@ values
 '-Transfer'," &
 "'" & Form2.transdate.Text & "'," &
 "'" & stockno.Text & "'," &
-"''," &
+"'" & setlocation.Text & "'," &
 "'" & location.Text & "'," &
 "'" & setqty.Text & "','" & p & "')"
             SQLCMD = New SqlCommand(str, sql.sqlcon)
@@ -76,7 +76,7 @@ values
 '+Transfer'," &
 "'" & Form2.transdate.Text & "'," &
 "'" & stockno.Text & "'," &
-"''," &
+"'" & location.Text & "'," &
 "'" & setlocation.Text & "'," &
 "'" & setqty.Text & "','" & p & "')"
             SQLCMD = New SqlCommand(f, sql.sqlcon)
