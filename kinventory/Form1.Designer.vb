@@ -28,10 +28,10 @@ Partial Class Form1
         Me.LogOutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AccountsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ManageAccountsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ManageColumnsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.ManageColumnsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -78,6 +78,12 @@ Partial Class Form1
         Me.ManageAccountsToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
         Me.ManageAccountsToolStripMenuItem.Text = "Manage Accounts"
         '
+        'ManageColumnsToolStripMenuItem
+        '
+        Me.ManageColumnsToolStripMenuItem.Name = "ManageColumnsToolStripMenuItem"
+        Me.ManageColumnsToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
+        Me.ManageColumnsToolStripMenuItem.Text = "Manage Columns"
+        '
         'Label2
         '
         Me.Label2.AutoSize = True
@@ -91,7 +97,7 @@ Partial Class Form1
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label1.Location = New System.Drawing.Point(12, 17)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(39, 13)
@@ -108,12 +114,6 @@ Partial Class Form1
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(1088, 0)
         Me.Panel1.TabIndex = 459
-        '
-        'ManageColumnsToolStripMenuItem
-        '
-        Me.ManageColumnsToolStripMenuItem.Name = "ManageColumnsToolStripMenuItem"
-        Me.ManageColumnsToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
-        Me.ManageColumnsToolStripMenuItem.Text = "Manage Columns"
         '
         'Form1
         '

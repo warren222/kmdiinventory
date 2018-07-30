@@ -16,6 +16,18 @@ Public Class adjustment
         Try
             sql.sqlcon.Open()
 
+            Dim getrloc As String = "select qty from locationtb where stockno = '" & stockno.Text & "' and location = '" & setlocation.Text & "'"
+            sqlcmd = New SqlCommand(getrloc, sql.sqlcon)
+            Dim lb As String
+            Dim rd As SqlDataReader = sqlcmd.ExecuteReader
+            While rd.Read
+                lb = rd(0).ToString
+            End While
+            rd.Close()
+            Dim EBL As Double = lb
+            Dim ROBALANCE As Double
+
+
 
             Dim physical As String
             Dim l As String = "declare @sd as varchar(50)=(select sum(qty) from locationtb where stockno = '" & stockno.Text & "')
@@ -31,14 +43,19 @@ select @sd"
             Dim newbal As Double
             If transtype = "Issue" Then
                 newbal = p - q
+                ROBALANCE = EBL - q
             ElseIf transtype = "Receipt" Then
                 newbal = p + q
+                ROBALANCE = EBL + q
             ElseIf transtype = "Return" Then
                 newbal = p + q
+                ROBALANCE = EBL + q
             ElseIf transtype = "+Adjustment" Then
                 newbal = p + q
+                ROBALANCE = EBL + q
             ElseIf transtype = "-Adjustment" Then
                 newbal = p - q
+                ROBALANCE = EBL - q
             End If
 
 
@@ -53,7 +70,8 @@ STOCKNO,
 REFERENCE,
 LOCATION,
 QTY,
-BALQTY)
+BALQTY,
+RBALQTY)
 values
 (@autonum,
 '" & transtype & "'," &
@@ -61,7 +79,7 @@ values
 "'" & stockno.Text & "'," &
 "''," &
 "'" & setlocation.Text & "'," &
-"'" & setqty.Text & "','" & newbal & "')"
+"'" & setqty.Text & "','" & newbal & "','" & ROBALANCE & "')"
             sqlcmd = New SqlCommand(str, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()
         Catch ex As Exception

@@ -21,15 +21,17 @@ Public Class DEFAULTITEMS
             bs.DataMember = "stocks_tb"
             stocksgridview.DataSource = bs
 
-            stocksgridview.Columns("supplier").Visible = False
-            stocksgridview.Columns("COSTHEAD").Visible = False
+            stocksgridview.Columns("weight").Visible = False
+            stocksgridview.Columns("disc").Visible = False
+            stocksgridview.Columns("unit").Visible = False
+            stocksgridview.Columns("tofoil").Visible = False
             stocksgridview.Columns("UFACTOR").Visible = False
-            stocksgridview.Columns("TYPECOLOR").Visible = False
+            stocksgridview.Columns("free").Visible = False
             stocksgridview.Columns("MONETARY").Visible = False
             stocksgridview.Columns("UNITPRICE").Visible = False
             stocksgridview.Columns("QTY").Visible = False
             stocksgridview.Columns("Location").Visible = False
-            stocksgridview.Columns("HEADER").Visible = False
+            'stocksgridview.Columns("balalloc").Visible = False
             stocksgridview.Columns("ALLOCATION").Visible = False
             stocksgridview.Columns("STOCKORDER").Visible = False
             stocksgridview.Columns("MINIMUM").Visible = False

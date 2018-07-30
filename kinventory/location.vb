@@ -323,6 +323,19 @@ update locationtb set location = '" & location.Text & "' where id = '" & id.Text
             setqty.Text = Trim(setqty.Text)
             REFERENCE.Text = Trim(REFERENCE.Text)
 
+            Dim getrloc As String = "select qty from locationtb where stockno = '" & stockno.Text & "' and location = '" & setlocation.Text & "'"
+            sqlcmd = New SqlCommand(getrloc, sql.sqlcon)
+            Dim lb As String
+            Dim rd As SqlDataReader = sqlcmd.ExecuteReader
+            While rd.Read
+                lb = rd(0).ToString
+            End While
+            rd.Close()
+            Dim EBL As Double = lb
+            Dim ROBALANCE As Double
+
+
+
             Dim physical As String
             Dim l As String = "declare @sd as varchar(50)=(select sum(qty) from locationtb where stockno = '" & stockno.Text & "')
 select @sd"
@@ -337,14 +350,19 @@ select @sd"
             Dim newbal As Double
             If TRANSTYPE.Text = "Issue" Then
                 newbal = p - q
+                ROBALANCE = EBL - q
             ElseIf TRANSTYPE.Text = "Receipt" Then
                 newbal = p + q
+                ROBALANCE = EBL + q
             ElseIf TRANSTYPE.Text = "Return" Then
                 newbal = p + q
+                ROBALANCE = EBL + q
             ElseIf TRANSTYPE.Text = "+Adjustment" Then
                 newbal = p + q
+                ROBALANCE = EBL + q
             ElseIf TRANSTYPE.Text = "-Adjustment" Then
                 newbal = p - q
+                ROBALANCE = EBL - q
             End If
 
 
@@ -358,7 +376,8 @@ STOCKNO,
 REFERENCE,
 LOCATION,
 QTY,
-BALQTY)
+BALQTY,
+RBALQTY)
 values
 (@autonum,
 '" & TRANSTYPE.Text & "'," &
@@ -366,7 +385,7 @@ values
 "'" & stockno.Text & "'," &
 "'" & REFERENCE.Text & "'," &
 "'" & setlocation.Text & "'," &
-"'" & setqty.Text & "','" & newbal & "')"
+"'" & setqty.Text & "','" & newbal & "','" & ROBALANCE & "')"
             sqlcmd = New SqlCommand(str, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()
         Catch ex As Exception
@@ -499,6 +518,25 @@ values
     End Sub
 
     Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs) Handles Panel3.Paint
+
+    End Sub
+
+    Private Sub KryptonTextBox1_TextChanged(sender As Object, e As EventArgs) Handles minusr.TextChanged
+
+    End Sub
+
+    Private Sub setqty_TextChanged(sender As Object, e As EventArgs) Handles setqty.TextChanged
+        Dim x As String = Trim(currentqty.Text)
+        Dim y As String = Trim(setqty.Text)
+        If IsNumeric(x) And IsNumeric(y) Then
+            Dim d As Double = x
+            Dim t As Double = y
+            minusr.Text = d - t
+            addr.Text = t + d
+        End If
+    End Sub
+
+    Private Sub addr_TextChanged(sender As Object, e As EventArgs) Handles addr.TextChanged
 
     End Sub
 End Class

@@ -23,9 +23,9 @@ Partial Class Form4
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.min = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonLabel14 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonLabel13 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
@@ -102,6 +102,7 @@ Partial Class Form4
         Me.KryptonLabel26 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonLabel24 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonGroup4 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
+        Me.KryptonButton5 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.KryptonButton3 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.KryptonLabel28 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
@@ -128,7 +129,6 @@ Partial Class Form4
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.KryptonGroup5 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
-        Me.KryptonButton5 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         CType(Me.KryptonGroup2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonGroup2.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.KryptonGroup2.Panel.SuspendLayout()
@@ -1013,8 +1013,8 @@ Partial Class Form4
         Me.mytransgridview.AllowUserToAddRows = False
         Me.mytransgridview.AllowUserToDeleteRows = False
         Me.mytransgridview.AllowUserToOrderColumns = True
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.mytransgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.mytransgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.mytransgridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.mytransgridview.ColumnHeadersHeight = 20
         Me.mytransgridview.Cursor = System.Windows.Forms.Cursors.Hand
@@ -1102,8 +1102,8 @@ Partial Class Form4
         Me.referencegridview.AllowUserToAddRows = False
         Me.referencegridview.AllowUserToDeleteRows = False
         Me.referencegridview.AllowUserToOrderColumns = True
-        DataGridViewCellStyle8.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.referencegridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.referencegridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.referencegridview.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.referencegridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
@@ -1140,8 +1140,8 @@ Partial Class Form4
         Me.KryptonDataGridView1.AllowUserToAddRows = False
         Me.KryptonDataGridView1.AllowUserToDeleteRows = False
         Me.KryptonDataGridView1.AllowUserToOrderColumns = True
-        DataGridViewCellStyle9.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.KryptonDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.KryptonDataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.KryptonDataGridView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -1154,7 +1154,7 @@ Partial Class Form4
         Me.KryptonDataGridView1.ReadOnly = True
         Me.KryptonDataGridView1.RowHeadersWidth = 25
         Me.KryptonDataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.KryptonDataGridView1.Size = New System.Drawing.Size(1403, 0)
+        Me.KryptonDataGridView1.Size = New System.Drawing.Size(1643, 0)
         Me.KryptonDataGridView1.StateCommon.Background.Color1 = System.Drawing.Color.White
         Me.KryptonDataGridView1.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList
         Me.KryptonDataGridView1.StateCommon.DataCell.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
@@ -1297,7 +1297,7 @@ Partial Class Form4
         'KryptonGroup4
         '
         Me.KryptonGroup4.GroupBorderStyle = ComponentFactory.Krypton.Toolkit.PaletteBorderStyle.TabOneNote
-        Me.KryptonGroup4.Location = New System.Drawing.Point(7, 6)
+        Me.KryptonGroup4.Location = New System.Drawing.Point(7, 7)
         Me.KryptonGroup4.Name = "KryptonGroup4"
         '
         'KryptonGroup4.Panel
@@ -1325,6 +1325,19 @@ Partial Class Form4
         Me.KryptonGroup4.Size = New System.Drawing.Size(161, 521)
         Me.KryptonGroup4.StateCommon.Back.Color1 = System.Drawing.SystemColors.Control
         Me.KryptonGroup4.TabIndex = 0
+        '
+        'KryptonButton5
+        '
+        Me.KryptonButton5.Location = New System.Drawing.Point(8, 475)
+        Me.KryptonButton5.Name = "KryptonButton5"
+        Me.KryptonButton5.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
+        Me.KryptonButton5.Size = New System.Drawing.Size(143, 23)
+        Me.KryptonButton5.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.KryptonButton5.StateCommon.Border.Rounding = 0
+        Me.KryptonButton5.TabIndex = 456
+        Me.KryptonButton5.Values.Text = "Report"
         '
         'KryptonButton3
         '
@@ -1450,7 +1463,7 @@ Partial Class Form4
         Me.transaction.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.transaction.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.transaction.FormattingEnabled = True
-        Me.transaction.Items.AddRange(New Object() {"Allocation", "Issue", "Order", "Receipt", "Return", "Supply", "Spare", "+Adjustment", "-Adjustment", "CancelAlloc"})
+        Me.transaction.Items.AddRange(New Object() {"Allocation", "Issue", "Order", "Receipt", "Return", "Supply", "Spare", "+Adjustment", "-Adjustment", "CancelAlloc", "Issue & Supply", "Issue & Receipt & +Adjustment-"})
         Me.transaction.Location = New System.Drawing.Point(8, 72)
         Me.transaction.Name = "transaction"
         Me.transaction.Size = New System.Drawing.Size(143, 24)
@@ -1618,19 +1631,6 @@ Partial Class Form4
         Me.KryptonGroup5.StateCommon.Border.Rounding = 0
         Me.KryptonGroup5.StateCommon.Border.Width = 1
         Me.KryptonGroup5.TabIndex = 459
-        '
-        'KryptonButton5
-        '
-        Me.KryptonButton5.Location = New System.Drawing.Point(8, 475)
-        Me.KryptonButton5.Name = "KryptonButton5"
-        Me.KryptonButton5.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
-        Me.KryptonButton5.Size = New System.Drawing.Size(143, 23)
-        Me.KryptonButton5.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
-            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
-            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
-        Me.KryptonButton5.StateCommon.Border.Rounding = 0
-        Me.KryptonButton5.TabIndex = 456
-        Me.KryptonButton5.Values.Text = "Report"
         '
         'Form4
         '

@@ -22,7 +22,22 @@ Public Class transfer
     Public Sub inserthistory()
         Try
             sql.sqlcon.Open()
+            Dim m As Double = setqty.Text
+            Dim getrloc As String = "
+declare @currentloc as integer = (select qty from locationtb where stockno = '" & stockno.Text & "' and location = '" & location.Text & "')-" & m & "
+declare @newloc as integer = (select qty from locationtb where stockno = '" & stockno.Text & "' and location = '" & setlocation.Text & "')+" & m & "
 
+select @currentloc,@newloc
+"
+            SQLCMD = New SqlCommand(getrloc, sql.sqlcon)
+            Dim lb As String
+            Dim lv As String
+            Dim rd As SqlDataReader = SQLCMD.ExecuteReader
+            While rd.Read
+                lb = rd(0).ToString
+                lv = rd(1).ToString
+            End While
+            rd.Close()
 
 
             Dim physical As String
@@ -48,7 +63,7 @@ STOCKNO,
 REFERENCE,
 LOCATION,
 QTY,
-balqty)
+balqty,RBALQTY)
 values
 (@autonum,
 '-Transfer'," &
@@ -56,7 +71,7 @@ values
 "'" & stockno.Text & "'," &
 "'" & setlocation.Text & "'," &
 "'" & location.Text & "'," &
-"'" & setqty.Text & "','" & p & "')"
+"'" & setqty.Text & "','" & p & "','" & lb & "')"
             SQLCMD = New SqlCommand(str, sql.sqlcon)
             SQLCMD.ExecuteNonQuery()
 
@@ -70,7 +85,7 @@ STOCKNO,
 REFERENCE,
 LOCATION,
 QTY,
-balqty)
+balqty,RBALQTY)
 values
 (@autonum,
 '+Transfer'," &
@@ -78,7 +93,7 @@ values
 "'" & stockno.Text & "'," &
 "'" & location.Text & "'," &
 "'" & setlocation.Text & "'," &
-"'" & setqty.Text & "','" & p & "')"
+"'" & setqty.Text & "','" & p & "','" & lv & "')"
             SQLCMD = New SqlCommand(f, sql.sqlcon)
             SQLCMD.ExecuteNonQuery()
         Catch ex As Exception

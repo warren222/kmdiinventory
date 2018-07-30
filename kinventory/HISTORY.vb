@@ -38,9 +38,9 @@ select ID
       ,STOCKNO
 ,REFERENCE
       ,LOCATION
-      ,BALQTY,QTY from lochistory  where " & acol & "=" & a & " and " & bcol & "=" & b & "
+      ,BALQTY,RBALQTY,QTY from lochistory  where " & acol & "=" & a & " and " & bcol & "=" & b & "
 union 
-	  select '','','','','','Total',0,@myadd-@mysub from LOCHISTORY where " & acol & "=" & a & " and " & bcol & "=" & b & "
+	  select '','','','','','Total',0,0,@myadd-@mysub from LOCHISTORY where " & acol & "=" & a & " and " & bcol & "=" & b & "
       order by id desc
 
 "
@@ -64,8 +64,11 @@ union
             transactiongridview.Columns("qty").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             transactiongridview.Columns("balqty").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
             transactiongridview.Columns("balqty").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            transactiongridview.Columns("RBALQTY").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
+            transactiongridview.Columns("RBALQTY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             transactiongridview.Columns("qty").DefaultCellStyle.Format = "N2"
             transactiongridview.Columns("balqty").DefaultCellStyle.Format = "N2"
+            transactiongridview.Columns("RBALQTY").DefaultCellStyle.Format = "N2"
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally

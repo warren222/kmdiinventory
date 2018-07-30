@@ -13,7 +13,7 @@ Public Class sql
     Dim userid As String = "kmdiadmin"
     Dim password As String = "kmdiadmin"
     Public sqlcon As New SqlConnection With {.ConnectionString = "Data Source='" & datasource & "';Network Library=DBMSSOCN;Initial Catalog='" & catalog & "';User ID='" & userid & "';Password='" & password & "';"}
-    Public sqlcon1 As New SqlConnection With {.ConnectionString = "Data Source='121.58.229.248,49107';Network Library=DBMSSOCN;Initial Catalog='KMDIDATA';User ID='kmdiadmin';Password='kmdiadmin';"}
+    Public sqlcon1 As New SqlConnection With {.ConnectionString = "Data Source='121.58.229.248,49107';Network Library=DBMSSOCN;Initial Catalog='kmdidata';User ID='kmdiadmin';Password='kmdiadmin';"}
     Dim da As New SqlDataAdapter
     Dim sqlcmd As New SqlCommand
     'Dim scrollval As Integer
@@ -58,7 +58,7 @@ order by A.articleno asc"
             Form2.stocksgridview.Columns("WEIGHT").DefaultCellStyle.Format = "N4"
             Form2.stocksgridview.Columns("PHYSICAL").DefaultCellStyle.Format = "N2"
             Form2.stocksgridview.Columns("PHYSICAL2").DefaultCellStyle.Format = "N2"
-            Form2.stocksgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N4"
             Form2.stocksgridview.Columns("UNITPRICE").DefaultCellStyle.Format = "N4"
             Form2.stocksgridview.Columns("XRATE").DefaultCellStyle.Format = "N2"
             Form2.stocksgridview.Columns("NETAMOUNT").DefaultCellStyle.Format = "N2"
@@ -139,7 +139,7 @@ order by A.articleno asc"
             Form2.stocksgridview.Columns("WEIGHT").DefaultCellStyle.Format = "N4"
             Form2.stocksgridview.Columns("PHYSICAL").DefaultCellStyle.Format = "N2"
             Form2.stocksgridview.Columns("PHYSICAL2").DefaultCellStyle.Format = "N2"
-            Form2.stocksgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N2"
+            Form2.stocksgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N4"
             Form2.stocksgridview.Columns("UNITPRICE").DefaultCellStyle.Format = "N4"
             Form2.stocksgridview.Columns("XRATE").DefaultCellStyle.Format = "N2"
             Form2.stocksgridview.Columns("NETAMOUNT").DefaultCellStyle.Format = "N2"
@@ -759,7 +759,7 @@ on a.stockno = b.stockno order by a.transdate desc"
             Form2.transgridview.Columns("DUEDATE").DefaultCellStyle.Format = "yyyy-MMM-dd"
             Form2.transgridview.Columns("QTY").DefaultCellStyle.Format = "N2"
             Form2.transgridview.Columns("EXCESS").DefaultCellStyle.Format = "N2"
-            Form2.transgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N2"
+            Form2.transgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N4"
             Form2.transgridview.Columns("UNITPRICE").DefaultCellStyle.Format = "N4"
             Form2.transgridview.Columns("XRATE").DefaultCellStyle.Format = "N2"
             Form2.transgridview.Columns("NETAMOUNT").DefaultCellStyle.Format = "N4"
@@ -1827,7 +1827,7 @@ order by b.articleno asc"
             Form2.receiptGridView.Columns("xyz").Visible = False
             Form2.receiptGridView.Columns("description").Visible = False
 
-            Form2.receiptGridView.Columns("UFACTOR").DefaultCellStyle.Format = "N2"
+            Form2.receiptGridView.Columns("UFACTOR").DefaultCellStyle.Format = "N4"
             Form2.receiptGridView.Columns("UNITPRICE").DefaultCellStyle.Format = "N4"
             Form2.receiptGridView.Columns("XRATE").DefaultCellStyle.Format = "N2"
             Form2.receiptGridView.Columns("NETAMOUNT").DefaultCellStyle.Format = "N2"
@@ -1887,7 +1887,7 @@ order by b.articleno asc"
             Form2.receiptGridView.Columns("xyz").Visible = False
             Form2.receiptGridView.Columns("description").Visible = False
 
-            Form2.receiptGridView.Columns("UFACTOR").DefaultCellStyle.Format = "N2"
+            Form2.receiptGridView.Columns("UFACTOR").DefaultCellStyle.Format = "N4"
             Form2.receiptGridView.Columns("UNITPRICE").DefaultCellStyle.Format = "N2"
             Form2.receiptGridView.Columns("XRATE").DefaultCellStyle.Format = "N2"
             Form2.receiptGridView.Columns("NETAMOUNT").DefaultCellStyle.Format = "N2"
@@ -2019,8 +2019,8 @@ not (transtype = 'Allocation' or transtype = 'CancelAlloc' or transtype='Order' 
             Form4.mytransgridview.Columns("DUEDATE").DefaultCellStyle.Format = "yyyy-MMM-dd"
             Form4.mytransgridview.Columns("stockno").Visible = False
 
-            Form4.mytransgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N2"
-            Form4.mytransgridview.Columns("UNITPRICE").DefaultCellStyle.Format = "N2"
+            Form4.mytransgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N4"
+            Form4.mytransgridview.Columns("UNITPRICE").DefaultCellStyle.Format = "N4"
             Form4.mytransgridview.Columns("XRATE").DefaultCellStyle.Format = "N2"
             Form4.mytransgridview.Columns("NETAMOUNT").DefaultCellStyle.Format = "N2"
             Form4.mytransgridview.Columns("CHECKER").DefaultCellStyle.Format = "N2"
@@ -2219,8 +2219,8 @@ INPUTTED from trans_tb where stockno='" & stockno & "' order by transdate desc"
             Form4.mytransgridview.Columns("DUEDATE").DefaultCellStyle.Format = "yyyy-MMM-dd"
             Form4.mytransgridview.Columns("stockno").Visible = False
 
-            Form4.mytransgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N2"
-            Form4.mytransgridview.Columns("UNITPRICE").DefaultCellStyle.Format = "N2"
+            Form4.mytransgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N4"
+            Form4.mytransgridview.Columns("UNITPRICE").DefaultCellStyle.Format = "N4"
             Form4.mytransgridview.Columns("XRATE").DefaultCellStyle.Format = "N2"
             Form4.mytransgridview.Columns("NETAMOUNT").DefaultCellStyle.Format = "N2"
             Form4.mytransgridview.Columns("CHECKER").DefaultCellStyle.Format = "N2"
@@ -2433,8 +2433,8 @@ INPUTTED
             Form4.mytransgridview.Columns("TRANSDATE").DefaultCellStyle.Format = "yyyy-MMM-dd"
             Form4.mytransgridview.Columns("DUEDATE").DefaultCellStyle.Format = "yyyy-MMM-dd"
 
-            Form4.mytransgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N2"
-            Form4.mytransgridview.Columns("UNITPRICE").DefaultCellStyle.Format = "N2"
+            Form4.mytransgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N4"
+            Form4.mytransgridview.Columns("UNITPRICE").DefaultCellStyle.Format = "N4"
             Form4.mytransgridview.Columns("XRATE").DefaultCellStyle.Format = "N2"
             Form4.mytransgridview.Columns("NETAMOUNT").DefaultCellStyle.Format = "N2"
             Form4.mytransgridview.Columns("CHECKER").DefaultCellStyle.Format = "N2"
@@ -2613,90 +2613,8 @@ INPUTTED
                 ada.Fill(ads, "reference_tb")
             Else
 
-
-                'For i As Integer = 0 To Form4.ComboBox1.Items.Count - 1
-                '    refere = Form4.ComboBox1.Items(i).ToString
-                '    Form4.ProgressBar1.Value += 1
-                '    If Form4.ProgressBar1.Value = Form4.referencegridview.RowCount Then
-                '        Form4.ProgressBar1.Value = 0
-                '    End If
-                'If transaction = "" Then
-                '                    all = "  
-                'declare @refe as varchar(max) = '" & refere & "'
-                'declare @allocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Allocation')+0
-                '                                                declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='CancelAlloc')+0
-                '                                                declare @order as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Order')+0
-                '                                                declare @return as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Return')+0
-                '                                                declare @supply as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Supply')+0
-                '                                                declare @spare as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Spare')+0
-                '                                                declare @addadjustment as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='+Adjustment')+0
-                '                                                declare @minadjustment as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='-Adjustment')+0
-                '                                                declare @receipt as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Receipt' AND NOT XYZ='Order')+0
-                '                                                declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation')+0
-                '                                                declare @receiptorder as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Receipt' AND XYZ='Order')+0
-                '                                                declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
-                '                                                declare @totalreceipt as decimal(10,2)=@receipt+@receiptorder
-                '                                                declare @totalissue as decimal(10,2)=@issue+@issueallocation
-
-                '            declare @QTY as decimal(10,2)=(select qty from stocks_tb where stockno='" & stockno & "')
-
-                '                                                declare @finalphysical as decimal(10,2)=(@QTY+@totalreceipt+@return+@addadjustment)-(@totalissue+@minadjustment)
-                '                                                declare @finalallocation as decimal(10,2)=@allocation-(@issueallocation+@cancelalloc)
-                '                                                declare @finalfree as decimal(10,2)=(((@QTY+@totalreceipt+@return+@addadjustment)-(@allocation-@cancelalloc)))-(@issue+@minadjustment)
-                '                                                declare @finalorder as decimal(10,2)=@order-@receiptorder
-                '                                                declare @finalissue as decimal(10,2)=@totalissue
-                '                                                declare @finalreceipt as decimal(10,2)=@totalreceipt
-
-                '                     select @refe as Reference,FORMAT(@finalorder,'N0') as StockOrder,FORMAT(@finalallocation,'N0') as Allocation
-                '                     ,format(@finalreceipt,'N0') as TotalReceipt,FORMAT(@finalissue,'N0') as TotalIssue,FORMAT(@return,'N0') as TotalReturn
-
-                '                     select Reference,FORMAT(stockorder,'N0') as StockOrder,FORMAT(allocation,'N0') as Allocation
-                '                     ,format(totalreceipt,'N0') as TotalReceipt,FORMAT(totalissue,'N0') as TotalIssue,FORMAT(totalreturn,'N0') as TotalReturn from reference_tb"
-                '                    sqlcmd = New SqlCommand(all, sqlcon)
-                '                    ada.SelectCommand = sqlcmd
-                '                    ada.Fill(ads, "reference_tb")
-
-
-                '                    If transaction = "Issue" Then
-                '                        all = "  
-                'declare @refe as varchar(max) = '" & refere & "'
-                'declare @allocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Allocation')+0
-                '                                 declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation')+0
-                '                                 declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
-                '                                 declare @totalissue as decimal(10,2)=@issue+@issueallocation
-
-                '                                 select @refe as Reference,0 as StockOrder,0 as Allocation
-                '                     ,0 as TotalReceipt,@totalissue as TotalIssue,0 as TotalReturn order by TotalIssue desc"
-                '                        sqlcmd = New SqlCommand(all, sqlcon)
-                '                        ada.SelectCommand = sqlcmd
-                '                        ada.Fill(ads, "dummy1")
-                '                    ElseIf transaction = "Receipt" Then
-                '                        all = "  
-                'declare @refe as varchar(max) = '" & refere & "'
-                ' declare @receipt as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Receipt' AND NOT XYZ='Order')+0
-                '                                               declare @receiptorder as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb " & condition & " and reference = '" & refere & "' AND TRANSTYPE='Receipt' AND XYZ='Order')+0
-                '                                            declare @totalreceipt as decimal(10,2)=@receipt+@receiptorder
-
-
-                '                     select @refe as Reference,0 as StockOrder,0 as Allocation
-                '                     ,@totalreceipt as TotalReceipt,0 as TotalIssue,0 as TotalReturn order by TotalReceipt desc"
-                '                        sqlcmd = New SqlCommand(all, sqlcon)
-                '                        ada.SelectCommand = sqlcmd
-                '                        ada.Fill(ads, "dummy1")
-                '                    End If
-
-                '                Next
             End If
-            'If transaction = "Issue" Then
-            '    abs.DataSource = ads
-            '    abs.DataMember = "dummy1"
-            '    Form4.KryptonDataGridView1.DataSource = abs
-            '    Form4.KryptonDataGridView1.Columns("TotalIssue").DefaultCellStyle.Format = "N0"
-            'ElseIf transaction = "Receipt" Then
-            '    abs.DataSource = ads
-            '    abs.DataMember = "dummy1"
-            '    Form4.KryptonDataGridView1.DataSource = abs
-            '    Form4.KryptonDataGridView1.Columns("TotalReceipt").DefaultCellStyle.Format = "N0"
+
             If transaction = "" Then
                 abs.DataSource = ads
                 abs.DataMember = "reference_tb"
@@ -2753,7 +2671,7 @@ INPUTTED
             Form2.transgridview.Columns("xyz").Visible = False
             Form2.transgridview.Columns("QTY").DefaultCellStyle.Format = "N2"
             Form2.transgridview.Columns("EXCESS").DefaultCellStyle.Format = "N2"
-            Form2.transgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N2"
+            Form2.transgridview.Columns("UFACTOR").DefaultCellStyle.Format = "N4"
             Form2.transgridview.Columns("UNITPRICE").DefaultCellStyle.Format = "N4"
             Form2.transgridview.Columns("XRATE").DefaultCellStyle.Format = "N2"
             Form2.transgridview.Columns("NETAMOUNT").DefaultCellStyle.Format = "N2"
