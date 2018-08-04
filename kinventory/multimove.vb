@@ -28,6 +28,7 @@ Public Class multimove
         reference.Text = reference.Text.Replace("'", "`")
         reference.Text = reference.Text.Replace("""", "``")
 
+
         If KryptonLabel6.Text = "Move Allocation" Then
             If MessageBox.Show("move all allocation?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then
                 MessageBox.Show("Operation Cancelled", "", MessageBoxButtons.OK, MessageBoxIcon.Stop)
@@ -38,24 +39,25 @@ Public Class multimove
             ProgressBar1.Maximum = Form2.refcombo.Items.Count
             For i As Integer = 0 To Form2.refcombo.Items.Count - 1
                 Dim oldreference As String = Form2.refcombo.Items(i).ToString()
+                Dim OLDJO As String = Form2.refjo.Items(i).ToString()
                 Dim oldstockno As String = Form2.refstock.Items(i).ToString()
                 If KryptonCheckBox1.Checked = True And KryptonCheckBox2.Checked = True Then
                     If newstockno.Text = "" And reference.Text = "" Then
                         MessageBox.Show("invalid stockno and reference", "", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                     Else
-                        mallocation(oldstockno, oldreference)
+                        mallocation(oldstockno, oldreference, OLDJO)
                     End If
                 ElseIf KryptonCheckBox1.Checked = True And KryptonCheckBox2.Checked = False Then
                     If newstockno.Text = "" Then
                         MessageBox.Show("invalid stockno", "", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                     Else
-                        sallocation(oldstockno, oldreference)
+                        sallocation(oldstockno, oldreference, OLDJO)
                     End If
                 ElseIf KryptonCheckBox1.Checked = False And KryptonCheckBox2.Checked = True Then
                     If reference.Text = "" Then
                         MessageBox.Show("invalid reference", "", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                     Else
-                        rallocation(oldstockno, oldreference)
+                        rallocation(oldstockno, oldreference, OLDJO)
                     End If
                 Else
                 End If
@@ -71,24 +73,25 @@ Public Class multimove
             ProgressBar1.Maximum = Form2.refcombo.Items.Count
             For i As Integer = 0 To Form2.refcombo.Items.Count - 1
                 Dim oldreference As String = Form2.refcombo.Items(i).ToString()
+                Dim oldjo As String = Form2.refjo.Items(i).ToString()
                 Dim oldstockno As String = Form2.refstock.Items(i).ToString()
                 If KryptonCheckBox1.Checked = True And KryptonCheckBox2.Checked = True Then
                     If newstockno.Text = "" And reference.Text = "" Then
                         MessageBox.Show("invalid stockno and reference", "", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                     Else
-                        morder(oldstockno, oldreference)
+                        morder(oldstockno, oldreference, oldjo)
                     End If
                 ElseIf KryptonCheckBox1.Checked = True And KryptonCheckBox2.Checked = False Then
                     If newstockno.Text = "" Then
                         MessageBox.Show("invalid stockno", "", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                     Else
-                        sorder(oldstockno, oldreference)
+                        sorder(oldstockno, oldreference, oldjo)
                     End If
                 ElseIf KryptonCheckBox1.Checked = False And KryptonCheckBox2.Checked = True Then
                     If reference.Text = "" Then
                         MessageBox.Show("invalid reference", "", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                     Else
-                        rorder(oldstockno, oldreference)
+                        rorder(oldstockno, oldreference, oldjo)
                     End If
                 Else
                 End If
@@ -99,108 +102,109 @@ Public Class multimove
         Form2.KryptonButton12.PerformClick()
         Button1.PerformClick()
     End Sub
-    Public Sub mallocation(ByVal oldstockno As String, ByVal oldreference As String)
+    Public Sub mallocation(ByVal oldstockno As String, ByVal oldreference As String, ByVal oldjo As String)
 
         'update old reference to make sure data is accurate
-        updatereference(oldstockno, oldreference)
+        updatereference(oldstockno, oldreference, oldjo)
         'cancel and insert new allocation for new reference
-        cancelalloc(oldstockno, oldreference, newstockno.Text, reference.Text)
+        cancelalloc(oldstockno, oldreference, oldjo, newstockno.Text, reference.Text, JO.Text)
         'update old reference
-        updatereference(oldstockno, oldreference)
+        updatereference(oldstockno, oldreference, oldjo)
         autoupdatestock(oldstockno)
         'update new reference
-        updatereference(newstockno.Text, reference.Text)
+        updatereference(newstockno.Text, reference.Text, JO.Text)
         autoupdatestock(newstockno.Text)
     End Sub
-    Public Sub sallocation(ByVal oldstockno As String, ByVal oldreference As String)
+    Public Sub sallocation(ByVal oldstockno As String, ByVal oldreference As String, ByVal oldjo As String)
 
         'update old reference to make sure data is accurate
-        updatereference(oldstockno, oldreference)
+        updatereference(oldstockno, oldreference, oldjo)
         'cancel and insert new allocation for new reference
-        cancelalloc(oldstockno, oldreference, newstockno.Text, oldreference)
+        cancelalloc(oldstockno, oldreference, oldjo, newstockno.Text, oldreference, oldjo)
         'update old reference
-        updatereference(oldstockno, oldreference)
+        updatereference(oldstockno, oldreference, oldjo)
         autoupdatestock(oldstockno)
         'update new reference
-        updatereference(newstockno.Text, oldreference)
+        updatereference(newstockno.Text, oldreference, oldjo)
         autoupdatestock(newstockno.Text)
     End Sub
-    Public Sub rallocation(ByVal oldstockno As String, ByVal oldreference As String)
+    Public Sub rallocation(ByVal oldstockno As String, ByVal oldreference As String, ByVal oldjo As String)
 
         'update old reference to make sure data is accurate
-        updatereference(oldstockno, oldreference)
+        updatereference(oldstockno, oldreference, oldjo)
         'cancel and insert new allocation for new reference
-        cancelalloc(oldstockno, oldreference, oldstockno, reference.Text)
+        cancelalloc(oldstockno, oldreference, oldjo, oldstockno, reference.Text, JO.Text)
         'update old reference
-        updatereference(oldstockno, oldreference)
+        updatereference(oldstockno, oldreference, oldjo)
         autoupdatestock(oldstockno)
         'update new reference
-        updatereference(oldstockno, reference.Text)
+        updatereference(oldstockno, reference.Text, JO.Text)
         autoupdatestock(oldstockno)
     End Sub
-    Public Sub morder(ByVal oldstockno As String, ByVal oldreference As String)
+    Public Sub morder(ByVal oldstockno As String, ByVal oldreference As String, ByVal oldjo As String)
 
         'update old reference to make sure data is accurate
-        updatereference(oldstockno, oldreference)
+        updatereference(oldstockno, oldreference, oldjo)
         'cancel and insert new order for new reference
-        cancelorder(oldstockno, oldreference, newstockno.Text, reference.Text)
+        cancelorder(oldstockno, oldreference, oldjo, newstockno.Text, reference.Text, JO.Text)
         'update old reference
-        updatereference(oldstockno, oldreference)
+        updatereference(oldstockno, oldreference, oldjo)
         autoupdatestock(oldstockno)
         'update new reference
-        updatereference(newstockno.Text, reference.Text)
+        updatereference(newstockno.Text, reference.Text, JO.Text)
         autoupdatestock(newstockno.Text)
 
     End Sub
-    Public Sub sorder(ByVal oldstockno As String, ByVal oldreference As String)
+    Public Sub sorder(ByVal oldstockno As String, ByVal oldreference As String, ByVal oldjo As String)
 
         'update old reference to make sure data is accurate
-        updatereference(oldstockno, oldreference)
+        updatereference(oldstockno, oldreference, oldjo)
         'cancel and insert new order for new reference
-        cancelorder(oldstockno, oldreference, newstockno.Text, oldreference)
+        cancelorder(oldstockno, oldreference, oldjo, newstockno.Text, oldreference, oldjo)
         'update old reference
-        updatereference(oldstockno, oldreference)
+        updatereference(oldstockno, oldreference, oldjo)
         autoupdatestock(oldstockno)
         'update new reference
-        updatereference(newstockno.Text, oldreference)
+        updatereference(newstockno.Text, oldreference, oldjo)
         autoupdatestock(newstockno.Text)
 
     End Sub
-    Public Sub rorder(ByVal oldstockno As String, ByVal oldreference As String)
+    Public Sub rorder(ByVal oldstockno As String, ByVal oldreference As String, ByVal oldjo As String)
 
         'update old reference to make sure data is accurate
-        updatereference(oldstockno, oldreference)
+        updatereference(oldstockno, oldreference, oldjo)
         'cancel and insert new order for new reference
-        cancelorder(oldstockno, oldreference, oldstockno, reference.Text)
+        cancelorder(oldstockno, oldreference, oldjo, oldstockno, reference.Text, JO.Text)
         'update old reference
-        updatereference(oldstockno, oldreference)
+        updatereference(oldstockno, oldreference, oldjo)
         autoupdatestock(oldstockno)
         'update new reference
-        updatereference(oldstockno, reference.Text)
+        updatereference(oldstockno, reference.Text, JO.Text)
         autoupdatestock(oldstockno)
 
     End Sub
-    Public Sub cancelorder(ByVal stockno As String, ByVal reference As String, ByVal nstockno As String, ByVal newreference As String)
+    Public Sub cancelorder(ByVal stockno As String, ByVal reference As String, ByVal jo As String, ByVal nstockno As String, ByVal newreference As String, ByVal newjo As String)
         Try
             sql.sqlcon.Open()
             Dim newcancelorder As String = "
-  declare @order as decimal(10,2)=(select  COALESCE(stockorder,0) from reference_tb where stockno ='" & stockno & "' and reference = '" & reference & "')+0
+  declare @order as decimal(10,2)=(select  COALESCE(stockorder,0) from reference_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "')+0
 
-
+declare @id as integer =(select max(transno)+1 from trans_tb)
 insert into trans_tb 
-     (STOCKNO,
+     (transno,STOCKNO,
             TRANSTYPE,
             TRANSDATE,
             DUEDATE,
             QTY,
-            REFERENCE,
+            REFERENCE,jo,
             ACCOUNT,
-            CONTROLNO,XYZ,XYZREF,REMARKS,INPUTTED) values ('" & nstockno & "'," &
+            CONTROLNO,XYZ,XYZREF,REMARKS,INPUTTED) values (@id,'" & nstockno & "'," &
          "'Order'," &
          "'" & Form2.transdate.Text & "'," &
          "''," &
          "@order," &
          "'" & newreference & "'," &
+            "'" & newjo & "'," &
          "''," &
          "''," &
             "''," &
@@ -208,7 +212,7 @@ insert into trans_tb
          "''," &
             "'" & Form1.Label1.Text & "')
 
-update trans_tb set qty = 0,xyzref='canceled' where stockno = '" & stockno & "' and reference = '" & reference & "' and xyzref='' and transtype='Order'"
+update trans_tb set qty = 0,xyzref='canceled' where stockno = '" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "' and xyzref='' and transtype='Order'"
             sqlcmd = New SqlCommand(newcancelorder, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()
         Catch ex As Exception
@@ -254,31 +258,33 @@ update trans_tb set qty = 0,xyzref='canceled' where stockno = '" & stockno & "' 
             sql.sqlcon.Close()
         End Try
     End Sub
-    Public Sub updatereference(ByVal stockno As String, ByVal reference As String)
+    Public Sub updatereference(ByVal stockno As String, ByVal reference As String, ByVal jo As String)
         Try
             sql.sqlcon.Open()
-            Dim find As String = "select * from reference_tb where reference='" & reference & "' and stockno='" & stockno & "'"
+            Dim find As String = "select * from reference_tb where reference='" & reference & "' and jo = '" & jo & "' and stockno='" & stockno & "'"
             sqlcmd = New SqlCommand(find, sql.sqlcon)
             Dim read As SqlDataReader = sqlcmd.ExecuteReader
             If read.HasRows = True Then
                 read.Close()
             Else
                 read.Close()
-                Dim insert As String = "insert into reference_tb (reference,stockno) values('" & reference & "','" & stockno & "')"
+                Dim insert As String = "
+declare @id as integer = (select max(id)+1 from reference_tb)
+insert into reference_tb (id,reference,jo,stockno) values(@id,'" & reference & "','" & jo & "','" & stockno & "')"
                 sqlcmd = New SqlCommand(insert, sql.sqlcon)
                 sqlcmd.ExecuteNonQuery()
             End If
 
 
             Dim bny As String = "
-                                    declare @allocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Allocation')+0
-   declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='CancelAlloc')+0
-                                    declare @order as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Order')+0
-                                    declare @return as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Return')+0
-                                    declare @receipt as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Receipt' AND NOT XYZ='Order')+0
-                                    declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation')+0
-                                    declare @receiptorder as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Receipt' AND XYZ='Order')+0
-                                    declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
+                                    declare @allocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "' AND TRANSTYPE='Allocation')+0
+                                    declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "'  AND TRANSTYPE='CancelAlloc')+0
+                                    declare @order as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "'  AND TRANSTYPE='Order')+0
+                                    declare @return as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "'  AND TRANSTYPE='Return')+0
+                                    declare @receipt as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "'  AND TRANSTYPE='Receipt' AND NOT XYZ='Order')+0
+                                    declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "'  AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation')+0
+                                    declare @receiptorder as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "'  and jo = '" & jo & "' AND TRANSTYPE='Receipt' AND XYZ='Order')+0
+                                    declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "'  AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
                                     declare @totalreceipt as decimal(10,2)=@receipt+@receiptorder
                                     declare @totalissue as decimal(10,2)=@issue+@issueallocation
                               
@@ -289,7 +295,7 @@ update reference_tb set
                                     TOTALRECEIPT=@totalreceipt,
                                     totalissue=@totalissue,
                                     totalreturn=@return
-                                    where stockno='" & stockno & "' and reference='" & reference & "'"
+                                    where stockno='" & stockno & "' and reference='" & reference & "' and jo = '" & jo & "' "
             sqlcmd = New SqlCommand(bny, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()
         Catch ex As Exception
@@ -298,29 +304,30 @@ update reference_tb set
             sql.sqlcon.Close()
         End Try
     End Sub
-    Public Sub cancelalloc(ByVal stockno As String, ByVal reference As String, ByVal nstockno As String, ByVal newreference As String)
+    Public Sub cancelalloc(ByVal stockno As String, ByVal reference As String, ByVal jo As String, ByVal nstockno As String, ByVal newreference As String, ByVal newjo As String)
         Try
             sql.sqlcon.Open()
             Dim newcancelalloc As String = "
-  declare @allocation as decimal(10,2)=(select  COALESCE(allocation,0) from reference_tb where stockno ='" & stockno & "' and reference = '" & reference & "')+0
-
+  declare @allocation as decimal(10,2)=(select  COALESCE(allocation,0) from reference_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "')+0
+declare @id as integer =(select max(transno)+1 from trans_tb)
 
 insert into trans_tb 
-     (STOCKNO,
+     (transno,STOCKNO,
             TRANSTYPE,
             TRANSDATE,
             DUEDATE,
             QTY,
   balqty,
-            REFERENCE,
+            REFERENCE,jo,
             ACCOUNT,
-            CONTROLNO,XYZ,XYZREF,REMARKS,INPUTTED) values ('" & nstockno & "'," &
+            CONTROLNO,XYZ,XYZREF,REMARKS,INPUTTED) values (@id,'" & nstockno & "'," &
          "'Allocation'," &
          "'" & Form2.transdate.Text & "'," &
          "''," &
          "@allocation," &
             "@allocation," &
          "'" & newreference & "'," &
+             "'" & newjo & "'," &
          "''," &
          "''," &
             "''," &
@@ -328,22 +335,23 @@ insert into trans_tb
          "''," &
             "'" & Form1.Label1.Text & "')
 
-
+declare @id1 as integer =(select max(transno)+1 from trans_tb)
 
 insert into trans_tb 
-     (STOCKNO,
+     (transno,STOCKNO,
             TRANSTYPE,
             TRANSDATE,
             DUEDATE,
             QTY,
-            REFERENCE,
+            REFERENCE,jo,
             ACCOUNT,
-            CONTROLNO,XYZ,XYZREF,REMARKS,INPUTTED) values ('" & stockno & "'," &
+            CONTROLNO,XYZ,XYZREF,REMARKS,INPUTTED) values (@id1,'" & stockno & "'," &
          "'CancelAlloc'," &
          "'" & Form2.transdate.Text & "'," &
          "''," &
          "@allocation," &
          "'" & reference & "'," &
+             "'" & jo & "'," &
          "''," &
          "''," &
             "''," &
@@ -376,6 +384,7 @@ insert into trans_tb
         Else
             reference.SelectedIndex = i
         End If
+        loadjo(reference.Text)
     End Sub
 
     Private Sub newcosthead_MouseDown(sender As Object, e As MouseEventArgs) Handles newcosthead.MouseDown
@@ -631,5 +640,44 @@ insert into trans_tb
 
             End If
         End If
+    End Sub
+
+    Private Sub KryptonCheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles KryptonCheckBox2.CheckedChanged
+
+    End Sub
+
+    Private Sub JO_MouseDown(sender As Object, e As MouseEventArgs) Handles JO.MouseDown
+        loadjo(reference.Text)
+    End Sub
+    Public Sub loadjo(ByVal reference As String)
+        Try
+            sql.sqlcon.Close()
+            sql.sqlcon.Open()
+            Dim ds As New DataSet
+            ds.Clear()
+            Dim bs As New BindingSource
+            Dim da As New SqlDataAdapter
+            Dim str As String = "select distinct jo from trans_tb where reference='" & reference & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "trans_Tb")
+            bs.DataSource = ds
+            bs.DataMember = "trans_Tb"
+            JO.DataSource = bs
+            JO.DisplayMember = "jo"
+            If JO.Items.Count > 0 Then
+                JO.SelectedIndex = 0
+            Else
+                JO.Text = ""
+            End If
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+
+    Private Sub reference_TextChanged(sender As Object, e As EventArgs) Handles reference.TextChanged
+        loadjo(reference.Text)
     End Sub
 End Class

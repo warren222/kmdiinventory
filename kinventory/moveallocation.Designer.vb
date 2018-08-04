@@ -43,6 +43,9 @@ Partial Class moveallocation
         Me.KryptonLabel8 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.KryptonGroup5 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
+        Me.KryptonGroup6 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
+        Me.jo = New System.Windows.Forms.ComboBox()
+        Me.KryptonLabel6 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.Panel1.SuspendLayout()
         Me.Panel4.SuspendLayout()
         CType(Me.KryptonGroup4, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -67,11 +70,17 @@ Partial Class moveallocation
         CType(Me.KryptonGroup5.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.KryptonGroup5.Panel.SuspendLayout()
         Me.KryptonGroup5.SuspendLayout()
+        CType(Me.KryptonGroup6, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.KryptonGroup6.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.KryptonGroup6.Panel.SuspendLayout()
+        Me.KryptonGroup6.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.Panel1.Controls.Add(Me.KryptonLabel6)
+        Me.Panel1.Controls.Add(Me.KryptonGroup6)
         Me.Panel1.Controls.Add(Me.Panel4)
         Me.Panel1.Controls.Add(Me.KryptonLabel4)
         Me.Panel1.Controls.Add(Me.KryptonGroup4)
@@ -82,7 +91,7 @@ Partial Class moveallocation
         Me.Panel1.Controls.Add(Me.KryptonLabel2)
         Me.Panel1.Controls.Add(Me.KryptonLabel3)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel1.Location = New System.Drawing.Point(0, -43)
+        Me.Panel1.Location = New System.Drawing.Point(0, 2)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(409, 326)
         Me.Panel1.TabIndex = 15
@@ -161,7 +170,7 @@ Partial Class moveallocation
         '
         'KryptonLabel4
         '
-        Me.KryptonLabel4.Location = New System.Drawing.Point(15, 94)
+        Me.KryptonLabel4.Location = New System.Drawing.Point(15, 42)
         Me.KryptonLabel4.Name = "KryptonLabel4"
         Me.KryptonLabel4.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel4.Size = New System.Drawing.Size(112, 24)
@@ -172,14 +181,14 @@ Partial Class moveallocation
         '
         'KryptonGroup4
         '
-        Me.KryptonGroup4.Location = New System.Drawing.Point(15, 121)
+        Me.KryptonGroup4.Location = New System.Drawing.Point(15, 69)
         Me.KryptonGroup4.Margin = New System.Windows.Forms.Padding(0)
         Me.KryptonGroup4.Name = "KryptonGroup4"
         '
         'KryptonGroup4.Panel
         '
         Me.KryptonGroup4.Panel.Controls.Add(Me.reference)
-        Me.KryptonGroup4.Size = New System.Drawing.Size(379, 30)
+        Me.KryptonGroup4.Size = New System.Drawing.Size(374, 30)
         Me.KryptonGroup4.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
@@ -200,7 +209,7 @@ Partial Class moveallocation
         Me.reference.IntegralHeight = False
         Me.reference.Location = New System.Drawing.Point(0, 0)
         Me.reference.Name = "reference"
-        Me.reference.Size = New System.Drawing.Size(373, 23)
+        Me.reference.Size = New System.Drawing.Size(368, 23)
         Me.reference.TabIndex = 447
         '
         'KryptonGroup3
@@ -392,7 +401,7 @@ Partial Class moveallocation
         '
         Me.KryptonGroup5.Panel.Controls.Add(Me.KryptonPanel1)
         Me.KryptonGroup5.Panel.Controls.Add(Me.Panel1)
-        Me.KryptonGroup5.Size = New System.Drawing.Size(415, 289)
+        Me.KryptonGroup5.Size = New System.Drawing.Size(415, 334)
         Me.KryptonGroup5.StateCommon.Border.Color1 = System.Drawing.Color.Aqua
         Me.KryptonGroup5.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
@@ -401,12 +410,56 @@ Partial Class moveallocation
         Me.KryptonGroup5.StateCommon.Border.Width = 3
         Me.KryptonGroup5.TabIndex = 451
         '
+        'KryptonGroup6
+        '
+        Me.KryptonGroup6.Location = New System.Drawing.Point(145, 110)
+        Me.KryptonGroup6.Margin = New System.Windows.Forms.Padding(0)
+        Me.KryptonGroup6.Name = "KryptonGroup6"
+        '
+        'KryptonGroup6.Panel
+        '
+        Me.KryptonGroup6.Panel.Controls.Add(Me.jo)
+        Me.KryptonGroup6.Size = New System.Drawing.Size(244, 30)
+        Me.KryptonGroup6.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.KryptonGroup6.StateCommon.Border.Rounding = 0
+        Me.KryptonGroup6.StateCommon.Border.Width = 3
+        Me.KryptonGroup6.TabIndex = 452
+        '
+        'jo
+        '
+        Me.jo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.jo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.jo.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.jo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.jo.DropDownHeight = 206
+        Me.jo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.jo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.jo.FormattingEnabled = True
+        Me.jo.IntegralHeight = False
+        Me.jo.Location = New System.Drawing.Point(0, 0)
+        Me.jo.Name = "jo"
+        Me.jo.Size = New System.Drawing.Size(238, 23)
+        Me.jo.TabIndex = 447
+        '
+        'KryptonLabel6
+        '
+        Me.KryptonLabel6.Location = New System.Drawing.Point(15, 110)
+        Me.KryptonLabel6.Name = "KryptonLabel6"
+        Me.KryptonLabel6.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonLabel6.Size = New System.Drawing.Size(105, 24)
+        Me.KryptonLabel6.StateCommon.ShortText.Color1 = System.Drawing.Color.White
+        Me.KryptonLabel6.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonLabel6.TabIndex = 453
+        Me.KryptonLabel6.Values.Text = "Job Order No."
+        '
         'moveallocation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Green
-        Me.ClientSize = New System.Drawing.Size(429, 307)
+        Me.ClientSize = New System.Drawing.Size(897, 365)
         Me.Controls.Add(Me.KryptonGroup5)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "moveallocation"
@@ -441,6 +494,10 @@ Partial Class moveallocation
         Me.KryptonGroup5.Panel.ResumeLayout(False)
         CType(Me.KryptonGroup5, System.ComponentModel.ISupportInitialize).EndInit()
         Me.KryptonGroup5.ResumeLayout(False)
+        CType(Me.KryptonGroup6.Panel, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.KryptonGroup6.Panel.ResumeLayout(False)
+        CType(Me.KryptonGroup6, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.KryptonGroup6.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -465,4 +522,7 @@ Partial Class moveallocation
     Friend WithEvents KryptonButton1 As ComponentFactory.Krypton.Toolkit.KryptonButton
     Friend WithEvents KryptonGroup3 As ComponentFactory.Krypton.Toolkit.KryptonGroup
     Friend WithEvents newarticleno As ComboBox
+    Friend WithEvents KryptonLabel6 As ComponentFactory.Krypton.Toolkit.KryptonLabel
+    Friend WithEvents KryptonGroup6 As ComponentFactory.Krypton.Toolkit.KryptonGroup
+    Friend WithEvents jo As ComboBox
 End Class

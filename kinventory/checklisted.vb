@@ -50,7 +50,7 @@ Public Class checklisted
             ds.Clear()
             Dim bs As New BindingSource
 
-            Dim str As String = "select a.REFERENCE,
+            Dim str As String = "select a.REFERENCE,a.JO,
 a.STOCKNO,
 a.ALLOCATION
 from reference_tb as a
@@ -76,14 +76,18 @@ on a.stockno=b.stockno where a.reference like '%" & reference & "%' and a.alloca
     Private Sub allocationGridView_SelectionChanged(sender As Object, e As EventArgs) Handles allocationGridView.SelectionChanged
         refcombo.Items.Clear()
         refstock.Items.Clear()
+        refjo.Items.Clear()
         Dim selecteditems As DataGridViewSelectedRowCollection = allocationGridView.SelectedRows
         Dim x As String
         Dim y As String
+        Dim Z As String
         For Each selecteditem As DataGridViewRow In selecteditems
             x = selecteditem.Cells("reference").Value.ToString
             y = selecteditem.Cells("stockno").Value.ToString
+            Z = selecteditem.Cells("jo").Value.ToString
             refcombo.Items.Add(x)
             refstock.Items.Add(y)
+            refjo.Items.Add(Z)
         Next
     End Sub
 

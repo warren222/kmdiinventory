@@ -109,31 +109,33 @@ Public Class moveallocation
             sql.sqlcon.Close()
         End Try
     End Sub
-    Public Sub updatereference(ByVal stockno As String, ByVal reference As String)
+    Public Sub updatereference(ByVal stockno As String, ByVal reference As String, ByVal jo As String)
         Try
             sql.sqlcon.Open()
-            Dim find As String = "select * from reference_tb where reference='" & reference & "' and stockno='" & stockno & "'"
+            Dim find As String = "select * from reference_tb where reference='" & reference & "' and jo = '" & jo & "' and stockno='" & stockno & "'"
             sqlcmd = New SqlCommand(find, sql.sqlcon)
             Dim read As SqlDataReader = sqlcmd.ExecuteReader
             If read.HasRows = True Then
                 read.Close()
             Else
                 read.Close()
-                Dim insert As String = "insert into reference_tb (reference,stockno) values('" & reference & "','" & stockno & "')"
+                Dim insert As String = "
+                        declare @id as integer =(select max(id)+1 from reference_tb)
+                        insert into reference_tb (id,reference,jo,stockno) values(@id,'" & reference & "','" & jo & "','" & stockno & "')"
                 sqlcmd = New SqlCommand(insert, sql.sqlcon)
                 sqlcmd.ExecuteNonQuery()
             End If
 
 
             Dim bny As String = "
-                                    declare @allocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Allocation')+0
-   declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='CancelAlloc')+0
-                                    declare @order as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Order')+0
-                                    declare @return as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Return')+0
-                                    declare @receipt as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Receipt' AND NOT XYZ='Order')+0
-                                    declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation')+0
-                                    declare @receiptorder as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Receipt' AND XYZ='Order')+0
-                                    declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
+                                    declare @allocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo ='" & jo & "' AND TRANSTYPE='Allocation')+0
+                                    declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo ='" & jo & "' AND TRANSTYPE='CancelAlloc')+0
+                                    declare @order as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo ='" & jo & "' AND TRANSTYPE='Order')+0
+                                    declare @return as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo ='" & jo & "' AND TRANSTYPE='Return')+0
+                                    declare @receipt as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo ='" & jo & "' AND TRANSTYPE='Receipt' AND NOT XYZ='Order')+0
+                                    declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo ='" & jo & "' AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation')+0
+                                    declare @receiptorder as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo ='" & jo & "' AND TRANSTYPE='Receipt' AND XYZ='Order')+0
+                                    declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo ='" & jo & "' AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
                                     declare @totalreceipt as decimal(10,2)=@receipt+@receiptorder
                                     declare @totalissue as decimal(10,2)=@issue+@issueallocation
                               
@@ -144,7 +146,7 @@ update reference_tb set
                                     TOTALRECEIPT=@totalreceipt,
                                     totalissue=@totalissue,
                                     totalreturn=@return
-                                    where stockno='" & stockno & "' and reference='" & reference & "'"
+                                    where stockno='" & stockno & "' and reference='" & reference & "' and jo = '" & jo & "'"
             sqlcmd = New SqlCommand(bny, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()
         Catch ex As Exception
@@ -153,29 +155,31 @@ update reference_tb set
             sql.sqlcon.Close()
         End Try
     End Sub
-    Public Sub cancelalloc(ByVal stockno As String, ByVal reference As String, ByVal nstockno As String, ByVal newreference As String)
+    Public Sub cancelalloc(ByVal stockno As String, ByVal reference As String, ByVal jo As String, ByVal nstockno As String, ByVal newreference As String, ByVal newjo As String)
         Try
             sql.sqlcon.Open()
             Dim newcancelalloc As String = "
-  declare @allocation as decimal(10,2)=(select  COALESCE(allocation,0) from reference_tb where stockno ='" & stockno & "' and reference = '" & reference & "')+0
+  declare @allocation as decimal(10,2)=(select  COALESCE(allocation,0) from reference_tb where stockno ='" & stockno & "' 
+and reference = '" & reference & "' and jo = '" & jo & "')+0
 
-
+declare @id as integer =(select max(transno)+1 from trans_tb)
 insert into trans_tb 
-     (STOCKNO,
+     (transno,STOCKNO,
             TRANSTYPE,
             TRANSDATE,
             DUEDATE,
             QTY,
   balqty,
-            REFERENCE,
+            REFERENCE,jo,
             ACCOUNT,
-            CONTROLNO,XYZ,XYZREF,REMARKS,INPUTTED) values ('" & nstockno & "'," &
+            CONTROLNO,XYZ,XYZREF,REMARKS,INPUTTED) values (@id,'" & nstockno & "'," &
          "'Allocation'," &
          "'" & Form2.transdate.Text & "'," &
          "''," &
          "@allocation," &
            "@allocation," &
          "'" & newreference & "'," &
+                "'" & newjo & "'," &
          "''," &
          "''," &
             "''," &
@@ -183,22 +187,23 @@ insert into trans_tb
          "''," &
             "'" & Form1.Label1.Text & "')
 
-
+declare @id1 as integer =(select max(transno)+1 from trans_tb)
 
 insert into trans_tb 
-     (STOCKNO,
+     (transno,STOCKNO,
             TRANSTYPE,
             TRANSDATE,
             DUEDATE,
             QTY,
-            REFERENCE,
+            REFERENCE,jo,
             ACCOUNT,
-            CONTROLNO,XYZ,XYZREF,REMARKS,INPUTTED) values ('" & stockno & "'," &
+            CONTROLNO,XYZ,XYZREF,REMARKS,INPUTTED) values (@id1,'" & stockno & "'," &
          "'CancelAlloc'," &
          "'" & Form2.transdate.Text & "'," &
          "''," &
          "@allocation," &
          "'" & reference & "'," &
+           "'" & jo & "'," &
          "''," &
          "''," &
             "''," &
@@ -214,27 +219,28 @@ insert into trans_tb
             sql.sqlcon.Close()
         End Try
     End Sub
-    Public Sub cancelorder(ByVal stockno As String, ByVal reference As String, ByVal nstockno As String, ByVal newreference As String)
+    Public Sub cancelorder(ByVal stockno As String, ByVal reference As String, ByVal jo As String, ByVal nstockno As String, ByVal newreference As String, ByVal newjo As String)
         Try
             sql.sqlcon.Open()
             Dim newcancelorder As String = "
-  declare @order as decimal(10,2)=(select  COALESCE(stockorder,0) from reference_tb where stockno ='" & stockno & "' and reference = '" & reference & "')+0
+  declare @order as decimal(10,2)=(select  COALESCE(stockorder,0) from reference_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "')+0
 
-
+declare @id as integer = (select max(transno)+1 from trans_tb)
 insert into trans_tb 
-     (STOCKNO,
+     (transno,STOCKNO,
             TRANSTYPE,
             TRANSDATE,
             DUEDATE,
             QTY,
-            REFERENCE,
+            REFERENCE,jo
             ACCOUNT,
-            CONTROLNO,XYZ,XYZREF,REMARKS,INPUTTED) values ('" & nstockno & "'," &
+            CONTROLNO,XYZ,XYZREF,REMARKS,INPUTTED) values (@id,'" & nstockno & "'," &
          "'Order'," &
          "'" & Form2.transdate.Text & "'," &
          "''," &
          "@order," &
          "'" & newreference & "'," &
+               "'" & newjo & "'," &
          "''," &
          "''," &
             "''," &
@@ -242,7 +248,8 @@ insert into trans_tb
          "''," &
             "'" & Form1.Label1.Text & "')
 
-update trans_tb set qty = 0,xyzref='canceled' where stockno = '" & stockno & "' and reference = '" & reference & "' and xyzref='' and transtype='Order'"
+update trans_tb set qty = 0,xyzref='canceled' where stockno = '" & stockno & "' and reference = '" & reference & "'
+            and jo='" & jo & "' and xyzref='' and transtype='Order'"
             sqlcmd = New SqlCommand(newcancelorder, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()
             MessageBox.Show("All order have been moved", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -485,14 +492,14 @@ update trans_tb set qty = 0,xyzref='canceled' where stockno = '" & stockno & "' 
                 Exit Sub
             End If
             'update old reference to make sure data is accurate
-            updatereference(editreference.stockno.Text, editreference.reference.Text)
+            updatereference(editreference.stockno.Text, editreference.reference.Text, editreference.jo.Text)
             'cancel and insert new allocation for new reference
-            cancelalloc(editreference.stockno.Text, editreference.reference.Text, newstockno.Text, reference.Text)
+            cancelalloc(editreference.stockno.Text, editreference.reference.Text, editreference.jo.Text, newstockno.Text, reference.Text, jo.Text)
             'update old reference
-            updatereference(editreference.stockno.Text, editreference.reference.Text)
+            updatereference(editreference.stockno.Text, editreference.reference.Text, editreference.jo.Text)
             autoupdatestock(editreference.stockno.Text)
             'update new reference
-            updatereference(newstockno.Text, reference.Text)
+            updatereference(newstockno.Text, reference.Text, jo.Text)
             autoupdatestock(newstockno.Text)
             Form2.KryptonButton12.PerformClick()
             Button1.PerformClick()
@@ -511,14 +518,14 @@ update trans_tb set qty = 0,xyzref='canceled' where stockno = '" & stockno & "' 
                 Exit Sub
             End If
             'update old reference to make sure data is accurate
-            updatereference(editreference.stockno.Text, editreference.reference.Text)
+            updatereference(editreference.stockno.Text, editreference.reference.Text, editreference.jo.Text)
             'cancel and insert new order for new reference
-            cancelorder(editreference.stockno.Text, editreference.reference.Text, newstockno.Text, reference.Text)
+            cancelorder(editreference.stockno.Text, editreference.reference.Text, editreference.jo.Text, newstockno.Text, reference.Text, jo.Text)
             'update old reference
-            updatereference(editreference.stockno.Text, editreference.reference.Text)
+            updatereference(editreference.stockno.Text, editreference.reference.Text, editreference.jo.Text)
             autoupdatestock(editreference.stockno.Text)
             'update new reference
-            updatereference(newstockno.Text, reference.Text)
+            updatereference(newstockno.Text, reference.Text, jo.Text)
             autoupdatestock(newstockno.Text)
             Form2.KryptonButton12.PerformClick()
             Button1.PerformClick()

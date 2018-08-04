@@ -55,27 +55,27 @@ Public Class editreference
                 Exit Sub
             End If
             loopissue.Text = allocation.Text
-            loadallocationlist(reference.Text, stockno.Text)
+            loadallocationlist(reference.Text, jo.Text, stockno.Text)
             LISTOFALLOCATIONGRIDVIEW.SelectAll()
             KryptonButton25.PerformClick()
 
-            updatereference(stockno.Text, reference.Text)
-            cancelalloc(stockno.Text, reference.Text)
-            updatereference(stockno.Text, reference.Text)
+            updatereference(stockno.Text, reference.Text, jo.Text)
+            cancelalloc(stockno.Text, reference.Text, jo.Text)
+            updatereference(stockno.Text, reference.Text, jo.Text)
             autoupdatestock(stockno.Text)
             Form2.KryptonButton12.PerformClick()
             Button1.PerformClick()
         End If
 
     End Sub
-    Public Sub loadallocationlist(ByVal a As String, ByVal b As String)
+    Public Sub loadallocationlist(ByVal a As String, ByVal jo As String, ByVal b As String)
         Try
             sql.sqlcon.Open()
             Dim da As New SqlDataAdapter
             Dim bs As New BindingSource
             Dim ds As New DataSet
             ds.Clear()
-            Dim str As String = "select * from trans_tb where reference='" & a & "' and stockno='" & b & "' and transtype='Allocation' order by transdate desc"
+            Dim str As String = "select * from trans_tb where reference='" & a & "' and jo='" & jo & "' and stockno='" & b & "' and transtype='Allocation' order by transdate desc"
             sqlcmd = New SqlCommand(str, sql.sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "trans_tb")
@@ -128,18 +128,18 @@ Public Class editreference
             sql.sqlcon.Close()
         End Try
     End Sub
-    Public Sub updatereference(ByVal stockno As String, ByVal reference As String)
+    Public Sub updatereference(ByVal stockno As String, ByVal reference As String, ByVal jo As String)
         Try
             sql.sqlcon.Open()
             Dim bny As String = "
-                                    declare @allocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Allocation')+0
-   declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='CancelAlloc')+0
-                                    declare @order as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Order')+0
-                                    declare @return as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Return')+0
-                                    declare @receipt as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Receipt' AND NOT XYZ='Order')+0
-                                    declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation')+0
-                                    declare @receiptorder as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Receipt' AND XYZ='Order')+0
-                                    declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
+                                    declare @allocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo='" & jo & "' AND TRANSTYPE='Allocation')+0
+                                    declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo='" & jo & "'  AND TRANSTYPE='CancelAlloc')+0
+                                    declare @order as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo='" & jo & "'  AND TRANSTYPE='Order')+0
+                                    declare @return as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo='" & jo & "'  AND TRANSTYPE='Return')+0
+                                    declare @receipt as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo='" & jo & "'  AND TRANSTYPE='Receipt' AND NOT XYZ='Order')+0
+                                    declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo='" & jo & "'  AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation')+0
+                                    declare @receiptorder as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo='" & jo & "'  AND TRANSTYPE='Receipt' AND XYZ='Order')+0
+                                    declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo='" & jo & "'  AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
                                     declare @totalreceipt as decimal(10,2)=@receipt+@receiptorder
                                     declare @totalissue as decimal(10,2)=@issue+@issueallocation
 update reference_tb set 
@@ -149,7 +149,7 @@ update reference_tb set
                                     TOTALRECEIPT=@totalreceipt,
                                     totalissue=@totalissue,
                                     totalreturn=@return
-                                    where stockno='" & stockno & "' and reference='" & reference & "'"
+                                    where stockno='" & stockno & "' and reference='" & reference & "'  and jo='" & jo & "' "
             sqlcmd = New SqlCommand(bny, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()
         Catch ex As Exception
@@ -158,26 +158,27 @@ update reference_tb set
             sql.sqlcon.Close()
         End Try
     End Sub
-    Public Sub cancelalloc(ByVal stockno As String, ByVal reference As String)
+    Public Sub cancelalloc(ByVal stockno As String, ByVal reference As String, ByVal jo As String)
         Try
             sql.sqlcon.Open()
             Dim newcancelalloc As String = "
-  declare @allocation as decimal(10,2)=(select  COALESCE(allocation,0) from reference_tb where stockno ='" & stockno & "' and reference = '" & reference & "')+0
-
+  declare @allocation as decimal(10,2)=(select  COALESCE(allocation,0) from reference_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "')+0
+declare @id as integer =(select max(TRANSNO)+1 from trans_tb)
 insert into trans_tb 
-     (STOCKNO,
+     (TRANSNO,STOCKNO,
             TRANSTYPE,
             TRANSDATE,
             DUEDATE,
             QTY,
-            REFERENCE,
+            REFERENCE,jo,
             ACCOUNT,
-            CONTROLNO,XYZ,XYZREF,REMARKS,INPUTTED) values ('" & stockno & "'," &
+            CONTROLNO,XYZ,XYZREF,REMARKS,INPUTTED) values (@id,'" & stockno & "'," &
          "'CancelAlloc'," &
          "'" & Form2.transdate.Text & "'," &
          "''," &
          "@allocation," &
          "'" & reference & "'," &
+           "'" & jo & "'," &
          "''," &
          "''," &
             "''," &
@@ -283,7 +284,7 @@ insert into trans_tb
     Private Sub KryptonButton4_Click(sender As Object, e As EventArgs) Handles KryptonButton4.Click
         If reference.Text = "" Or stockno.Text = "" Then
         Else
-            updatereference(stockno.Text, reference.Text)
+            updatereference(stockno.Text, reference.Text, jo.Text)
             Form2.KryptonButton12.PerformClick()
         End If
     End Sub
@@ -305,18 +306,18 @@ insert into trans_tb
                 MessageBox.Show("Operation Cancelled", "", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                 Exit Sub
             End If
-            updatereference(stockno.Text, reference.Text)
-            cancelorder(stockno.Text, reference.Text)
-            updatereference(stockno.Text, reference.Text)
+            updatereference(stockno.Text, reference.Text, jo.Text)
+            cancelorder(stockno.Text, reference.Text, jo.Text)
+            updatereference(stockno.Text, reference.Text, jo.Text)
             autoupdatestock(stockno.Text)
             Form2.KryptonButton12.PerformClick()
             Button1.PerformClick()
         End If
     End Sub
-    Public Sub cancelorder(ByVal stockno As String, ByVal reference As String)
+    Public Sub cancelorder(ByVal stockno As String, ByVal reference As String, ByVal jo As String)
         Try
             sql.sqlcon.Open()
-            Dim str As String = "update trans_tb set qty = 0,xyzref='canceled' where stockno = '" & stockno & "' and reference = '" & reference & "' and xyzref='' and transtype='Order'"
+            Dim str As String = "update trans_tb set qty = 0,xyzref='canceled' where stockno = '" & stockno & "' and reference = '" & reference & "' and jo='" & jo & "' and xyzref='' and transtype='Order'"
             sqlcmd = New SqlCommand(str, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()
         Catch ex As Exception

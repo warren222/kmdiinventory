@@ -273,11 +273,11 @@ Public Class Form2
                       transdate.Text,
                       duedate.Text,
                       transqty.Text,
-                      reference.Text,
+                      reference.Text, jo.Text,
                       account.Text,
                       controlno.Text,
                                XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
-            updatestock(transstockno.Text, reference.Text)
+            updatestock(transstockno.Text, reference.Text, jo.Text)
             loadinputgridviews()
             'sql.loadstocks()
             'sql.loadtransactions(toprows.Text)
@@ -303,10 +303,10 @@ Public Class Form2
                    transdate.Text,
                    duedate.Text,
                    transqty.Text,
-                   reference.Text,
+                   reference.Text, jo.Text,
                    account.Text,
                    controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
-            updatestock(transstockno.Text, reference.Text)
+            updatestock(transstockno.Text, reference.Text, jo.Text)
             loadinputgridviews()
             'sql.loadstocks()
             'sql.loadtransactions(toprows.Text)
@@ -332,10 +332,10 @@ Public Class Form2
                    transdate.Text,
                    duedate.Text,
                    transqty.Text,
-                   reference.Text,
+                   reference.Text, jo.Text,
                    account.Text,
                    controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
-            updatestock(transstockno.Text, reference.Text)
+            updatestock(transstockno.Text, reference.Text, jo.Text)
             loadinputgridviews()
             'sql.loadstocks()
             'sql.loadtransactions(toprows.Text)
@@ -359,10 +359,10 @@ Public Class Form2
                    transdate.Text,
                    duedate.Text,
                    transqty.Text,
-                   reference.Text,
+                   reference.Text, jo.Text,
                    account.Text,
                    controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
-            updatestock(transstockno.Text, reference.Text)
+            updatestock(transstockno.Text, reference.Text, jo.Text)
             loadinputgridviews()
             'sql.loadstocks()
             'sql.loadtransactions(toprows.Text)
@@ -386,10 +386,10 @@ Public Class Form2
                    transdate.Text,
                    duedate.Text,
                    transqty.Text,
-                   reference.Text,
+                   reference.Text, jo.Text,
                    account.Text,
                    controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
-            updatestock(transstockno.Text, reference.Text)
+            updatestock(transstockno.Text, reference.Text, jo.Text)
             loadinputgridviews()
             'sql.loadstocks()
             'sql.loadtransactions(toprows.Text)
@@ -413,10 +413,10 @@ Public Class Form2
                    transdate.Text,
                    duedate.Text,
                    transqty.Text,
-                   reference.Text,
+                   reference.Text, jo.Text,
                    account.Text,
                    controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
-            updatestock(transstockno.Text, reference.Text)
+            updatestock(transstockno.Text, reference.Text, jo.Text)
             loadinputgridviews()
             'sql.loadstocks()
             'sql.loadtransactions(toprows.Text)
@@ -440,10 +440,10 @@ Public Class Form2
                    transdate.Text,
                    duedate.Text,
                    transqty.Text,
-                   reference.Text,
+                   reference.Text, jo.Text,
                    account.Text,
                    controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
-            updatestock(transstockno.Text, reference.Text)
+            updatestock(transstockno.Text, reference.Text, jo.Text)
             loadinputgridviews()
             'sql.loadstocks()
             'sql.loadtransactions(toprows.Text)
@@ -467,10 +467,10 @@ Public Class Form2
                    transdate.Text,
                    duedate.Text,
                    transqty.Text,
-                   reference.Text,
+                   reference.Text, jo.Text,
                    account.Text,
                    controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
-            updatestock(transstockno.Text, reference.Text)
+            updatestock(transstockno.Text, reference.Text, jo.Text)
             loadinputgridviews()
             'sql.loadstocks()
             'sql.loadtransactions(toprows.Text)
@@ -498,10 +498,10 @@ Public Class Form2
                    transdate.Text,
                    duedate.Text,
                    transqty.Text,
-                   reference.Text,
+                   reference.Text, jo.Text,
                    account.Text,
                    controlno.Text, XYZ, XYZREF, remarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
-            updatestock(transstockno.Text, reference.Text)
+            updatestock(transstockno.Text, reference.Text, jo.Text)
             loadinputgridviews()
             'sql.loadstocks()
             'sql.loadtransactions(toprows.Text)
@@ -566,7 +566,7 @@ update trans_tb set ufactor=@ufactor,unitprice=@unitprice,xrate=@xrate,netamount
             sql.sqlcon.Close()
         End Try
     End Sub
-    Public Sub updatestock(ByVal stockno As String, ByVal reference As String)
+    Public Sub updatestock(ByVal stockno As String, ByVal reference As String, ByVal jo As String)
         Try
             sql.sqlcon.Open()
             Dim str As String = "
@@ -596,14 +596,14 @@ update trans_tb set ufactor=@ufactor,unitprice=@unitprice,xrate=@xrate,netamount
 
 
             Dim bny As String = "
-                                    declare @allocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Allocation')+0
-                                    declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='CancelAlloc')+0
-                                    declare @order as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Order')+0
-                                    declare @return as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Return')+0
-                                    declare @receipt as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Receipt' AND NOT XYZ='Order')+0
-                                    declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation')+0
-                                    declare @receiptorder as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Receipt' AND XYZ='Order')+0
-                                    declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
+                                    declare @allocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "' AND TRANSTYPE='Allocation')+0
+                                    declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "' AND TRANSTYPE='CancelAlloc')+0
+                                    declare @order as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "'  and jo = '" & jo & "' AND TRANSTYPE='Order')+0
+                                    declare @return as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "'  and jo = '" & jo & "' AND TRANSTYPE='Return')+0
+                                    declare @receipt as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "'  and jo = '" & jo & "' AND TRANSTYPE='Receipt' AND NOT XYZ='Order')+0
+                                    declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "'  and jo = '" & jo & "' AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation')+0
+                                    declare @receiptorder as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "'  and jo = '" & jo & "' AND TRANSTYPE='Receipt' AND XYZ='Order')+0
+                                    declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "'  and jo = '" & jo & "' AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
                                     declare @totalreceipt as decimal(10,2)=@receipt+@receiptorder
                                     declare @totalissue as decimal(10,2)=@issue+@issueallocation
                               
@@ -614,7 +614,7 @@ update reference_tb set
                                     TOTALRECEIPT=@totalreceipt,
                                     totalissue=@totalissue,
                                     totalreturn=@return
-                                    where stockno='" & stockno & "' and reference='" & reference & "'"
+                                    where stockno='" & stockno & "' and reference='" & reference & "' and jo = '" & jo & "' "
             sqlcmd = New SqlCommand(bny, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()
 
@@ -801,7 +801,7 @@ update reference_tb set
 
     Private Sub KryptonButton6_Click(sender As Object, e As EventArgs) Handles KryptonButton6.Click
         sql.searchreference(receiptreference.Text, receiptstockno.Text)
-        sql.selectreceiptreferencerecord1(receiptreference.Text, receiptstockno.Text)
+        sql.selectreceiptreferencerecord1(receiptreference.Text, receiptjo.Text, receiptstockno.Text)
     End Sub
 
     Private Sub receiptGridView_SelectionChanged(sender As Object, e As EventArgs) Handles receiptGridView.SelectionChanged
@@ -851,11 +851,11 @@ update reference_tb set
                        transdate.Text,
                        duedate,
                        receiptqty.Text,
-                      receiptreference.Text,
+                      receiptreference.Text, receiptjo.Text,
                        account,
                        controlno, XYZ, receipttransno.Text, remarks, ufactor, unit, disc, rate, amount)
                 updatetransaction(receiptqty.Text, receipttransno.Text)
-                updatestock(receiptstockno.Text, receiptreference.Text)
+                updatestock(receiptstockno.Text, receiptreference.Text, receiptjo.Text)
 
                 locationform.articleno.Text = receiptarticleno.Text + " - " + "Receipt"
                 locationform.KryptonButton4.Visible = True
@@ -937,7 +937,7 @@ update reference_tb set
                        transdate.Text,
                        duedate,
                        receiptqty.Text,
-                      receiptreference.Text,
+                      receiptreference.Text, receiptjo.Text,
                        account,
                        controlno, XYZ, receipttransno.Text, remarks, ufactor, unitTCT, disc, rate, amount)
                 updatetransaction(receiptqty.Text, receipttransno.Text)
@@ -945,7 +945,7 @@ update reference_tb set
                 Dim bal = order - myreceipt
                 neworderbalance(receipttransno.Text, bal)
 
-                updatestock(receiptstockno.Text, receiptreference.Text)
+                updatestock(receiptstockno.Text, receiptreference.Text, receiptjo.Text)
                 'sql.loadstocks()
                 'sql.loadtransactions(toprows.Text)
                 sql.searchreference(receiptreference.Text, receiptstockno.Text)
@@ -956,10 +956,11 @@ update reference_tb set
         Try
             sql.sqlcon.Open()
             Dim str As String = "
+declare @id as integer = (select max(TRANSNO)+1 from trans_tb)
 insert into trans_tb
-  (STOCKNO,
+  (TRANSNO,STOCKNO,
             TRANSTYPE,
-            TRANSDATE,
+            TRANSDATE,[
             DUEDATE,
             QTY,
             REFERENCE,
@@ -971,7 +972,7 @@ insert into trans_tb
 ufactor,unitprice,disc,xrate,netamount,
             INPUTTED)
 select
-   STOCKNO,
+   @id,STOCKNO,
             TRANSTYPE,
             TRANSDATE,
             DUEDATE,
@@ -1054,7 +1055,7 @@ select
         issuecosthead.SelectedIndex = -1
         issuetypecolor.SelectedIndex = -1
         sql.searchreferenceissue(issuereference.Text, issuestockno.Text)
-        sql.selectissuereferencerecord1(issuereference.Text, issuestockno.Text)
+        sql.selectissuereferencerecord1(issuereference.Text, issuejo.Text, issuestockno.Text)
     End Sub
 
     Private Sub issueDataGridView_SelectionChanged(sender As Object, e As EventArgs) Handles issueDataGridView.SelectionChanged
@@ -1090,11 +1091,11 @@ select
                    transdate.Text,
                    duedate,
                    issueqty.Text,
-                 issuereference.Text,
+                 issuereference.Text, issuejo.Text,
                    issueaccount.Text,
                    issuecontrolno.Text, XYZ, xyzref, issueremarks.Text, ufactor.Text, unitprice.Text, disc.Text, xrate.Text, netamount.Text)
 
-            updatestock(issuestockno.Text, issuereference.Text)
+            updatestock(issuestockno.Text, issuereference.Text, issuejo.Text)
 
 
             locationform.articleno.Text = issuearticleno.Text + " - " + "Issue"
@@ -1121,11 +1122,11 @@ select
     End Sub
 
     Private Sub receiptreference_TextChanged(sender As Object, e As EventArgs) Handles receiptreference.TextChanged
-        sql.selectreceiptreferencerecord(receiptreference.Text)
+        sql.selectreceiptreferencerecord(receiptreference.Text, receiptjo.Text)
     End Sub
 
     Private Sub issuereference_TextChanged(sender As Object, e As EventArgs) Handles issuereference.TextChanged
-        sql.selectissuereferencerecord(issuereference.Text)
+        sql.selectissuereferencerecord(issuereference.Text, receiptjo.Text)
     End Sub
 
     Private Sub KryptonButton9_Click(sender As Object, e As EventArgs) Handles KryptonButton9.Click
@@ -1574,14 +1575,18 @@ on a.stockno = b.stockno"
     Private Sub referenceDataGridView_SelectionChanged(sender As Object, e As EventArgs) Handles referenceDataGridView.SelectionChanged
         refcombo.Items.Clear()
         refstock.Items.Clear()
+        refjo.Items.Clear()
         Dim selecteditems As DataGridViewSelectedRowCollection = referenceDataGridView.SelectedRows
         Dim x As String
         Dim y As String
+        Dim z As String
         For Each selecteditem As DataGridViewRow In selecteditems
             x = selecteditem.Cells("reference").Value.ToString
             y = selecteditem.Cells("stockno").Value.ToString
+            z = selecteditem.Cells("jo").Value.ToString
             refcombo.Items.Add(x)
             refstock.Items.Add(y)
+            refjo.Items.Add(z)
         Next
 
     End Sub
@@ -1598,7 +1603,8 @@ on a.stockno = b.stockno"
         For i As Integer = 0 To refcombo.Items.Count - 1
             Dim str As String = refcombo.Items(i).ToString
             Dim stockno As String = refstock.Items(i).ToString
-            sql.removefromref(str, stockno)
+            Dim jo As String = refjo.Items(i).ToString
+            sql.removefromref(str, jo, stockno)
         Next
         KryptonButton12.PerformClick()
     End Sub
@@ -1606,48 +1612,46 @@ on a.stockno = b.stockno"
     Private Sub KryptonButton12_Click(sender As Object, e As EventArgs) Handles KryptonButton12.Click
         Dim where As String = ""
         Dim a As String = reffromreference.Text
-        Dim b As String = referencecosthead.Text
-        Dim c As String = referencetypecolor.Text
-        Dim d As String = referencearticleno.Text
-        'a
-        If Not a = "" And b = "" And c = "" And d = "" Then
-            where = "where a.reference='" & a & "'"
-        ElseIf Not a = "" And Not b = "" And c = "" And d = "" Then
-            where = "where a.reference='" & a & "' and b.costhead='" & b & "'"
-        ElseIf Not a = "" And b = "" And Not c = "" And d = "" Then
-            where = "where a.reference='" & a & "' and b.typecolor='" & c & "'"
-        ElseIf Not a = "" And b = "" And c = "" And Not d = "" Then
-            where = "where a.reference='" & a & "' and b.articleno='" & d & "'"
-            'b
-        ElseIf a = "" And Not b = "" And c = "" And d = "" Then
-            where = "where b.costhead='" & b & "'"
-        ElseIf a = "" And Not b = "" And Not c = "" And d = "" Then
-            where = "where b.costhead='" & b & "' and b.typecolor='" & c & "'"
-        ElseIf a = "" And Not b = "" And c = "" And Not d = "" Then
-            where = "where b.costhead='" & b & "' and b.articleno='" & d & "'"
-            'c
-        ElseIf a = "" And b = "" And Not c = "" And d = "" Then
-            where = "where b.typecolor='" & c & "'"
-        ElseIf a = "" And b = "" And Not c = "" And Not d = "" Then
-            where = "where b.typecolor='" & c & "' and b.articleno='" & d & "'"
-            'd
-        ElseIf a = "" And b = "" And c = "" And Not d = "" Then
-            where = "where b.articleno='" & d & "'"
-            'triple
-        ElseIf Not a = "" And Not b = "" And Not c = "" And d = "" Then
-            where = "where a.reference='" & a & "' and b.costhead='" & b & "' and b.typecolor='" & c & "'"
-        ElseIf Not a = "" And Not b = "" And c = "" And Not d = "" Then
-            where = "where a.reference='" & a & "' and b.costhead='" & b & "' and b.articleno='" & d & "'"
-        ElseIf Not a = "" And b = "" And Not c = "" And Not d = "" Then
-            where = "where a.reference='" & a & "' and b.typecolor='" & c & "' and b.articleno='" & d & "'"
-        ElseIf a = "" And Not b = "" And Not c = "" And Not d = "" Then
-            where = "where b.costhead='" & b & "' and b.typecolor='" & c & "' and b.articleno='" & d & "'"
-            'quadro
-        ElseIf Not a = "" And Not b = "" And Not c = "" And Not d = "" Then
-            where = "where a.reference='" & a & "' and b.costhead='" & b & "' and b.typecolor='" & c & "' and b.articleno='" & d & "'"
-        ElseIf a = "" And b = "" And c = "" And d = "" Then
-            where = ""
+        Dim b As String = reffromjo.Text
+        Dim c As String = referencecosthead.Text
+        Dim d As String = referencetypecolor.Text
+        Dim f As String = referencearticleno.Text
+        Dim acol As String = "a.reference"
+        Dim bcol As String = "a.jo"
+        Dim ccol As String = "b.costhead"
+        Dim dcol As String = "b.typecolor"
+        Dim fcol As String = "b.articleno"
+        If a = "" Then
+            a = "a.reference"
+        Else
+            a = "'" & a & "'"
         End If
+        If b = "" Then
+            b = "a.jo"
+        Else
+            b = "'" & b & "'"
+        End If
+        If c = "" Then
+            c = "b.costhead"
+        Else
+            c = "'" & c & "'"
+        End If
+        If d = "" Then
+            d = "b.typecolor"
+        Else
+            d = "'" & d & "'"
+        End If
+        If f = "" Then
+            f = "b.articleno"
+        Else
+            f = "'" & f & "'"
+        End If
+
+        where = "where " & a & "= " & acol & " and 
+                       " & b & "= " & bcol & " and 
+                       " & c & "= " & ccol & " and 
+                       " & d & "= " & dcol & " and 
+                       " & f & "= " & fcol & ""
         sql.refsearch(where)
     End Sub
 
@@ -1669,10 +1673,10 @@ on a.stockno = b.stockno"
     Private Sub stocksgridview_MouseDown(sender As Object, e As MouseEventArgs) Handles stocksgridview.MouseDown
         If stocksgridview.RowCount >= 0 Then
             If e.Button = MouseButtons.Right Then
-                If Form1.Label2.Text = "Guest" Or Form1.Label2.Text = "Allocation" Then
-
-                Else
+                If Form1.Label2.Text = "Admin" Or Form1.Label1.Text = "Noreen" Then
                     ContextMenuStrip1.Show(stocksgridview, New Point(e.X, e.Y))
+                Else
+
                 End If
 
 
@@ -2477,13 +2481,14 @@ on a.stockno = b.stockno where b.myyear='" & myyear.Text & "'"
     Private Sub referenceDataGridView_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles referenceDataGridView.CellClick
         If referenceDataGridView.RowCount >= 0 And e.RowIndex >= 0 Then
             editreference.reference.Text = referenceDataGridView.Item(0, e.RowIndex).Value.ToString
-            editaddress.address.Text = referenceDataGridView.Item(11, e.RowIndex).Value.ToString
-            editreference.stockno.Text = referenceDataGridView.Item(1, e.RowIndex).Value.ToString
-            editreference.costhead.Text = referenceDataGridView.Item(2, e.RowIndex).Value.ToString
-            editreference.typecolor.Text = referenceDataGridView.Item(3, e.RowIndex).Value.ToString
-            editreference.articleno.Text = referenceDataGridView.Item(4, e.RowIndex).Value.ToString
-            editreference.allocation.Text = referenceDataGridView.Item(6, e.RowIndex).Value.ToString
-            description.Text = referenceDataGridView.Item(10, e.RowIndex).Value.ToString
+            editreference.jo.Text = referenceDataGridView.Item(1, e.RowIndex).Value.ToString
+            editaddress.address.Text = referenceDataGridView.Item(12, e.RowIndex).Value.ToString
+            editreference.stockno.Text = referenceDataGridView.Item(2, e.RowIndex).Value.ToString
+            editreference.costhead.Text = referenceDataGridView.Item(3, e.RowIndex).Value.ToString
+            editreference.typecolor.Text = referenceDataGridView.Item(4, e.RowIndex).Value.ToString
+            editreference.articleno.Text = referenceDataGridView.Item(5, e.RowIndex).Value.ToString
+            editreference.allocation.Text = referenceDataGridView.Item(7, e.RowIndex).Value.ToString
+            description.Text = referenceDataGridView.Item(11, e.RowIndex).Value.ToString
         End If
     End Sub
 
@@ -3258,6 +3263,54 @@ a.header,sum(a.netamount) as MOVING,( select sum(netamount) from stocks_tb where
     End Sub
 
     Private Sub stocksgridview_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles stocksgridview.CellContentClick
+
+    End Sub
+
+    Private Sub ComboBox2_MouseDown(sender As Object, e As MouseEventArgs) Handles jo.MouseDown
+        genjo()
+    End Sub
+    Public Sub genjo()
+        Try
+            sql.sqlcon1.Open()
+            Dim ds As New DataSet
+            ds.Clear()
+            Dim da As New SqlDataAdapter
+            Dim bs As New BindingSource
+            Dim str As String = "select distinct parentjono from addendum_to_contract_tb where project_label = '" & reference.Text & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon1)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "addendum_to_contract_tb")
+            bs.DataSource = ds
+            bs.DataMember = "addendum_to_contract_tb"
+            jo.DataSource = bs
+            jo.DisplayMember = "parentjono"
+            If jo.Items.Count > 0 Then
+                jo.SelectedIndex = 0
+            Else
+                jo.Text = ""
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon1.Close()
+        End Try
+    End Sub
+
+
+    Private Sub reference_MouseDown(sender As Object, e As MouseEventArgs) Handles reference.MouseDown
+        genjo()
+    End Sub
+
+    Private Sub reference_TextChanged(sender As Object, e As EventArgs) Handles reference.TextChanged
+        genjo()
+    End Sub
+
+    Private Sub referencemenustrip_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles referencemenustrip.Opening
+
+    End Sub
+
+    Private Sub KryptonGroup6_Panel_Paint(sender As Object, e As PaintEventArgs) Handles KryptonGroup6.Panel.Paint
 
     End Sub
 End Class

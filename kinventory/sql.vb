@@ -4,16 +4,16 @@ Imports System.Data
 Imports System.Data.SqlClient
 Imports System.Configuration
 Imports System.Security.Cryptography
-Imports System.Windows.Forms.DataVisualization.Charting
+
 Imports System.ComponentModel
 
 Public Class sql
     Dim datasource As String = Form9.myaccess.Text.ToString
-    Dim catalog As String = "finaltrans"
+    Dim catalog As String = "heretosave"
     Dim userid As String = "kmdiadmin"
     Dim password As String = "kmdiadmin"
     Public sqlcon As New SqlConnection With {.ConnectionString = "Data Source='" & datasource & "';Network Library=DBMSSOCN;Initial Catalog='" & catalog & "';User ID='" & userid & "';Password='" & password & "';"}
-    Public sqlcon1 As New SqlConnection With {.ConnectionString = "Data Source='121.58.229.248,49107';Network Library=DBMSSOCN;Initial Catalog='kmdidata';User ID='kmdiadmin';Password='kmdiadmin';"}
+    Public sqlcon1 As New SqlConnection With {.ConnectionString = "Data Source='121.58.229.248,49107';Network Library=DBMSSOCN;Initial Catalog='heretosave';User ID='kmdiadmin';Password='kmdiadmin';"}
     Dim da As New SqlDataAdapter
     Dim sqlcmd As New SqlCommand
     'Dim scrollval As Integer
@@ -540,7 +540,9 @@ order by A.articleno asc"
                 MessageBox.Show("Stocks already exist!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Else
                 read.Close()
-                Dim str As String = "insert into stocks_tb (supplier,
+                Dim str As String = "
+declare @id as integer = (select max(stockno)+1 from stocks_tb)
+insert into stocks_tb (stockno,supplier,
 costhead,
 ufactor,
 typecolor,
@@ -560,7 +562,7 @@ minimum,
 ISSUE,
 colorbased,
 xrate,
-INPUTTED)values('" & supplier & "'," &
+INPUTTED)values(@id,'" & supplier & "'," &
                           "'" & costhead & "'," &
                           "'" & ufactor & "'," &
                           "'" & typecolor & "'," &
@@ -727,7 +729,7 @@ a.TRANSTYPE,
 a.TRANSDATE,
 case when isdate(a.DUEDATE)=1 then cast(a.duedate as date) end as DUEDATE,
 a.QTY,
-a.REFERENCE,
+a.REFERENCE,a.JO,
 a.ACCOUNT,
 a.CONTROLNO,
 A.XYZ,
@@ -1479,7 +1481,7 @@ on a.stockno = b.stockno"
                           ByVal transdate As String,
                           ByVal duedate As String,
                           ByVal qty As String,
-                          ByVal reference As String,
+                          ByVal reference As String, ByVal jo As String,
                           ByVal account As String,
                           ByVal controlno As String,
                               ByVal xyz As String,
@@ -1524,20 +1526,23 @@ select @sd"
 
             If transtype = "Allocation" Then
                 str = "
+declare @id as integer = (select max(TRANSNO)+1 from trans_tb)
+
 insert into trans_tb 
-            (STOCKNO,
+            (TRANSNO,STOCKNO,
             TRANSTYPE,
             TRANSDATE,
             DUEDATE,
             QTY,
-            REFERENCE,
+            REFERENCE,JO,
             ACCOUNT,
-            CONTROLNO,XYZ,XYZREF,REMARKS,BALQTY,ufactor,unitprice,disc,xrate,netamount,INPUTTED) values ('" & stockno & "'," &
+            CONTROLNO,XYZ,XYZREF,REMARKS,BALQTY,ufactor,unitprice,disc,xrate,netamount,INPUTTED) values (@id,'" & stockno & "'," &
          "'" & transtype & "'," &
          "'" & transdate & "'," &
          "'" & duedate & "'," &
          "'" & qty & "'," &
          "'" & reference & "'," &
+           "'" & jo & "'," &
          "'" & account & "'," &
          "'" & controlno & "'," &
             "'" & xyz & "'," &
@@ -1552,20 +1557,23 @@ insert into trans_tb
             "'" & Form1.Label1.Text & "')"
             ElseIf transtype = "Order" Or transtype = "Receipt" Then
                 str = "
+declare @id as integer = (select max(TRANSNO)+1 from trans_tb)
+
 insert into trans_tb 
-            (STOCKNO,
+            (TRANSNO,STOCKNO,
             TRANSTYPE,
             TRANSDATE,
             DUEDATE,
             QTY,
-            REFERENCE,
+            REFERENCE,JO,
             ACCOUNT,
-            CONTROLNO,XYZ,XYZREF,REMARKS,BALQTY,ufactor,unitprice,disc,xrate,netamount,INPUTTED) values ('" & stockno & "'," &
+            CONTROLNO,XYZ,XYZREF,REMARKS,BALQTY,ufactor,unitprice,disc,xrate,netamount,INPUTTED) values (@id,'" & stockno & "'," &
          "'" & transtype & "'," &
          "'" & transdate & "'," &
          "'" & duedate & "'," &
          "'" & qty & "'," &
          "'" & reference & "'," &
+             "'" & jo & "'," &
          "'" & account & "'," &
          "'" & controlno & "'," &
             "'" & xyz & "'," &
@@ -1580,20 +1588,23 @@ insert into trans_tb
             "'" & Form1.Label1.Text & "')"
             Else
                 str = "
+declare @id as integer = (select max(TRANSNO)+1 from trans_tb)
+
 insert into trans_tb 
-            (STOCKNO,
+            (TRANSNO,STOCKNO,
             TRANSTYPE,
             TRANSDATE,
             DUEDATE,
             QTY,
-            REFERENCE,
+            REFERENCE,JO
             ACCOUNT,
-            CONTROLNO,XYZ,XYZREF,REMARKS,BALQTY,ufactor,unitprice,disc,xrate,netamount,INPUTTED) values ('" & stockno & "'," &
+            CONTROLNO,XYZ,XYZREF,REMARKS,BALQTY,ufactor,unitprice,disc,xrate,netamount,INPUTTED) values (@id,'" & stockno & "'," &
          "'" & transtype & "'," &
          "'" & transdate & "'," &
          "'" & duedate & "'," &
          "'" & qty & "'," &
          "'" & reference & "'," &
+         "'" & jo & "'," &
          "'" & account & "'," &
          "'" & controlno & "'," &
             "'" & xyz & "'," &
@@ -1611,7 +1622,7 @@ insert into trans_tb
             sqlcmd = New SqlCommand(str, sqlcon)
             sqlcmd.ExecuteNonQuery()
 
-            Dim find As String = "select * from reference_tb where reference='" & reference & "' and stockno='" & stockno & "'"
+            Dim find As String = "select * from reference_tb where reference='" & reference & "' AND JO = '" & jo & "' and stockno='" & stockno & "'"
             sqlcmd = New SqlCommand(find, sqlcon)
             Dim read As SqlDataReader = sqlcmd.ExecuteReader
             If read.HasRows = True Then
@@ -1622,7 +1633,7 @@ insert into trans_tb
                 Dim address As String
                 Try
                     sqlcon1.Open()
-                    Dim getadd As String = "select fulladd from addendum_to_contract_tb where project_label = '" & reference & "'"
+                    Dim getadd As String = "select fulladd from addendum_to_contract_tb where project_label = '" & reference & "'  AND PARENTJONO = '" & jo & "'"
                     sqlcmd = New SqlCommand(getadd, sqlcon1)
                     Dim sd As SqlDataReader = sqlcmd.ExecuteReader
                     While sd.Read
@@ -1635,7 +1646,10 @@ insert into trans_tb
                     sqlcon1.Close()
                 End Try
 
-                Dim insert As String = "insert into reference_tb (reference,address,stockno) values('" & reference & "','" & address & "','" & stockno & "')"
+                Dim insert As String = "
+                    declare @id as integer = (select max(id)+1 from reference_tb)
+                    insert into reference_tb (id,reference,JO,address,stockno) 
+                    values(@id,'" & reference & "','" & jo & "','" & address & "','" & stockno & "')"
                 sqlcmd = New SqlCommand(insert, sqlcon)
                 sqlcmd.ExecuteNonQuery()
 
@@ -1786,7 +1800,7 @@ on b.stockno=a.stockno
             sqlcon.Close()
         End Try
     End Sub
-    Public Sub selectreceiptreferencerecord(ByVal reference As String)
+    Public Sub selectreceiptreferencerecord(ByVal reference As String, ByVal jo As String)
         Try
             sqlcon.Close()
             sqlcon.Open()
@@ -1815,7 +1829,7 @@ A.XRATE,
 A.NETAMOUNT
  from trans_tb as a
 inner join stocks_tb as b on a.stockno = b.stockno
-where a.reference='" & reference & "' and a.qty>0 and a.transtype = 'Order' and a.xyzref=''
+where a.reference='" & reference & "' and a.jo ='" & jo & "' and a.qty>0 and a.transtype = 'Order' and a.xyzref=''
 order by b.articleno asc"
             sqlcmd = New SqlCommand(Str, sqlcon)
             da.SelectCommand = sqlcmd
@@ -1846,7 +1860,7 @@ order by b.articleno asc"
             sqlcon.Close()
         End Try
     End Sub
-    Public Sub selectreceiptreferencerecord1(ByVal reference As String, ByVal stocksno As String)
+    Public Sub selectreceiptreferencerecord1(ByVal reference As String, ByVal jo As String, ByVal stocksno As String)
         Try
             sqlcon.Close()
             sqlcon.Open()
@@ -1875,7 +1889,7 @@ A.XRATE,
 A.NETAMOUNT
  from trans_tb as a
 inner join stocks_tb as b on a.stockno = b.stockno
-where a.reference='" & reference & "' and a.stockno = '" & stocksno & "' and a.transtype = 'Order' and a.xyzref=''
+where a.reference='" & reference & "' and a.jo ='" & jo & "' and a.stockno = '" & stocksno & "' and a.transtype = 'Order' and a.xyzref=''
 order by b.articleno asc"
             sqlcmd = New SqlCommand(Str, sqlcon)
             da.SelectCommand = sqlcmd
@@ -1907,7 +1921,7 @@ order by b.articleno asc"
         End Try
     End Sub
 
-    Public Sub selectissuereferencerecord(ByVal reference As String)
+    Public Sub selectissuereferencerecord(ByVal reference As String, ByVal jo As String)
         Try
             sqlcon.Close()
             sqlcon.Open()
@@ -1926,7 +1940,7 @@ from
 reference_tb as a
 inner join stocks_tb as b
 on b.stockno=a.stockno
- where a.reference='" & reference & "' and a.ALLOCATION>0"
+ where a.reference='" & reference & "' and a.jo='" & jo & "' and a.ALLOCATION>0"
             sqlcmd = New SqlCommand(Str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "reference_tb")
@@ -1943,7 +1957,7 @@ on b.stockno=a.stockno
             sqlcon.Close()
         End Try
     End Sub
-    Public Sub selectissuereferencerecord1(ByVal reference As String, ByVal stockno As String)
+    Public Sub selectissuereferencerecord1(ByVal reference As String, ByVal jo As String, ByVal stockno As String)
         Try
             sqlcon.Close()
             sqlcon.Open()
@@ -1962,7 +1976,7 @@ from
 reference_tb as a
 inner join stocks_tb as b
 on b.stockno=a.stockno
- where a.reference='" & reference & "' and a.stockno = '" & stockno & "'"
+ where a.reference='" & reference & "' and a.jo='" & jo & "' and a.stockno = '" & stockno & "'"
             sqlcmd = New SqlCommand(Str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "reference_tb")
@@ -2929,7 +2943,7 @@ on a.stockno = b.stockno where a.transno='" & transno & "'"
             Dim ds As New DataSet
             ds.Clear()
 
-            Dim str As String = "select a.REFERENCE,
+            Dim str As String = "select a.REFERENCE,a.JO,
 a.STOCKNO,
 b.COSTHEAD,
 b.TYPECOLOR,
@@ -2954,6 +2968,7 @@ on a.stockno=b.stockno order by a.reference asc,a.stockorder desc,a.allocation d
             Form2.referenceDataGridView.DataSource = Form2.referencebs
             Form2.referenceDataGridView.Columns("description").Visible = False
             editreference.reference.DataBindings.Clear()
+            editreference.jo.DataBindings.Clear()
             editreference.stockno.DataBindings.Clear()
             editreference.costhead.DataBindings.Clear()
             editreference.typecolor.DataBindings.Clear()
@@ -2961,6 +2976,7 @@ on a.stockno=b.stockno order by a.reference asc,a.stockorder desc,a.allocation d
             editreference.allocation.DataBindings.Clear()
             editreference.order.DataBindings.Clear()
             editreference.reference.DataBindings.Add("text", Form2.referencebs, "REFERENCE")
+            editreference.jo.DataBindings.Add("text", Form2.referencebs, "jo")
             editreference.stockno.DataBindings.Add("text", Form2.referencebs, "STOCKNO")
             editreference.costhead.DataBindings.Add("text", Form2.referencebs, "COSTHEAD")
             editreference.typecolor.DataBindings.Add("text", Form2.referencebs, "TYPECOLOR")
@@ -2968,12 +2984,14 @@ on a.stockno=b.stockno order by a.reference asc,a.stockorder desc,a.allocation d
             editreference.order.DataBindings.Add("text", Form2.referencebs, "STOCKORDER")
 
             moveallocation.reference.DataBindings.Clear()
+            moveallocation.jo.DataBindings.Clear()
             moveallocation.newstockno.DataBindings.Clear()
             moveallocation.newcosthead.DataBindings.Clear()
             moveallocation.newtypecolor.DataBindings.Clear()
             moveallocation.newarticleno.DataBindings.Clear()
 
             moveallocation.reference.DataBindings.Add("text", Form2.referencebs, "REFERENCE")
+            moveallocation.jo.DataBindings.Add("text", Form2.referencebs, "jo")
             moveallocation.newstockno.DataBindings.Add("text", Form2.referencebs, "STOCKNO")
             moveallocation.newcosthead.DataBindings.Add("text", Form2.referencebs, "COSTHEAD")
             moveallocation.newtypecolor.DataBindings.Add("text", Form2.referencebs, "TYPECOLOR")
@@ -3005,10 +3023,10 @@ on a.stockno=b.stockno order by a.reference asc,a.stockorder desc,a.allocation d
             MsgBox(ex.ToString)
         End Try
     End Sub
-    Public Sub removefromref(ByVal ref As String, ByVal stockno As String)
+    Public Sub removefromref(ByVal ref As String, ByVal jo As String, ByVal stockno As String)
         Try
             sqlcon.Open()
-            Dim str As String = "delete from reference_tb where reference='" & ref & "' and stockno='" & stockno & "'"
+            Dim str As String = "delete from reference_tb where reference='" & ref & "' and jo = '" & jo & "' and stockno='" & stockno & "'"
             sqlcmd = New SqlCommand(str, sqlcon)
             sqlcmd.ExecuteNonQuery()
         Catch ex As Exception
@@ -3023,7 +3041,7 @@ on a.stockno=b.stockno order by a.reference asc,a.stockorder desc,a.allocation d
             Dim ds As New DataSet
 
             ds.Clear()
-            Dim str As String = "select a.REFERENCE,
+            Dim str As String = "select a.REFERENCE,a.JO,
 a.STOCKNO,
 b.COSTHEAD,
 b.TYPECOLOR,
@@ -3049,6 +3067,7 @@ on a.stockno=b.stockno " & where & " order by a.reference asc,a.stockorder desc,
             Form2.referenceDataGridView.DataSource = Form2.referencebs
             Form2.referenceDataGridView.Columns("description").Visible = False
             editreference.reference.DataBindings.Clear()
+            editreference.jo.DataBindings.Clear()
             editreference.stockno.DataBindings.Clear()
             editreference.costhead.DataBindings.Clear()
             editreference.typecolor.DataBindings.Clear()
@@ -3056,6 +3075,7 @@ on a.stockno=b.stockno " & where & " order by a.reference asc,a.stockorder desc,
             editreference.allocation.DataBindings.Clear()
             editreference.order.DataBindings.Clear()
             editreference.reference.DataBindings.Add("text", Form2.referencebs, "REFERENCE")
+            editreference.jo.DataBindings.Add("text", Form2.referencebs, "jo")
             editreference.stockno.DataBindings.Add("text", Form2.referencebs, "STOCKNO")
             editreference.costhead.DataBindings.Add("text", Form2.referencebs, "COSTHEAD")
             editreference.typecolor.DataBindings.Add("text", Form2.referencebs, "TYPECOLOR")
@@ -3064,12 +3084,14 @@ on a.stockno=b.stockno " & where & " order by a.reference asc,a.stockorder desc,
             editreference.order.DataBindings.Add("text", Form2.referencebs, "STOCKORDER")
 
             moveallocation.reference.DataBindings.Clear()
+            moveallocation.jo.DataBindings.Clear()
             moveallocation.newstockno.DataBindings.Clear()
             moveallocation.newcosthead.DataBindings.Clear()
             moveallocation.newtypecolor.DataBindings.Clear()
             moveallocation.newarticleno.DataBindings.Clear()
 
             moveallocation.reference.DataBindings.Add("text", Form2.referencebs, "REFERENCE")
+            moveallocation.jo.DataBindings.Add("text", Form2.referencebs, "jo")
             moveallocation.newstockno.DataBindings.Add("text", Form2.referencebs, "STOCKNO")
             moveallocation.newcosthead.DataBindings.Add("text", Form2.referencebs, "COSTHEAD")
             moveallocation.newtypecolor.DataBindings.Add("text", Form2.referencebs, "TYPECOLOR")

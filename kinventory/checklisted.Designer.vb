@@ -42,6 +42,7 @@ Partial Class checklisted
         Me.Button1 = New System.Windows.Forms.Button()
         Me.KryptonLabel6 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonGroup1 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
+        Me.refjo = New System.Windows.Forms.ComboBox()
         CType(Me.CHECKLISTEDgridview, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.allocationGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
@@ -209,14 +210,15 @@ Partial Class checklisted
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.CHECKLISTEDgridview)
+        Me.Panel1.Controls.Add(Me.allocationGridView)
+        Me.Panel1.Controls.Add(Me.refjo)
         Me.Panel1.Controls.Add(Me.KryptonButton2)
         Me.Panel1.Controls.Add(Me.KryptonGroup8)
         Me.Panel1.Controls.Add(Me.Panel3)
-        Me.Panel1.Controls.Add(Me.CHECKLISTEDgridview)
         Me.Panel1.Controls.Add(Me.KryptonButton3)
         Me.Panel1.Controls.Add(Me.KryptonButton1)
         Me.Panel1.Controls.Add(Me.projectlabel)
-        Me.Panel1.Controls.Add(Me.allocationGridView)
         Me.Panel1.Controls.Add(Me.refcombo)
         Me.Panel1.Controls.Add(Me.refstock)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
@@ -332,6 +334,14 @@ Partial Class checklisted
         Me.KryptonGroup1.StateCommon.Border.Width = 3
         Me.KryptonGroup1.TabIndex = 477
         '
+        'refjo
+        '
+        Me.refjo.FormattingEnabled = True
+        Me.refjo.Location = New System.Drawing.Point(662, 152)
+        Me.refjo.Name = "refjo"
+        Me.refjo.Size = New System.Drawing.Size(121, 21)
+        Me.refjo.TabIndex = 478
+        '
         'checklisted
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -378,4 +388,5 @@ Partial Class checklisted
     Friend WithEvents KryptonButton2 As ComponentFactory.Krypton.Toolkit.KryptonButton
     Friend WithEvents KryptonGroup8 As ComponentFactory.Krypton.Toolkit.KryptonGroup
     Friend WithEvents REFERENCE As ComboBox
+    Friend WithEvents refjo As ComboBox
 End Class

@@ -24,7 +24,8 @@ Public Class editaddress
         Try
             sql.sqlcon.Open()
             Dim ref As String = editreference.reference.Text
-            Dim str As String = "update reference_TB set address = '" & address.Text & "' where reference = '" & ref & "'"
+            Dim jo As String = editreference.jo.Text
+            Dim str As String = "update reference_TB set address = '" & address.Text & "' where reference = '" & ref & "' and jo = '" & jo & "'"
             sqlcmd = New SqlCommand(str, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()
         Catch ex As Exception

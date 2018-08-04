@@ -907,7 +907,7 @@ minimum adjustmment for this transaction is " & minimum & "", "Error", MessageBo
                 nextRow.Selected = True
             End If
         ElseIf itcame.Text = "RECEIPT" Then
-            sql.selectreceiptreferencerecord(Form2.receiptreference.Text)
+            sql.selectreceiptreferencerecord(Form2.receiptreference.Text, Form2.receiptjo.Text)
         End If
     End Sub
 

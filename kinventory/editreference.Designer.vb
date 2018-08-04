@@ -22,7 +22,7 @@ Partial Class editreference
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.KryptonLabel7 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonButton1 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.KryptonLabel5 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
@@ -54,6 +54,7 @@ Partial Class editreference
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.LISTOFALLOCATIONGRIDVIEW = New ComponentFactory.Krypton.Toolkit.KryptonDataGridView()
         Me.loopissue = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
+        Me.jo = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.Panel1.SuspendLayout()
         Me.Panel4.SuspendLayout()
         CType(Me.KryptonPanel1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -318,7 +319,7 @@ Partial Class editreference
         Me.reference.Location = New System.Drawing.Point(123, 35)
         Me.reference.Multiline = True
         Me.reference.Name = "reference"
-        Me.reference.Size = New System.Drawing.Size(499, 27)
+        Me.reference.Size = New System.Drawing.Size(285, 27)
         Me.reference.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(CType(CType(242, Byte), Integer), CType(CType(242, Byte), Integer), CType(CType(242, Byte), Integer))
         Me.reference.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
@@ -376,6 +377,7 @@ Partial Class editreference
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.Panel1.Controls.Add(Me.jo)
         Me.Panel1.Controls.Add(Me.Panel4)
         Me.Panel1.Controls.Add(Me.KryptonLabel6)
         Me.Panel1.Controls.Add(Me.KryptonLabel2)
@@ -678,8 +680,8 @@ Partial Class editreference
         Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToAddRows = False
         Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToDeleteRows = False
         Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToOrderColumns = True
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.LISTOFALLOCATIONGRIDVIEW.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.LISTOFALLOCATIONGRIDVIEW.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.LISTOFALLOCATIONGRIDVIEW.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.LISTOFALLOCATIONGRIDVIEW.ColumnHeadersHeight = 20
         Me.LISTOFALLOCATIONGRIDVIEW.Cursor = System.Windows.Forms.Cursors.Hand
@@ -717,6 +719,33 @@ Partial Class editreference
         Me.loopissue.Size = New System.Drawing.Size(78, 23)
         Me.loopissue.TabIndex = 454
         Me.loopissue.Text = "0"
+        '
+        'jo
+        '
+        Me.jo.Enabled = False
+        Me.jo.Location = New System.Drawing.Point(422, 35)
+        Me.jo.Multiline = True
+        Me.jo.Name = "jo"
+        Me.jo.Size = New System.Drawing.Size(200, 27)
+        Me.jo.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(CType(CType(242, Byte), Integer), CType(CType(242, Byte), Integer), CType(CType(242, Byte), Integer))
+        Me.jo.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.jo.StateCommon.Border.Rounding = 0
+        Me.jo.StateCommon.Border.Width = 3
+        Me.jo.StateCommon.Content.Color1 = System.Drawing.Color.Black
+        Me.jo.StateCommon.Content.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.jo.StateDisabled.Back.Color1 = System.Drawing.Color.White
+        Me.jo.StateDisabled.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.jo.StateDisabled.Content.Color1 = System.Drawing.Color.Black
+        Me.jo.StateDisabled.Content.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.jo.StateNormal.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.jo.StateNormal.Border.Width = 3
+        Me.jo.TabIndex = 41
         '
         'editreference
         '
@@ -779,4 +808,5 @@ Partial Class editreference
     Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents LISTOFALLOCATIONGRIDVIEW As ComponentFactory.Krypton.Toolkit.KryptonDataGridView
     Friend WithEvents loopissue As ComponentFactory.Krypton.Toolkit.KryptonTextBox
+    Friend WithEvents jo As ComponentFactory.Krypton.Toolkit.KryptonTextBox
 End Class
