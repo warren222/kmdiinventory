@@ -32,7 +32,7 @@ description.Text,
 unit.Text,
 location.Text,
 min.Text, colorbased.Text, xrate.Text)
-            sql.loadstocks()
+            sql.loadstocks(Form2.stocktoprows.Text)
             Form2.KryptonButton1.PerformClick()
             Button1.PerformClick()
         End If

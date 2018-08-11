@@ -7,9 +7,11 @@ Public Class Form2
         Timer2.Start()
         Me.Text = Form1.Label2.Text
         toprows.SelectedIndex = 0
-        sql.loadstocks()
+        reftoprows.SelectedIndex = 0
+        stocktoprows.SelectedIndex = 0
+        sql.loadstocks(stocktoprows.Text)
         sql.loadtransactions(toprows.Text)
-        sql.referencetb()
+        sql.referencetb(reftoprows.Text)
         Timer1.Start()
         myyear.Text = Today.Date.Year
         refsource.SelectedIndex = 1
@@ -797,6 +799,7 @@ update reference_tb set
         Else
             receiptreference.SelectedIndex = x
         End If
+        genjo("receipt", receiptreference.Text, receiptjo, "trans_tb", "jo")
     End Sub
 
     Private Sub KryptonButton6_Click(sender As Object, e As EventArgs) Handles KryptonButton6.Click
@@ -1002,6 +1005,7 @@ select
         Else
             issuereference.SelectedIndex = x
         End If
+        genjo("issue", issuereference.Text, issuejo, "trans_tb", "jo")
     End Sub
 
     Private Sub issuecosthead_MouseDown(sender As Object, e As MouseEventArgs) Handles issuecosthead.MouseDown
@@ -1054,7 +1058,7 @@ select
         issuearticleno.SelectedIndex = -1
         issuecosthead.SelectedIndex = -1
         issuetypecolor.SelectedIndex = -1
-        sql.searchreferenceissue(issuereference.Text, issuestockno.Text)
+        sql.searchreferenceissue(issuereference.Text, issuejo.Text, issuestockno.Text)
         sql.selectissuereferencerecord1(issuereference.Text, issuejo.Text, issuestockno.Text)
     End Sub
 
@@ -1073,6 +1077,7 @@ select
         Dim myissue As Double = issueqty.Text
         Dim allocate As Double = issueallocation.Text
         Dim physical As Double = issuephysical.Text
+
         If myissue <= 0 Then
             MessageBox.Show("issue more than 0 to continue", "Stop", MessageBoxButtons.OK, MessageBoxIcon.Stop)
         ElseIf myissue > allocate Then
@@ -1111,7 +1116,7 @@ select
 
             'sql.loadstocks()
             'sql.loadtransactions(toprows.Text)
-            sql.searchreferenceissue(issuereference.Text, issuestockno.Text)
+            sql.searchreferenceissue(issuereference.Text, issuejo.Text, issuestockno.Text)
             issueDataGridView.Visible = True
             KryptonGroup5.Visible = False
 
@@ -1122,11 +1127,15 @@ select
     End Sub
 
     Private Sub receiptreference_TextChanged(sender As Object, e As EventArgs) Handles receiptreference.TextChanged
+        genjo("receipt", receiptreference.Text, receiptjo, "trans_tb", "jo")
         sql.selectreceiptreferencerecord(receiptreference.Text, receiptjo.Text)
+
     End Sub
 
     Private Sub issuereference_TextChanged(sender As Object, e As EventArgs) Handles issuereference.TextChanged
-        sql.selectissuereferencerecord(issuereference.Text, receiptjo.Text)
+        genjo("issue", issuereference.Text, issuejo, "trans_tb", "jo")
+        sql.selectissuereferencerecord(issuereference.Text, issuejo.Text)
+
     End Sub
 
     Private Sub KryptonButton9_Click(sender As Object, e As EventArgs) Handles KryptonButton9.Click
@@ -1138,18 +1147,18 @@ select
         If issueDataGridView.RowCount > 0 And e.RowIndex >= 0 Then
             issueDataGridView.Visible = False
             KryptonGroup5.Visible = True
-            loadallocationlist(KryptonTextBox1.Text, KryptonTextBox2.Text)
+            loadallocationlist(KryptonTextBox1.Text, KryptonTextBox3.Text, KryptonTextBox2.Text)
             LISTOFALLOCATIONGRIDVIEW.SelectAll()
         End If
     End Sub
-    Public Sub loadallocationlist(ByVal a As String, ByVal b As String)
+    Public Sub loadallocationlist(ByVal a As String, ByVal JO As String, ByVal b As String)
         Try
             sql.sqlcon.Open()
             Dim da As New SqlDataAdapter
             Dim bs As New BindingSource
             Dim ds As New DataSet
-            ds.Clear
-            Dim str As String = "select * from trans_tb where reference='" & a & "' and stockno='" & b & "' and transtype='Allocation' order by transdate desc"
+            ds.Clear()
+            Dim str As String = "select * from trans_tb where reference='" & a & "' and JO ='" & JO & "' and stockno='" & b & "' and transtype='Allocation' order by transdate desc"
             sqlcmd = New SqlCommand(str, sql.sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "trans_tb")
@@ -1170,42 +1179,11 @@ select
             issuephysical.Text = x.Cells("Physical").Value.ToString
         Next
     End Sub
-
-    Private Sub KryptonButton11_Click(sender As Object, e As EventArgs) Handles KryptonButton11.Click
-        Dim search As String
-        Dim count As String = "select format(count(a.TRANSNO),'n0'),format(sum(isnull(a.netamount,0)/isnull(a.xrate,0)),'n2') from trans_tb as a inner join stocks_tb as b on a.stockno = b.stockno"
-
-        Dim countsearch As String
+    Public Sub clckbtn11event()
         Dim top As String = toprows.Text.Replace(",", "")
-
-        Dim selection As String = " top " & top & " a.TRANSNO,
-a.STOCKNO,
-b.COSTHEAD,
-b.TYPECOLOR,
-B.ARTICLENO,
-B.DESCRIPTION,
-a.TRANSTYPE,
-a.TRANSDATE,
-case when isdate(a.DUEDATE)=1 then cast(a.duedate as date) end as DUEDATE,
-a.QTY,
-a.REFERENCE,
-a.ACCOUNT,
-a.CONTROLNO,
-A.XYZ,
-a.EXCESS,
-a.REMARKS,
-A.UFACTOR,
-(a.ufactor * a.qty) as CHECKER,
-a.UNITPRICE,
-A.DISC,
-((a.ufactor * a.qty)*(a.unitprice-((a.disc*0.01)*a.unitprice))) as CURRENCY,
-a.XRATE,
-A.NETAMOUNT,
-A.INPUTTED,
-A.ADJUSTMENTQTY
- from trans_tb as a inner join stocks_tb as b
-on a.stockno = b.stockno"
-        Dim tr As String
+        Dim dtt As String = ""
+        Dim tr As String = ""
+        Dim where As String = ""
         If transtransaction.Text = "Issue & Supply" Then
             tr = "(a.transtype='Issue' or a.transtype='Supply')"
         ElseIf transtransaction.Text = "Issue & Receipt & +Adjustment-" Then
@@ -1214,177 +1192,86 @@ on a.stockno = b.stockno"
             tr = "a.transtype='" & transtransaction.Text & "'"
         End If
 
-        If all.Checked = True And Not transreference.Text = "" And Not transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "' and " & tr & " and b.costhead='" & transactioncosthead.Text & "'"
-            countsearch = "" & count & " where a.reference='" & transreference.Text & "' and " & tr & " and b.costhead='" & transactioncosthead.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf all.Checked = True And Not transreference.Text = "" And transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "'"
-            countsearch = "" & count & "  where a.reference='" & transreference.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf all.Checked = True And transreference.Text = "" And Not transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "Select " & selection & " where " & tr & ""
-            countsearch = "" & count & "  where " & tr & ""
-            sql.searchtransaction(search, countsearch)
-        ElseIf all.Checked = True And transreference.Text = "" And transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where b.costhead='" & transactioncosthead.Text & "'"
-            countsearch = "" & count & "  where b.costhead='" & transactioncosthead.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf all.Checked = True And Not transreference.Text = "" And Not transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "' and " & tr & ""
-            countsearch = "" & count & "  where a.reference='" & transreference.Text & "' and " & tr & ""
-            sql.searchtransaction(search, countsearch)
-        ElseIf all.Checked = True And Not transreference.Text = "" And transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "' and b.costhead='" & transactioncosthead.Text & "'"
-            countsearch = "" & count & "  where a.reference='" & transreference.Text & "' and b.costhead='" & transactioncosthead.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf all.Checked = True And transreference.Text = "" And Not transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where  " & tr & " and b.costhead='" & transactioncosthead.Text & "'"
-            countsearch = "" & count & " where  " & tr & " and b.costhead='" & transactioncosthead.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf all.Checked = True And transreference.Text = "" And transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "select " & selection & ""
-            countsearch = "" & count & ""
-            sql.searchtransaction(search, countsearch)
+        If all.Checked = True Then
+            dtt = ""
+        ElseIf thisdate.Checked = True Then
+            dtt = " a.TRANSDATE = '" & transdate.Text & "'"
+        ElseIf before.Checked = True Then
+            dtt = " a.TRANSDATE < '" & transadate.Text & "'"
+        ElseIf after.Checked = True Then
+            dtt = " a.TRANSDATE > '" & transadate.Text & "'"
+        ElseIf tomydate.Checked = True Then
+            dtt = " a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
         End If
 
-        If thisdate.Checked = True And Not transreference.Text = "" And Not transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "' and " & tr & " and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE ='" & transadate.Text & "'"
-            countsearch = "" & count & " where a.reference='" & transreference.Text & "' and " & tr & " and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE ='" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf thisdate.Checked = True And Not transreference.Text = "" And transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "' and a.TRANSDATE ='" & transadate.Text & "'"
-            countsearch = "" & count & " where a.reference='" & transreference.Text & "' and a.TRANSDATE ='" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf thisdate.Checked = True And transreference.Text = "" And Not transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "select " & selection & " where " & tr & " and a.TRANSDATE ='" & transadate.Text & "'"
-            countsearch = "" & count & " where " & tr & " and a.TRANSDATE ='" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf thisdate.Checked = True And transreference.Text = "" And transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE ='" & transadate.Text & "'"
-            countsearch = "" & count & " where b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE ='" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf thisdate.Checked = True And Not transreference.Text = "" And Not transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "' and " & tr & " and a.TRANSDATE ='" & transadate.Text & "'"
-            countsearch = "" & count & " where a.reference='" & transreference.Text & "' and " & tr & " and a.TRANSDATE ='" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf thisdate.Checked = True And Not transreference.Text = "" And transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "' and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE ='" & transadate.Text & "'"
-            countsearch = "" & count & " where a.reference='" & transreference.Text & "' and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE ='" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf thisdate.Checked = True And transreference.Text = "" And Not transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where " & tr & " and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE ='" & transadate.Text & "'"
-            countsearch = "" & count & " where " & tr & " and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE ='" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf thisdate.Checked = True And transreference.Text = "" And transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.TRANSDATE ='" & transadate.Text & "'"
-            countsearch = "" & count & " where a.TRANSDATE ='" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
+        Dim a As String = transreference.Text
+        Dim b As String = transjo.Text
+        Dim c As String = transcosthead.Text
+
+        Dim acol As String = "a.reference"
+        Dim bcol As String = "a.jo"
+        Dim ccol As String = "b.costhead"
+
+        If a = "" Then
+            a = "" & acol & ""
+        Else
+            a = "'" & a & "'"
+        End If
+        If b = "" Then
+            b = "" & bcol & ""
+        Else
+            b = "'" & b & "'"
+        End If
+        If c = "" Then
+            c = "" & ccol & ""
+        Else
+            c = "'" & c & "'"
         End If
 
-        If before.Checked = True And Not transreference.Text = "" And Not transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "' and " & tr & " and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE < '" & transadate.Text & "'"
-            countsearch = "" & count & " where a.reference='" & transreference.Text & "' and " & tr & " and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE < '" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf before.Checked = True And Not transreference.Text = "" And transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "' and a.TRANSDATE < '" & transadate.Text & "'"
-            countsearch = "" & count & "  where a.reference='" & transreference.Text & "' and a.TRANSDATE < '" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf before.Checked = True And transreference.Text = "" And Not transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "select " & selection & " where " & tr & " and a.TRANSDATE < '" & transadate.Text & "'"
-            countsearch = "" & count & "  where " & tr & " and a.TRANSDATE < '" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf before.Checked = True And transreference.Text = "" And transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE < '" & transadate.Text & "'"
-            countsearch = "" & count & "  where b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE < '" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf before.Checked = True And Not transreference.Text = "" And Not transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "' and " & tr & " and a.TRANSDATE < '" & transadate.Text & "'"
-            countsearch = "" & count & "  where a.reference='" & transreference.Text & "' and " & tr & " and a.TRANSDATE < '" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf before.Checked = True And Not transreference.Text = "" And transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "' and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE < '" & transadate.Text & "'"
-            countsearch = "" & count & "  where a.reference='" & transreference.Text & "' and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE < '" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf before.Checked = True And transreference.Text = "" And Not transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where " & tr & " and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE < '" & transadate.Text & "'"
-            countsearch = "" & count & "  where " & tr & " and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE < '" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf before.Checked = True And transreference.Text = "" And transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.TRANSDATE < '" & transadate.Text & "'"
-            countsearch = "" & count & "  where a.TRANSDATE < '" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        End If
+        where = "           where
+                            " & acol & " = " & a & " and 
+                            " & bcol & " = " & b & " and 
+                            " & ccol & " = " & c & " and 
+                            " & tr & " and
+                            " & dtt & ""
 
-        If after.Checked = True And Not transreference.Text = "" And Not transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "' and " & tr & " and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE > '" & transadate.Text & "'"
-            countsearch = "" & count & "  where a.reference='" & transreference.Text & "' and " & tr & " and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE > '" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf after.Checked = True And Not transreference.Text = "" And transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "' and a.TRANSDATE > '" & transadate.Text & "'"
-            countsearch = "" & count & "  where a.reference='" & transreference.Text & "' and a.TRANSDATE > '" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf after.Checked = True And transreference.Text = "" And Not transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "select " & selection & " where " & tr & " and a.TRANSDATE > '" & transadate.Text & "'"
-            countsearch = "" & count & "  where " & tr & " and a.TRANSDATE > '" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf after.Checked = True And transreference.Text = "" And transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE > '" & transadate.Text & "'"
-            countsearch = "" & count & "  where b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE > '" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf after.Checked = True And Not transreference.Text = "" And Not transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "' and " & tr & " and a.TRANSDATE > '" & transadate.Text & "'"
-            countsearch = "" & count & "  where a.reference='" & transreference.Text & "' and " & tr & " and a.TRANSDATE > '" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf after.Checked = True And Not transreference.Text = "" And transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "' and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE > '" & transadate.Text & "'"
-            countsearch = "" & count & "  where a.reference='" & transreference.Text & "' and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE > '" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf after.Checked = True And transreference.Text = "" And Not transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where " & tr & " and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE > '" & transadate.Text & "'"
-            countsearch = "" & count & " where " & tr & " and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE > '" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf after.Checked = True And transreference.Text = "" And transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.TRANSDATE > '" & transadate.Text & "'"
-            countsearch = "" & count & "  where a.TRANSDATE > '" & transadate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        End If
+        Dim str As String = "top " & top & " a.TRANSNO,
+                            a.STOCKNO,
+                            b.COSTHEAD,
+                            b.TYPECOLOR,
+                            B.ARTICLENO,
+                            B.DESCRIPTION,
+                            a.TRANSTYPE,
+                            a.TRANSDATE,
+                            case when isdate(a.DUEDATE)=1 then cast(a.duedate as date) end as DUEDATE,
+                            a.QTY,
+                            a.REFERENCE,
+                            a.JO,
+                            a.ACCOUNT,
+                            a.CONTROLNO,
+                            A.XYZ,
+                            a.EXCESS,
+                            a.REMARKS,
+                            A.UFACTOR,
+                            (a.ufactor * a.qty) as CHECKER,
+                            a.UNITPRICE,
+                            A.DISC,
+                            ((a.ufactor * a.qty)*(a.unitprice-((a.disc*0.01)*a.unitprice))) as CURRENCY,
+                            a.XRATE,
+                            A.NETAMOUNT,
+                            A.INPUTTED,
+                            A.ADJUSTMENTQTY
+                            from trans_tb as a inner join stocks_tb as b
+                            on a.stockno = b.stockno
+                            " & where & ""
+        Dim count As String = "select format(count(a.TRANSNO),'n0'),format(sum(isnull(a.netamount,0)/isnull(a.xrate,0)),'n2') 
+                              from trans_tb as a inner join stocks_tb as b on a.stockno = b.stockno
+                            " & where & ""
+        sql.searchtransaction(str, count)
+    End Sub
+    Private Sub KryptonButton11_Click(sender As Object, e As EventArgs) Handles KryptonButton11.Click
+        clckbtn11event()
 
-        If tomydate.Checked = True And Not transreference.Text = "" And Not transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "' and " & tr & " and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            countsearch = "" & count & "  where a.reference='" & transreference.Text & "' and " & tr & " and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf tomydate.Checked = True And Not transreference.Text = "" And transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "' and a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            countsearch = "" & count & "  where a.reference='" & transreference.Text & "' and a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf tomydate.Checked = True And transreference.Text = "" And Not transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "select " & selection & " where " & tr & " and a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            countsearch = "" & count & "  where " & tr & " and a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf tomydate.Checked = True And transreference.Text = "" And transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            countsearch = "" & count & "  where b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf tomydate.Checked = True And Not transreference.Text = "" And Not transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "' and " & tr & " and a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            countsearch = "" & count & "  where a.reference='" & transreference.Text & "' and " & tr & " and a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf tomydate.Checked = True And Not transreference.Text = "" And transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.reference='" & transreference.Text & "' and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            countsearch = "" & count & "  where a.reference='" & transreference.Text & "' and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf tomydate.Checked = True And transreference.Text = "" And Not transtransaction.Text = "" And Not transactioncosthead.Text = "" Then
-            search = "select " & selection & " where " & tr & " and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            countsearch = "" & count & "  where " & tr & " and b.costhead='" & transactioncosthead.Text & "' and a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-        ElseIf tomydate.Checked = True And transreference.Text = "" And transtransaction.Text = "" And transactioncosthead.Text = "" Then
-            search = "select " & selection & " where a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            countsearch = "" & count & "  where a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
-            sql.searchtransaction(search, countsearch)
-
-            Dim ttr As String = ""
-        End If
     End Sub
 
     Private Sub transgridview_RowPostPaint(sender As Object, e As DataGridViewRowPostPaintEventArgs) Handles transgridview.RowPostPaint
@@ -1416,21 +1303,22 @@ on a.stockno = b.stockno"
         If transgridview.RowCount >= 0 And e.RowIndex >= 0 Then
             Form5.itcame.Text = ""
             sql.selecttransrec(Form5.transno.Text)
-            sql.selectreference(Form5.stockno.Text, Form5.reference.Text)
+            sql.selectreference(Form5.stockno.Text, Form5.reference.Text, Form5.JO.Text)
             Form5.ShowDialog()
         End If
     End Sub
 
     Private Sub transgridview_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles transgridview.CellClick
         If transgridview.RowCount >= 0 And e.RowIndex >= 0 Then
-            Form5.transno.Text = transgridview.Item(0, e.RowIndex).Value.ToString
-            Form5.stockno.Text = transgridview.Item(1, e.RowIndex).Value.ToString
-            Form5.reference.Text = transgridview.Item(10, e.RowIndex).Value.ToString
-            Form5.XYZ.Text = transgridview.Item(13, e.RowIndex).Value.ToString
-            description.Text = transgridview.Item(5, e.RowIndex).Value.ToString
+            Dim ROW As DataGridViewRow = transgridview.Rows(e.RowIndex)
+            Form5.transno.Text = ROW.Cells("TRANSNO").Value.ToString
+            Form5.stockno.Text = ROW.Cells("STOCKNO").Value.ToString
+            Form5.reference.Text = ROW.Cells("REFERENCE").Value.ToString
+            Form5.XYZ.Text = ROW.Cells("XYZ").Value.ToString
+            description.Text = ROW.Cells("DESCRIPTION").Value.ToString
 
-            cuttinglist.transno.Text = transgridview.Item(0, e.RowIndex).Value.ToString
-            cuttinglist.remarks.Text = transgridview.Item(15, e.RowIndex).Value.ToString
+            cuttinglist.transno.Text = ROW.Cells("TRANSNO").Value.ToString
+            cuttinglist.remarks.Text = ROW.Cells("REMARKS").Value.ToString
         End If
     End Sub
 
@@ -1448,18 +1336,21 @@ on a.stockno = b.stockno"
         reallocate.stockno.Items.Clear()
         reallocate.reference.Items.Clear()
         reallocate.transno.Items.Clear()
+        reallocate.jo.Items.Clear()
         chagexrate.transno.Items.Clear()
         For Each item As DataGridViewRow In selecteditem
             Dim x As String = item.Cells("transno").Value.ToString
             Dim y As String = item.Cells("stockno").Value.ToString
             Dim z As String = item.Cells("reference").Value.ToString
             Dim a As String = item.Cells("qty").Value.ToString
+            Dim b As String = item.Cells("jo").Value.ToString
             transnocombo.Items.Add(x)
             transqtycombo.Items.Add(a)
             Form6.transno.Items.Add(x)
             reallocate.stockno.Items.Add(y)
             reallocate.reference.Items.Add(z)
             reallocate.transno.Items.Add(x)
+            reallocate.jo.Items.Add(b)
             chagexrate.transno.Items.Add(x)
         Next
     End Sub
@@ -1592,7 +1483,7 @@ on a.stockno = b.stockno"
     End Sub
 
     Private Sub KryptonButton13_Click(sender As Object, e As EventArgs) Handles KryptonButton13.Click
-        sql.referencetb()
+        sql.referencetb(reftoprows.Text)
     End Sub
 
     Private Sub KryptonButton14_Click(sender As Object, e As EventArgs) Handles KryptonButton14.Click
@@ -1652,7 +1543,7 @@ on a.stockno = b.stockno"
                        " & c & "= " & ccol & " and 
                        " & d & "= " & dcol & " and 
                        " & f & "= " & fcol & ""
-        sql.refsearch(where)
+        sql.refsearch(where, reftoprows.Text)
     End Sub
 
     Private Sub notification_Click(sender As Object, e As EventArgs) Handles notification.Click
@@ -1897,9 +1788,12 @@ on a.stockno = b.stockno"
 " & dcol & " like " & d & " and
 " & fcol & " = " & f & " and
 " & gcol & "= " & g & ""
+
+        Dim top As String = stocktoprows.Text
+        top = top.Replace(",", "")
         Dim search As String = "
 
-select 
+select top " & top & "
 a.*,
 (select sum(qty) from LOCATIONTB where STOCKNO=a.STOCKNO) as MYLOCATION
  from stocks_tb as a " & condition & ""
@@ -1907,7 +1801,7 @@ a.*,
     End Sub
 
     Private Sub KryptonButton15_Click(sender As Object, e As EventArgs) Handles KryptonButton15.Click
-        sql.loadstocks()
+        sql.loadstocks(stocktoprows.Text)
     End Sub
 
     Private Sub account_MouseDown(sender As Object, e As MouseEventArgs) Handles account.MouseDown
@@ -2018,9 +1912,9 @@ a.*,
     End Sub
 
     Private Sub KryptonButton17_Click(sender As Object, e As EventArgs) Handles KryptonButton17.Click
-        sql.loadstocks()
+        sql.loadstocks(stocktoprows.Text)
         sql.loadtransactions(toprows.Text)
-        sql.referencetb()
+        sql.referencetb(reftoprows.Text)
     End Sub
 
     Private Sub KryptonButton18_Click(sender As Object, e As EventArgs) Handles KryptonButton18.Click
@@ -2427,7 +2321,7 @@ on a.stockno = b.stockno where b.myyear='" & myyear.Text & "'"
             sql.getreportcosthead(reportsupplier.Text, reportheader.Text)
         End If
         If i > reportcosthead.Items.Count - 1 Then
-            reportcosthead.SelectedIndex=-1
+            reportcosthead.SelectedIndex = -1
         Else
             reportcosthead.SelectedIndex = i
         End If
@@ -2501,11 +2395,12 @@ on a.stockno = b.stockno where b.myyear='" & myyear.Text & "'"
 
     Private Sub receiptGridView_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles receiptGridView.CellClick
         If receiptGridView.RowCount >= 0 And e.RowIndex >= 0 Then
-            Form5.transno.Text = receiptGridView.Item(0, e.RowIndex).Value.ToString
-            Form5.stockno.Text = receiptGridView.Item(1, e.RowIndex).Value.ToString
-            Form5.reference.Text = receiptGridView.Item(9, e.RowIndex).Value.ToString
-            Form5.XYZ.Text = receiptGridView.Item(12, e.RowIndex).Value.ToString
-            description.Text = receiptGridView.Item(13, e.RowIndex).Value.ToString
+            Form5.transno.Text = receiptGridView.Item("transno", e.RowIndex).Value.ToString
+            Form5.stockno.Text = receiptGridView.Item("stockno", e.RowIndex).Value.ToString
+            Form5.reference.Text = receiptGridView.Item("reference", e.RowIndex).Value.ToString
+            Form5.JO.Text = receiptGridView.Item("jo", e.RowIndex).Value.ToString
+            Form5.XYZ.Text = receiptGridView.Item("xyz", e.RowIndex).Value.ToString
+            description.Text = receiptGridView.Item("description", e.RowIndex).Value.ToString
         End If
     End Sub
 
@@ -2513,7 +2408,7 @@ on a.stockno = b.stockno where b.myyear='" & myyear.Text & "'"
         If receiptGridView.RowCount >= 0 And e.RowIndex >= 0 Then
             Form5.itcame.Text = "RECEIPT"
             sql.selecttransrec(Form5.transno.Text)
-            sql.selectreference(Form5.stockno.Text, Form5.reference.Text)
+            sql.selectreference(Form5.stockno.Text, Form5.reference.Text, Form5.JO.Text)
             Form5.ShowDialog()
         End If
     End Sub
@@ -2584,9 +2479,10 @@ on a.stockno = b.stockno where b.myyear='" & myyear.Text & "'"
 
     Private Sub issueDataGridView_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles issueDataGridView.CellClick
         If issueDataGridView.RowCount >= 0 And e.RowIndex >= 0 Then
-            KryptonTextBox1.Text = issueDataGridView.Item(0, e.RowIndex).Value.ToString
-            KryptonTextBox2.Text = issueDataGridView.Item(1, e.RowIndex).Value.ToString
-            description.Text = issueDataGridView.Item(7, e.RowIndex).Value.ToString
+            KryptonTextBox1.Text = issueDataGridView.Item("REFERENCE", e.RowIndex).Value.ToString
+            KryptonTextBox2.Text = issueDataGridView.Item("STOCKNO", e.RowIndex).Value.ToString
+            KryptonTextBox3.Text = issueDataGridView.Item("JO", e.RowIndex).Value.ToString
+            description.Text = issueDataGridView.Item("description", e.RowIndex).Value.ToString
         End If
     End Sub
 
@@ -2924,7 +2820,7 @@ transtype='Allocation'
 and
 stockno='" & stockno & "'
 and
-case when isdate(duedate)=1 then cast(duedate as date) end <= DATEADD(month, +" & pmonths & ", @sdate))
+case when isdate(duedate)=1 then cast(duedate as datetime) end <= DATEADD(month, +" & pmonths & ", @sdate))
 
 UPDATE stocks_tb set balalloc = @totalbalqty where stockno = '" & stockno & "'
 
@@ -3267,27 +3163,35 @@ a.header,sum(a.netamount) as MOVING,( select sum(netamount) from stocks_tb where
     End Sub
 
     Private Sub ComboBox2_MouseDown(sender As Object, e As MouseEventArgs) Handles jo.MouseDown
-        genjo()
+        genjo("input", reference.Text, jo, "addendum_to_contract_tb", "parentjono")
     End Sub
-    Public Sub genjo()
+    Public Sub genjo(ByVal page As String, ByVal reference As String, ByVal ob As Object, ByVal database As String, ByVal col As String)
         Try
+            sql.sqlcon1.Close()
             sql.sqlcon1.Open()
             Dim ds As New DataSet
             ds.Clear()
             Dim da As New SqlDataAdapter
             Dim bs As New BindingSource
-            Dim str As String = "select distinct parentjono from addendum_to_contract_tb where project_label = '" & reference.Text & "'"
+
+            Dim str As String
+            If page = "input" Then
+                str = "select distinct " & col & " from " & database & " where project_label = '" & reference & "'"
+            Else
+                str = "select distinct " & col & " from " & database & " where reference = '" & reference & "'"
+            End If
+
             sqlcmd = New SqlCommand(str, sql.sqlcon1)
             da.SelectCommand = sqlcmd
-            da.Fill(ds, "addendum_to_contract_tb")
+            da.Fill(ds, "" & database & "")
             bs.DataSource = ds
-            bs.DataMember = "addendum_to_contract_tb"
-            jo.DataSource = bs
-            jo.DisplayMember = "parentjono"
-            If jo.Items.Count > 0 Then
-                jo.SelectedIndex = 0
+            bs.DataMember = "" & database & ""
+            ob.DataSource = bs
+            ob.DisplayMember = "" & col & ""
+            If ob.Items.Count > 0 Then
+                ob.SelectedIndex = 0
             Else
-                jo.Text = ""
+                ob.Text = ""
             End If
 
         Catch ex As Exception
@@ -3299,11 +3203,11 @@ a.header,sum(a.netamount) as MOVING,( select sum(netamount) from stocks_tb where
 
 
     Private Sub reference_MouseDown(sender As Object, e As MouseEventArgs) Handles reference.MouseDown
-        genjo()
+        genjo("input", reference.Text, jo, "addendum_to_contract_tb", "parentjono")
     End Sub
 
     Private Sub reference_TextChanged(sender As Object, e As EventArgs) Handles reference.TextChanged
-        genjo()
+        genjo("input", reference.Text, jo, "addendum_to_contract_tb", "parentjono")
     End Sub
 
     Private Sub referencemenustrip_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles referencemenustrip.Opening
@@ -3311,6 +3215,51 @@ a.header,sum(a.netamount) as MOVING,( select sum(netamount) from stocks_tb where
     End Sub
 
     Private Sub KryptonGroup6_Panel_Paint(sender As Object, e As PaintEventArgs) Handles KryptonGroup6.Panel.Paint
+
+    End Sub
+
+    Private Sub reffromreference_MouseDown(sender As Object, e As MouseEventArgs) Handles reffromreference.MouseDown
+        genjo("reference", reffromreference.Text, reffromjo, "trans_tb", "jo")
+    End Sub
+
+    Private Sub reffromreference_TextChanged(sender As Object, e As EventArgs) Handles reffromreference.TextChanged
+        genjo("reference", reffromreference.Text, reffromjo, "trans_tb", "jo")
+    End Sub
+
+    Private Sub reffromjo_MouseDown(sender As Object, e As MouseEventArgs) Handles reffromjo.MouseDown
+        genjo("reference", reffromreference.Text, reffromjo, "trans_tb", "jo")
+    End Sub
+
+    Private Sub transreference_MouseDown(sender As Object, e As MouseEventArgs) Handles transreference.MouseDown
+        genjo("transmanager", transreference.Text, transjo, "trans_tb", "jo")
+    End Sub
+
+    Private Sub transreference_TextChanged(sender As Object, e As EventArgs) Handles transreference.TextChanged
+        genjo("transmanager", transreference.Text, transjo, "trans_tb", "jo")
+    End Sub
+
+    Private Sub transjo_MouseDown(sender As Object, e As MouseEventArgs) Handles transjo.MouseDown
+        genjo("transmanager", transreference.Text, transjo, "trans_tb", "jo")
+    End Sub
+
+    Private Sub issuejo_MouseDown(sender As Object, e As MouseEventArgs) Handles issuejo.MouseDown
+        genjo("issue", issuereference.Text, issuejo, "trans_tb", "jo")
+        sql.selectissuereferencerecord(issuereference.Text, issuejo.Text)
+    End Sub
+
+    Private Sub issuejo_TextChanged(sender As Object, e As EventArgs) Handles issuejo.TextChanged
+        sql.selectissuereferencerecord(issuereference.Text, issuejo.Text)
+    End Sub
+    Private Sub receiptjo_MouseDown(sender As Object, e As MouseEventArgs) Handles receiptjo.MouseDown
+        genjo("receipt", receiptreference.Text, receiptjo, "trans_tb", "jo")
+        sql.selectreceiptreferencerecord(receiptreference.Text, receiptjo.Text)
+    End Sub
+
+    Private Sub receiptjo_TextChanged(sender As Object, e As EventArgs) Handles receiptjo.TextChanged
+        sql.selectreceiptreferencerecord(receiptreference.Text, receiptjo.Text)
+    End Sub
+
+    Private Sub receiptreference_SelectedIndexChanged(sender As Object, e As EventArgs) Handles receiptreference.SelectedIndexChanged
 
     End Sub
 End Class

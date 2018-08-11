@@ -23,6 +23,9 @@ Partial Class multimove
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.KryptonLabel4 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
+        Me.KryptonGroup5 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
+        Me.JO = New System.Windows.Forms.ComboBox()
         Me.KryptonCheckBox2 = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.KryptonCheckBox1 = New ComponentFactory.Krypton.Toolkit.KryptonCheckBox()
@@ -44,10 +47,11 @@ Partial Class multimove
         Me.newtypecolor = New System.Windows.Forms.ComboBox()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.KryptonGroup10 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
-        Me.KryptonGroup5 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
-        Me.JO = New System.Windows.Forms.ComboBox()
-        Me.KryptonLabel4 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.Panel1.SuspendLayout()
+        CType(Me.KryptonGroup5, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.KryptonGroup5.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.KryptonGroup5.Panel.SuspendLayout()
+        Me.KryptonGroup5.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.Panel3.SuspendLayout()
         CType(Me.KryptonGroup4, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -70,10 +74,6 @@ Partial Class multimove
         CType(Me.KryptonGroup10.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.KryptonGroup10.Panel.SuspendLayout()
         Me.KryptonGroup10.SuspendLayout()
-        CType(Me.KryptonGroup5, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.KryptonGroup5.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.KryptonGroup5.Panel.SuspendLayout()
-        Me.KryptonGroup5.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
@@ -97,6 +97,50 @@ Partial Class multimove
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(409, 349)
         Me.Panel1.TabIndex = 0
+        '
+        'KryptonLabel4
+        '
+        Me.KryptonLabel4.Location = New System.Drawing.Point(116, 128)
+        Me.KryptonLabel4.Name = "KryptonLabel4"
+        Me.KryptonLabel4.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonLabel4.Size = New System.Drawing.Size(28, 24)
+        Me.KryptonLabel4.StateCommon.ShortText.Color1 = System.Drawing.Color.White
+        Me.KryptonLabel4.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonLabel4.TabIndex = 473
+        Me.KryptonLabel4.Values.Text = "JO"
+        '
+        'KryptonGroup5
+        '
+        Me.KryptonGroup5.Location = New System.Drawing.Point(147, 128)
+        Me.KryptonGroup5.Margin = New System.Windows.Forms.Padding(0)
+        Me.KryptonGroup5.Name = "KryptonGroup5"
+        '
+        'KryptonGroup5.Panel
+        '
+        Me.KryptonGroup5.Panel.Controls.Add(Me.JO)
+        Me.KryptonGroup5.Size = New System.Drawing.Size(246, 30)
+        Me.KryptonGroup5.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.KryptonGroup5.StateCommon.Border.Rounding = 0
+        Me.KryptonGroup5.StateCommon.Border.Width = 3
+        Me.KryptonGroup5.TabIndex = 472
+        '
+        'JO
+        '
+        Me.JO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.JO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.JO.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.JO.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.JO.DropDownHeight = 206
+        Me.JO.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.JO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.JO.FormattingEnabled = True
+        Me.JO.IntegralHeight = False
+        Me.JO.Location = New System.Drawing.Point(0, 0)
+        Me.JO.Name = "JO"
+        Me.JO.Size = New System.Drawing.Size(240, 23)
+        Me.JO.TabIndex = 447
         '
         'KryptonCheckBox2
         '
@@ -420,50 +464,6 @@ Partial Class multimove
         Me.KryptonGroup10.StateCommon.Border.Width = 3
         Me.KryptonGroup10.TabIndex = 460
         '
-        'KryptonGroup5
-        '
-        Me.KryptonGroup5.Location = New System.Drawing.Point(147, 128)
-        Me.KryptonGroup5.Margin = New System.Windows.Forms.Padding(0)
-        Me.KryptonGroup5.Name = "KryptonGroup5"
-        '
-        'KryptonGroup5.Panel
-        '
-        Me.KryptonGroup5.Panel.Controls.Add(Me.JO)
-        Me.KryptonGroup5.Size = New System.Drawing.Size(246, 30)
-        Me.KryptonGroup5.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
-            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
-            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
-        Me.KryptonGroup5.StateCommon.Border.Rounding = 0
-        Me.KryptonGroup5.StateCommon.Border.Width = 3
-        Me.KryptonGroup5.TabIndex = 472
-        '
-        'JO
-        '
-        Me.JO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.JO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.JO.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.JO.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.JO.DropDownHeight = 206
-        Me.JO.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.JO.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.JO.FormattingEnabled = True
-        Me.JO.IntegralHeight = False
-        Me.JO.Location = New System.Drawing.Point(0, 0)
-        Me.JO.Name = "JO"
-        Me.JO.Size = New System.Drawing.Size(240, 23)
-        Me.JO.TabIndex = 447
-        '
-        'KryptonLabel4
-        '
-        Me.KryptonLabel4.Location = New System.Drawing.Point(116, 128)
-        Me.KryptonLabel4.Name = "KryptonLabel4"
-        Me.KryptonLabel4.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
-        Me.KryptonLabel4.Size = New System.Drawing.Size(28, 24)
-        Me.KryptonLabel4.StateCommon.ShortText.Color1 = System.Drawing.Color.White
-        Me.KryptonLabel4.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.KryptonLabel4.TabIndex = 473
-        Me.KryptonLabel4.Values.Text = "JO"
-        '
         'multimove
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -479,6 +479,10 @@ Partial Class multimove
         Me.TransparencyKey = System.Drawing.Color.Green
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        CType(Me.KryptonGroup5.Panel, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.KryptonGroup5.Panel.ResumeLayout(False)
+        CType(Me.KryptonGroup5, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.KryptonGroup5.ResumeLayout(False)
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         Me.Panel3.ResumeLayout(False)
@@ -503,10 +507,6 @@ Partial Class multimove
         Me.KryptonGroup10.Panel.ResumeLayout(False)
         CType(Me.KryptonGroup10, System.ComponentModel.ISupportInitialize).EndInit()
         Me.KryptonGroup10.ResumeLayout(False)
-        CType(Me.KryptonGroup5.Panel, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.KryptonGroup5.Panel.ResumeLayout(False)
-        CType(Me.KryptonGroup5, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.KryptonGroup5.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub

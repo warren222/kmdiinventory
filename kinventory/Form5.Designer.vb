@@ -23,8 +23,8 @@ Partial Class Form5
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.controlno = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonLabel13 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonLabel4 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
@@ -92,12 +92,18 @@ Partial Class Form5
         Me.KryptonGroup5 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
         Me.KryptonGroup6 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.KryptonLabel31 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
+        Me.KryptonGroup7 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
+        Me.NEWJO = New System.Windows.Forms.ComboBox()
         Me.KryptonButton5 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.KryptonButton4 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.KryptonLabel28 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.adjustment = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.ADJUSTMENTREMARKS = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
+        Me.KryptonLabel29 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.KryptonLabel30 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
+        Me.JO = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonLabel27 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.balanceqty = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonPanel1 = New ComponentFactory.Krypton.Toolkit.KryptonPanel()
@@ -109,7 +115,6 @@ Partial Class Form5
         Me.KryptonButton25 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.LISTOFALLOCATIONGRIDVIEW = New ComponentFactory.Krypton.Toolkit.KryptonDataGridView()
-        Me.KryptonLabel29 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         CType(Me.referencegridview, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonGroup3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonGroup3.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -128,6 +133,10 @@ Partial Class Form5
         Me.KryptonGroup6.Panel.SuspendLayout()
         Me.KryptonGroup6.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        CType(Me.KryptonGroup7, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.KryptonGroup7.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.KryptonGroup7.Panel.SuspendLayout()
+        Me.KryptonGroup7.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.KryptonPanel1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.KryptonPanel1.SuspendLayout()
@@ -145,7 +154,7 @@ Partial Class Form5
         'controlno
         '
         Me.controlno.Enabled = False
-        Me.controlno.Location = New System.Drawing.Point(345, 72)
+        Me.controlno.Location = New System.Drawing.Point(345, 119)
         Me.controlno.Multiline = True
         Me.controlno.Name = "controlno"
         Me.controlno.Size = New System.Drawing.Size(125, 27)
@@ -159,7 +168,7 @@ Partial Class Form5
         '
         'KryptonLabel13
         '
-        Me.KryptonLabel13.Location = New System.Drawing.Point(254, 72)
+        Me.KryptonLabel13.Location = New System.Drawing.Point(254, 119)
         Me.KryptonLabel13.Name = "KryptonLabel13"
         Me.KryptonLabel13.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel13.Size = New System.Drawing.Size(81, 22)
@@ -170,7 +179,7 @@ Partial Class Form5
         '
         'KryptonLabel4
         '
-        Me.KryptonLabel4.Location = New System.Drawing.Point(11, 360)
+        Me.KryptonLabel4.Location = New System.Drawing.Point(11, 407)
         Me.KryptonLabel4.Name = "KryptonLabel4"
         Me.KryptonLabel4.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel4.Size = New System.Drawing.Size(69, 22)
@@ -181,7 +190,7 @@ Partial Class Form5
         '
         'KryptonLabel22
         '
-        Me.KryptonLabel22.Location = New System.Drawing.Point(254, 260)
+        Me.KryptonLabel22.Location = New System.Drawing.Point(254, 307)
         Me.KryptonLabel22.Name = "KryptonLabel22"
         Me.KryptonLabel22.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel22.Size = New System.Drawing.Size(63, 22)
@@ -192,7 +201,7 @@ Partial Class Form5
         '
         'KryptonLabel1
         '
-        Me.KryptonLabel1.Location = New System.Drawing.Point(11, 72)
+        Me.KryptonLabel1.Location = New System.Drawing.Point(11, 119)
         Me.KryptonLabel1.Name = "KryptonLabel1"
         Me.KryptonLabel1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel1.Size = New System.Drawing.Size(69, 22)
@@ -204,7 +213,7 @@ Partial Class Form5
         'stockno
         '
         Me.stockno.Enabled = False
-        Me.stockno.Location = New System.Drawing.Point(92, 72)
+        Me.stockno.Location = New System.Drawing.Point(92, 119)
         Me.stockno.Multiline = True
         Me.stockno.Name = "stockno"
         Me.stockno.Size = New System.Drawing.Size(125, 27)
@@ -219,7 +228,7 @@ Partial Class Form5
         'initialqty
         '
         Me.initialqty.Enabled = False
-        Me.initialqty.Location = New System.Drawing.Point(345, 260)
+        Me.initialqty.Location = New System.Drawing.Point(345, 307)
         Me.initialqty.Multiline = True
         Me.initialqty.Name = "initialqty"
         Me.initialqty.Size = New System.Drawing.Size(125, 27)
@@ -234,7 +243,7 @@ Partial Class Form5
         'transno
         '
         Me.transno.Enabled = False
-        Me.transno.Location = New System.Drawing.Point(92, 360)
+        Me.transno.Location = New System.Drawing.Point(92, 407)
         Me.transno.Multiline = True
         Me.transno.Name = "transno"
         Me.transno.Size = New System.Drawing.Size(125, 27)
@@ -248,7 +257,7 @@ Partial Class Form5
         '
         'KryptonLabel16
         '
-        Me.KryptonLabel16.Location = New System.Drawing.Point(11, 402)
+        Me.KryptonLabel16.Location = New System.Drawing.Point(11, 449)
         Me.KryptonLabel16.Name = "KryptonLabel16"
         Me.KryptonLabel16.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel16.Size = New System.Drawing.Size(68, 22)
@@ -262,12 +271,12 @@ Partial Class Form5
         Me.referencegridview.AllowUserToAddRows = False
         Me.referencegridview.AllowUserToDeleteRows = False
         Me.referencegridview.AllowUserToOrderColumns = True
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.referencegridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.referencegridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.referencegridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.referencegridview.ColumnHeadersHeight = 20
         Me.referencegridview.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.referencegridview.Location = New System.Drawing.Point(11, 430)
+        Me.referencegridview.Location = New System.Drawing.Point(11, 477)
         Me.referencegridview.Name = "referencegridview"
         Me.referencegridview.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
         Me.referencegridview.ReadOnly = True
@@ -296,7 +305,7 @@ Partial Class Form5
         'account
         '
         Me.account.Enabled = False
-        Me.account.Location = New System.Drawing.Point(345, 119)
+        Me.account.Location = New System.Drawing.Point(345, 166)
         Me.account.Multiline = True
         Me.account.Name = "account"
         Me.account.Size = New System.Drawing.Size(125, 27)
@@ -310,7 +319,7 @@ Partial Class Form5
         '
         'KryptonLabel12
         '
-        Me.KryptonLabel12.Location = New System.Drawing.Point(254, 119)
+        Me.KryptonLabel12.Location = New System.Drawing.Point(254, 166)
         Me.KryptonLabel12.Name = "KryptonLabel12"
         Me.KryptonLabel12.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel12.Size = New System.Drawing.Size(61, 22)
@@ -347,7 +356,7 @@ Partial Class Form5
         '
         'KryptonLabel5
         '
-        Me.KryptonLabel5.Location = New System.Drawing.Point(11, 260)
+        Me.KryptonLabel5.Location = New System.Drawing.Point(11, 307)
         Me.KryptonLabel5.Name = "KryptonLabel5"
         Me.KryptonLabel5.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel5.Size = New System.Drawing.Size(71, 22)
@@ -359,7 +368,7 @@ Partial Class Form5
         'typecolor
         '
         Me.typecolor.Enabled = False
-        Me.typecolor.Location = New System.Drawing.Point(92, 213)
+        Me.typecolor.Location = New System.Drawing.Point(92, 260)
         Me.typecolor.Multiline = True
         Me.typecolor.Name = "typecolor"
         Me.typecolor.Size = New System.Drawing.Size(125, 27)
@@ -374,7 +383,7 @@ Partial Class Form5
         'articleno
         '
         Me.articleno.Enabled = False
-        Me.articleno.Location = New System.Drawing.Point(92, 260)
+        Me.articleno.Location = New System.Drawing.Point(92, 307)
         Me.articleno.Multiline = True
         Me.articleno.Name = "articleno"
         Me.articleno.Size = New System.Drawing.Size(125, 27)
@@ -389,7 +398,7 @@ Partial Class Form5
         'costhead
         '
         Me.costhead.Enabled = False
-        Me.costhead.Location = New System.Drawing.Point(92, 166)
+        Me.costhead.Location = New System.Drawing.Point(92, 213)
         Me.costhead.Multiline = True
         Me.costhead.Name = "costhead"
         Me.costhead.Size = New System.Drawing.Size(125, 27)
@@ -403,7 +412,7 @@ Partial Class Form5
         '
         'KryptonLabel3
         '
-        Me.KryptonLabel3.Location = New System.Drawing.Point(11, 213)
+        Me.KryptonLabel3.Location = New System.Drawing.Point(11, 260)
         Me.KryptonLabel3.Name = "KryptonLabel3"
         Me.KryptonLabel3.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel3.Size = New System.Drawing.Size(76, 22)
@@ -414,7 +423,7 @@ Partial Class Form5
         '
         'KryptonLabel2
         '
-        Me.KryptonLabel2.Location = New System.Drawing.Point(11, 166)
+        Me.KryptonLabel2.Location = New System.Drawing.Point(11, 213)
         Me.KryptonLabel2.Name = "KryptonLabel2"
         Me.KryptonLabel2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel2.Size = New System.Drawing.Size(68, 22)
@@ -425,7 +434,7 @@ Partial Class Form5
         '
         'KryptonLabel7
         '
-        Me.KryptonLabel7.Location = New System.Drawing.Point(11, 119)
+        Me.KryptonLabel7.Location = New System.Drawing.Point(11, 166)
         Me.KryptonLabel7.Name = "KryptonLabel7"
         Me.KryptonLabel7.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel7.Size = New System.Drawing.Size(70, 22)
@@ -437,7 +446,7 @@ Partial Class Form5
         'transtype
         '
         Me.transtype.Enabled = False
-        Me.transtype.Location = New System.Drawing.Point(92, 119)
+        Me.transtype.Location = New System.Drawing.Point(92, 166)
         Me.transtype.Multiline = True
         Me.transtype.Name = "transtype"
         Me.transtype.Size = New System.Drawing.Size(125, 27)
@@ -451,7 +460,7 @@ Partial Class Form5
         '
         'KryptonLabel6
         '
-        Me.KryptonLabel6.Location = New System.Drawing.Point(11, 313)
+        Me.KryptonLabel6.Location = New System.Drawing.Point(11, 360)
         Me.KryptonLabel6.Name = "KryptonLabel6"
         Me.KryptonLabel6.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel6.Size = New System.Drawing.Size(80, 22)
@@ -463,7 +472,7 @@ Partial Class Form5
         'description
         '
         Me.description.Enabled = False
-        Me.description.Location = New System.Drawing.Point(92, 313)
+        Me.description.Location = New System.Drawing.Point(92, 360)
         Me.description.Multiline = True
         Me.description.Name = "description"
         Me.description.Size = New System.Drawing.Size(378, 27)
@@ -477,7 +486,7 @@ Partial Class Form5
         '
         'KryptonCheckButton1
         '
-        Me.KryptonCheckButton1.Location = New System.Drawing.Point(236, 341)
+        Me.KryptonCheckButton1.Location = New System.Drawing.Point(236, 387)
         Me.KryptonCheckButton1.Name = "KryptonCheckButton1"
         Me.KryptonCheckButton1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
         Me.KryptonCheckButton1.Size = New System.Drawing.Size(17, 23)
@@ -490,7 +499,7 @@ Partial Class Form5
         '
         'CheckBox39
         '
-        Me.CheckBox39.Location = New System.Drawing.Point(236, 313)
+        Me.CheckBox39.Location = New System.Drawing.Point(236, 359)
         Me.CheckBox39.Name = "CheckBox39"
         Me.CheckBox39.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
         Me.CheckBox39.Size = New System.Drawing.Size(17, 23)
@@ -503,7 +512,7 @@ Partial Class Form5
         '
         'KryptonLabel9
         '
-        Me.KryptonLabel9.Location = New System.Drawing.Point(17, 341)
+        Me.KryptonLabel9.Location = New System.Drawing.Point(17, 387)
         Me.KryptonLabel9.Name = "KryptonLabel9"
         Me.KryptonLabel9.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel9.Size = New System.Drawing.Size(66, 22)
@@ -514,7 +523,7 @@ Partial Class Form5
         '
         'KryptonLabel8
         '
-        Me.KryptonLabel8.Location = New System.Drawing.Point(17, 313)
+        Me.KryptonLabel8.Location = New System.Drawing.Point(17, 359)
         Me.KryptonLabel8.Name = "KryptonLabel8"
         Me.KryptonLabel8.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel8.Size = New System.Drawing.Size(74, 22)
@@ -527,7 +536,7 @@ Partial Class Form5
         '
         Me.DateTimePicker9.CustomFormat = "yyyy-MMM-dd"
         Me.DateTimePicker9.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DateTimePicker9.Location = New System.Drawing.Point(126, 314)
+        Me.DateTimePicker9.Location = New System.Drawing.Point(126, 360)
         Me.DateTimePicker9.Name = "DateTimePicker9"
         Me.DateTimePicker9.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
         Me.DateTimePicker9.Size = New System.Drawing.Size(110, 21)
@@ -543,7 +552,7 @@ Partial Class Form5
         '
         Me.KryptonDateTimePicker1.CustomFormat = "yyyy-MMM-dd"
         Me.KryptonDateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.KryptonDateTimePicker1.Location = New System.Drawing.Point(126, 342)
+        Me.KryptonDateTimePicker1.Location = New System.Drawing.Point(126, 388)
         Me.KryptonDateTimePicker1.Name = "KryptonDateTimePicker1"
         Me.KryptonDateTimePicker1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
         Me.KryptonDateTimePicker1.Size = New System.Drawing.Size(110, 21)
@@ -557,7 +566,7 @@ Partial Class Form5
         '
         'duedate
         '
-        Me.duedate.Location = New System.Drawing.Point(126, 341)
+        Me.duedate.Location = New System.Drawing.Point(126, 387)
         Me.duedate.Multiline = True
         Me.duedate.Name = "duedate"
         Me.duedate.Size = New System.Drawing.Size(110, 23)
@@ -565,7 +574,7 @@ Partial Class Form5
         '
         'transdate
         '
-        Me.transdate.Location = New System.Drawing.Point(126, 313)
+        Me.transdate.Location = New System.Drawing.Point(126, 359)
         Me.transdate.Multiline = True
         Me.transdate.Name = "transdate"
         Me.transdate.Size = New System.Drawing.Size(110, 23)
@@ -574,7 +583,7 @@ Partial Class Form5
         'KryptonButton2
         '
         Me.KryptonButton2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.KryptonButton2.Location = New System.Drawing.Point(280, 490)
+        Me.KryptonButton2.Location = New System.Drawing.Point(280, 536)
         Me.KryptonButton2.Name = "KryptonButton2"
         Me.KryptonButton2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonButton2.Size = New System.Drawing.Size(78, 35)
@@ -602,7 +611,7 @@ Partial Class Form5
         'KryptonButton1
         '
         Me.KryptonButton1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.KryptonButton1.Location = New System.Drawing.Point(196, 490)
+        Me.KryptonButton1.Location = New System.Drawing.Point(196, 536)
         Me.KryptonButton1.Name = "KryptonButton1"
         Me.KryptonButton1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonButton1.Size = New System.Drawing.Size(78, 35)
@@ -630,7 +639,7 @@ Partial Class Form5
         'qty
         '
         Me.qty.Enabled = False
-        Me.qty.Location = New System.Drawing.Point(126, 280)
+        Me.qty.Location = New System.Drawing.Point(126, 326)
         Me.qty.Multiline = True
         Me.qty.Name = "qty"
         Me.qty.Size = New System.Drawing.Size(125, 27)
@@ -645,7 +654,7 @@ Partial Class Form5
         '
         'KryptonLabel10
         '
-        Me.KryptonLabel10.Location = New System.Drawing.Point(17, 280)
+        Me.KryptonLabel10.Location = New System.Drawing.Point(17, 326)
         Me.KryptonLabel10.Name = "KryptonLabel10"
         Me.KryptonLabel10.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel10.Size = New System.Drawing.Size(94, 22)
@@ -713,7 +722,7 @@ Partial Class Form5
         '
         'KryptonLabel23
         '
-        Me.KryptonLabel23.Location = New System.Drawing.Point(17, 248)
+        Me.KryptonLabel23.Location = New System.Drawing.Point(17, 294)
         Me.KryptonLabel23.Name = "KryptonLabel23"
         Me.KryptonLabel23.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel23.Size = New System.Drawing.Size(95, 22)
@@ -762,7 +771,7 @@ Partial Class Form5
         'minadj
         '
         Me.minadj.Enabled = False
-        Me.minadj.Location = New System.Drawing.Point(126, 248)
+        Me.minadj.Location = New System.Drawing.Point(126, 294)
         Me.minadj.Multiline = True
         Me.minadj.Name = "minadj"
         Me.minadj.Size = New System.Drawing.Size(125, 27)
@@ -1021,6 +1030,8 @@ Partial Class Form5
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(61, Byte), Integer))
+        Me.Panel1.Controls.Add(Me.KryptonLabel31)
+        Me.Panel1.Controls.Add(Me.KryptonGroup7)
         Me.Panel1.Controls.Add(Me.KryptonButton5)
         Me.Panel1.Controls.Add(Me.KryptonButton4)
         Me.Panel1.Controls.Add(Me.KryptonLabel28)
@@ -1054,13 +1065,56 @@ Partial Class Form5
         Me.Panel1.Controls.Add(Me.KryptonLabel29)
         Me.Panel1.Location = New System.Drawing.Point(516, 37)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(376, 541)
+        Me.Panel1.Size = New System.Drawing.Size(376, 590)
         Me.Panel1.TabIndex = 447
+        '
+        'KryptonLabel31
+        '
+        Me.KryptonLabel31.Location = New System.Drawing.Point(94, 237)
+        Me.KryptonLabel31.Name = "KryptonLabel31"
+        Me.KryptonLabel31.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonLabel31.Size = New System.Drawing.Size(26, 22)
+        Me.KryptonLabel31.StateCommon.ShortText.Color1 = System.Drawing.Color.White
+        Me.KryptonLabel31.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonLabel31.TabIndex = 463
+        Me.KryptonLabel31.Values.Text = "JO"
+        '
+        'KryptonGroup7
+        '
+        Me.KryptonGroup7.Location = New System.Drawing.Point(129, 237)
+        Me.KryptonGroup7.Margin = New System.Windows.Forms.Padding(0)
+        Me.KryptonGroup7.Name = "KryptonGroup7"
+        '
+        'KryptonGroup7.Panel
+        '
+        Me.KryptonGroup7.Panel.Controls.Add(Me.NEWJO)
+        Me.KryptonGroup7.Size = New System.Drawing.Size(229, 30)
+        Me.KryptonGroup7.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.KryptonGroup7.StateCommon.Border.Rounding = 0
+        Me.KryptonGroup7.StateCommon.Border.Width = 3
+        Me.KryptonGroup7.TabIndex = 462
+        '
+        'NEWJO
+        '
+        Me.NEWJO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.NEWJO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.NEWJO.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.NEWJO.DropDownHeight = 206
+        Me.NEWJO.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.NEWJO.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NEWJO.FormattingEnabled = True
+        Me.NEWJO.IntegralHeight = False
+        Me.NEWJO.Location = New System.Drawing.Point(0, 0)
+        Me.NEWJO.Name = "NEWJO"
+        Me.NEWJO.Size = New System.Drawing.Size(223, 24)
+        Me.NEWJO.TabIndex = 451
         '
         'KryptonButton5
         '
         Me.KryptonButton5.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.KryptonButton5.Location = New System.Drawing.Point(304, 395)
+        Me.KryptonButton5.Location = New System.Drawing.Point(304, 441)
         Me.KryptonButton5.Name = "KryptonButton5"
         Me.KryptonButton5.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonButton5.Size = New System.Drawing.Size(41, 27)
@@ -1088,7 +1142,7 @@ Partial Class Form5
         'KryptonButton4
         '
         Me.KryptonButton4.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.KryptonButton4.Location = New System.Drawing.Point(257, 395)
+        Me.KryptonButton4.Location = New System.Drawing.Point(257, 441)
         Me.KryptonButton4.Name = "KryptonButton4"
         Me.KryptonButton4.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonButton4.Size = New System.Drawing.Size(41, 27)
@@ -1115,7 +1169,7 @@ Partial Class Form5
         '
         'KryptonLabel28
         '
-        Me.KryptonLabel28.Location = New System.Drawing.Point(17, 395)
+        Me.KryptonLabel28.Location = New System.Drawing.Point(17, 441)
         Me.KryptonLabel28.Name = "KryptonLabel28"
         Me.KryptonLabel28.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel28.Size = New System.Drawing.Size(102, 22)
@@ -1126,7 +1180,7 @@ Partial Class Form5
         '
         'adjustment
         '
-        Me.adjustment.Location = New System.Drawing.Point(126, 395)
+        Me.adjustment.Location = New System.Drawing.Point(126, 441)
         Me.adjustment.Multiline = True
         Me.adjustment.Name = "adjustment"
         Me.adjustment.Size = New System.Drawing.Size(125, 27)
@@ -1142,7 +1196,7 @@ Partial Class Form5
         '
         'ADJUSTMENTREMARKS
         '
-        Me.ADJUSTMENTREMARKS.Location = New System.Drawing.Point(22, 457)
+        Me.ADJUSTMENTREMARKS.Location = New System.Drawing.Point(22, 503)
         Me.ADJUSTMENTREMARKS.Multiline = True
         Me.ADJUSTMENTREMARKS.Name = "ADJUSTMENTREMARKS"
         Me.ADJUSTMENTREMARKS.Size = New System.Drawing.Size(336, 27)
@@ -1154,9 +1208,22 @@ Partial Class Form5
         Me.ADJUSTMENTREMARKS.StateDisabled.Content.Color1 = System.Drawing.Color.Black
         Me.ADJUSTMENTREMARKS.TabIndex = 456
         '
+        'KryptonLabel29
+        '
+        Me.KryptonLabel29.Location = New System.Drawing.Point(17, 483)
+        Me.KryptonLabel29.Name = "KryptonLabel29"
+        Me.KryptonLabel29.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonLabel29.Size = New System.Drawing.Size(194, 22)
+        Me.KryptonLabel29.StateCommon.ShortText.Color1 = System.Drawing.Color.White
+        Me.KryptonLabel29.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonLabel29.TabIndex = 461
+        Me.KryptonLabel29.Values.Text = "allocation adjustment remarks"
+        '
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.Panel2.Controls.Add(Me.KryptonLabel30)
+        Me.Panel2.Controls.Add(Me.JO)
         Me.Panel2.Controls.Add(Me.KryptonLabel27)
         Me.Panel2.Controls.Add(Me.balanceqty)
         Me.Panel2.Controls.Add(Me.controlno)
@@ -1185,12 +1252,38 @@ Partial Class Form5
         Me.Panel2.Controls.Add(Me.reference)
         Me.Panel2.Location = New System.Drawing.Point(3, 3)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(477, 505)
+        Me.Panel2.Size = New System.Drawing.Size(477, 553)
         Me.Panel2.TabIndex = 448
+        '
+        'KryptonLabel30
+        '
+        Me.KryptonLabel30.Location = New System.Drawing.Point(178, 65)
+        Me.KryptonLabel30.Name = "KryptonLabel30"
+        Me.KryptonLabel30.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonLabel30.Size = New System.Drawing.Size(26, 22)
+        Me.KryptonLabel30.StateCommon.ShortText.Color1 = System.Drawing.Color.White
+        Me.KryptonLabel30.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonLabel30.TabIndex = 94
+        Me.KryptonLabel30.Values.Text = "JO"
+        '
+        'JO
+        '
+        Me.JO.Enabled = False
+        Me.JO.Location = New System.Drawing.Point(210, 65)
+        Me.JO.Multiline = True
+        Me.JO.Name = "JO"
+        Me.JO.Size = New System.Drawing.Size(260, 27)
+        Me.JO.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
+            Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
+        Me.JO.StateCommon.Border.Width = 3
+        Me.JO.StateCommon.Content.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.JO.StateDisabled.Content.Color1 = System.Drawing.Color.Black
+        Me.JO.TabIndex = 93
         '
         'KryptonLabel27
         '
-        Me.KryptonLabel27.Location = New System.Drawing.Point(254, 213)
+        Me.KryptonLabel27.Location = New System.Drawing.Point(254, 260)
         Me.KryptonLabel27.Name = "KryptonLabel27"
         Me.KryptonLabel27.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel27.Size = New System.Drawing.Size(85, 22)
@@ -1202,7 +1295,7 @@ Partial Class Form5
         'balanceqty
         '
         Me.balanceqty.Enabled = False
-        Me.balanceqty.Location = New System.Drawing.Point(345, 213)
+        Me.balanceqty.Location = New System.Drawing.Point(345, 260)
         Me.balanceqty.Multiline = True
         Me.balanceqty.Name = "balanceqty"
         Me.balanceqty.Size = New System.Drawing.Size(125, 27)
@@ -1266,10 +1359,10 @@ Partial Class Form5
         '
         'KryptonGroup1.Panel
         '
-        Me.KryptonGroup1.Panel.Controls.Add(Me.Panel1)
         Me.KryptonGroup1.Panel.Controls.Add(Me.KryptonPanel1)
         Me.KryptonGroup1.Panel.Controls.Add(Me.KryptonGroup2)
-        Me.KryptonGroup1.Size = New System.Drawing.Size(895, 583)
+        Me.KryptonGroup1.Panel.Controls.Add(Me.Panel1)
+        Me.KryptonGroup1.Size = New System.Drawing.Size(895, 636)
         Me.KryptonGroup1.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(61, Byte), Integer))
         Me.KryptonGroup1.StateCommon.Border.Color1 = System.Drawing.Color.Aqua
         Me.KryptonGroup1.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
@@ -1288,7 +1381,7 @@ Partial Class Form5
         'KryptonGroup2.Panel
         '
         Me.KryptonGroup2.Panel.Controls.Add(Me.Panel2)
-        Me.KryptonGroup2.Size = New System.Drawing.Size(513, 543)
+        Me.KryptonGroup2.Size = New System.Drawing.Size(513, 592)
         Me.KryptonGroup2.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.KryptonGroup2.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.KryptonGroup2.StateCommon.Border.DrawBorders = CType((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
@@ -1336,8 +1429,8 @@ Partial Class Form5
         Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToAddRows = False
         Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToDeleteRows = False
         Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToOrderColumns = True
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.LISTOFALLOCATIONGRIDVIEW.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.LISTOFALLOCATIONGRIDVIEW.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.LISTOFALLOCATIONGRIDVIEW.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.LISTOFALLOCATIONGRIDVIEW.ColumnHeadersHeight = 20
         Me.LISTOFALLOCATIONGRIDVIEW.Cursor = System.Windows.Forms.Cursors.Hand
@@ -1367,28 +1460,17 @@ Partial Class Form5
         Me.LISTOFALLOCATIONGRIDVIEW.StateCommon.HeaderColumn.Content.Hint = ComponentFactory.Krypton.Toolkit.PaletteTextHint.AntiAlias
         Me.LISTOFALLOCATIONGRIDVIEW.TabIndex = 455
         '
-        'KryptonLabel29
-        '
-        Me.KryptonLabel29.Location = New System.Drawing.Point(17, 437)
-        Me.KryptonLabel29.Name = "KryptonLabel29"
-        Me.KryptonLabel29.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
-        Me.KryptonLabel29.Size = New System.Drawing.Size(194, 22)
-        Me.KryptonLabel29.StateCommon.ShortText.Color1 = System.Drawing.Color.White
-        Me.KryptonLabel29.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.KryptonLabel29.TabIndex = 461
-        Me.KryptonLabel29.Values.Text = "allocation adjustment remarks"
-        '
         'Form5
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Green
-        Me.ClientSize = New System.Drawing.Size(904, 592)
+        Me.ClientSize = New System.Drawing.Size(902, 655)
+        Me.Controls.Add(Me.KryptonGroup1)
         Me.Controls.Add(Me.loopissue)
         Me.Controls.Add(Me.KryptonButton25)
         Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.LISTOFALLOCATIONGRIDVIEW)
-        Me.Controls.Add(Me.KryptonGroup1)
         Me.Controls.Add(Me.itcame)
         Me.Controls.Add(Me.xyzref)
         Me.Controls.Add(Me.KryptonLabel14)
@@ -1426,6 +1508,10 @@ Partial Class Form5
         Me.KryptonGroup6.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        CType(Me.KryptonGroup7.Panel, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.KryptonGroup7.Panel.ResumeLayout(False)
+        CType(Me.KryptonGroup7, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.KryptonGroup7.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         CType(Me.KryptonPanel1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1529,4 +1615,9 @@ Partial Class Form5
     Friend WithEvents KryptonLabel28 As ComponentFactory.Krypton.Toolkit.KryptonLabel
     Friend WithEvents adjustment As ComponentFactory.Krypton.Toolkit.KryptonTextBox
     Friend WithEvents KryptonLabel29 As ComponentFactory.Krypton.Toolkit.KryptonLabel
+    Friend WithEvents KryptonLabel31 As ComponentFactory.Krypton.Toolkit.KryptonLabel
+    Friend WithEvents KryptonGroup7 As ComponentFactory.Krypton.Toolkit.KryptonGroup
+    Friend WithEvents NEWJO As ComboBox
+    Friend WithEvents KryptonLabel30 As ComponentFactory.Krypton.Toolkit.KryptonLabel
+    Friend WithEvents JO As ComponentFactory.Krypton.Toolkit.KryptonTextBox
 End Class

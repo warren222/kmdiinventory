@@ -27,6 +27,7 @@ Partial Class reallocate
         Me.stockno = New System.Windows.Forms.ComboBox()
         Me.reference = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.jo = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
         'transno
@@ -78,11 +79,20 @@ Partial Class reallocate
         Me.Label1.TabIndex = 459
         Me.Label1.Text = "ReAlloc Selected Transactions"
         '
+        'jo
+        '
+        Me.jo.FormattingEnabled = True
+        Me.jo.Location = New System.Drawing.Point(12, 240)
+        Me.jo.Name = "jo"
+        Me.jo.Size = New System.Drawing.Size(263, 21)
+        Me.jo.TabIndex = 460
+        '
         'reallocate
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(216, 73)
+        Me.ClientSize = New System.Drawing.Size(218, 78)
+        Me.Controls.Add(Me.jo)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.reference)
         Me.Controls.Add(Me.stockno)
@@ -102,4 +112,5 @@ Partial Class reallocate
     Friend WithEvents stockno As ComboBox
     Friend WithEvents reference As ComboBox
     Friend WithEvents Label1 As Label
+    Friend WithEvents jo As ComboBox
 End Class

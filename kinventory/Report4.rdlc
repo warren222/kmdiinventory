@@ -418,7 +418,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=format(Fields!BALALLOC.Value-Fields!PHYSICAL.Value,"N2")</Value>
+                              <Value>=format(Fields!BALALLOC.Value-Fields!PHYSICAL.Value+(Fields!ALLOCATION.Value-Fields!BALALLOC.Value),"N2")</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                               </Style>

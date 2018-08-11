@@ -4,8 +4,9 @@ Imports System.Data
 Imports System.Data.SqlClient
 Imports System.Configuration
 Imports System.Security.Cryptography
-
+Imports System.Windows.Forms
 Imports System.ComponentModel
+Imports Microsoft.Reporting.WinForms
 
 Public Class sql
     Dim datasource As String = Form9.myaccess.Text.ToString
@@ -19,12 +20,14 @@ Public Class sql
     'Dim scrollval As Integer
     'Dim transds As New DataSet
     'Dim transda As New SqlDataAdapter
-    Public Sub loadstocks()
+    Public Sub loadstocks(ByVal top As String)
         Try
             sqlcon.Open()
             Dim ds As New DataSet
             ds.Clear()
-            Dim str As String = "select
+
+            top = top.Replace(",", "")
+            Dim str As String = "select top " & top & "
 a.*,
 (select sum(qty) from LOCATIONTB where STOCKNO=a.STOCKNO) as MYLOCATION
  from stocks_tb AS A
@@ -702,50 +705,49 @@ UNIT='" & unit & "' where stockno='" & stockno & "'"
             End If
 
             Dim SetSortOrder As ListSortDirection
-            Dim GridSortOrder As SortOrder
+            Dim GridSortOrder As Microsoft.Reporting.WinForms.SortOrder
             GridSortOrder = Form2.transgridview.SortOrder
-            If GridSortOrder = Windows.Forms.SortOrder.Ascending Then
+            If GridSortOrder = System.Windows.Forms.SortOrder.Ascending Then
                 SetSortOrder = ListSortDirection.Ascending
-            ElseIf GridSortOrder = Windows.Forms.SortOrder.Descending Then
+            ElseIf GridSortOrder = System.Windows.Forms.SortOrder.Descending Then
                 SetSortOrder = ListSortDirection.Descending
-            ElseIf GridSortOrder = Windows.Forms.SortOrder.None Then
+            ElseIf GridSortOrder = System.Windows.Forms.SortOrder.None Then
                 SetSortOrder = ListSortDirection.Ascending
             Else : GridSortOrder = ListSortDirection.Ascending
 
             End If
 
-
-
             ds.Clear()
             top = top.Replace(",", "")
             Dim tops As String = "top " & top & " "
             Dim str As String = "select " & tops & " a.TRANSNO,
-a.STOCKNO,
-b.COSTHEAD,
-b.TYPECOLOR,
-B.ARTICLENO,
-B.DESCRIPTION,
-a.TRANSTYPE,
-a.TRANSDATE,
-case when isdate(a.DUEDATE)=1 then cast(a.duedate as date) end as DUEDATE,
-a.QTY,
-a.REFERENCE,a.JO,
-a.ACCOUNT,
-a.CONTROLNO,
-A.XYZ,
-A.EXCESS,
-a.REMARKS,
-A.UFACTOR,
-(A.UFACTOR*A.QTY) AS CHECKER,
-a.UNITPRICE,
-A.DISC,
-((a.ufactor * a.qty)*(a.unitprice-((a.disc*0.01)*a.unitprice))) as CURRENCY,
-a.XRATE,
-A.NETAMOUNT,
-A.INPUTTED,
-A.ADJUSTMENTQTY
- from trans_tb as a inner join stocks_tb as b
-on a.stockno = b.stockno order by a.transdate desc"
+                                                    a.STOCKNO,
+                                                    b.COSTHEAD,
+                                                    b.TYPECOLOR,
+                                                    B.ARTICLENO,
+                                                    B.DESCRIPTION,
+                                                    a.TRANSTYPE,
+                                                    a.TRANSDATE,
+                                                    case when isdate(a.DUEDATE)=1 then cast(a.duedate as date) end as DUEDATE,
+                                                    a.QTY,
+                                                    a.REFERENCE,
+                                                    a.JO,
+                                                    a.ACCOUNT,
+                                                    a.CONTROLNO,
+                                                    A.XYZ,
+                                                    A.EXCESS,
+                                                    a.REMARKS,
+                                                    A.UFACTOR,
+                                                    (A.UFACTOR*A.QTY) AS CHECKER,
+                                                    a.UNITPRICE,
+                                                    A.DISC,
+                                                    ((a.ufactor * a.qty)*(a.unitprice-((a.disc*0.01)*a.unitprice))) as CURRENCY,
+                                                    a.XRATE,
+                                                    A.NETAMOUNT,
+                                                    A.INPUTTED,
+                                                    A.ADJUSTMENTQTY
+                                                     from trans_tb as a inner join stocks_tb as b
+                                                    on a.stockno = b.stockno order by a.transdate desc"
             sqlcmd = New SqlCommand(str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "trans_tb")
@@ -1360,7 +1362,7 @@ on a.stockno = b.stockno"
             Form2.issuearticleno.DisplayMember = "articleno"
             Form2.issuestockno.DataBindings.Clear()
             Form2.issuestockno.DataBindings.Add("TEXT", bs, "STOCKNO")
-            searchreferenceissue(Form2.issuereference.Text, Form2.issuestockno.Text)
+            searchreferenceissue(Form2.issuereference.Text, Form2.issuejo.Text, Form2.issuestockno.Text)
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -1383,7 +1385,7 @@ on a.stockno = b.stockno"
             Form2.issuearticleno.DisplayMember = "articleno"
             Form2.issuestockno.DataBindings.Clear()
             Form2.issuestockno.DataBindings.Add("TEXT", bs, "STOCKNO")
-            searchreferenceissue(Form2.issuereference.Text, Form2.issuestockno.Text)
+            searchreferenceissue(Form2.issuereference.Text, Form2.issuejo.Text, Form2.issuestockno.Text)
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -1406,7 +1408,7 @@ on a.stockno = b.stockno"
             Form2.issuearticleno.DisplayMember = "articleno"
             Form2.issuestockno.DataBindings.Clear()
             Form2.issuestockno.DataBindings.Add("TEXT", bs, "STOCKNO")
-            searchreferenceissue(Form2.issuereference.Text, Form2.issuestockno.Text)
+            searchreferenceissue(Form2.issuereference.Text, Form2.issuejo.Text, Form2.issuestockno.Text)
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -1429,7 +1431,7 @@ on a.stockno = b.stockno"
             Form2.issuearticleno.DisplayMember = "articleno"
             Form2.issuestockno.DataBindings.Clear()
             Form2.issuestockno.DataBindings.Add("TEXT", bs, "STOCKNO")
-            searchreferenceissue(Form2.issuereference.Text, Form2.issuestockno.Text)
+            searchreferenceissue(Form2.issuereference.Text, Form2.issuejo.Text, Form2.issuestockno.Text)
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -1754,14 +1756,14 @@ where a.reference='" & reference & "' and a.transtype = 'Order' AND a.XYZREF=''"
             sqlcon.Close()
         End Try
     End Sub
-    Public Sub searchreferenceissue(ByVal reference As String, ByVal stockno As String)
+    Public Sub searchreferenceissue(ByVal reference As String, ByVal jo As String, ByVal stockno As String)
         Try
             sqlcon.Close()
             sqlcon.Open()
             Dim ds As New DataSet
             ds.Clear()
             Dim bs As New BindingSource
-            Dim str As String = " select a.REFERENCE,
+            Dim str As String = " select a.REFERENCE,a.JO,
 a.STOCKNO,
 b.COSTHEAD,
 b.TYPECOLOR,
@@ -1773,7 +1775,7 @@ from
 reference_tb as a
 inner join stocks_tb as b
 on b.stockno=a.stockno
- where a.reference='" & reference & "' and a.stockno = '" & stockno & "'"
+ where a.reference='" & reference & "' AND A.JO = '" & jo & "' and a.stockno = '" & stockno & "'"
             sqlcmd = New SqlCommand(str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "reference_tb")
@@ -1817,6 +1819,7 @@ a.TRANSDATE,
 a.DUEDATE,
 a.QTY,
 a.REFERENCE,
+a.JO,
 a.ACCOUNT,
 a.CONTROLNO,
 a.XYZ,
@@ -1928,7 +1931,9 @@ order by b.articleno asc"
             Dim ds As New DataSet
             Dim bs As New BindingSource
             ds.Clear()
-            Dim Str As String = "select a.REFERENCE,
+            Dim Str As String = "select 
+a.REFERENCE,
+a.JO,
 a.STOCKNO,
 b.COSTHEAD,
 b.TYPECOLOR,
@@ -2658,13 +2663,13 @@ INPUTTED
             End If
 
             Dim SetSortOrder As ListSortDirection
-            Dim GridSortOrder As SortOrder
+            Dim GridSortOrder As Microsoft.Reporting.WinForms.SortOrder
             GridSortOrder = Form2.transgridview.SortOrder
-            If GridSortOrder = Windows.Forms.SortOrder.Ascending Then
+            If GridSortOrder = System.Windows.Forms.SortOrder.Ascending Then
                 SetSortOrder = ListSortDirection.Ascending
-            ElseIf GridSortOrder = Windows.Forms.SortOrder.Descending Then
+            ElseIf GridSortOrder = System.Windows.Forms.SortOrder.Descending Then
                 SetSortOrder = ListSortDirection.Descending
-            ElseIf GridSortOrder = Windows.Forms.SortOrder.None Then
+            ElseIf GridSortOrder = System.Windows.Forms.SortOrder.None Then
                 SetSortOrder = ListSortDirection.Ascending
             Else : GridSortOrder = ListSortDirection.Ascending
 
@@ -2760,20 +2765,20 @@ INPUTTED
             sqlcon.Close()
         End Try
     End Sub
-    Public Sub selectreference(ByVal stockno As String, ByVal reference As String)
+    Public Sub selectreference(ByVal stockno As String, ByVal reference As String, ByVal jo As String)
         Try
             sqlcon.Open()
             Dim ds As New DataSet
             Dim da As New SqlDataAdapter
             ds.Clear()
             Dim bs As New BindingSource
-            Dim Str As String = "Select reference As [REFERENCE]
+            Dim Str As String = "Select reference As [REFERENCE],JO
       ,stockno as [STOCKNO]
       ,STOCKORDER as [ORDER]
       ,ALLOCATION as [ALLOCATION]
       ,TOTALRECEIPT as [RECEIPT]
       ,TOTALISSUE as [ISSUE],
-        TOTALRETURN AS [RETURN] from reference_tb where stockno='" & stockno & "' and reference='" & reference & "'"
+        TOTALRETURN AS [RETURN] from reference_tb where stockno='" & stockno & "' and reference='" & reference & "' and jo = '" & jo & "'"
             sqlcmd = New SqlCommand(Str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "reference_tb")
@@ -2868,6 +2873,7 @@ format(a.TRANSDATE,'yyyy-MMM-dd') AS [TRANSDATE],
 FORMAT(Case when isdate(a.duedate)=1 then cast(a.DUEDATE as date) end,'yyyy-MMM-dd') as DUEDATE,
 a.QTY,
 a.REFERENCE,
+A.JO,
 a.ACCOUNT,
 a.CONTROLNO,
 a.xyzref,
@@ -2898,6 +2904,7 @@ on a.stockno = b.stockno where a.transno='" & transno & "'"
             Form5.initialqty.DataBindings.Clear()
             Form5.balanceqty.DataBindings.Clear()
             Form5.reference.DataBindings.Clear()
+            Form5.JO.DataBindings.Clear()
             Form5.account.DataBindings.Clear()
             Form5.controlno.DataBindings.Clear()
             Form5.xyzref.DataBindings.Clear()
@@ -2914,6 +2921,7 @@ on a.stockno = b.stockno where a.transno='" & transno & "'"
             Form5.initialqty.DataBindings.Add("text", bs, "QTY")
             Form5.balanceqty.DataBindings.Add("text", bs, "balqty")
             Form5.reference.DataBindings.Add("text", bs, "REFERENCE")
+            Form5.JO.DataBindings.Add("text", bs, "JO")
             Form5.account.DataBindings.Add("text", bs, "ACCOUNT")
             Form5.controlno.DataBindings.Add("text", bs, "CONTROLNO")
             Form5.xyzref.DataBindings.Add("text", bs, "xyzref")
@@ -2937,13 +2945,14 @@ on a.stockno = b.stockno where a.transno='" & transno & "'"
             sqlcon.Close()
         End Try
     End Sub
-    Public Sub referencetb()
+    Public Sub referencetb(ByVal top As String)
         Try
             sqlcon.Open()
             Dim ds As New DataSet
             ds.Clear()
-
-            Dim str As String = "select a.REFERENCE,a.JO,
+            top = top.Replace(",", "")
+            Dim toprow As String = "top " & top & ""
+            Dim str As String = "select " & toprow & " a.REFERENCE,a.JO,
 a.STOCKNO,
 b.COSTHEAD,
 b.TYPECOLOR,
@@ -3035,13 +3044,14 @@ on a.stockno=b.stockno order by a.reference asc,a.stockorder desc,a.allocation d
             sqlcon.Close()
         End Try
     End Sub
-    Public Sub refsearch(ByVal where As String)
+    Public Sub refsearch(ByVal where As String, ByVal top As String)
         Try
             sqlcon.Open()
             Dim ds As New DataSet
-
+            top = top.Replace(",", "")
+            Dim toprows As String = "top " & top & ""
             ds.Clear()
-            Dim str As String = "select a.REFERENCE,a.JO,
+            Dim str As String = "select " & toprows & " a.REFERENCE,a.JO,
 a.STOCKNO,
 b.COSTHEAD,
 b.TYPECOLOR,

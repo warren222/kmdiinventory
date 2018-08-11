@@ -11,8 +11,9 @@ Public Class reallocate
             Dim t As String = transno.Items(i).ToString
             Dim s As String = stockno.Items(i).ToString
             Dim r As String = reference.Items(i).ToString
+            Dim q As String = jo.Items(i).ToString
             reallocate(t)
-            updatestock(s, r)
+            updatestock(s, r, q)
         Next
         Me.Close()
         Form2.KryptonButton10.PerformClick()
@@ -21,14 +22,16 @@ Public Class reallocate
         Try
             sql.sqlcon.Open()
             Dim str As String = "
+declare @id as integer = (select max(transno)+1 from trans_tb)
+
 insert into trans_tb 
-     (STOCKNO,
+     (transno,STOCKNO,
             TRANSTYPE,
             TRANSDATE,
             DUEDATE,
             QTY,
             BALQTY,
-            REFERENCE,
+            REFERENCE,jo,
             ACCOUNT,
             CONTROLNO,
             XYZ,
@@ -36,13 +39,13 @@ insert into trans_tb
             REMARKS,
             INPUTTED) 
 select
-            STOCKNO,
+            @id,STOCKNO,
             'Allocation',
             '" & Form2.transdate.Text & "',
             '',
             QTY,
             QTY,
-            REFERENCE,
+            REFERENCE,jo,
             '',
             '',
             '',
@@ -59,7 +62,7 @@ select
             sql.sqlcon.Close()
         End Try
     End Sub
-    Public Sub updatestock(ByVal stockno As String, ByVal reference As String)
+    Public Sub updatestock(ByVal stockno As String, ByVal reference As String, ByVal jo As String)
         Try
             sql.sqlcon.Open()
             Dim str As String = "
@@ -90,14 +93,14 @@ select
 
 
             Dim bny As String = "
-                                    declare @allocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Allocation')+0
-                                    declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='CancelAlloc')+0
-                                    declare @order as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Order')+0
-                                    declare @return as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Return')+0
-                                    declare @receipt as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Receipt' AND NOT XYZ='Order')+0
-                                    declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation')+0
-                                    declare @receiptorder as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Receipt' AND XYZ='Order')+0
-                                    declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
+                                    declare @allocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "' AND TRANSTYPE='Allocation')+0
+                                    declare @cancelalloc as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "' AND TRANSTYPE='CancelAlloc')+0
+                                    declare @order as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "' AND TRANSTYPE='Order')+0
+                                    declare @return as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "' AND TRANSTYPE='Return')+0
+                                    declare @receipt as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "' AND TRANSTYPE='Receipt' AND NOT XYZ='Order')+0
+                                    declare @issue as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "' AND TRANSTYPE='Issue' AND NOT XYZ ='Allocation')+0
+                                    declare @receiptorder as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "' AND TRANSTYPE='Receipt' AND XYZ='Order')+0
+                                    declare @issueallocation as decimal(10,2)=(select  COALESCE(sum(qty),0) from trans_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "' AND TRANSTYPE='Issue' AND XYZ ='Allocation')+0
                                     declare @totalreceipt as decimal(10,2)=@receipt+@receiptorder
                                     declare @totalissue as decimal(10,2)=@issue+@issueallocation
                               
@@ -108,7 +111,7 @@ update reference_tb set
                                     TOTALRECEIPT=@totalreceipt,
                                     totalissue=@totalissue,
                                     totalreturn=@return
-                                    where stockno='" & stockno & "' and reference='" & reference & "'"
+                                    where stockno='" & stockno & "' and reference='" & reference & "'  and jo = '" & jo & "'"
             sqlcmd = New SqlCommand(bny, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()
 

@@ -381,7 +381,7 @@ Public Class Form4
         If mytransgridview.RowCount >= 0 And e.RowIndex >= 0 Then
             Form5.itcame.Text = "A"
             SQL.selecttransrec(Form5.transno.Text)
-            SQL.selectreference(Form5.stockno.Text, Form5.reference.Text)
+            SQL.selectreference(Form5.stockno.Text, Form5.reference.Text, Form5.JO.Text)
             Form5.ShowDialog()
         End If
     End Sub
