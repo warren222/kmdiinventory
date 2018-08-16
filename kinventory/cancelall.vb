@@ -40,6 +40,7 @@ Public Class cancelall
                 Dim reference As String = Form2.refcombo.Items(i).ToString()
                 Dim jo As String = Form2.refjo.Items(i).ToString()
                 Dim stockno As String = Form2.refstock.Items(i).ToString()
+                updatereference(stockno, reference, jo)
                 getqty(stockno, reference, jo)
                 loopissue.Text = allalloc.Text
 

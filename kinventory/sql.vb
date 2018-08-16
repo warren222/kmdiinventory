@@ -1598,7 +1598,7 @@ insert into trans_tb
             TRANSDATE,
             DUEDATE,
             QTY,
-            REFERENCE,JO
+            REFERENCE,JO,
             ACCOUNT,
             CONTROLNO,XYZ,XYZREF,REMARKS,BALQTY,ufactor,unitprice,disc,xrate,netamount,INPUTTED) values (@id,'" & stockno & "'," &
          "'" & transtype & "'," &
