@@ -23,6 +23,7 @@ Partial Class multimove
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.KryptonLabel4 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonGroup5 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
         Me.JO = New System.Windows.Forms.ComboBox()
@@ -79,6 +80,7 @@ Partial Class multimove
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.Panel1.Controls.Add(Me.Button3)
         Me.Panel1.Controls.Add(Me.KryptonLabel4)
         Me.Panel1.Controls.Add(Me.KryptonGroup5)
         Me.Panel1.Controls.Add(Me.KryptonCheckBox2)
@@ -98,27 +100,36 @@ Partial Class multimove
         Me.Panel1.Size = New System.Drawing.Size(409, 349)
         Me.Panel1.TabIndex = 0
         '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(358, 130)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(36, 30)
+        Me.Button3.TabIndex = 474
+        Me.Button3.Text = "Gen"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
         'KryptonLabel4
         '
-        Me.KryptonLabel4.Location = New System.Drawing.Point(116, 128)
+        Me.KryptonLabel4.Location = New System.Drawing.Point(20, 130)
         Me.KryptonLabel4.Name = "KryptonLabel4"
         Me.KryptonLabel4.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
-        Me.KryptonLabel4.Size = New System.Drawing.Size(28, 24)
+        Me.KryptonLabel4.Size = New System.Drawing.Size(93, 24)
         Me.KryptonLabel4.StateCommon.ShortText.Color1 = System.Drawing.Color.White
         Me.KryptonLabel4.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.KryptonLabel4.TabIndex = 473
-        Me.KryptonLabel4.Values.Text = "JO"
+        Me.KryptonLabel4.Values.Text = "MOTHER JO"
         '
         'KryptonGroup5
         '
-        Me.KryptonGroup5.Location = New System.Drawing.Point(147, 128)
+        Me.KryptonGroup5.Location = New System.Drawing.Point(116, 130)
         Me.KryptonGroup5.Margin = New System.Windows.Forms.Padding(0)
         Me.KryptonGroup5.Name = "KryptonGroup5"
         '
         'KryptonGroup5.Panel
         '
         Me.KryptonGroup5.Panel.Controls.Add(Me.JO)
-        Me.KryptonGroup5.Size = New System.Drawing.Size(246, 30)
+        Me.KryptonGroup5.Size = New System.Drawing.Size(239, 30)
         Me.KryptonGroup5.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
@@ -139,7 +150,7 @@ Partial Class multimove
         Me.JO.IntegralHeight = False
         Me.JO.Location = New System.Drawing.Point(0, 0)
         Me.JO.Name = "JO"
-        Me.JO.Size = New System.Drawing.Size(240, 23)
+        Me.JO.Size = New System.Drawing.Size(233, 23)
         Me.JO.TabIndex = 447
         '
         'KryptonCheckBox2
@@ -536,4 +547,5 @@ Partial Class multimove
     Friend WithEvents KryptonLabel4 As ComponentFactory.Krypton.Toolkit.KryptonLabel
     Friend WithEvents KryptonGroup5 As ComponentFactory.Krypton.Toolkit.KryptonGroup
     Friend WithEvents JO As ComboBox
+    Friend WithEvents Button3 As Button
 End Class

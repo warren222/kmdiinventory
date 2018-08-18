@@ -290,6 +290,12 @@
     <Compile Include="Form9.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="genreferenceFRM.Designer.vb">
+      <DependentUpon>genreferenceFRM.vb</DependentUpon>
+    </Compile>
+    <Compile Include="genreferenceFRM.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="HEADERREPORTFRM.Designer.vb">
       <DependentUpon>HEADERREPORTFRM.vb</DependentUpon>
     </Compile>
@@ -459,6 +465,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form9.resx">
       <DependentUpon>Form9.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="genreferenceFRM.resx">
+      <DependentUpon>genreferenceFRM.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HEADERREPORTFRM.resx">
       <DependentUpon>HEADERREPORTFRM.vb</DependentUpon>

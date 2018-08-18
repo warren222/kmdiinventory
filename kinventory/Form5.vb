@@ -886,7 +886,7 @@ minimum adjustmment for this transaction is " & minimum & "", "Error", MessageBo
         Else
             newreference.SelectedIndex = i
         End If
-        Form2.genjo("FORM5", newreference.Text, NEWJO, "trans_tb", "jo")
+        Form2.genjo("FORM5", newreference.Text, Me.NEWJO, "trans_tb", "jo")
     End Sub
 
     Private Sub Form5_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -1123,10 +1123,15 @@ and typecolor = '" & newtypecolor.Text & "' and articleno = '" & newarticleno.Te
         ADJUSTMENTREMARKS.Text = newremarks.Remove(0, 1)
     End Sub
     Private Sub newreference_TextChanged(sender As Object, e As EventArgs) Handles newreference.TextChanged
-        Form2.genjo("FORM5", newreference.Text, NEWJO, "trans_tb", "jo")
+        Form2.genjo("FORM5", newreference.Text, Me.NEWJO, "trans_tb", "jo")
     End Sub
 
     Private Sub NEWJO_MouseDown(sender As Object, e As MouseEventArgs) Handles NEWJO.MouseDown
-        Form2.genjo("FORM5", newreference.Text, NEWJO, "trans_tb", "jo")
+        Form2.genjo("FORM5", newreference.Text, Me.NEWJO, "trans_tb", "jo")
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        genreferenceFRM.Text = "form5"
+        genreferenceFRM.ShowDialog()
     End Sub
 End Class

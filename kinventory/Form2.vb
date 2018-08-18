@@ -3,6 +3,8 @@ Imports Microsoft.Reporting.WinForms
 Public Class Form2
     Dim sql As New sql
     Dim sqlcmd As New SqlCommand
+
+
     Private Sub Form2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Timer2.Start()
         Me.Text = Form1.Label2.Text
@@ -14,7 +16,7 @@ Public Class Form2
         sql.referencetb(reftoprows.Text)
         Timer1.Start()
         myyear.Text = Today.Date.Year
-        refsource.SelectedIndex = 1
+
         If Form1.Label2.Text = "Guest" Then
             'stocks
             KryptonButton2.Enabled = False
@@ -642,9 +644,7 @@ update reference_tb set
         End Try
     End Sub
 
-    Private Sub refsource_TextChanged(sender As Object, e As EventArgs) Handles refsource.TextChanged
-        sql.loadreference(refsource.Text)
-    End Sub
+
 
     Private Sub transcosthead_MouseDown(sender As Object, e As MouseEventArgs) Handles transcosthead.MouseDown
         Dim phasedout As String
@@ -3158,13 +3158,7 @@ a.header,sum(a.netamount) as MOVING,( select sum(netamount) from stocks_tb where
         End Try
     End Sub
 
-    Private Sub stocksgridview_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles stocksgridview.CellContentClick
 
-    End Sub
-
-    Private Sub ComboBox2_MouseDown(sender As Object, e As MouseEventArgs) Handles jo.MouseDown
-        genjo("input", reference.Text, jo, "addendum_to_contract_tb", "parentjono")
-    End Sub
     Public Sub genjo(ByVal page As String, ByVal reference As String, ByVal ob As Object, ByVal database As String, ByVal col As String)
         Try
             sql.sqlcon1.Close()
@@ -3175,11 +3169,9 @@ a.header,sum(a.netamount) as MOVING,( select sum(netamount) from stocks_tb where
             Dim bs As New BindingSource
 
             Dim str As String
-            If page = "input" Then
-                str = "select distinct " & col & " from " & database & " where project_label = '" & reference & "'"
-            Else
-                str = "select distinct " & col & " from " & database & " where reference = '" & reference & "'"
-            End If
+
+            str = "select distinct " & col & " from " & database & " where reference = '" & reference & "'"
+
 
             sqlcmd = New SqlCommand(str, sql.sqlcon1)
             da.SelectCommand = sqlcmd
@@ -3201,22 +3193,6 @@ a.header,sum(a.netamount) as MOVING,( select sum(netamount) from stocks_tb where
         End Try
     End Sub
 
-
-    Private Sub reference_MouseDown(sender As Object, e As MouseEventArgs) Handles reference.MouseDown
-        genjo("input", reference.Text, jo, "addendum_to_contract_tb", "parentjono")
-    End Sub
-
-    Private Sub reference_TextChanged(sender As Object, e As EventArgs) Handles reference.TextChanged
-        genjo("input", reference.Text, jo, "addendum_to_contract_tb", "parentjono")
-    End Sub
-
-    Private Sub referencemenustrip_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles referencemenustrip.Opening
-
-    End Sub
-
-    Private Sub KryptonGroup6_Panel_Paint(sender As Object, e As PaintEventArgs) Handles KryptonGroup6.Panel.Paint
-
-    End Sub
 
     Private Sub reffromreference_MouseDown(sender As Object, e As MouseEventArgs) Handles reffromreference.MouseDown
         genjo("reference", reffromreference.Text, reffromjo, "trans_tb", "jo")
@@ -3259,7 +3235,147 @@ a.header,sum(a.netamount) as MOVING,( select sum(netamount) from stocks_tb where
         sql.selectreceiptreferencerecord(receiptreference.Text, receiptjo.Text)
     End Sub
 
-    Private Sub receiptreference_SelectedIndexChanged(sender As Object, e As EventArgs) Handles receiptreference.SelectedIndexChanged
 
+
+    Private Sub UpdateReferenceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UpdateReferenceToolStripMenuItem.Click
+        Dim selecteditems As DataGridViewSelectedRowCollection = transgridview.SelectedRows
+        Dim reflist As ArrayList = New ArrayList(selecteditems.Count)
+        Dim stlist As ArrayList = New ArrayList(selecteditems.Count)
+        Dim jolist As ArrayList = New ArrayList(selecteditems.Count)
+
+        For Each selecteditem As DataGridViewRow In selecteditems
+            reflist.Add(selecteditem.Cells("reference").Value.ToString)
+            stlist.Add(selecteditem.Cells("stockno").Value.ToString)
+            jolist.Add(selecteditem.Cells("jo").Value.ToString)
+        Next
+        ProgressBar2.Visible = True
+        ProgressBar2.Maximum = reflist.Count
+        ProgressBar2.Value = 0
+        For i As Integer = 0 To reflist.Count - 1
+            Dim reference As String = reflist(i).ToString
+            Dim stockno As String = stlist(i).ToString
+            Dim jo As String = jolist(i).ToString
+            updatereferencerecord(reference, jo, stockno)
+            updatestock(stockno, reference, jo)
+            ProgressBar2.Value += 1
+        Next
+        If ProgressBar2.Value = ProgressBar2.Maximum Then
+            MessageBox.Show("Complete", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            ProgressBar2.Visible = False
+        End If
+    End Sub
+    Public Sub updatereferencerecord(ByVal reference As String, ByVal jo As String, ByVal stockno As String)
+        Try
+            sql.sqlcon.Open()
+            Dim find As String = "select * from reference_tb where reference='" & reference & "' and jo = '" & jo & "' and stockno='" & stockno & "'"
+            sqlcmd = New SqlCommand(find, sql.sqlcon)
+            Dim read As SqlDataReader = sqlcmd.ExecuteReader
+            If read.HasRows = True Then
+                read.Close()
+            Else
+                read.Close()
+
+                Dim address As String
+                Try
+                    sql.sqlcon1.Open()
+                    Dim getadd As String = "select fulladd from addendum_to_contract_tb where project_label = '" & reference & "' and parentjono ='" & jo & "'"
+                    sqlcmd = New SqlCommand(getadd, sql.sqlcon1)
+                    Dim sd As SqlDataReader = sqlcmd.ExecuteReader
+                    While sd.Read
+                        address = sd(0).ToString
+                    End While
+                    sd.Close()
+                Catch ex As Exception
+                    MsgBox(ex.ToString)
+                Finally
+                    sql.sqlcon1.Close()
+                End Try
+
+                Dim insert As String = "insert into reference_tb (reference,jo,address,stockno) values('" & reference & "','" & jo & "','" & address & "','" & stockno & "')"
+                sqlcmd = New SqlCommand(insert, sql.sqlcon)
+                sqlcmd.ExecuteNonQuery()
+            End If
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
+    End Sub
+    Private Sub UpdateReferenceToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles UpdateReferenceToolStripMenuItem1.Click
+        ProgressBar2.Visible = True
+        ProgressBar2.Maximum = refcombo.Items.Count
+        ProgressBar2.Value = 0
+        For i As Integer = 0 To refcombo.Items.Count - 1
+            Dim reference As String = refcombo.Items(i).ToString
+            Dim stockno As String = refstock.Items(i).ToString
+            Dim jo As String = refjo.Items(i).ToString
+            updatereferencerecord(reference, jo, stockno)
+            updatestock(stockno, reference, jo)
+            ProgressBar2.Value += 1
+        Next
+        If ProgressBar2.Value = ProgressBar2.Maximum Then
+            MessageBox.Show("Complete", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            ProgressBar2.Visible = False
+        End If
+    End Sub
+
+    Private Sub KryptonSplitContainer1_Panel1_Paint(sender As Object, e As PaintEventArgs) Handles KryptonSplitContainer1.Panel1.Paint
+
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        genreferenceFRM.Text = "Input"
+        genreferenceFRM.ShowDialog()
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        genreferenceFRM.Text = "Receipt"
+        genreferenceFRM.ShowDialog()
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        genreferenceFRM.Text = "Issue"
+        genreferenceFRM.ShowDialog()
+    End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        genreferenceFRM.Text = "transman"
+        genreferenceFRM.ShowDialog()
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        genreferenceFRM.Text = "reference"
+        genreferenceFRM.ShowDialog()
+    End Sub
+
+    Private Sub reference_MouseDown(sender As Object, e As MouseEventArgs) Handles reference.MouseDown
+        lref()
+        genjo("input", reference.Text, jo, "trans_tb", "jo")
+    End Sub
+
+    Private Sub reference_TextChanged(sender As Object, e As EventArgs) Handles reference.TextChanged
+        genjo("input", reference.Text, jo, "trans_tb", "jo")
+    End Sub
+    Public Sub lref()
+        Try
+            sql.sqlcon.Close()
+            sql.sqlcon.Open()
+            Dim str As String = "select distinct reference from trans_tb"
+            Dim ds As New DataSet
+            ds.Clear()
+            Dim bs As New BindingSource
+            Dim da As New SqlDataAdapter
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "trans_tb")
+            bs.DataSource = ds
+            bs.DataMember = "trans_tb"
+            reference.DataSource = bs
+            reference.DisplayMember = "reference"
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
     End Sub
 End Class

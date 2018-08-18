@@ -23,8 +23,8 @@ Partial Class Form5
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.controlno = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonLabel13 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonLabel4 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
@@ -115,6 +115,7 @@ Partial Class Form5
         Me.KryptonButton25 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.LISTOFALLOCATIONGRIDVIEW = New ComponentFactory.Krypton.Toolkit.KryptonDataGridView()
+        Me.Button3 = New System.Windows.Forms.Button()
         CType(Me.referencegridview, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonGroup3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonGroup3.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -271,8 +272,8 @@ Partial Class Form5
         Me.referencegridview.AllowUserToAddRows = False
         Me.referencegridview.AllowUserToDeleteRows = False
         Me.referencegridview.AllowUserToOrderColumns = True
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.referencegridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.referencegridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.referencegridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.referencegridview.ColumnHeadersHeight = 20
         Me.referencegridview.Cursor = System.Windows.Forms.Cursors.Hand
@@ -1030,6 +1031,7 @@ Partial Class Form5
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(45, Byte), Integer), CType(CType(61, Byte), Integer))
+        Me.Panel1.Controls.Add(Me.Button3)
         Me.Panel1.Controls.Add(Me.KryptonLabel31)
         Me.Panel1.Controls.Add(Me.KryptonGroup7)
         Me.Panel1.Controls.Add(Me.KryptonButton5)
@@ -1070,7 +1072,7 @@ Partial Class Form5
         '
         'KryptonLabel31
         '
-        Me.KryptonLabel31.Location = New System.Drawing.Point(94, 237)
+        Me.KryptonLabel31.Location = New System.Drawing.Point(48, 229)
         Me.KryptonLabel31.Name = "KryptonLabel31"
         Me.KryptonLabel31.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel31.Size = New System.Drawing.Size(26, 22)
@@ -1081,7 +1083,7 @@ Partial Class Form5
         '
         'KryptonGroup7
         '
-        Me.KryptonGroup7.Location = New System.Drawing.Point(129, 237)
+        Me.KryptonGroup7.Location = New System.Drawing.Point(83, 229)
         Me.KryptonGroup7.Margin = New System.Windows.Forms.Padding(0)
         Me.KryptonGroup7.Name = "KryptonGroup7"
         '
@@ -1429,8 +1431,8 @@ Partial Class Form5
         Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToAddRows = False
         Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToDeleteRows = False
         Me.LISTOFALLOCATIONGRIDVIEW.AllowUserToOrderColumns = True
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.LISTOFALLOCATIONGRIDVIEW.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.LISTOFALLOCATIONGRIDVIEW.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.LISTOFALLOCATIONGRIDVIEW.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.LISTOFALLOCATIONGRIDVIEW.ColumnHeadersHeight = 20
         Me.LISTOFALLOCATIONGRIDVIEW.Cursor = System.Windows.Forms.Cursors.Hand
@@ -1459,6 +1461,15 @@ Partial Class Form5
         Me.LISTOFALLOCATIONGRIDVIEW.StateCommon.HeaderColumn.Content.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
         Me.LISTOFALLOCATIONGRIDVIEW.StateCommon.HeaderColumn.Content.Hint = ComponentFactory.Krypton.Toolkit.PaletteTextHint.AntiAlias
         Me.LISTOFALLOCATIONGRIDVIEW.TabIndex = 455
+        '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(322, 229)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(36, 30)
+        Me.Button3.TabIndex = 475
+        Me.Button3.Text = "Gen"
+        Me.Button3.UseVisualStyleBackColor = True
         '
         'Form5
         '
@@ -1620,4 +1631,5 @@ Partial Class Form5
     Friend WithEvents NEWJO As ComboBox
     Friend WithEvents KryptonLabel30 As ComponentFactory.Krypton.Toolkit.KryptonLabel
     Friend WithEvents JO As ComponentFactory.Krypton.Toolkit.KryptonTextBox
+    Friend WithEvents Button3 As Button
 End Class

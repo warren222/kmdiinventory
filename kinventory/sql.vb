@@ -848,56 +848,8 @@ on a.stockno = b.stockno"
     '    transds.Clear()
     '    transda.Fill(transds, scrollval, 100, "trans_tb")
     'End Sub
-    Public Sub loadreference(ByVal source As String)
-        Try
-            sqlcon.Open()
-            If source = "Trans" Then
-                Dim ds As New DataSet
-                Dim bs As New BindingSource
-                ds.Clear()
-                Dim str As String = "Select distinct reference from trans_tb"
-                sqlcmd = New SqlCommand(str, sqlcon)
-                da.SelectCommand = sqlcmd
-                da.Fill(ds, "trans_tb")
-                bs.DataSource = ds
-                bs.DataMember = "trans_tb"
-                Form2.reference.DataSource = bs
-                Form2.reference.ValueMember = "reference"
-                Form2.reference.DisplayMember = "reference"
-                Form2.reference.SelectedIndex = -1
-            ElseIf source = "Contracts" Then
-                sqlcon.Close()
-                wa()
-            End If
-        Catch ex As SqlException
-            MsgBox(ex.ToString)
-        Finally
-            sqlcon.Close()
-        End Try
-    End Sub
-    Public Sub wa()
-        Dim sqlcon2 As New SqlConnection With {.ConnectionString = "Data Source='192.168.1.21,49107';Network Library=DBMSSOCN;Initial Catalog='heretosave';User ID='kmdiadmin';Password='kmdiadmin';"}
-        Try
-            sqlcon2.Open()
-            Dim ds As New DataSet
-            Dim bs As New BindingSource
-            ds.Clear()
-            Dim str As String = "Select distinct project_label from addendum_to_contract_tb"
-            sqlcmd = New SqlCommand(str, sqlcon2)
-            da.SelectCommand = sqlcmd
-            da.Fill(ds, "addendum_to_contract_tb")
-            bs.DataSource = ds
-            bs.DataMember = "addendum_to_contract_tb"
-            Form2.reference.DataSource = bs
-            Form2.reference.ValueMember = "project_label"
-            Form2.reference.DisplayMember = "project_label"
-            Form2.reference.SelectedIndex = -1
-        Catch ex As SqlException
-            MsgBox(ex.Message)
-        Finally
-            sqlcon2.Close()
-        End Try
-    End Sub
+
+
     Public Sub loadinputsearch()
         'Try
         '    sqlcon.Open()

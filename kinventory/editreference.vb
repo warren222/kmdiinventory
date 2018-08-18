@@ -54,7 +54,10 @@ Public Class editreference
                 MessageBox.Show("Operation Cancelled", "", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                 Exit Sub
             End If
+            updatereference(stockno.Text, reference.Text, jo.Text)
+            getqty(stockno.Text, reference.Text, jo.Text)
             loopissue.Text = allocation.Text
+
             loadallocationlist(reference.Text, jo.Text, stockno.Text)
             LISTOFALLOCATIONGRIDVIEW.SelectAll()
             KryptonButton25.PerformClick()
@@ -67,6 +70,22 @@ Public Class editreference
             Button1.PerformClick()
         End If
 
+    End Sub
+    Public Sub getqty(ByVal stockno As String, ByVal reference As String, ByVal jo As String)
+        Try
+            sql.sqlcon.Open()
+            Dim str = "select  COALESCE(allocation,0) from reference_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            Dim a As SqlDataReader = sqlcmd.ExecuteReader
+            While a.Read
+                allocation.Text = a(0).ToString
+            End While
+            a.Close()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
     End Sub
     Public Sub loadallocationlist(ByVal a As String, ByVal jo As String, ByVal b As String)
         Try
@@ -163,6 +182,8 @@ update reference_tb set
             sql.sqlcon.Open()
             Dim newcancelalloc As String = "
   declare @allocation as decimal(10,2)=(select  COALESCE(allocation,0) from reference_tb where stockno ='" & stockno & "' and reference = '" & reference & "' and jo = '" & jo & "')+0
+declare @bal as decimal(10,2)=(select physical from stocks_tb where stockno = '" & stockno & "')
+
 declare @id as integer =(select max(TRANSNO)+1 from trans_tb)
 insert into trans_tb 
      (TRANSNO,STOCKNO,
@@ -172,7 +193,13 @@ insert into trans_tb
             QTY,
             REFERENCE,jo,
             ACCOUNT,
-            CONTROLNO,XYZ,XYZREF,REMARKS,INPUTTED) values (@id,'" & stockno & "'," &
+            CONTROLNO,
+            XYZ,
+            XYZREF
+            ,REMARKS,
+            balqty
+            ,INPUTTED) 
+values (@id,'" & stockno & "'," &
          "'CancelAlloc'," &
          "'" & Form2.transdate.Text & "'," &
          "''," &
@@ -184,6 +211,7 @@ insert into trans_tb
             "''," &
               "''," &
          "''," &
+           "@bal," &
             "'" & Form1.Label1.Text & "')"
             sqlcmd = New SqlCommand(newcancelalloc, sql.sqlcon)
             sqlcmd.ExecuteNonQuery()

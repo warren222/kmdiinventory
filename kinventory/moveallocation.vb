@@ -39,6 +39,7 @@ Public Class moveallocation
         Else
             reference.SelectedIndex = i
         End If
+        Form2.genjo("moveallocation", Me.reference.Text, Me.jo, "trans_tb", "jo")
     End Sub
     Public Sub loadreference()
         Try
@@ -556,4 +557,19 @@ update trans_tb set qty = 0,xyzref='canceled' where stockno = '" & stockno & "' 
         End If
 
     End Sub
+
+    Private Sub reference_TextChanged(sender As Object, e As EventArgs) Handles reference.TextChanged
+        Form2.genjo("moveallocation", Me.reference.Text, Me.jo, "trans_tb", "jo")
+    End Sub
+
+    Private Sub jo_MouseDown(sender As Object, e As MouseEventArgs) Handles jo.MouseDown
+        Form2.genjo("moveallocation", reference.Text, Me.jo, "trans_tb", "jo")
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        genreferenceFRM.Text = "movealloc"
+        genreferenceFRM.ShowDialog()
+    End Sub
+
+
 End Class

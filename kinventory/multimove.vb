@@ -680,4 +680,9 @@ insert into trans_tb
     Private Sub reference_TextChanged(sender As Object, e As EventArgs) Handles reference.TextChanged
         loadjo(reference.Text)
     End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        genreferenceFRM.Text = "multimove"
+        genreferenceFRM.ShowDialog()
+    End Sub
 End Class
