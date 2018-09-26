@@ -117,8 +117,42 @@ Public Class PhasedoutForm
             Next
         Else
         End If
+        If KryptonCheckBox16.Checked = True Then
+            For i As Integer = 0 To Form2.stocksStocksno.Items.Count - 1
+                Dim stockno As String = Form2.stocksStocksno.Items(i).ToString
+                upfoiling("foilwitha = '" & foilwitha.Text & "'", stockno)
+            Next
+        Else
+        End If
+        If KryptonCheckBox17.Checked = True Then
+            For i As Integer = 0 To Form2.stocksStocksno.Items.Count - 1
+                Dim stockno As String = Form2.stocksStocksno.Items(i).ToString
+                upfoiling("foilwithb = '" & foilwithb.Text & "'", stockno)
+            Next
+        Else
+        End If
+        If KryptonCheckBox18.Checked = True Then
+            For i As Integer = 0 To Form2.stocksStocksno.Items.Count - 1
+                Dim stockno As String = Form2.stocksStocksno.Items(i).ToString
+                upfoiling("foilcolor = '" & foilcolor.Text & "'", stockno)
+            Next
+        Else
+        End If
         Form2.KryptonButton1.PerformClick()
         Button1.PerformClick()
+    End Sub
+    Public Sub upfoiling(ByVal con As String, ByVal stockno As String)
+        Try
+            sql.sqlcon.Open()
+            Dim str As String = "
+                update stocks_tb set " & con & " where stockno='" & stockno & "'"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            sqlcmd.ExecuteNonQuery()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
     End Sub
     Public Sub upheader(ByVal header As String, ByVal stockno As String)
         Try
@@ -281,7 +315,31 @@ update stocks_tb set unitprice='" & myval & "' where stockno='" & stockno & "'"
         loadcosthead()
         loadtypecolor()
         loadarticleno()
+        loadfoiling("foilwitha", foilwitha)
+        loadfoiling("foilwithb", foilwithb)
+        loadfoiling("foilcolor", foilcolor)
         loadweight()
+    End Sub
+    Public Sub loadfoiling(ByVal col As String, ByVal cbx As Object)
+        Try
+            sql.sqlcon.Open()
+            Dim ds As New DataSet
+            ds.Clear()
+            Dim bs As New BindingSource
+            Dim da As New SqlDataAdapter
+            Dim str As String = "select distinct " & col & " from stocks_tb"
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
+            da.SelectCommand = sqlcmd
+            da.Fill(ds, "stocks_tb")
+            bs.DataSource = ds
+            bs.DataMember = "stocks_tb"
+            cbx.datasource = bs
+            cbx.displaymember = "" & col & ""
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        Finally
+            sql.sqlcon.Close()
+        End Try
     End Sub
     Public Sub loadweight()
         Try
@@ -406,6 +464,10 @@ update stocks_tb set unitprice='" & myval & "' where stockno='" & stockno & "'"
         KryptonCheckBox6.Checked = False
         KryptonCheckBox5.Checked = False
         KryptonCheckBox14.Checked = False
+        KryptonCheckBox15.Checked = False
+        KryptonCheckBox16.Checked = False
+        KryptonCheckBox17.Checked = False
+        KryptonCheckBox18.Checked = False
     End Sub
 
     Private Sub KryptonPanel1_MouseDown(sender As Object, e As MouseEventArgs) Handles KryptonPanel1.MouseDown

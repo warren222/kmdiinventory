@@ -102,44 +102,44 @@ Public Class Form2
         If stocksgridview.RowCount >= 0 And e.RowIndex >= 0 Then
             Form3.colorbased.SelectedIndex = -1
             Form4.colorbased.SelectedIndex = -1
-            stocknoinput.Text = stocksgridview.Item(0, e.RowIndex).Value.ToString
-            Form3.stockno.Text = stocksgridview.Item(0, e.RowIndex).Value.ToString
-            Form3.supplier.Text = stocksgridview.Item(1, e.RowIndex).Value.ToString
-            Form3.costhead.Text = stocksgridview.Item(2, e.RowIndex).Value.ToString
-            Form3.ufactor.Text = stocksgridview.Item(3, e.RowIndex).Value.ToString
-            Form3.typecolor.Text = stocksgridview.Item(4, e.RowIndex).Value.ToString
-            Form3.monetary.Text = stocksgridview.Item(5, e.RowIndex).Value.ToString
-            Form3.articleno.Text = stocksgridview.Item(6, e.RowIndex).Value.ToString
-            Form3.unitprice.Text = stocksgridview.Item(8, e.RowIndex).Value.ToString
-            Form3.description.Text = stocksgridview.Item(9, e.RowIndex).Value.ToString
-            Form3.qty.Text = stocksgridview.Item(10, e.RowIndex).Value.ToString
-            Form3.unit.Text = stocksgridview.Item(11, e.RowIndex).Value.ToString
-            Form3.location.Text = stocksgridview.Item(12, e.RowIndex).Value.ToString
-            Form3.header.Text = stocksgridview.Item(13, e.RowIndex).Value.ToString
-            Form3.min.Text = stocksgridview.Item(18, e.RowIndex).Value.ToString
-            Form3.colorbased.Text = stocksgridview.Item(23, e.RowIndex).Value.ToString
-            Form3.xrate.Text = stocksgridview.Item(32, e.RowIndex).Value.ToString
+            stocknoinput.Text = stocksgridview.Item("STOCKNO", e.RowIndex).Value.ToString
+            Form3.stockno.Text = stocksgridview.Item("STOCKNO", e.RowIndex).Value.ToString
+            Form3.supplier.Text = stocksgridview.Item("SUPPLIER", e.RowIndex).Value.ToString
+            Form3.costhead.Text = stocksgridview.Item("COSTHEAD", e.RowIndex).Value.ToString
+            Form3.ufactor.Text = stocksgridview.Item("UFACTOR", e.RowIndex).Value.ToString
+            Form3.typecolor.Text = stocksgridview.Item("TYPECOLOR", e.RowIndex).Value.ToString
+            Form3.monetary.Text = stocksgridview.Item("MONETARY", e.RowIndex).Value.ToString
+            Form3.articleno.Text = stocksgridview.Item("ARTICLENO", e.RowIndex).Value.ToString
+            Form3.unitprice.Text = stocksgridview.Item("UNITPRICE", e.RowIndex).Value.ToString
+            Form3.description.Text = stocksgridview.Item("DESCRIPTION", e.RowIndex).Value.ToString
+            Form3.qty.Text = stocksgridview.Item("QTY", e.RowIndex).Value.ToString
+            Form3.unit.Text = stocksgridview.Item("UNIT", e.RowIndex).Value.ToString
+            Form3.location.Text = stocksgridview.Item("LOCATION", e.RowIndex).Value.ToString
+            Form3.header.Text = stocksgridview.Item("HEADER", e.RowIndex).Value.ToString
+            Form3.min.Text = stocksgridview.Item("MINIMUM", e.RowIndex).Value.ToString
+            Form3.colorbased.Text = stocksgridview.Item("COLORBASED", e.RowIndex).Value.ToString
+            Form3.xrate.Text = stocksgridview.Item("XRATE", e.RowIndex).Value.ToString
 
-            Form4.stockno.Text = stocksgridview.Item(0, e.RowIndex).Value.ToString
-            Form4.supplier.Text = stocksgridview.Item(1, e.RowIndex).Value.ToString
-            Form4.costhead.Text = stocksgridview.Item(2, e.RowIndex).Value.ToString
-            Form4.typecolor.Text = stocksgridview.Item(4, e.RowIndex).Value.ToString
-            Form4.monetary.Text = stocksgridview.Item(5, e.RowIndex).Value.ToString
-            Form4.articleno.Text = stocksgridview.Item(6, e.RowIndex).Value.ToString
-            Form4.unitprice.Text = stocksgridview.Item(8, e.RowIndex).Value.ToString
-            Form4.description.Text = stocksgridview.Item(9, e.RowIndex).Value.ToString
-            Form4.unit.Text = stocksgridview.Item(11, e.RowIndex).Value.ToString
-            Form4.location.Text = stocksgridview.Item(12, e.RowIndex).Value.ToString
-            Form4.header.Text = stocksgridview.Item(13, e.RowIndex).Value.ToString
-            Form4.qty.Text = stocksgridview.Item(14, e.RowIndex).Value.ToString
-            Form4.allocation.Text = stocksgridview.Item(15, e.RowIndex).Value.ToString
-            Form4.free.Text = stocksgridview.Item(16, e.RowIndex).Value.ToString
-            Form4.order.Text = stocksgridview.Item(17, e.RowIndex).Value.ToString
-            Form4.min.Text = stocksgridview.Item(18, e.RowIndex).Value.ToString
-            Form4.colorbased.Text = stocksgridview.Item(23, e.RowIndex).Value.ToString
+            Form4.stockno.Text = stocksgridview.Item("STOCKNO", e.RowIndex).Value.ToString
+            Form4.supplier.Text = stocksgridview.Item("SUPPLIER", e.RowIndex).Value.ToString
+            Form4.costhead.Text = stocksgridview.Item("COSTHEAD", e.RowIndex).Value.ToString
+            Form4.typecolor.Text = stocksgridview.Item("TYPECOLOR", e.RowIndex).Value.ToString
+            Form4.monetary.Text = stocksgridview.Item("MONETARY", e.RowIndex).Value.ToString
+            Form4.articleno.Text = stocksgridview.Item("ARTICLENO", e.RowIndex).Value.ToString
+            Form4.unitprice.Text = stocksgridview.Item("UNITPRICE", e.RowIndex).Value.ToString
+            Form4.description.Text = stocksgridview.Item("DESCRIPTION", e.RowIndex).Value.ToString
+            Form4.unit.Text = stocksgridview.Item("UNIT", e.RowIndex).Value.ToString
+            Form4.location.Text = stocksgridview.Item("LOCATION", e.RowIndex).Value.ToString
+            Form4.header.Text = stocksgridview.Item("HEADER", e.RowIndex).Value.ToString
+            Form4.qty.Text = stocksgridview.Item("QTY", e.RowIndex).Value.ToString
+            Form4.allocation.Text = stocksgridview.Item("ALLOCATION", e.RowIndex).Value.ToString
+            Form4.free.Text = stocksgridview.Item("FREE", e.RowIndex).Value.ToString
+            Form4.order.Text = stocksgridview.Item("STOCKORDER", e.RowIndex).Value.ToString
+            Form4.min.Text = stocksgridview.Item("MINIMUM", e.RowIndex).Value.ToString
+            Form4.colorbased.Text = stocksgridview.Item("COLORBASED", e.RowIndex).Value.ToString
 
-            description.Text = stocksgridview.Item(9, e.RowIndex).Value.ToString
-            location.Text = stocksgridview.Item(12, e.RowIndex).Value.ToString
+            description.Text = stocksgridview.Item("DESCRIPTION", e.RowIndex).Value.ToString
+            location.Text = stocksgridview.Item("LOCATION", e.RowIndex).Value.ToString
         End If
     End Sub
 
@@ -1188,20 +1188,22 @@ select
             tr = "(a.transtype='Issue' or a.transtype='Supply')"
         ElseIf transtransaction.Text = "Issue & Receipt & +Adjustment-" Then
             tr = "(a.transtype='Issue' or a.transtype='Receipt' or a.transtype='+Adjustment' or a.transtype='-Adjustment')"
+        ElseIf transtransaction.Text = "" Then
+            tr = "a.transtype=a.transtype"
         Else
             tr = "a.transtype='" & transtransaction.Text & "'"
         End If
 
         If all.Checked = True Then
-            dtt = ""
+            dtt = " and a.TRANSDATE = a.TRANSDATE"
         ElseIf thisdate.Checked = True Then
-            dtt = " a.TRANSDATE = '" & transdate.Text & "'"
+            dtt = " and a.TRANSDATE = '" & transdate.Text & "'"
         ElseIf before.Checked = True Then
-            dtt = " a.TRANSDATE < '" & transadate.Text & "'"
+            dtt = " and a.TRANSDATE < '" & transadate.Text & "'"
         ElseIf after.Checked = True Then
-            dtt = " a.TRANSDATE > '" & transadate.Text & "'"
+            dtt = " and a.TRANSDATE > '" & transadate.Text & "'"
         ElseIf tomydate.Checked = True Then
-            dtt = " a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
+            dtt = " and a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
         End If
 
         Dim a As String = transreference.Text
@@ -1232,10 +1234,10 @@ select
                             " & acol & " = " & a & " and 
                             " & bcol & " = " & b & " and 
                             " & ccol & " = " & c & " and 
-                            " & tr & " and
-                            " & dtt & ""
+                            " & tr & "
+                            " & dtt & " "
 
-        Dim str As String = "top " & top & " a.TRANSNO,
+        Dim str As String = "select top " & top & " a.TRANSNO,
                             a.STOCKNO,
                             b.COSTHEAD,
                             b.TYPECOLOR,
@@ -1263,11 +1265,12 @@ select
                             A.ADJUSTMENTQTY
                             from trans_tb as a inner join stocks_tb as b
                             on a.stockno = b.stockno
-                            " & where & ""
+                            " & where & " order by a.transdate desc"
         Dim count As String = "select format(count(a.TRANSNO),'n0'),format(sum(isnull(a.netamount,0)/isnull(a.xrate,0)),'n2') 
                               from trans_tb as a inner join stocks_tb as b on a.stockno = b.stockno
                             " & where & ""
         sql.searchtransaction(str, count)
+
     End Sub
     Private Sub KryptonButton11_Click(sender As Object, e As EventArgs) Handles KryptonButton11.Click
         clckbtn11event()
@@ -1438,6 +1441,7 @@ select
             KryptonLabel66.Visible = True
             KryptonLabel67.Visible = True
             KryptonLabel68.Visible = True
+            reference.Enabled = True
         Else
             unitprice.Visible = False
             xrate.Visible = False
@@ -1456,6 +1460,7 @@ select
             ufactor.Text = 0
             disc.Text = 0
             currency.Text = 0
+            reference.Enabled = False
         End If
     End Sub
 
@@ -1564,7 +1569,7 @@ select
     Private Sub stocksgridview_MouseDown(sender As Object, e As MouseEventArgs) Handles stocksgridview.MouseDown
         If stocksgridview.RowCount >= 0 Then
             If e.Button = MouseButtons.Right Then
-                If Form1.Label2.Text = "Admin" Or Form1.Label1.Text = "Noreen" Then
+                If Form1.Label2.Text = "Admin" Or Form1.Label1.Text = "Noreen" Or Form1.Label1.Text = "jovit" Then
                     ContextMenuStrip1.Show(stocksgridview, New Point(e.X, e.Y))
                 Else
 
@@ -2383,6 +2388,9 @@ on a.stockno = b.stockno where b.myyear='" & myyear.Text & "'"
             editreference.articleno.Text = referenceDataGridView.Item(5, e.RowIndex).Value.ToString
             editreference.allocation.Text = referenceDataGridView.Item(7, e.RowIndex).Value.ToString
             description.Text = referenceDataGridView.Item(11, e.RowIndex).Value.ToString
+
+            changereferenceFRM.oldjo = referenceDataGridView.Item(1, e.RowIndex).Value.ToString
+            changereferenceFRM.oldreference = referenceDataGridView.Item(0, e.RowIndex).Value.ToString
         End If
     End Sub
 
@@ -3161,19 +3169,18 @@ a.header,sum(a.netamount) as MOVING,( select sum(netamount) from stocks_tb where
 
     Public Sub genjo(ByVal page As String, ByVal reference As String, ByVal ob As Object, ByVal database As String, ByVal col As String)
         Try
-            sql.sqlcon1.Close()
-            sql.sqlcon1.Open()
+            sql.sqlcon.Close()
+            sql.sqlcon.Open()
             Dim ds As New DataSet
             ds.Clear()
             Dim da As New SqlDataAdapter
             Dim bs As New BindingSource
 
             Dim str As String
-
+            ob.text = ""
             str = "select distinct " & col & " from " & database & " where reference = '" & reference & "'"
 
-
-            sqlcmd = New SqlCommand(str, sql.sqlcon1)
+            sqlcmd = New SqlCommand(str, sql.sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "" & database & "")
             bs.DataSource = ds
@@ -3189,11 +3196,9 @@ a.header,sum(a.netamount) as MOVING,( select sum(netamount) from stocks_tb where
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
-            sql.sqlcon1.Close()
+            sql.sqlcon.Close()
         End Try
     End Sub
-
-
     Private Sub reffromreference_MouseDown(sender As Object, e As MouseEventArgs) Handles reffromreference.MouseDown
         genjo("reference", reffromreference.Text, reffromjo, "trans_tb", "jo")
     End Sub
@@ -3234,8 +3239,6 @@ a.header,sum(a.netamount) as MOVING,( select sum(netamount) from stocks_tb where
     Private Sub receiptjo_TextChanged(sender As Object, e As EventArgs) Handles receiptjo.TextChanged
         sql.selectreceiptreferencerecord(receiptreference.Text, receiptjo.Text)
     End Sub
-
-
 
     Private Sub UpdateReferenceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UpdateReferenceToolStripMenuItem.Click
         Dim selecteditems As DataGridViewSelectedRowCollection = transgridview.SelectedRows
@@ -3291,7 +3294,9 @@ a.header,sum(a.netamount) as MOVING,( select sum(netamount) from stocks_tb where
                     sql.sqlcon1.Close()
                 End Try
 
-                Dim insert As String = "insert into reference_tb (reference,jo,address,stockno) values('" & reference & "','" & jo & "','" & address & "','" & stockno & "')"
+                Dim insert As String = "
+declare @id as integer = (select max(id)+1 from reference_tb)
+insert into reference_tb (id,reference,jo,address,stockno) values(@id,'" & reference & "','" & jo & "','" & address & "','" & stockno & "')"
                 sqlcmd = New SqlCommand(insert, sql.sqlcon)
                 sqlcmd.ExecuteNonQuery()
             End If
@@ -3334,6 +3339,7 @@ a.header,sum(a.netamount) as MOVING,( select sum(netamount) from stocks_tb where
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        KryptonButton7.PerformClick()
         genreferenceFRM.Text = "Issue"
         genreferenceFRM.ShowDialog()
     End Sub
@@ -3377,5 +3383,22 @@ a.header,sum(a.netamount) as MOVING,( select sum(netamount) from stocks_tb where
         Finally
             sql.sqlcon.Close()
         End Try
+    End Sub
+
+    Private Sub ChangeJOAndReferenceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChangeJOAndReferenceToolStripMenuItem.Click
+
+        changereferenceFRM.ShowDialog()
+    End Sub
+
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        sql.selectissuereferencerecord(issuereference.Text, issuejo.Text)
+    End Sub
+
+    Private Sub transtransaction_TextChanged(sender As Object, e As EventArgs) Handles transtransaction.TextChanged
+        If transtransaction.Text = "Order" Or transtransaction.Text = "Receipt" Then
+            transreference.Enabled = True
+        Else
+            transreference.Enabled = False
+        End If
     End Sub
 End Class

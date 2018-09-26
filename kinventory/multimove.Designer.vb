@@ -102,11 +102,11 @@ Partial Class multimove
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(358, 130)
+        Me.Button3.Location = New System.Drawing.Point(329, 86)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(36, 30)
+        Me.Button3.Size = New System.Drawing.Size(65, 30)
         Me.Button3.TabIndex = 474
-        Me.Button3.Text = "Gen"
+        Me.Button3.Text = "Select"
         Me.Button3.UseVisualStyleBackColor = True
         '
         'KryptonLabel4
@@ -119,6 +119,7 @@ Partial Class multimove
         Me.KryptonLabel4.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.KryptonLabel4.TabIndex = 473
         Me.KryptonLabel4.Values.Text = "MOTHER JO"
+        Me.KryptonLabel4.Visible = False
         '
         'KryptonGroup5
         '
@@ -136,6 +137,7 @@ Partial Class multimove
         Me.KryptonGroup5.StateCommon.Border.Rounding = 0
         Me.KryptonGroup5.StateCommon.Border.Width = 3
         Me.KryptonGroup5.TabIndex = 472
+        Me.KryptonGroup5.Visible = False
         '
         'JO
         '
@@ -312,7 +314,7 @@ Partial Class multimove
         'KryptonGroup4.Panel
         '
         Me.KryptonGroup4.Panel.Controls.Add(Me.reference)
-        Me.KryptonGroup4.Size = New System.Drawing.Size(379, 30)
+        Me.KryptonGroup4.Size = New System.Drawing.Size(311, 30)
         Me.KryptonGroup4.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
@@ -333,7 +335,7 @@ Partial Class multimove
         Me.reference.IntegralHeight = False
         Me.reference.Location = New System.Drawing.Point(0, 0)
         Me.reference.Name = "reference"
-        Me.reference.Size = New System.Drawing.Size(373, 23)
+        Me.reference.Size = New System.Drawing.Size(305, 23)
         Me.reference.TabIndex = 447
         '
         'KryptonGroup1

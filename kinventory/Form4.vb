@@ -359,10 +359,11 @@ Public Class Form4
     End Sub
     Private Sub mytransgridview_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles mytransgridview.CellClick
         If mytransgridview.RowCount >= 0 And e.RowIndex >= 0 Then
-            Form5.transno.Text = mytransgridview.Item(0, e.RowIndex).Value.ToString
-            Form5.stockno.Text = mytransgridview.Item(1, e.RowIndex).Value.ToString
-            Form5.reference.Text = mytransgridview.Item(7, e.RowIndex).Value.ToString
-            Form5.XYZ.Text = mytransgridview.Item(10, e.RowIndex).Value.ToString
+            Form5.transno.Text = mytransgridview.Item("TRANSNO", e.RowIndex).Value.ToString
+            Form5.stockno.Text = mytransgridview.Item("STOCKNO", e.RowIndex).Value.ToString
+            Form5.reference.Text = mytransgridview.Item("REFERENCE", e.RowIndex).Value.ToString
+            Form5.JO.Text = mytransgridview.Item("JO", e.RowIndex).Value.ToString
+            Form5.XYZ.Text = mytransgridview.Item("XYZ", e.RowIndex).Value.ToString
         End If
     End Sub
     Private Sub reference_KeyDown(sender As Object, e As KeyEventArgs) Handles reference.KeyDown

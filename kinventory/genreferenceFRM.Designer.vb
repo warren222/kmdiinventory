@@ -27,6 +27,10 @@ Partial Class genreferenceFRM
         Me.KryptonLabel8 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.reference = New System.Windows.Forms.ComboBox()
         Me.KryptonButton5 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
+        Me.KryptonLabel3 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
+        Me.KryptonLabel4 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
+        Me.KryptonLabel2 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
+        Me.KryptonLabel1 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         CType(Me.GridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -128,20 +132,67 @@ Partial Class genreferenceFRM
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
         Me.KryptonButton5.TabIndex = 27
-        Me.KryptonButton5.Values.Text = "search"
+        Me.KryptonButton5.Values.Text = "find"
+        '
+        'KryptonLabel3
+        '
+        Me.KryptonLabel3.Location = New System.Drawing.Point(213, 261)
+        Me.KryptonLabel3.Name = "KryptonLabel3"
+        Me.KryptonLabel3.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonLabel3.Size = New System.Drawing.Size(111, 18)
+        Me.KryptonLabel3.StateCommon.ShortText.Color1 = System.Drawing.Color.Olive
+        Me.KryptonLabel3.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 8.0!)
+        Me.KryptonLabel3.TabIndex = 39
+        Me.KryptonLabel3.Values.Text = "Clients from contract"
+        '
+        'KryptonLabel4
+        '
+        Me.KryptonLabel4.Location = New System.Drawing.Point(144, 258)
+        Me.KryptonLabel4.Name = "KryptonLabel4"
+        Me.KryptonLabel4.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonLabel4.Size = New System.Drawing.Size(63, 21)
+        Me.KryptonLabel4.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonLabel4.TabIndex = 38
+        Me.KryptonLabel4.Values.Text = "Regular :"
+        '
+        'KryptonLabel2
+        '
+        Me.KryptonLabel2.Location = New System.Drawing.Point(407, 261)
+        Me.KryptonLabel2.Name = "KryptonLabel2"
+        Me.KryptonLabel2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonLabel2.Size = New System.Drawing.Size(117, 18)
+        Me.KryptonLabel2.StateCommon.ShortText.Color1 = System.Drawing.Color.Olive
+        Me.KryptonLabel2.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 8.0!)
+        Me.KryptonLabel2.TabIndex = 37
+        Me.KryptonLabel2.Values.Text = "Clients from inventory"
+        '
+        'KryptonLabel1
+        '
+        Me.KryptonLabel1.Location = New System.Drawing.Point(354, 258)
+        Me.KryptonLabel1.Name = "KryptonLabel1"
+        Me.KryptonLabel1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
+        Me.KryptonLabel1.Size = New System.Drawing.Size(47, 21)
+        Me.KryptonLabel1.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KryptonLabel1.TabIndex = 36
+        Me.KryptonLabel1.Values.Text = "Bold :"
         '
         'genreferenceFRM
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(536, 256)
+        Me.ClientSize = New System.Drawing.Size(536, 286)
+        Me.Controls.Add(Me.KryptonLabel3)
+        Me.Controls.Add(Me.KryptonLabel4)
+        Me.Controls.Add(Me.KryptonLabel2)
+        Me.Controls.Add(Me.KryptonLabel1)
         Me.Controls.Add(Me.KryptonButton5)
         Me.Controls.Add(Me.KryptonLabel8)
         Me.Controls.Add(Me.reference)
         Me.Controls.Add(Me.GridView)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
-        Me.MaximumSize = New System.Drawing.Size(552, 295)
+        Me.MaximumSize = New System.Drawing.Size(552, 325)
+        Me.MinimumSize = New System.Drawing.Size(552, 325)
         Me.Name = "genreferenceFRM"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "genreferenceFRM"
@@ -155,4 +206,8 @@ Partial Class genreferenceFRM
     Friend WithEvents KryptonLabel8 As ComponentFactory.Krypton.Toolkit.KryptonLabel
     Friend WithEvents reference As ComboBox
     Friend WithEvents KryptonButton5 As ComponentFactory.Krypton.Toolkit.KryptonButton
+    Friend WithEvents KryptonLabel3 As ComponentFactory.Krypton.Toolkit.KryptonLabel
+    Friend WithEvents KryptonLabel4 As ComponentFactory.Krypton.Toolkit.KryptonLabel
+    Friend WithEvents KryptonLabel2 As ComponentFactory.Krypton.Toolkit.KryptonLabel
+    Friend WithEvents KryptonLabel1 As ComponentFactory.Krypton.Toolkit.KryptonLabel
 End Class

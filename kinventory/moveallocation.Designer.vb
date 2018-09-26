@@ -100,7 +100,7 @@ Partial Class moveallocation
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(353, 110)
+        Me.Button3.Location = New System.Drawing.Point(356, 69)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(36, 30)
         Me.Button3.TabIndex = 458
@@ -117,6 +117,7 @@ Partial Class moveallocation
         Me.KryptonLabel6.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.KryptonLabel6.TabIndex = 453
         Me.KryptonLabel6.Values.Text = "MOTHER JO"
+        Me.KryptonLabel6.Visible = False
         '
         'KryptonGroup6
         '
@@ -134,6 +135,7 @@ Partial Class moveallocation
         Me.KryptonGroup6.StateCommon.Border.Rounding = 0
         Me.KryptonGroup6.StateCommon.Border.Width = 3
         Me.KryptonGroup6.TabIndex = 452
+        Me.KryptonGroup6.Visible = False
         '
         'jo
         '
@@ -243,7 +245,7 @@ Partial Class moveallocation
         'KryptonGroup4.Panel
         '
         Me.KryptonGroup4.Panel.Controls.Add(Me.reference)
-        Me.KryptonGroup4.Size = New System.Drawing.Size(374, 30)
+        Me.KryptonGroup4.Size = New System.Drawing.Size(338, 30)
         Me.KryptonGroup4.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
@@ -264,7 +266,7 @@ Partial Class moveallocation
         Me.reference.IntegralHeight = False
         Me.reference.Location = New System.Drawing.Point(0, 0)
         Me.reference.Name = "reference"
-        Me.reference.Size = New System.Drawing.Size(368, 23)
+        Me.reference.Size = New System.Drawing.Size(332, 23)
         Me.reference.TabIndex = 447
         '
         'KryptonGroup3

@@ -25,10 +25,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <PublisherName>War</PublisherName>
+    <PublisherName>Warren</PublisherName>
     <MinimumRequiredVersion>1.0.0.1</MinimumRequiredVersion>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>6</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -70,7 +70,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>kmlogo.ico</ApplicationIcon>
+    <ApplicationIcon>inventory-maintenance-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>8745F6425C2A281802F1AD5C974B34F5E0B7379F</ManifestCertificateThumbprint>
@@ -169,6 +169,7 @@
     <Compile Include="AllTrans.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ApplicationEvents.vb" />
     <Compile Include="cancelall.Designer.vb">
       <DependentUpon>cancelall.vb</DependentUpon>
     </Compile>
@@ -179,6 +180,12 @@
       <DependentUpon>chagexrate.vb</DependentUpon>
     </Compile>
     <Compile Include="chagexrate.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="changereferenceFRM.Designer.vb">
+      <DependentUpon>changereferenceFRM.vb</DependentUpon>
+    </Compile>
+    <Compile Include="changereferenceFRM.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="checklisted.Designer.vb">
@@ -412,6 +419,9 @@
     <EmbeddedResource Include="chagexrate.resx">
       <DependentUpon>chagexrate.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="changereferenceFRM.resx">
+      <DependentUpon>changereferenceFRM.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="checklisted.resx">
       <DependentUpon>checklisted.vb</DependentUpon>
     </EmbeddedResource>
@@ -557,6 +567,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="inventory-maintenance-icon.ico" />
     <Content Include="kmlogo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

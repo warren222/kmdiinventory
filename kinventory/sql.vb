@@ -10,13 +10,15 @@ Imports Microsoft.Reporting.WinForms
 
 Public Class sql
     Dim datasource As String = Form9.myaccess.Text.ToString
-    Dim catalog As String = "heretosave"
+
+    Dim catalog As String = "finaltrans"
     Dim userid As String = "kmdiadmin"
     Dim password As String = "kmdiadmin"
     Public sqlcon As New SqlConnection With {.ConnectionString = "Data Source='" & datasource & "';Network Library=DBMSSOCN;Initial Catalog='" & catalog & "';User ID='" & userid & "';Password='" & password & "';"}
-    Public sqlcon1 As New SqlConnection With {.ConnectionString = "Data Source='121.58.229.248,49107';Network Library=DBMSSOCN;Initial Catalog='heretosave';User ID='kmdiadmin';Password='kmdiadmin';"}
+    Public sqlcon1 As New SqlConnection With {.ConnectionString = "Data Source='" & datasource & "';Network Library=DBMSSOCN;Initial Catalog='kmdidata';User ID='kmdiadmin';Password='kmdiadmin';"}
     Dim da As New SqlDataAdapter
     Dim sqlcmd As New SqlCommand
+    Public sqlconstr As String = sqlcon.ConnectionString.ToString
     'Dim scrollval As Integer
     'Dim transds As New DataSet
     'Dim transda As New SqlDataAdapter
@@ -25,7 +27,6 @@ Public Class sql
             sqlcon.Open()
             Dim ds As New DataSet
             ds.Clear()
-
             top = top.Replace(",", "")
             Dim str As String = "select top " & top & "
 a.*,
@@ -184,6 +185,8 @@ order by A.articleno asc"
     End Sub
     Public Sub notifycritical()
         Try
+            sqlcon.Close()
+            sqlcon.Open()
             Dim str As String = "select count(status) from stocks_tb where status = 'Critical' and phasedout = ''"
             sqlcmd = New SqlCommand(str, sqlcon)
             Dim read As SqlDataReader = sqlcmd.ExecuteReader
@@ -544,7 +547,7 @@ order by A.articleno asc"
             Else
                 read.Close()
                 Dim str As String = "
-declare @id as integer = (select max(stockno)+1 from stocks_tb)
+declare @id as integer = (select isnull(max(isnull(stockno,0)),0)+1 from stocks_tb)
 insert into stocks_tb (stockno,supplier,
 costhead,
 ufactor,
@@ -1480,7 +1483,7 @@ select @sd"
 
             If transtype = "Allocation" Then
                 str = "
-declare @id as integer = (select max(TRANSNO)+1 from trans_tb)
+declare @id as integer = (select isnull(max(isnull(TRANSNO,0)),0)+1 from trans_tb)
 
 insert into trans_tb 
             (TRANSNO,STOCKNO,
@@ -1488,7 +1491,8 @@ insert into trans_tb
             TRANSDATE,
             DUEDATE,
             QTY,
-            REFERENCE,JO,
+            REFERENCE,
+            JO,
             ACCOUNT,
             CONTROLNO,XYZ,XYZREF,REMARKS,BALQTY,ufactor,unitprice,disc,xrate,netamount,INPUTTED) values (@id,'" & stockno & "'," &
          "'" & transtype & "'," &
@@ -1511,7 +1515,7 @@ insert into trans_tb
             "'" & Form1.Label1.Text & "')"
             ElseIf transtype = "Order" Or transtype = "Receipt" Then
                 str = "
-declare @id as integer = (select max(TRANSNO)+1 from trans_tb)
+declare @id as integer = (select isnull(max(isnull(TRANSNO,0)),0)+1 from trans_tb)
 
 insert into trans_tb 
             (TRANSNO,STOCKNO,
@@ -1542,7 +1546,7 @@ insert into trans_tb
             "'" & Form1.Label1.Text & "')"
             Else
                 str = "
-declare @id as integer = (select max(TRANSNO)+1 from trans_tb)
+declare @id as integer = (select isnull(max(isnull(TRANSNO,0)),0)+1 from trans_tb)
 
 insert into trans_tb 
             (TRANSNO,STOCKNO,
@@ -1550,7 +1554,7 @@ insert into trans_tb
             TRANSDATE,
             DUEDATE,
             QTY,
-            REFERENCE,JO
+            REFERENCE,JO,
             ACCOUNT,
             CONTROLNO,XYZ,XYZREF,REMARKS,BALQTY,ufactor,unitprice,disc,xrate,netamount,INPUTTED) values (@id,'" & stockno & "'," &
          "'" & transtype & "'," &
@@ -1601,14 +1605,12 @@ insert into trans_tb
                 End Try
 
                 Dim insert As String = "
-                    declare @id as integer = (select max(id)+1 from reference_tb)
+                    declare @id as integer = (select isnull(max(isnull(id,0)),0)+1 from reference_tb)
                     insert into reference_tb (id,reference,JO,address,stockno) 
                     values(@id,'" & reference & "','" & jo & "','" & address & "','" & stockno & "')"
                 sqlcmd = New SqlCommand(insert, sqlcon)
                 sqlcmd.ExecuteNonQuery()
-
             End If
-
             msgbox1.ShowDialog()
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -1921,7 +1923,7 @@ on b.stockno=a.stockno
             Dim ds As New DataSet
             Dim bs As New BindingSource
             ds.Clear()
-            Dim Str As String = "select a.REFERENCE,
+            Dim Str As String = "select a.REFERENCE,a.JO,
 a.STOCKNO,
 b.COSTHEAD,
 b.TYPECOLOR,
@@ -1965,6 +1967,7 @@ CASE WHEN ISDATE(DUEDATE)=1 THEN CAST(DUEDATE AS DATE) END AS DUEDATE,
 QTY,
 BALQTY,
 REFERENCE,
+JO,
 ACCOUNT,
 CONTROLNO,
 XYZ,
@@ -2167,6 +2170,7 @@ CASE WHEN ISDATE(DUEDATE)=1 THEN CAST(DUEDATE AS DATE) END AS DUEDATE,
 QTY,
 BALQTY,
 REFERENCE,
+JO,
 ACCOUNT,
 CONTROLNO,
 XYZ,
@@ -2370,6 +2374,7 @@ case when isdate(DUEDATE)=1 then cast(duedate as date) end as DUEDATE,
 QTY,
 BALQTY,
 REFERENCE,
+JO,
 ACCOUNT,
 CONTROLNO,
 XYZ,
@@ -2628,7 +2633,7 @@ INPUTTED
             End If
             ds.Clear()
 
-            sqlcmd = New SqlCommand(search + " order by a.transdate desc", sqlcon)
+            sqlcmd = New SqlCommand(search, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "trans_tb")
             Form2.transgridview.DataSource = Nothing
@@ -2730,7 +2735,9 @@ INPUTTED
       ,ALLOCATION as [ALLOCATION]
       ,TOTALRECEIPT as [RECEIPT]
       ,TOTALISSUE as [ISSUE],
-        TOTALRETURN AS [RETURN] from reference_tb where stockno='" & stockno & "' and reference='" & reference & "' and jo = '" & jo & "'"
+        TOTALRETURN AS [RETURN] from reference_tb where stockno='" & stockno & "'
+        and reference='" & reference & "' 
+        and jo = '" & jo & "'"
             sqlcmd = New SqlCommand(Str, sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "reference_tb")

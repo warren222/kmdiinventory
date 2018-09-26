@@ -92,6 +92,7 @@ Partial Class Form5
         Me.KryptonGroup5 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
         Me.KryptonGroup6 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.KryptonLabel31 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.KryptonGroup7 = New ComponentFactory.Krypton.Toolkit.KryptonGroup()
         Me.NEWJO = New System.Windows.Forms.ComboBox()
@@ -115,7 +116,6 @@ Partial Class Form5
         Me.KryptonButton25 = New ComponentFactory.Krypton.Toolkit.KryptonButton()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.LISTOFALLOCATIONGRIDVIEW = New ComponentFactory.Krypton.Toolkit.KryptonDataGridView()
-        Me.Button3 = New System.Windows.Forms.Button()
         CType(Me.referencegridview, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonGroup3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.KryptonGroup3.Panel, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -702,7 +702,7 @@ Partial Class Form5
         Me.newreference.IntegralHeight = False
         Me.newreference.Location = New System.Drawing.Point(0, 0)
         Me.newreference.Name = "newreference"
-        Me.newreference.Size = New System.Drawing.Size(333, 24)
+        Me.newreference.Size = New System.Drawing.Size(276, 24)
         Me.newreference.TabIndex = 451
         '
         'newstockno
@@ -1013,6 +1013,7 @@ Partial Class Form5
         '
         'KryptonGroup6
         '
+        Me.KryptonGroup6.Enabled = False
         Me.KryptonGroup6.Location = New System.Drawing.Point(19, 191)
         Me.KryptonGroup6.Margin = New System.Windows.Forms.Padding(0)
         Me.KryptonGroup6.Name = "KryptonGroup6"
@@ -1020,7 +1021,7 @@ Partial Class Form5
         'KryptonGroup6.Panel
         '
         Me.KryptonGroup6.Panel.Controls.Add(Me.newreference)
-        Me.KryptonGroup6.Size = New System.Drawing.Size(339, 30)
+        Me.KryptonGroup6.Size = New System.Drawing.Size(282, 30)
         Me.KryptonGroup6.StateCommon.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) _
             Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right), ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)
@@ -1070,8 +1071,18 @@ Partial Class Form5
         Me.Panel1.Size = New System.Drawing.Size(376, 590)
         Me.Panel1.TabIndex = 447
         '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(304, 191)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(54, 30)
+        Me.Button3.TabIndex = 475
+        Me.Button3.Text = "Select"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
         'KryptonLabel31
         '
+        Me.KryptonLabel31.Enabled = False
         Me.KryptonLabel31.Location = New System.Drawing.Point(48, 229)
         Me.KryptonLabel31.Name = "KryptonLabel31"
         Me.KryptonLabel31.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
@@ -1080,9 +1091,11 @@ Partial Class Form5
         Me.KryptonLabel31.StateCommon.ShortText.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.KryptonLabel31.TabIndex = 463
         Me.KryptonLabel31.Values.Text = "JO"
+        Me.KryptonLabel31.Visible = False
         '
         'KryptonGroup7
         '
+        Me.KryptonGroup7.Enabled = False
         Me.KryptonGroup7.Location = New System.Drawing.Point(83, 229)
         Me.KryptonGroup7.Margin = New System.Windows.Forms.Padding(0)
         Me.KryptonGroup7.Name = "KryptonGroup7"
@@ -1097,6 +1110,7 @@ Partial Class Form5
         Me.KryptonGroup7.StateCommon.Border.Rounding = 0
         Me.KryptonGroup7.StateCommon.Border.Width = 3
         Me.KryptonGroup7.TabIndex = 462
+        Me.KryptonGroup7.Visible = False
         '
         'NEWJO
         '
@@ -1461,15 +1475,6 @@ Partial Class Form5
         Me.LISTOFALLOCATIONGRIDVIEW.StateCommon.HeaderColumn.Content.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
         Me.LISTOFALLOCATIONGRIDVIEW.StateCommon.HeaderColumn.Content.Hint = ComponentFactory.Krypton.Toolkit.PaletteTextHint.AntiAlias
         Me.LISTOFALLOCATIONGRIDVIEW.TabIndex = 455
-        '
-        'Button3
-        '
-        Me.Button3.Location = New System.Drawing.Point(322, 229)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(36, 30)
-        Me.Button3.TabIndex = 475
-        Me.Button3.Text = "Gen"
-        Me.Button3.UseVisualStyleBackColor = True
         '
         'Form5
         '

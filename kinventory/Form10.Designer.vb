@@ -23,7 +23,7 @@ Partial Class Form10
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form10))
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.KryptonLabel11 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.fullname = New ComponentFactory.Krypton.Toolkit.KryptonTextBox()
         Me.KryptonLabel1 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
@@ -315,7 +315,7 @@ Partial Class Form10
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(373, 39)
+        Me.Panel3.Size = New System.Drawing.Size(801, 39)
         Me.Panel3.TabIndex = 37
         '
         'Button1
@@ -329,7 +329,7 @@ Partial Class Form10
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Button1.Location = New System.Drawing.Point(325, 0)
+        Me.Button1.Location = New System.Drawing.Point(753, 0)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(49, 38)
         Me.Button1.TabIndex = 38
@@ -362,7 +362,7 @@ Partial Class Form10
         Me.Panel5.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Panel5.Location = New System.Drawing.Point(12, 10)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(373, 444)
+        Me.Panel5.Size = New System.Drawing.Size(801, 444)
         Me.Panel5.TabIndex = 38
         '
         'accoutgridview
@@ -372,9 +372,9 @@ Partial Class Form10
         Me.accoutgridview.AllowUserToOrderColumns = True
         Me.accoutgridview.AllowUserToResizeColumns = False
         Me.accoutgridview.AllowUserToResizeRows = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
-        Me.accoutgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(19, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        Me.accoutgridview.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.accoutgridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.accoutgridview.ColumnHeadersHeight = 30
         Me.accoutgridview.Cursor = System.Windows.Forms.Cursors.Hand

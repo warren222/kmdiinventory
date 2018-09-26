@@ -8,20 +8,15 @@ Public Class genreferenceFRM
     End Sub
     Public Sub loadreference()
         Try
-            sql.sqlcon1.Close()
-            sql.sqlcon1.Open()
+            sql.sqlcon.Close()
+            sql.sqlcon.Open()
             Dim ds As New DataSet
             ds.Clear()
-            Dim str As String
-            If Me.Text = "Input" Then
-                str = "select distinct project_label from addendum_to_contract_tb"
-            ElseIf Me.Text = "Receipt" Then
-                str = "select distinct project_label from addendum_to_contract_tb where project_label in (select reference from heretosave.dbo.reference_tb where STOCKORDER > 0)"
-            ElseIf Me.Text = "Issue" Then
-                str = "select distinct project_label from addendum_to_contract_tb where project_label in (select reference from heretosave.dbo.trans_tb where transtype = 'Allocation')"
-            ElseIf Me.Text = "movealloc" Or Me.Text = "multimove" Or Me.Text = "transman" Or Me.Text = "reference" Or Me.Text = "form5" Then
-                str = "select distinct project_label from addendum_to_contract_tb where project_label in (select reference from heretosave.dbo.trans_tb)"
-            End If
+            Dim str As String = " select distinct project_label from kmdidata.dbo.addendum_to_contract_tb 
+
+                                union 
+
+                                select distinct reference from reference_tb"
 
             sqlcmd = New SqlCommand(str, sql.sqlcon)
             da.SelectCommand = sqlcmd
@@ -34,11 +29,16 @@ Public Class genreferenceFRM
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
-            sql.sqlcon1.Close()
+            sql.sqlcon.Close()
         End Try
     End Sub
 
     Private Sub reference_textchange(sender As Object, e As EventArgs) Handles reference.TextChanged
+        If Me.Text = "Input" Then
+            Form2.reference.Text = reference.Text
+        ElseIf Me.Text = "transman" Then
+            Form2.transreference.Text = reference.Text
+        End If
         databaseform()
     End Sub
     Public Sub databaseform()
@@ -47,8 +47,31 @@ Public Class genreferenceFRM
             sql.sqlcon1.Open()
             Dim ds As New DataSet
             ds.Clear()
-            Dim str As String = "select job_order_no,parentjono,sub_jo,project_label from addendum_to_contract_tb where project_label = '" & reference.Text & "'
-                                and not lock = 1 order by job_order_no asc"
+            Dim str As String = "select 
+                                 distinct
+                                 job_order_no,
+                                 parentjono,
+                                 sub_jo,
+                                 project_label,
+                                 '0' as label 
+                                 from 
+                                 kmdidata.dbo.addendum_to_contract_tb 
+                                 where 
+                                 not lock = 1 and PROJECT_LABEL='" & reference.Text & "' and turn_over = ''
+
+                                 union 
+
+                                 select 
+                                 distinct 
+                                 jo,
+                                 jo,
+                                 jo,
+                                 reference,
+                                 '1' as label 
+                                 from 
+                                 reference_tb 
+                                 where jo=''
+                                 and reference= '" & reference.Text & "' order by project_label"
             sqlcmd = New SqlCommand(str, sql.sqlcon)
             da.SelectCommand = sqlcmd
             da.Fill(ds, "addendum_to_contract_Tb")
@@ -59,8 +82,16 @@ Public Class genreferenceFRM
             With GridView
                 .Columns("job_order_no").Visible = False
                 .Columns("parentjono").Visible = False
+                .Columns("label").Visible = False
                 .Columns("sub_jo").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
             End With
+            For i As Integer = 0 To GridView.RowCount - 1
+                If GridView.Rows(i).Cells("label").Value = "1" Then
+                    GridView.Rows(i).Cells("project_label").Style.Font = New Font("Tahoma", 9, FontStyle.Bold)
+                    GridView.Rows(i).Cells("sub_jo").Style.Font = New Font("Tahoma", 9, FontStyle.Bold)
+                End If
+            Next
+
         Catch ex As Exception
             MsgBox(ex.ToString)
         Finally
@@ -107,7 +138,15 @@ Public Class genreferenceFRM
             ElseIf Me.Text = "form5" Then
                 Form5.newreference.Text = project
                 Form5.NEWJO.Text = pjo
+            ElseIf Me.Text = "change reference" Then
+                changereferenceFRM.reference.Text = project
+                changereferenceFRM.jo.Text = pjo
+                changereferenceFRM.Button3.PerformClick()
             End If
         Next
+    End Sub
+
+    Private Sub GridView_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GridView.CellDoubleClick
+        Me.Close()
     End Sub
 End Class

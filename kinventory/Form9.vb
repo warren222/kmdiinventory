@@ -68,4 +68,8 @@
             KryptonButton1.PerformClick()
         End If
     End Sub
+
+    Private Sub KryptonGroup3_Paint(sender As Object, e As PaintEventArgs) Handles KryptonGroup3.Paint
+
+    End Sub
 End Class
