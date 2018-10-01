@@ -360,15 +360,7 @@ Public Class DEFAULTITEMS
     End Sub
 
     Private Sub stocksgridview_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles stocksgridview.CellClick
-        If stocksgridview.RowCount >= 0 And e.RowIndex >= 0 Then
-            Form2.transdescription.Text = stocksgridview.Item(8, e.RowIndex).Value.ToString
-            Form2.transphysical.Text = stocksgridview.Item(13, e.RowIndex).Value.ToString
-            Form2.transfree.Text = stocksgridview.Item(15, e.RowIndex).Value.ToString
-            Form2.transunit.Text = stocksgridview.Item(10, e.RowIndex).Value.ToString
-            Form2.transstockno.Text = stocksgridview.Item(0, e.RowIndex).Value.ToString
 
-            sql.movetoinput(Form2.transstockno.Text)
-        End If
     End Sub
 
     Private Sub supplier_KeyDown(sender As Object, e As KeyEventArgs) Handles typecolorsearch.KeyDown, supplier.KeyDown, status.KeyDown, costheadsearch.KeyDown, articlenosearch.KeyDown
@@ -379,5 +371,18 @@ Public Class DEFAULTITEMS
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
         sql.movetoinput(TextBox1.Text)
+    End Sub
+
+    Private Sub stocksgridview_SelectionChanged(sender As Object, e As EventArgs) Handles stocksgridview.SelectionChanged
+        Dim selecteditems As DataGridViewSelectedRowCollection = stocksgridview.SelectedRows
+
+        For Each seelcteditem As DataGridViewRow In selecteditems
+            Form2.transdescription.Text = seelcteditem.Cells("description").Value.ToString
+            Form2.transphysical.Text = seelcteditem.Cells("physical").Value
+            Form2.transfree.Text = seelcteditem.Cells("free").Value.ToString
+            Form2.transunit.Text = seelcteditem.Cells("unit").Value.ToString
+            Form2.transstockno.Text = seelcteditem.Cells("stockno").Value.ToString
+            sql.movetoinput(Form2.transstockno.Text)
+        Next
     End Sub
 End Class

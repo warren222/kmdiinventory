@@ -5,6 +5,8 @@ Public Class genreferenceFRM
     Dim da As New SqlDataAdapter
     Private Sub genreferenceFRM_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         loadreference()
+        reference.SelectedIndex = -1
+        reference.Focus()
     End Sub
     Public Sub loadreference()
         Try
@@ -34,23 +36,19 @@ Public Class genreferenceFRM
     End Sub
 
     Private Sub reference_textchange(sender As Object, e As EventArgs) Handles reference.TextChanged
-        If Me.Text = "Input" Then
-            Form2.reference.Text = reference.Text
-        ElseIf Me.Text = "transman" Then
-            Form2.transreference.Text = reference.Text
-        End If
-        databaseform()
+
+        ' databaseform()
     End Sub
     Public Sub databaseform()
         Try
-            sql.sqlcon1.Close()
-            sql.sqlcon1.Open()
+            sql.sqlcon.Close()
+            sql.sqlcon.Open()
             Dim ds As New DataSet
             ds.Clear()
             Dim str As String = "select 
                                  distinct
                                  job_order_no,
-                                 parentjono,
+                                 parentjono as [original jo],
                                  sub_jo,
                                  project_label,
                                  '0' as label 
@@ -81,7 +79,6 @@ Public Class genreferenceFRM
             GridView.DataSource = bs
             With GridView
                 .Columns("job_order_no").Visible = False
-                .Columns("parentjono").Visible = False
                 .Columns("label").Visible = False
                 .Columns("sub_jo").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
             End With
@@ -104,12 +101,20 @@ Public Class genreferenceFRM
     End Sub
 
     Private Sub GridView_SelectionChanged(sender As Object, e As EventArgs) Handles GridView.SelectionChanged
+
+    End Sub
+
+    Private Sub GridView_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GridView.CellDoubleClick
+        Me.Close()
+    End Sub
+
+    Private Sub genreferenceFRM_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         Dim selecteditems As DataGridViewSelectedRowCollection = GridView.SelectedRows
         Dim xx As ArrayList = New ArrayList(selecteditems.Count)
         Dim yy As ArrayList = New ArrayList(selecteditems.Count)
         For Each row As DataGridViewRow In selecteditems
             xx.Add(row.Cells("project_label").Value.ToString)
-            yy.Add(row.Cells("parentjono").Value.ToString)
+            yy.Add(row.Cells("original jo").Value.ToString)
         Next
         For i As Integer = 0 To xx.Count - 1
             Dim project As String = xx(i).ToString
@@ -144,9 +149,18 @@ Public Class genreferenceFRM
                 changereferenceFRM.Button3.PerformClick()
             End If
         Next
+
+
+        If Me.Text = "Input" Then
+            Form2.reference.Text = reference.Text
+        ElseIf Me.Text = "transman" Then
+            Form2.transreference.Text = reference.Text
+        End If
     End Sub
 
-    Private Sub GridView_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles GridView.CellDoubleClick
-        Me.Close()
+    Private Sub reference_KeyDown(sender As Object, e As KeyEventArgs) Handles reference.KeyDown
+        If e.KeyData = Keys.Enter Then
+            KryptonButton5.PerformClick()
+        End If
     End Sub
 End Class

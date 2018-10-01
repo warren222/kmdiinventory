@@ -11,7 +11,7 @@ Public Class Form6
                 Dim str As String = "update trans_tb set transdate='" & transdate.Text & "' where transno = '" & trno & "'"
                 update(str)
             Next
-            sql.loadtransactions(Form2.toprows.Text)
+            Form2.KryptonButton11.PerformClick()
             Button1.PerformClick()
         ElseIf KryptonLabel1.Text = "Edit Due date" Then
             For i As Integer = 0 To transno.Items.Count - 1
@@ -19,7 +19,7 @@ Public Class Form6
                 Dim str As String = "update trans_tb set duedate='" & transdate.Text & "' where transno = '" & trno & "'"
                 update(str)
             Next
-            sql.loadtransactions(Form2.toprows.Text)
+            Form2.KryptonButton11.PerformClick()
             Button1.PerformClick()
         Else
         End If

@@ -220,7 +220,7 @@ Public Class Form2
             ElseIf transaction.Text = "Issue" Then
                 Try
                     sql.sqlcon.Open()
-                    Dim FINDALLOC As String = "Select ALLOCATION FROM REFERENCE_TB WHERE REFERENCE='" & reference.Text & "' AND STOCKNO='" & transstockno.Text & "'"
+                    Dim FINDALLOC As String = "Select ALLOCATION FROM REFERENCE_TB WHERE REFERENCE='" & reference.Text & "' and jo = '" & jo.Text & "' AND STOCKNO='" & transstockno.Text & "'"
                     sqlcmd = New SqlCommand(FINDALLOC, sql.sqlcon)
                     Dim read As SqlDataReader = sqlcmd.ExecuteReader
                     If read.HasRows = True Then
@@ -1194,21 +1194,25 @@ select
             tr = "a.transtype='" & transtransaction.Text & "'"
         End If
 
+        Dim dec As String = "
+                            declare @sdate as date = '" & transadate.Text & "'
+                            declare @edate as date = '" & todate.Text & "'"
+
         If all.Checked = True Then
             dtt = " and a.TRANSDATE = a.TRANSDATE"
         ElseIf thisdate.Checked = True Then
-            dtt = " and a.TRANSDATE = '" & transdate.Text & "'"
+            dtt = " and a.TRANSDATE = @sdate"
         ElseIf before.Checked = True Then
-            dtt = " and a.TRANSDATE < '" & transadate.Text & "'"
+            dtt = " and a.TRANSDATE < @sdate"
         ElseIf after.Checked = True Then
-            dtt = " and a.TRANSDATE > '" & transadate.Text & "'"
+            dtt = " and a.TRANSDATE > @sdate"
         ElseIf tomydate.Checked = True Then
-            dtt = " and a.TRANSDATE between '" & transadate.Text & "' and '" & todate.Text & "'"
+            dtt = " and a.TRANSDATE between @sdate and @edate"
         End If
 
         Dim a As String = transreference.Text
         Dim b As String = transjo.Text
-        Dim c As String = transcosthead.Text
+        Dim c As String = transactioncosthead.Text
 
         Dim acol As String = "a.reference"
         Dim bcol As String = "a.jo"
@@ -1237,7 +1241,8 @@ select
                             " & tr & "
                             " & dtt & " "
 
-        Dim str As String = "select top " & top & " a.TRANSNO,
+        Dim str As String = "" & dec & "
+                            select top " & top & " a.TRANSNO,
                             a.STOCKNO,
                             b.COSTHEAD,
                             b.TYPECOLOR,
@@ -1441,7 +1446,7 @@ select
             KryptonLabel66.Visible = True
             KryptonLabel67.Visible = True
             KryptonLabel68.Visible = True
-            reference.Enabled = True
+            'reference.Enabled = True
         Else
             unitprice.Visible = False
             xrate.Visible = False
@@ -1460,7 +1465,7 @@ select
             ufactor.Text = 0
             disc.Text = 0
             currency.Text = 0
-            reference.Enabled = False
+            'reference.Enabled = False
         End If
     End Sub
 
@@ -1483,6 +1488,8 @@ select
             refcombo.Items.Add(x)
             refstock.Items.Add(y)
             refjo.Items.Add(z)
+            changereferenceFRM.oldjo = selecteditem.Cells("jo").Value.ToString
+            changereferenceFRM.oldreference = selecteditem.Cells("reference").Value.ToString
         Next
 
     End Sub
@@ -1569,14 +1576,7 @@ select
     Private Sub stocksgridview_MouseDown(sender As Object, e As MouseEventArgs) Handles stocksgridview.MouseDown
         If stocksgridview.RowCount >= 0 Then
             If e.Button = MouseButtons.Right Then
-                If Form1.Label2.Text = "Admin" Or Form1.Label1.Text = "Noreen" Or Form1.Label1.Text = "jovit" Then
-                    ContextMenuStrip1.Show(stocksgridview, New Point(e.X, e.Y))
-                Else
-
-                End If
-
-
-                'PhasedoutForm.ShowDialog()
+                ContextMenuStrip1.Show(stocksgridview, New Point(e.X, e.Y))
             End If
         End If
     End Sub
@@ -2389,8 +2389,7 @@ on a.stockno = b.stockno where b.myyear='" & myyear.Text & "'"
             editreference.allocation.Text = referenceDataGridView.Item(7, e.RowIndex).Value.ToString
             description.Text = referenceDataGridView.Item(11, e.RowIndex).Value.ToString
 
-            changereferenceFRM.oldjo = referenceDataGridView.Item(1, e.RowIndex).Value.ToString
-            changereferenceFRM.oldreference = referenceDataGridView.Item(0, e.RowIndex).Value.ToString
+
         End If
     End Sub
 
@@ -3389,16 +3388,11 @@ insert into reference_tb (id,reference,jo,address,stockno) values(@id,'" & refer
 
         changereferenceFRM.ShowDialog()
     End Sub
-
-    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-        sql.selectissuereferencerecord(issuereference.Text, issuejo.Text)
-    End Sub
-
     Private Sub transtransaction_TextChanged(sender As Object, e As EventArgs) Handles transtransaction.TextChanged
-        If transtransaction.Text = "Order" Or transtransaction.Text = "Receipt" Then
-            transreference.Enabled = True
-        Else
-            transreference.Enabled = False
-        End If
+        'If transtransaction.Text = "Order" Or transtransaction.Text = "Receipt" Then
+        '    transreference.Enabled = True
+        'Else
+        '    transreference.Enabled = False
+        'End If
     End Sub
 End Class

@@ -51,7 +51,7 @@ Partial Class genreferenceFRM
         Me.GridView.ReadOnly = True
         Me.GridView.RowHeadersWidth = 25
         Me.GridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.GridView.Size = New System.Drawing.Size(525, 209)
+        Me.GridView.Size = New System.Drawing.Size(679, 209)
         Me.GridView.StateCommon.Background.Color1 = System.Drawing.SystemColors.Control
         Me.GridView.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList
         Me.GridView.StateCommon.DataCell.Border.DrawBorders = CType((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top Or ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) _
@@ -93,13 +93,13 @@ Partial Class genreferenceFRM
         Me.reference.IntegralHeight = False
         Me.reference.Location = New System.Drawing.Point(91, 12)
         Me.reference.Name = "reference"
-        Me.reference.Size = New System.Drawing.Size(366, 24)
+        Me.reference.Size = New System.Drawing.Size(520, 24)
         Me.reference.TabIndex = 14
         '
         'KryptonButton5
         '
         Me.KryptonButton5.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.KryptonButton5.Location = New System.Drawing.Point(463, 12)
+        Me.KryptonButton5.Location = New System.Drawing.Point(617, 12)
         Me.KryptonButton5.Name = "KryptonButton5"
         Me.KryptonButton5.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonButton5.Size = New System.Drawing.Size(67, 24)
@@ -136,7 +136,7 @@ Partial Class genreferenceFRM
         '
         'KryptonLabel3
         '
-        Me.KryptonLabel3.Location = New System.Drawing.Point(213, 261)
+        Me.KryptonLabel3.Location = New System.Drawing.Point(373, 257)
         Me.KryptonLabel3.Name = "KryptonLabel3"
         Me.KryptonLabel3.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel3.Size = New System.Drawing.Size(111, 18)
@@ -147,7 +147,7 @@ Partial Class genreferenceFRM
         '
         'KryptonLabel4
         '
-        Me.KryptonLabel4.Location = New System.Drawing.Point(144, 258)
+        Me.KryptonLabel4.Location = New System.Drawing.Point(304, 254)
         Me.KryptonLabel4.Name = "KryptonLabel4"
         Me.KryptonLabel4.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel4.Size = New System.Drawing.Size(63, 21)
@@ -157,7 +157,7 @@ Partial Class genreferenceFRM
         '
         'KryptonLabel2
         '
-        Me.KryptonLabel2.Location = New System.Drawing.Point(407, 261)
+        Me.KryptonLabel2.Location = New System.Drawing.Point(567, 257)
         Me.KryptonLabel2.Name = "KryptonLabel2"
         Me.KryptonLabel2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel2.Size = New System.Drawing.Size(117, 18)
@@ -168,7 +168,7 @@ Partial Class genreferenceFRM
         '
         'KryptonLabel1
         '
-        Me.KryptonLabel1.Location = New System.Drawing.Point(354, 258)
+        Me.KryptonLabel1.Location = New System.Drawing.Point(514, 254)
         Me.KryptonLabel1.Name = "KryptonLabel1"
         Me.KryptonLabel1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue
         Me.KryptonLabel1.Size = New System.Drawing.Size(47, 21)
@@ -181,7 +181,7 @@ Partial Class genreferenceFRM
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(536, 286)
+        Me.ClientSize = New System.Drawing.Size(690, 286)
         Me.Controls.Add(Me.KryptonLabel3)
         Me.Controls.Add(Me.KryptonLabel4)
         Me.Controls.Add(Me.KryptonLabel2)
@@ -191,8 +191,8 @@ Partial Class genreferenceFRM
         Me.Controls.Add(Me.reference)
         Me.Controls.Add(Me.GridView)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
-        Me.MaximumSize = New System.Drawing.Size(552, 325)
-        Me.MinimumSize = New System.Drawing.Size(552, 325)
+        Me.MaximumSize = New System.Drawing.Size(706, 325)
+        Me.MinimumSize = New System.Drawing.Size(706, 325)
         Me.Name = "genreferenceFRM"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "genreferenceFRM"

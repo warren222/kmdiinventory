@@ -57,6 +57,7 @@ Partial Class DEFAULTITEMS
         Me.stocksgridview.ColumnHeadersHeight = 30
         Me.stocksgridview.Cursor = System.Windows.Forms.Cursors.Hand
         Me.stocksgridview.Location = New System.Drawing.Point(8, 12)
+        Me.stocksgridview.MultiSelect = False
         Me.stocksgridview.Name = "stocksgridview"
         Me.stocksgridview.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Silver
         Me.stocksgridview.ReadOnly = True
